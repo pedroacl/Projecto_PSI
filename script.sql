@@ -13,6 +13,10 @@ CREATE TABLE Utilizadores (
    PRIMARY KEY (id)
 );
 
+ALTER TABLE Utilizadores
+ADD CONSTRAINT unique_email_utilizador UNIQUE (email);
+
+
 CREATE TABLE Areas_Geograficas (
    id                  	INT 			NOT NULL AUTO_INCREMENT,
    freguesia           	VARCHAR(50) NOT NULL,
@@ -20,6 +24,7 @@ CREATE TABLE Areas_Geograficas (
    distrito            	VARCHAR(50) NOT NULL,
    PRIMARY KEY (id)
 );
+
 
 CREATE TABLE Instituicoes (
    id                  INT 			NOT NULL AUTO_INCREMENT,
@@ -33,11 +38,19 @@ CREATE TABLE Instituicoes (
    FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id)
 );
 
+ALTER TABLE Instituicoes
+ADD CONSTRAINT unique_nome_instituicao UNIQUE (nome);
+
+
 CREATE TABLE Areas_Interesse (
    id					INT NOT NULL AUTO_INCREMENT,
    nome					VARCHAR(20),
    PRIMARY KEY (id)
 );
+
+ALTER TABLE Areas_Interesse 
+ADD CONSTRAINT unique_nome_area_interesse UNIQUE (nome);
+
 
 CREATE TABLE Disponibilidades (
    id                  	INT 		NOT NULL AUTO_INCREMENT,
@@ -45,6 +58,7 @@ CREATE TABLE Disponibilidades (
    data_fim           	DATE 	NOT NULL,
    PRIMARY KEY (id)
 );
+
 
 CREATE TABLE Periodicidades (
    id                  	INT 			NOT NULL AUTO_INCREMENT,
@@ -55,12 +69,17 @@ CREATE TABLE Periodicidades (
    FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id) ON DELETE CASCADE
 );
 
+
 CREATE TABLE Grupos_Atuacao (
    id              		INT NOT NULL AUTO_INCREMENT,
    nome            		VARCHAR(50),
    descricao			TEXT,
    PRIMARY KEY (id)
 );
+
+ALTER TABLE Grupos_Atuacao 
+ADD CONSTRAINT unique_nome_grupo_atuacao UNIQUE (nome);
+
 
 CREATE TABLE Habilitacoes_Academicas (
    id                  	INT 			NOT NULL AUTO_INCREMENT,
@@ -70,6 +89,7 @@ CREATE TABLE Habilitacoes_Academicas (
    instituto_ensino    	VARCHAR(50) 	DEFAULT NULL,
    PRIMARY KEY (id)
 );
+
 
 CREATE TABLE Voluntarios (
 	id                          INT 			NOT NULL AUTO_INCREMENT,
@@ -83,6 +103,10 @@ CREATE TABLE Voluntarios (
 	FOREIGN KEY (id_area_geografica) 			REFERENCES Areas_Geograficas(id),
 	FOREIGN KEY (id_habilitacoes_academicas) 	REFERENCES Habilitacoes_Academicas(id)
 );
+
+ALTER TABLE Voluntarios 
+ADD CONSTRAINT unique_nome_voluntario UNIQUE (nome);
+
 
 CREATE TABLE Oportunidades_Voluntariado (
    id                  INT 				NOT NULL AUTO_INCREMENT,
@@ -103,6 +127,10 @@ CREATE TABLE Oportunidades_Voluntariado (
    FOREIGN KEY (id_area_geografica) 	REFERENCES Areas_Geograficas(id),
    FOREIGN KEY (id_instituicao) 		REFERENCES Instituicoes(id)
 );
+
+ALTER TABLE Oportunidades_Voluntariado
+ADD CONSTRAINT unique_nome_oportunidade UNIQUE (nome);
+
 
 CREATE TABLE Inscreve_Se (
    id_voluntario                   	INT 		NOT NULL AUTO_INCREMENT,
