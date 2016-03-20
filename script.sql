@@ -53,7 +53,7 @@ ADD CONSTRAINT unique_nome_area_interesse UNIQUE (nome);
 
 
 CREATE TABLE Disponibilidades (
-   id                  	INT 		NOT NULL AUTO_INCREMENT,
+   id                  	INT 	NOT NULL AUTO_INCREMENT,
    data_inicio         	DATE 	NOT NULL,
    data_fim           	DATE 	NOT NULL,
    PRIMARY KEY (id)
@@ -61,10 +61,10 @@ CREATE TABLE Disponibilidades (
 
 
 CREATE TABLE Periodicidades (
-   id                  	INT 			NOT NULL AUTO_INCREMENT,
-   id_disponibilidade  	INT 			NOT NULL,
+   id                  	INT 		NOT NULL AUTO_INCREMENT,
+   id_disponibilidade  	INT 		NOT NULL,
    tipo                	BIT(1) 		NOT NULL,
-   data_fim            	DATETIME		NOT NULL,
+   data_fim            	DATETIME	NOT NULL,
    PRIMARY KEY (id),
    FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id) ON DELETE CASCADE
 );
