@@ -1,1 +1,13 @@
 /* THIS FILE IS ALWAYS LOADED */
+
+.navbar-static-top {
+  margin-bottom: 0px;
+}
+
+.contrast-row {
+  background-color: red;
+}
+
+.no-margin {
+  margin: 0px;
+}
