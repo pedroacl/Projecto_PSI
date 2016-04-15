@@ -9,11 +9,17 @@ class User extends CI_Model {
         parent::__construct();
     }
 
-    function getUserByUsername($email)
+    function get_all_users()
+    {
+        $query = $this->db->get('users', 10);
+        return $query->result();
+    }
+
+    function get_user_by_username($email)
     {
         // $query = $this->db->get('users', 1);
         $this->db->select('email');
-        $this->db->from('users');
+        $this->db->from('Utilizadores');
         $this->db->where('email', $email);
         $query = $this->db->get();
 

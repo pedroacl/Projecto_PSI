@@ -34,6 +34,8 @@ class Home extends MY_Controller {
 
 	// GET
 	public function show_login() {
+		$this->error = $this->session->userdata('error');
+
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/login');
 		$this->load->view('templates/main_template/footer');
@@ -44,27 +46,29 @@ class Home extends MY_Controller {
 	{
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$this->load->library('encrypt');
 		$this->load->helper('url');
 
 		$email    = $this->input->post('email');
 		$password = $this->input->post('password');
+		$encrypted_password = hash ("sha256", $password);
 
 		$this->load->model('User');
-		$query = $this->User->getUserByUsername($email);
+		$query = $this->User->get_user_by_username($email);
 
 		// utilizador nao existe
 		if ($query->num_rows > 0) {
 			$user = $query->row();
 
-			if ($user->password === $password) {
+			if ($user->password === $encrypted_password) {
+				$this->session->set_flashdata('notice', 'Utilizador autenticado');
 				redirect('', 'refresh');
 			}
 		}
 		else
 		{
+			$this->session->set_flashdata('error', 'Username/Password errada: ' . $encrypted_password);
 			redirect('login', 'refresh');
 		}
-
-
 	}
 }
