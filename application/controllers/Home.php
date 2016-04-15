@@ -52,10 +52,9 @@ class Home extends MY_Controller {
 	// POST
 	public function process_login()
 	{
-		$this->load->helper('form');
 		$this->load->library('form_validation');
-		$this->load->library('encrypt');
 		$this->load->helper('url');
+		$this->load->model('User');
 
 		// form validation
 		$this->form_validation->set_rules('username','Username','required');
@@ -64,30 +63,18 @@ class Home extends MY_Controller {
 		// get form values
 		$email    = $this->input->post('email');
 		$password = $this->input->post('password');
-		$encrypted_password = hash ("sha256", $password);
 
-		$this->load->model('User');
-		$query = $this->User->get_user_by_username($email);
-
-		// utilizador nao existe
-		if ($query->num_rows > 0) {
-			$user = $query->row();
-
-			if ($user->password === $encrypted_password) {
-
-				// $this->session->set_userdata($data);
-
-				$this->session->set_flashdata('notice', 'Utilizador autenticado');
-				redirect('', 'refresh');
-			}
-		}
-		else
-		{
-			$this->session->set_flashdata('error', 'Username/Password errada: ' . $encrypted_password);
-			redirect('login', 'refresh');
+		// authenticate user
+		if ($this->User->authenticate_user($email, $password)) {
+			$this->session->set_flashdata('notice', 'Utilizador autenticado');
+         redirect('', 'refresh');
+		} else {
+			$this->session->set_flashdata('error', 'Username/Password errada: ');
+         redirect('login', 'refresh');
 		}
 	}
 
+	// GET
 	public function logout()
 	{
 		$this->load->helper('url');
