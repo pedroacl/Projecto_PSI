@@ -37,7 +37,7 @@
   <body>
 
     <div class="container">
-      <form class="form-signin" action="login/login">
+      <form class="form-signin" action="login">
         <h2 class="form-signin-heading">Login</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
