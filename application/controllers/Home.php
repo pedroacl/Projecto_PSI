@@ -32,6 +32,14 @@ class Home extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
+	public function register_user()
+	{
+		$salt = random_string('numeric', 16);
+		$password = $this->input->post('password');
+
+		$encrypted_password = hash ("sha256", $salt . $password);
+	}
+
 	// GET
 	public function show_login() {
 		$this->error = $this->session->userdata('error');
@@ -49,6 +57,11 @@ class Home extends MY_Controller {
 		$this->load->library('encrypt');
 		$this->load->helper('url');
 
+		// form validation
+		$this->form_validation->set_rules('username','Username','required');
+		$this->form_validation->set_rules('password','Password','required');
+
+		// get form values
 		$email    = $this->input->post('email');
 		$password = $this->input->post('password');
 		$encrypted_password = hash ("sha256", $password);
@@ -61,6 +74,9 @@ class Home extends MY_Controller {
 			$user = $query->row();
 
 			if ($user->password === $encrypted_password) {
+
+				// $this->session->set_userdata($data);
+
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
 				redirect('', 'refresh');
 			}
@@ -70,5 +86,16 @@ class Home extends MY_Controller {
 			$this->session->set_flashdata('error', 'Username/Password errada: ' . $encrypted_password);
 			redirect('login', 'refresh');
 		}
+	}
+
+	public function logout()
+	{
+		$this->load->helper('url');
+
+		$this->session->unset_userdata('id');
+		$this->session->unset_userdata('username');
+		$this->session->sess_destroy();
+
+		redirect('login');
 	}
 }
