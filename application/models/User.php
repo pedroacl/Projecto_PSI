@@ -9,6 +9,11 @@ class User extends CI_Model {
         parent::__construct();
     }
 
+    function register_user($user)
+    {
+        return true;
+    }
+
     function authenticate_user($email, $password)
     {
         $user_authenticated = false;

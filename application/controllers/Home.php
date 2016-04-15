@@ -34,10 +34,12 @@ class Home extends MY_Controller {
 
 	public function register_user()
 	{
-		$salt = random_string('numeric', 16);
-		$password = $this->input->post('password');
+		$this->load->model('User');
 
-		$encrypted_password = hash ("sha256", $salt . $password);
+		$user = $this->input->post();
+		print_r($user);
+
+		//$this->User->register_user($user);
 	}
 
 	// GET
@@ -80,7 +82,7 @@ class Home extends MY_Controller {
 		$this->load->helper('url');
 
 		$this->session->unset_userdata('id');
-		$this->session->unset_userdata('username');
+		$this->session->unset_userdata('email');
 		$this->session->sess_destroy();
 
 		redirect('login');
