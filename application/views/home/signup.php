@@ -1,5 +1,4 @@
 
-<div class="container">
   <form class="form-signin" action="login/login">
     <h2 class="form-signin-heading">Registar Voluntário</h2>
     <label for="inputEmail" class="sr-only">Email address</label>
@@ -73,8 +72,6 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
   </form>
-
-</div> <!-- /container -->
 
 <script type="text/javascript">
   $(function () {

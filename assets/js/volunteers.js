@@ -7,7 +7,7 @@ $(document).ready(function() {
 	$('#default_user_select').click(function() {
 		$('.volunteer_fields').hide("slow");
 		$('.institution_fields').hide("slow");
-	})
+	});
 
 	$('#institution_select').click(function() {
 		$('.volunteer_fields').hide();
