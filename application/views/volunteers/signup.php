@@ -17,7 +17,7 @@
     <div class="form-group">
       <label class="control-label">Tipo de Utilizador</label>
       <select class="form-control" name="message">
-        <option value="one">-</option>
+        <option id="default_user_select" value="one" selected>-</option>
         <option id="volunteer_select" value="one">Voluntário</option>
         <option id="institution_select" value="two">Instituição</option>
       </select>
