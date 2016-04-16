@@ -28,6 +28,9 @@
       </select>
     </div>
 
+
+    <!-- Campos de um Voluntario -->
+
     <div class="volunteer_fields">
       <div class="form-group">
         <label class="control-label">Nome</label>
@@ -69,15 +72,18 @@
       <div class="form-group">
         <label class="control-label">Habilitações Académicas</label>
         <select class="form-control" name="message">
-          <option value="one">-</option>
-          <option value="">Licenciatura</option>
-          <option value="">Mestrado</option>
+          <?php foreach $academic_qualifications as $academic_qualification { ?>
+            <option value="one">-</option>
+            <option value="<?php echo $academic_qualification->key ?>">
+              <?php echo $academic_qualification->value ?>
+            </option>
+          <?php } ?>
         </select>
       </div>
     </div>
 
 
-
+    <!-- Campos de um Instituiçao -->
 
     <div class="institution_fields">
       <div class="form-group">
