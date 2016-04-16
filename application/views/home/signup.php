@@ -15,6 +15,11 @@
     </div>
 
     <div class="form-group">
+      <label class="control-label">Confirmação da Password</label>
+      <input name="password_confirmation" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    </div>
+
+    <div class="form-group">
       <label class="control-label">Tipo de Utilizador</label>
       <select name="user_type" class="form-control">
         <option id="default_user_select" value="none" selected>-</option>

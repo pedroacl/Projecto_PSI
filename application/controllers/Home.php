@@ -32,14 +32,30 @@ class Home extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
+	// POST
 	public function register_user()
 	{
+		$this->load->library('form_validation');
+		$this->load->helper('url');
 		$this->load->model('User');
 
-		$user = $this->input->post();
-		print_r($user);
+		// obter regras de validacao do formulario
+		$user_type = $this->input->post('user_type');
+		$form_rules = $this->User->get_signup_form_validation_rules($user_type);
+		$this->form_validation->set_rules($form_rules);
 
-		//$this->User->register_user($user);
+		// validar formulario
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('myform');
+		}
+		else
+		{
+
+		}
+
+		$data = $this->User->get_form_data($this->input);
+		$this->User->register_user($data);
 	}
 
 	// GET
@@ -58,21 +74,30 @@ class Home extends MY_Controller {
 		$this->load->helper('url');
 		$this->load->model('User');
 
-		// form validation
-		$this->form_validation->set_rules('username','Username','required');
-		$this->form_validation->set_rules('password','Password','required');
+		// obter regras de validacao do formulario
+		$user_type = $this->input->post('user_type');
+		$form_rules = $this->User->get_login_form_validation_rules($user_type);
+		$this->form_validation->set_rules($form_rules);
 
-		// get form values
-		$email    = $this->input->post('email');
-		$password = $this->input->post('password');
+		// validar formulario
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('myform');
+		}
+		else
+		{
+			// obter valores do formulario
+			$email    = $this->input->post('email');
+			$password = $this->input->post('password');
 
-		// authenticate user
-		if ($this->User->authenticate_user($email, $password)) {
-			$this->session->set_flashdata('notice', 'Utilizador autenticado');
-         redirect('', 'refresh');
-		} else {
-			$this->session->set_flashdata('error', 'Username/Password errada: ');
-         redirect('login', 'refresh');
+			// authenticar utilizador
+			if ($this->User->authenticate_user($email, $password)) {
+				$this->session->set_flashdata('notice', 'Utilizador autenticado');
+	         redirect('', 'refresh');
+			} else {
+				$this->session->set_flashdata('error', 'Username/Password errada: ');
+	         redirect('login', 'refresh');
+			}
 		}
 	}
 

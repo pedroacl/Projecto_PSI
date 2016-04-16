@@ -9,11 +9,6 @@ class User extends CI_Model {
         parent::__construct();
     }
 
-    function register_user($user)
-    {
-        return true;
-    }
-
     function authenticate_user($email, $password)
     {
         $user_authenticated = false;
@@ -52,21 +47,91 @@ class User extends CI_Model {
         return $query;
     }
 
-    function insert_entry()
-    {
-        $this->title   = $_POST['title']; // please read the below note
-        $this->content = $_POST['content'];
-        $this->date    = time();
+    function insert_entry($user)
 
+        $this->created_at = time();
+        $this->updated_at = $this->created_at;
         $this->db->insert('entries', $this);
     }
 
-    function update_entry()
+    function update_entry($user)
     {
-        $this->title   = $_POST['title'];
-        $this->content = $_POST['content'];
-        $this->date    = time();
-
+        $users->updated_at = time();
         $this->db->update('entries', $this, array('id' => $_POST['id']));
+    }
+
+    function get_form_data($input)
+    {
+        $data = array(
+            $input->post('email');
+            $input->post('password');
+        );
+
+        return $data;
+    }
+
+    function get_signup_form_validation_rules($user_type) {
+        $rules = array(
+            array(
+                'field'   => 'email',
+                'label'   => 'Email',
+                'rules'   => 'required|valid_email|min_length[8]'
+            ),
+            array(
+                'field'   => 'password',
+                'label'   => 'Password',
+                'rules'   => 'required'
+            ),
+            array(
+                'field'   => 'password_confirmation',
+                'label'   => 'Password Confirmation',
+                'rules'   => 'required'
+            )
+
+        );
+
+        $aux_array = null;
+
+        if ($user_type == 'volunteer') {
+            $aux_array = array(
+                'field' => '',
+                'label' => '',
+                'rules' => '',
+            );
+        }
+        else
+        {
+            $aux_array = array(
+                'field' => '',
+                'label' => '',
+                'rules' => '',
+            );
+        }
+
+        array_push($rules, $aux_array);
+
+        return $rules;
+    }
+
+    function get_login_form_validation_rules() {
+        $rules = array(
+            array(
+                'field'   => 'password',
+                'label'   => 'Password',
+                'rules'   => 'required'
+            ),
+            array(
+                'field'   => 'password_confirmation',
+                'label'   => 'Password Confirmation',
+                'rules'   => 'required'
+            ),
+            array(
+                'field'   => 'email',
+                'label'   => 'Email',
+                'rules'   => 'required|valid_email|min_length[8]'
+            )
+        );
+
+        return $rules;
     }
 }
