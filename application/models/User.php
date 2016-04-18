@@ -11,8 +11,8 @@ class User extends CI_Model {
 
     function authenticate_user($email, $password)
     {
-        $user_authenticated = false;
         $query = $this->get_user_by_email($email);
+        $user = null;
 
         // utilizador existe
         if ($query->num_rows() > 0) {
@@ -27,7 +27,7 @@ class User extends CI_Model {
             }
         }
 
-        return $user_authenticated;
+        return $user !== null ? $user->id : -1;
     }
 
     function get_all_users()
@@ -39,18 +39,12 @@ class User extends CI_Model {
     function get_user_by_email($email)
     {
         // $query = $this->db->get('users', 1);
-        $this->db->select('email, password, salt');
+        $this->db->select('id, email, password, salt');
         $this->db->from('Utilizadores');
         $this->db->where('email', $email);
         $query = $this->db->get();
 
         return $query;
-    }
-
-    function insert_volunteer_entry($user, $volunteer)
-    {
-        $this->db->insert('utilizadores', $user);
-        $this->db->insert('voluntarios', $volunteer);
     }
 
     function update_entry($user)
@@ -70,131 +64,11 @@ class User extends CI_Model {
         return $data;
     }
 
-    function get_volunteer_form_data($input)
-    {
-        $data = array(
-            'nome'                       => $input->post('name'),
-            'genero'                     => $input->post('gender'),
-            'data_nascimento'            => $input->post('birthdate'),
-            'telefone'                   => $input->post('cellphone'),
-            'id_area_geografica'         => $input->post('id_geographic_area'),
-            'id_habilitacoes_academicas' => $input->post('id_academic_qualifications')
-        );
-
-        return $data;
-    }
-
-    function get_institution_form_data($input)
-    {
-        $data = array(
-            'nome'               => $input->post('name'),
-            'descricao'          => $input->post('birthdate'),
-            'telefone'           => $input->post('cellphone'),
-            'descricao'          => $input->post('cellphone'),
-            'website'            => $input->post('cellphone'),
-            'morada'             => $input->post('cellphone'),
-            'id_area_geografica' => $input->post('id_geographic_area')
-        );
-
-        return $data;
-    }
-
-    function get_volunteer_form_validation_rules($user_type) {
-        $rules = array(
-            array(
-                'field'   => 'email',
-                'label'   => 'Email',
-                'rules'   => 'required|valid_email|min_length[8]'
-            ),
-            array(
-                'field'   => 'password',
-                'label'   => 'Password',
-                'rules'   => 'required'
-            ),
-            array(
-                'field'   => 'password_confirmation',
-                'label'   => 'Password Confirmation',
-                'rules'   => 'required'
-            )
-
-        );
-
-        $aux_array = null;
-
-        if ($user_type == 'volunteer') {
-            $aux_array = array(
-                'field' => '',
-                'label' => '',
-                'rules' => '',
-            );
-        }
-        else
-        {
-            $aux_array = array(
-                'field' => '',
-                'label' => '',
-                'rules' => '',
-            );
-        }
-
-        array_push($rules, $aux_array);
-
-        return $rules;
-    }
-
-    function get_institution_form_validation_rules($user_type) {
-        $rules = array(
-            array(
-                'field'   => 'email',
-                'label'   => 'Email',
-                'rules'   => 'required|valid_email|min_length[8]'
-            ),
-            array(
-                'field'   => 'password',
-                'label'   => 'Password',
-                'rules'   => 'required'
-            ),
-            array(
-                'field'   => 'password_confirmation',
-                'label'   => 'Password Confirmation',
-                'rules'   => 'required'
-            )
-
-        );
-
-        $aux_array = null;
-
-        if ($user_type == 'volunteer') {
-            $aux_array = array(
-                'field' => '',
-                'label' => '',
-                'rules' => '',
-            );
-        }
-        else
-        {
-            $aux_array = array(
-                'field' => '',
-                'label' => '',
-                'rules' => '',
-            );
-        }
-
-        array_push($rules, $aux_array);
-
-        return $rules;
-    }
-
     function get_login_form_validation_rules() {
         $rules = array(
             array(
                 'field'   => 'password',
                 'label'   => 'Password',
-                'rules'   => 'required'
-            ),
-            array(
-                'field'   => 'password_confirmation',
-                'label'   => 'Password Confirmation',
                 'rules'   => 'required'
             ),
             array(

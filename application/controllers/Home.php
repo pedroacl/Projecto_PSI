@@ -3,6 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends MY_Controller {
 
+	function __construct() {
+		parent::__construct();
+	}
+
 	public function index()
 	{
 		$this->load->view('templates/main_template/header');
@@ -62,9 +66,15 @@ class Home extends MY_Controller {
 	// GET
 	public function show_login()
 	{
-		$this->title = "Login";
-		$this->error = $this->session->userdata('error');
+		$this->load->helper('url');
+		if ($this->session->userdata("id") !== null)
+		{
+			redirect('', 'refresh');
+		}
 
+		$this->error = $this->session->userdata('error');
+		$this->title = "Login";
+		$this->login_tab = true;
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/login');
 		$this->load->view('templates/main_template/footer');
@@ -85,7 +95,7 @@ class Home extends MY_Controller {
 		// validar formulario
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('myform');
+			$this->show_login();
 		}
 		else
 		{
@@ -94,12 +104,18 @@ class Home extends MY_Controller {
 			$password = $this->input->post('password');
 
 			// authenticar utilizador
-			if ($this->User->authenticate_user($email, $password)) {
+			if (($id = $this->User->authenticate_user($email, $password)) !== -1) {
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
-	         redirect('', 'refresh');
+				$cookie = array(
+							'id' => $id,
+							'email' => $email
+					);
+				$this->session->set_userdata($cookie);
+	      redirect('', 'refresh');
+
 			} else {
 				$this->session->set_flashdata('error', 'Username/Password errada: ');
-	         redirect('login', 'refresh');
+				redirect('login', 'refresh');
 			}
 		}
 	}
@@ -113,6 +129,6 @@ class Home extends MY_Controller {
 		$this->session->unset_userdata('email');
 		$this->session->sess_destroy();
 
-		redirect('login');
+		redirect('', 'refresh');
 	}
 }

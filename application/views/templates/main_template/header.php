@@ -46,7 +46,18 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Login</a></li>
+          <?php
+            // if ($this->is_logged_in()) {
+            if ($this->session->userdata('id') !== null) {
+              echo "<li><a href='logout'>Logout</a></li>";
+            }
+            else {
+              echo "<li class='";
+              echo isset($this->login_tab) ? 'active' : '';
+              echo "'><a href='login'>Login</a></li>";
+            }
+
+          ?>
           <li><a href="#">Settings</a></li>
         </ul>
       </div>

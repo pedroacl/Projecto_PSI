@@ -1,7 +1,7 @@
 
 <div class="jumbotron no-margin">
   <h1>@Volunteer</h1>
-  <p>Site description</p>
+  <p><?= $this->error ?></p>
   <p><a href="#" class="btn btn-primary btn-lg">Learn more</a></p>
 </div>
 <!-- <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">

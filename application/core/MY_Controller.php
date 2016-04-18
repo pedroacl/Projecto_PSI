@@ -13,4 +13,9 @@ class MY_Controller extends CI_Controller {
 	{
 		// teste
 	}
+
+  public function is_logged_in()
+  {
+    return TRUE;
+  }
 }
