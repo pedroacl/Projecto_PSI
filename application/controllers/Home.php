@@ -77,13 +77,6 @@ class Home extends MY_Controller {
 		$this->load->helper('url');
 		$this->load->model('User');
 
-		// utilizador nao existe
-		if ($query->num_rows > 0) {
-			$user = $query->row();
-			if ($user->password === $password)
-				redirect('', 'refresh');
-		}
-
 		// obter regras de validacao do formulario
 		$user_type = $this->input->post('user_type');
 		$form_rules = $this->User->get_login_form_validation_rules($user_type);

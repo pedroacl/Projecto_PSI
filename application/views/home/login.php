@@ -1,6 +1,6 @@
 
     <div class="container">
-      <form class="form-signin" action="login/login">
+      <form class="form-signin" method="POST" action="login">
         <h2 class="form-signin-heading">Login</h2>
         <?= $this->error ?>
         <label for="inputEmail" class="sr-only">Email address</label>

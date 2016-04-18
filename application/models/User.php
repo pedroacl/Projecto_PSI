@@ -76,8 +76,8 @@ class User extends CI_Model {
             'nome'                       => $input->post('name'),
             'genero'                     => $input->post('gender'),
             'data_nascimento'            => $input->post('birthdate'),
-            'telefone'                   => $input->post('cellphone')
-            'id_area_geografica'         => $input->post('id_geographic_area')
+            'telefone'                   => $input->post('cellphone'),
+            'id_area_geografica'         => $input->post('id_geographic_area'),
             'id_habilitacoes_academicas' => $input->post('id_academic_qualifications')
         );
 
@@ -89,10 +89,10 @@ class User extends CI_Model {
         $data = array(
             'nome'               => $input->post('name'),
             'descricao'          => $input->post('birthdate'),
-            'telefone'           => $input->post('cellphone')
-            'descricao'          => $input->post('cellphone')
-            'website'            => $input->post('cellphone')
-            'morada'             => $input->post('cellphone')
+            'telefone'           => $input->post('cellphone'),
+            'descricao'          => $input->post('cellphone'),
+            'website'            => $input->post('cellphone'),
+            'morada'             => $input->post('cellphone'),
             'id_area_geografica' => $input->post('id_geographic_area')
         );
 
