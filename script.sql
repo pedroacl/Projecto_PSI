@@ -4,9 +4,10 @@ USE PSI;
 
 CREATE TABLE Utilizadores (
    id                  	INT 			NOT NULL AUTO_INCREMENT,
+   salt                 INT            NOT NULL,
    email               	VARCHAR(100) 	NOT NULL,
-   password            	VARCHAR(20) 	NOT NULL,
-   foto					VARCHAR(100)	DEFAULT NULL,
+   password            	VARCHAR(100) 	NOT NULL,
+   foto					   VARCHAR(100)	DEFAULT NULL,
    recovery_token      	VARCHAR(50) 	DEFAULT NULL,
    created_at          	TIMESTAMP 		NOT NULL,
    updated_at          	TIMESTAMP 		NOT NULL,
