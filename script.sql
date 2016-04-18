@@ -28,15 +28,17 @@ CREATE TABLE Areas_Geograficas (
 
 
 CREATE TABLE Instituicoes (
-   id                  INT 			NOT NULL AUTO_INCREMENT,
-   id_area_geografica  INT			NOT NULL,
-   nome                VARCHAR(50) NOT NULL,
-   descricao           VARCHAR(50) NOT NULL,
-   telefone            VARCHAR(20) NOT NULL,
-   morada              VARCHAR(50) NOT NULL,
-   website             VARCHAR(20) DEFAULT NULL,
+   id                   INT 			 NOT NULL AUTO_INCREMENT,
+   id_area_geografica   INT			 NOT NULL,
+   id_utilizador        INT          NOT NULL,
+   nome                 VARCHAR(50)  NOT NULL,
+   descricao            VARCHAR(50)  NOT NULL,
+   telefone             VARCHAR(20)  NOT NULL,
+   morada               VARCHAR(50)  NOT NULL,
+   website              VARCHAR(20)  DEFAULT NULL,
    PRIMARY KEY (id),
-   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id)
+   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
+   FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
 );
 
 ALTER TABLE Instituicoes
@@ -49,7 +51,7 @@ CREATE TABLE Areas_Interesse (
    PRIMARY KEY (id)
 );
 
-ALTER TABLE Areas_Interesse 
+ALTER TABLE Areas_Interesse
 ADD CONSTRAINT unique_nome_area_interesse UNIQUE (nome);
 
 
@@ -78,7 +80,7 @@ CREATE TABLE Grupos_Atuacao (
    PRIMARY KEY (id)
 );
 
-ALTER TABLE Grupos_Atuacao 
+ALTER TABLE Grupos_Atuacao
 ADD CONSTRAINT unique_nome_grupo_atuacao UNIQUE (nome);
 
 
@@ -93,19 +95,21 @@ CREATE TABLE Habilitacoes_Academicas (
 
 
 CREATE TABLE Voluntarios (
-	id                          INT 			NOT NULL AUTO_INCREMENT,
-	id_area_geografica          INT 			NOT NULL,
-	id_habilitacoes_academicas  INT 			NOT NULL,
+	id                          INT 			   NOT NULL AUTO_INCREMENT,
+	id_area_geografica          INT 			   NOT NULL,
+	id_habilitacoes_academicas  INT 			   NOT NULL,
+   id_utilizador               INT           NOT NULL,
 	nome                        VARCHAR(100) 	DEFAULT NULL,
 	genero                      CHAR(1)			DEFAULT NULL,
 	data_nascimento             DATE 			DEFAULT NULL,
 	telefone                    VARCHAR(20) 	NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id_area_geografica) 			REFERENCES Areas_Geograficas(id),
-	FOREIGN KEY (id_habilitacoes_academicas) 	REFERENCES Habilitacoes_Academicas(id)
+	FOREIGN KEY (id_habilitacoes_academicas) 	REFERENCES Habilitacoes_Academicas(id),
+   FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
 );
 
-ALTER TABLE Voluntarios 
+ALTER TABLE Voluntarios
 ADD CONSTRAINT unique_nome_voluntario UNIQUE (nome);
 
 
