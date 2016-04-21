@@ -61,7 +61,7 @@
 
       <div class="form-group">
         <label class="control-label">Área Geográfica</label>
-        <select class="form-control" name="message">
+        <select id="geographic_areas" class="form-control" name="message">
           <option value="one">-</option>
           <option value="one">Lisboa</option>
           <option value="two">Leiria</option>
@@ -71,7 +71,7 @@
       <div class="form-group">
         <label class="control-label">Habilitações Académicas</label>
         <select class="form-control" name="message">
-          <?php foreach $academic_qualifications as $academic_qualification { ?>
+          <?php foreach ($academic_qualifications as $academic_qualification) { ?>
             <option value="one">-</option>
             <option value="<?php echo $academic_qualification->key ?>">
               <?php echo $academic_qualification->value ?>
@@ -87,7 +87,7 @@
     <div class="institution_fields">
       <div class="form-group">
         <label class="control-label">Nome</label>
-        <input class="form-control" name="name" placeholder="Nome Completo"></input>
+        <input class="form-control" name="name" placeholder="Nome Completo" required></input>
       </div>
 
       <div class="form-group">
@@ -110,12 +110,12 @@
 
       <div class="form-group">
         <label class="control-label">Telefone</label>
-        <input class="form-control" name="message"></input>
+        <input class="form-control" name="telephone_number" required></input>
       </div>
 
       <div class="form-group">
         <label class="control-label">Área Geográfica</label>
-        <select class="form-control" name="message">
+        <select class="form-control" name="geographic_area">
           <option value="one">-</option>
           <option value="one">Lisboa</option>
           <option value="two">Leiria</option>

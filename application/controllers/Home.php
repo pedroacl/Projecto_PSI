@@ -75,6 +75,8 @@ class Home extends MY_Controller {
 		$this->error = $this->session->userdata('error');
 		$this->title = "Login";
 		$this->login_tab = true;
+
+		// load view
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/login');
 		$this->load->view('templates/main_template/footer');
