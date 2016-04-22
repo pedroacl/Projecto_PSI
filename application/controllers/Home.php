@@ -32,14 +32,17 @@ class Home extends MY_Controller {
 	public function register_user()
 	{
 		$this->load->library('form_validation');
+		$this->load->library('session');
+
 		$this->load->model('User');
+		$this->load->model('Volunteer', 'volunteer');
 		$this->load->model('Institution', 'institution');
 
 		// obter regras de validacao do formulario
 		$user_type  = $this->input->post('user_type');
 
 		if ($user_type == 'volunteer') {
-			$form_rules = $this->User->get_volunteer_form_validation_rules($user_type);
+			$form_rules = $this->volunteer->get_volunteer_form_validation_rules($user_type);
 		}
 		else
 		{
@@ -91,7 +94,6 @@ class Home extends MY_Controller {
 	public function process_login()
 	{
 		$this->load->library('form_validation');
-
 		$this->load->model('User');
 
 		// obter regras de validacao do formulario

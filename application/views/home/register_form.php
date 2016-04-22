@@ -20,7 +20,7 @@
 
     <div class="form-group">
       <label class="control-label">Tipo de Utilizador</label>
-      <select name="user_type" class="form-control">
+      <select name="user_type" id="user_type_select" class="form-control">
         <option id="default_user_select" value="none" selected>-</option>
         <option id="volunteer_select" value="volunteer">Voluntário</option>
         <option id="institution_select" value="institution">Instituição</option>
