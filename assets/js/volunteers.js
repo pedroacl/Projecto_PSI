@@ -27,6 +27,6 @@ $(document).ready(function() {
 	academic_qualifications['1'] = 'Licenciatura';
 	academic_qualifications['2'] = 'Mestrado';
 
-	alert($('#geographic_areas').html());
+	// alert($('#geographic_areas').html());
 
 });

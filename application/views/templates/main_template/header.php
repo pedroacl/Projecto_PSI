@@ -13,14 +13,15 @@
     <title><?= $this->title ?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/assets/css/application.css" rel="stylesheet">
+    <link href="<?= base_url('/assets/css/application.css') ?>" rel="stylesheet">
 
-    <script src="/assets/vendor/jquery-1.12.3.min.js"></script>
-    <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="/assets/js/volunteers.js"></script>
+    <script src="<?= base_url('/assets/vendor/jquery-1.12.3.min.js') ?>"></script>
+    <script src="<?= base_url('/assets/vendor/bootstrap/bootstrap.min.js') ?>"></script>
+    <script src="<?= base_url('/assets/js/volunteers.js') ?>"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

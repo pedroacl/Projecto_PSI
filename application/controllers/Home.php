@@ -32,7 +32,6 @@ class Home extends MY_Controller {
 	public function register_user()
 	{
 		$this->load->library('form_validation');
-		$this->load->helper('url');
 		$this->load->model('User');
 
 		// obter regras de validacao do formulario
@@ -70,7 +69,6 @@ class Home extends MY_Controller {
 	// GET
 	public function show_login()
 	{
-		$this->load->helper('url');
 		if ($this->session->userdata("id") !== null)
 		{
 			redirect('', 'refresh');
@@ -90,7 +88,6 @@ class Home extends MY_Controller {
 	public function process_login()
 	{
 		$this->load->library('form_validation');
-		$this->load->helper('url');
 
 		$this->load->model('User');
 
@@ -130,7 +127,6 @@ class Home extends MY_Controller {
 	// GET
 	public function logout()
 	{
-		$this->load->helper('url');
 
 		$this->session->unset_userdata('id');
 		$this->session->unset_userdata('email');
