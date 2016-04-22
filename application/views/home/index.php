@@ -1,7 +1,7 @@
-
+<?= show_flash($this) ?>
 <div class="jumbotron no-margin">
   <h1>@Volunteer</h1>
-  <p><?= $this->error ?></p>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
   <p><a href="#" class="btn btn-primary btn-lg">Learn more</a></p>
 </div>
 <!-- <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">

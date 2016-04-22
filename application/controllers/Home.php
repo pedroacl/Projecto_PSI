@@ -72,7 +72,7 @@ class Home extends MY_Controller {
 			redirect('', 'refresh');
 		}
 
-		$this->error = $this->session->userdata('error');
+		$this->session->set_flashdata('notice', 'Login feito com sucesso');
 		$this->title = "Login";
 		$this->login_tab = true;
 
