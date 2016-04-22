@@ -16,10 +16,10 @@ $(document).ready(function() {
 		$('.volunteer_fields').show("slow");
 	});
 
-	$('.datepicker').datepicker({
-    	format: 'mm/dd/yyyy',
-   	startDate: '-3d'
-	});
+	// $('.datepicker').datepicker({
+	// 	format: 'mm/dd/yyyy',
+	// 	startDate: '-3d'
+	// });
 
-	alert($('.datepicker').html());
+	// alert($('.datepicker').html());
 });

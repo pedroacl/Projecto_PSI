@@ -66,23 +66,6 @@ class Home extends MY_Controller {
       return ($password == $confirm_password);
    }
 
-	// GET
-	public function show_login()
-	{
-		if ($this->session->userdata("id") !== null)
-		{
-			redirect('', 'refresh');
-		}
-
-		$this->session->set_flashdata('notice', 'Login feito com sucesso');
-		$this->title = "Login";
-		$this->login_tab = true;
-
-		// load view
-		$this->load->view('templates/main_template/header');
-		$this->load->view('home/login');
-		$this->load->view('templates/main_template/footer');
-	}
 
 	// POST
 	public function process_login()
@@ -99,6 +82,7 @@ class Home extends MY_Controller {
 		// validar formulario
 		if ($this->form_validation->run() == FALSE)
 		{
+			$this->session->set_flashdata('error', 'Campos com erros');
 			$this->show_login();
 		}
 		else

@@ -1,7 +1,7 @@
 
 <div class="container">
-  <form class="form-signin" action="login/login">
-    <h2 class="form-signin-heading">Registar Voluntário</h2>
+  <form action="login/login">
+    <h2>Registar Voluntário</h2>
     <label for="inputEmail" class="sr-only">Email address</label>
 
     <div class="form-group">

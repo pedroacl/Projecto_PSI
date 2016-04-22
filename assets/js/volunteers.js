@@ -17,9 +17,7 @@ $(document).ready(function() {
 	$('#volunteer_select').click(function() {
 		$('.volunteer_fields').show("slow");
 	});
-<<<<<<< HEAD
-=======
-
+	
 	var geographic_areas = new Array();
 	geographic_areas['1'] = 'Lisboa';
 	geographic_areas['2'] = 'Leiria';
@@ -30,6 +28,4 @@ $(document).ready(function() {
 	academic_qualifications['2'] = 'Mestrado';
 
 	// alert($('#geographic_areas').html());
-
->>>>>>> cc0debda1d4ea1e0ce1303c953b6515f10f63666
 });

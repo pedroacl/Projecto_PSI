@@ -114,17 +114,18 @@ class Auth extends MY_Controller
 						$data['show_captcha'] = TRUE;
 					}
 
-					// Load login page view
-					echo $this->dx_auth->login_view;
-					//$this->load->view('Auth/login_form');
+					$this->session->set_flashdata('danger', 'Campos com erros');
+					$this->load->view('templates/main_template/header');
 					$this->load->view($this->dx_auth->login_view, $data);
+					$this->load->view('templates/main_template/footer');
 				}
 			}
 		}
 		else
 		{
-			$data['auth_message'] = 'You are already logged in.';
-			$this->load->view($this->dx_auth->logged_in_view, $data);
+			$this->load->view('templates/main_template/header');
+			$this->load->view($this->dx_auth->login_view, $data);
+			$this->load->view('templates/main_template/footer');
 		}
 	}
 
