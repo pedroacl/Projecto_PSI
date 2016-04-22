@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends CI_Controller
+class Auth extends MY_Controller
 {
 	// Used for registering and changing password form validation
 	var $min_username = 4;
@@ -143,6 +143,7 @@ class Auth extends CI_Controller
 		{
 			$val = $this->form_validation;
 
+			/*
 			// Set form validation rules
 			$val->set_rules('username', 'Username', 'trim|required|min_length['.$this->min_username.']|max_length['.$this->max_username.']|callback_username_check|alpha_dash');
 			$val->set_rules('password', 'Password', 'trim|required|min_length['.$this->min_password.']|max_length['.$this->max_password.']|matches[confirm_password]');
@@ -157,6 +158,25 @@ class Auth extends CI_Controller
 				// This is because the limitation of reCAPTCHA, not DX Auth library
 				$val->set_rules('recaptcha_response_field', 'Confirmation Code', 'trim|required|callback_recaptcha_check');
 			}
+			*/
+
+			$this->load->model('User', 'user');
+
+			// obter regras de validacao do formulario
+			$user_type  = $this->input->post('user_type');
+
+			if ($user_type == 'volunteer') {
+				$this->load->model('Volunteer', 'volunteer');
+				$form_rules = $this->volunteer->get_volunteer_form_validation_rules($user_type);
+			}
+			else
+			{
+				$this->load->model('Institution', 'institution');
+				$form_rules = $this->institution->get_institution_form_validation_rules($user_type);
+			}
+
+			$this->form_validation->set_rules($form_rules);
+
 
 			// Run form validation and register user if it's pass the validation
 			if ($val->run() AND $this->dx_auth->register($val->set_value('username'), $val->set_value('password'), $val->set_value('email')))
@@ -177,7 +197,9 @@ class Auth extends CI_Controller
 			else
 			{
 				// Load registration page
+				$this->load->view('templates/main_template/header');
 				$this->load->view('Auth/register_form');
+				$this->load->view('templates/main_template/footer');
 			}
 		}
 		elseif ( ! $this->dx_auth->allow_registration)

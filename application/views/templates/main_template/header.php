@@ -20,7 +20,7 @@
 
     <script src="/assets/vendor/jquery-1.12.3.min.js"></script>
     <script src="/assets/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="/assets/js/volunteers.js"></script>
+    <script src="/assets/js/home.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

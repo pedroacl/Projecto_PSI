@@ -119,20 +119,4 @@ class Institution extends CI_Model {
 
         return $rules;
     }
-
-    function get_institution_form_data($input)
-    {
-        $data = array(
-            'nome'               => $input->post('name'),
-            'descricao'          => $input->post('birthdate'),
-            'telefone'           => $input->post('cellphone'),
-            'descricao'          => $input->post('cellphone'),
-            'website'            => $input->post('cellphone'),
-            'morada'             => $input->post('cellphone'),
-            'id_area_geografica' => $input->post('id_geographic_area')
-        );
-
-        return $data;
-    }
-
 }

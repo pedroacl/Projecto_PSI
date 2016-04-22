@@ -1,96 +1,138 @@
-<?php
-$username = array(
-	'name'	=> 'username',
-	'id'	=> 'username',
-	'size'	=> 30,
-	'value' =>  set_value('username')
-);
+<div class="container">
+  <form class="form-signin" action="login/login">
+    <h2 class="form-signin-heading">Registar Voluntário</h2>
+    <label for="inputEmail" class="sr-only">Email address</label>
 
-$password = array(
-	'name'	=> 'password',
-	'id'	=> 'password',
-	'size'	=> 30,
-	'value' => set_value('password')
-);
+    <div class="form-group">
+      <label for="inputEmail" class="control-label">Email</label>
+      <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    </div>
 
-$confirm_password = array(
-	'name'	=> 'confirm_password',
-	'id'	=> 'confirm_password',
-	'size'	=> 30,
-	'value' => set_value('confirm_password')
-);
+    <div class="form-group">
+      <label class="control-label">Password</label>
+      <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    </div>
 
-$email = array(
-	'name'	=> 'email',
-	'id'	=> 'email',
-	'maxlength'	=> 80,
-	'size'	=> 30,
-	'value'	=> set_value('email')
-);
-?>
+    <div class="form-group">
+      <label class="control-label">Confirmação da Password</label>
+      <input name="password_confirmation" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    </div>
 
-<html>
-<body>
+    <div class="form-group">
+      <label class="control-label">Tipo de Utilizador</label>
+      <select name="user_type" class="form-control">
+        <option id="default_user_select" value="none" selected>-</option>
+        <option id="volunteer_select" value="volunteer">Voluntário</option>
+        <option id="institution_select" value="institution">Instituição</option>
+      </select>
+    </div>
 
-<fieldset><legend>Register</legend>
-<?php echo form_open($this->uri->uri_string())?>
 
-<dl>
-	<dt><?php echo form_label('Username', $username['id']);?></dt>
-	<dd>
-		<?php echo form_input($username)?>
-    <?php echo form_error($username['name']); ?>
-	</dd>
+    <!-- Campos de um Voluntario -->
 
-	<dt><?php echo form_label('Password', $password['id']);?></dt>
-	<dd>
-		<?php echo form_password($password)?>
-    <?php echo form_error($password['name']); ?>
-	</dd>
+    <div class="volunteer_fields">
+      <div class="form-group">
+        <label class="control-label">Nome</label>
+        <input name="name" class="form-control" placeholder="Nome Completo"></input>
+      </div>
 
-	<dt><?php echo form_label('Confirm Password', $confirm_password['id']);?></dt>
-	<dd>
-		<?php echo form_password($confirm_password);?>
-		<?php echo form_error($confirm_password['name']); ?>
-	</dd>
+      <div class="form-group">
+        <label class="control-label">Género</label>
+        <div class="checkbox">
+          <label class="radio-inline"><input type="radio" name="gender" value="m">Masculino</label>
+          <label class="radio-inline"><input type="radio" name="gender" value="f">Feminino</label>
+        </div>
+      </div>
 
-	<dt><?php echo form_label('Email Address', $email['id']);?></dt>
-	<dd>
-		<?php echo form_input($email);?>
-		<?php echo form_error($email['name']); ?>
-	</dd>
-		
-<?php if ($this->dx_auth->captcha_registration): ?>
+      <div class="form-group">
+        <label class="control-label">Data de Nascimento</label>
+        <div class='input-group date' data-provide="datepicker" class='datepicker'>
+          <input type='text' class="form-control" />
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+          </div>
+      </div>
 
-	<dt></dt>
-	<dd>
-		<?php 
-			// Show recaptcha imgage
-			echo $this->dx_auth->get_recaptcha_image(); 
-			// Show reload captcha link
-			echo $this->dx_auth->get_recaptcha_reload_link(); 
-			// Show switch to image captcha or audio link
-			echo $this->dx_auth->get_recaptcha_switch_image_audio_link(); 
-		?>
-	</dd>
 
-	<dt><?php echo $this->dx_auth->get_recaptcha_label(); ?></dt>
-	<dd>
-		<?php echo $this->dx_auth->get_recaptcha_input(); ?>
-		<?php echo form_error('recaptcha_response_field'); ?>
-	</dd>
-	
-	<?php 
-		// Get recaptcha javascript and non javasript html
-		echo $this->dx_auth->get_recaptcha_html();
-	?>
-<?php endif; ?>
+      <div class="form-group">
+        <label class="control-label">Telefone</label>
+        <input name="phone_number" class="form-control"></input>
+      </div>
 
-	<dt></dt>
-	<dd><?php echo form_submit('register','Register');?></dd>
-</dl>
+      <div class="form-group">
+        <label class="control-label">Área Geográfica</label>
+        <select id="geographic_areas" class="form-control" name="message">
+          <option value="one">-</option>
+          <option value="one">Lisboa</option>
+          <option value="two">Leiria</option>
+        </select>
+      </div>
 
-<?php echo form_close()?>
-</fieldset>
-</body>
-</html>
+      <div class="form-group">
+        <label class="control-label">Habilitações Académicas</label>
+        <select class="form-control" name="message">
+          <?php foreach ($academic_qualifications as $academic_qualification) { ?>
+            <option value="one">-</option>
+            <option value="<?php echo $academic_qualification->key ?>">
+              <?php echo $academic_qualification->value ?>
+            </option>
+          <?php } ?>
+        </select>
+      </div>
+    </div>
+
+
+    <!-- Campos de um Instituiçao -->
+
+    <div class="institution_fields">
+      <div class="form-group">
+        <label class="control-label">Nome</label>
+        <input class="form-control" name="name" placeholder="Nome Completo" required></input>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Género</label>
+        <div class="checkbox">
+          <label class="radio-inline"><input type="radio" name="gender" value="m">Masculino</label>
+          <label class="radio-inline"><input type="radio" name="gender" value="f">Feminino</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Data de Nascimento</label>
+        <div class='input-group date' data-provide="datepicker" id='datetimepicker'>
+          <input type='text' class="form-control" />
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Telefone</label>
+        <input class="form-control" name="telephone_number" required></input>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Área Geográfica</label>
+        <select class="form-control" name="geographic_area">
+          <option value="one">-</option>
+          <option value="one">Lisboa</option>
+          <option value="two">Leiria</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label">Habilitações Académicas</label>
+        <select class="form-control" name="message">
+          <option value="one">-</option>
+          <option value="">Licenciatura</option>
+          <option value="">Mestrado</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Registar</button>
+  </form>
+</div>
