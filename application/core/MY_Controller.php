@@ -8,8 +8,6 @@ class MY_Controller extends CI_Controller {
     $this->title = "Title homepage";
 		parent::__construct();
 
-		$this->load->library('DX_Auth');
-
 /*
 		if ( ! $this->dx_auth->is_logged_in()) {
 			//redirect('/auth/login', 'refresh');
