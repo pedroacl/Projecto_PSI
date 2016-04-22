@@ -33,6 +33,7 @@ class Home extends MY_Controller {
 	{
 		$this->load->library('form_validation');
 		$this->load->model('User');
+		$this->load->model('Institution', 'institution');
 
 		// obter regras de validacao do formulario
 		$user_type  = $this->input->post('user_type');
@@ -42,7 +43,7 @@ class Home extends MY_Controller {
 		}
 		else
 		{
-			$form_rules = $this->User->get_institution_form_validation_rules($user_type);
+			$form_rules = $this->institution->get_institution_form_validation_rules($user_type);
 		}
 
 		$this->form_validation->set_rules($form_rules);
@@ -50,7 +51,9 @@ class Home extends MY_Controller {
 		// validar formulario
 		if ($this->form_validation->run() == FALSE)
 		{
-			$this->load->view('myform');
+			$this->load->view('templates/main_template/header');
+			$this->load->view('home/register_form');
+			$this->load->view('templates/main_template/footer');
 	      // redirect('', 'refresh');
 		}
 		else
