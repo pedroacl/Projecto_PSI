@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends MY_Controller
+class Auth extends CI_Controller
 {
 	// Used for registering and changing password form validation
 	var $min_username = 4;
@@ -22,7 +22,8 @@ class Auth extends MY_Controller
 
 	function index()
 	{
-		$this->login();
+		echo "test";
+		//$this->login();
 	}
 
 	/* Callback function */

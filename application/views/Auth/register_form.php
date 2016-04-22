@@ -27,6 +27,7 @@
       </select>
     </div>
 
+    <div id="user_form_end"></div>
 
     <!-- Campos de um Voluntario -->
 
@@ -97,16 +98,6 @@
           <label class="radio-inline"><input type="radio" name="gender" value="m">Masculino</label>
           <label class="radio-inline"><input type="radio" name="gender" value="f">Feminino</label>
         </div>
-      </div>
-
-      <div class="form-group">
-        <label class="control-label">Data de Nascimento</label>
-        <div class='input-group date' data-provide="datepicker" id='datetimepicker'>
-          <input type='text' class="form-control" />
-          <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar"></span>
-          </span>
-          </div>
       </div>
 
       <div class="form-group">
