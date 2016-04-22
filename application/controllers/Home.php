@@ -63,6 +63,10 @@ class Home extends MY_Controller {
 		}
 	}
 
+	function validate_confirm_password($password, $confirm_password) {
+      return ($password == $confirm_password);
+   }
+
 	// GET
 	public function show_login()
 	{
@@ -87,6 +91,7 @@ class Home extends MY_Controller {
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('url');
+
 		$this->load->model('User');
 
 		// obter regras de validacao do formulario
