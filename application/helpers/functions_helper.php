@@ -13,7 +13,6 @@ if ( ! function_exists('test_method'))
         $result = $result . "<div class='alert alert-" . $type . "' role='alert' class='close'>" . $controller->session->flashdata($type);
         $result = $result . "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
         $result = $result . "</div>";
-        $controller->session->flashdata($type)
       }
     }
 
