@@ -6,6 +6,13 @@ class Volunteer extends CI_Model {
     function insert_entry($volunteer, $user_id)
     {
         $this->load->model('AcademicQualification', 'academic_qualification');
+        $this->load->model('GeographicArea', 'geographic_area');
+
+        $academic_qualification_data = $this->academic_qualification->get_signup_form_data($this->input);
+        $this->geographic_area->insert_entry($geographic_area_data);
+
+        $geographic_area_data = $this->geographic_area->get_signup_form_data($this->input);
+        $this->geographic_area->insert_entry($geographic_area_data);
 
         $volunteer['id_utilizador'] = $user_id;
         $this->db->insert('Voluntarios', $volunteer);

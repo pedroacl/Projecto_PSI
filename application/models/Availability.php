@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class AcademicQualification extends CI_Model {
+class Availability extends CI_Model {
 
     function __construct()
     {
@@ -9,20 +9,20 @@ class AcademicQualification extends CI_Model {
         parent::__construct();
     }
 
-    function insert_entry($academic_qualifications)
+    function insert_entry($geographic_area)
     {
         // verificar se já existe uma area geografica adicionada
         $this->db->select('freguesia, concelho, distrito');
         $this->db->from('Areas_Geograficas');
-        $this->db->where('tipo', $academic_qualification['tipo']);
-        $this->db->where('data_conclusao', $academic_qualification['data_conclusao']);
-        $this->db->where('instituto_ensino', $academic_qualification['instituto_ensino']);
+        $this->db->where('freguesia', $geographic_area['freguesia']);
+        $this->db->where('concelho', $geographic_area['concelho']);
+        $this->db->where('distrito', $geographic_area['distrito']);
         $query = $this->db->get();
 
         $count = $query->num_rows();
 
         if ($count == 0) {
-            $this->db->insert('Habilitacoes_Academicas', $academic_qualification);
+            $this->db->insert('Areas_Geograficas', $geographic_area);
             return $this->db->insert_id();
         } else {
             return $query->row()->id;
@@ -31,11 +31,11 @@ class AcademicQualification extends CI_Model {
 
     function get_signup_form_data($input)
     {
+        //TODO
         $data = array(
-            'tipo'             => $input->post('academic_qualification_type'),
-            'data_conclusao'   => $input->post('conclusion_date'),
-            'curso'            => $input->post('degree'),
-            'instituto_ensino' => $input->post('school')
+            'freguesia' => $input->post('parish'),
+            'concelho'  => $input->post('county'),
+            'distrito'  => $input->post('district'),
         );
 
         return $data;
