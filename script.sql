@@ -22,6 +22,18 @@ ADD CONSTRAINT unique_email_utilizador UNIQUE (email);
 ALTER TABLE Utilizadores
 ADD CONSTRAINT unique_nome UNIQUE (nome);
 
+CREATE TABLE Utilizadores_Grupos_Atuacao (
+   id_utilizador        INT,
+   id_grupo_atuacao     INT,
+   PRIMARY KEY (id_utilizador, id_grupo_atuacao)
+);
+
+CREATE TABLE Utilizadores_Areas_Interesse (
+   id_utilizador        INT,
+   id_area_interesse    INT,
+   PRIMARY KEY (id_utilizador, id_area_interesse)
+);
+
 CREATE TABLE Areas_Geograficas (
    id                  	INT 			AUTO_INCREMENT,
    freguesia           	VARCHAR(50) NOT NULL,

@@ -72,6 +72,32 @@
                 <input name="phone_number" class="form-control" placeholder="Telefone"></input>
               </div>
 
+
+              <div class="form-group">
+                <label class="control-label">Grupo de Atuação</label>
+                <select multiple class="form-control" name="grupos_atuacao">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Áreas de Interesse</label>
+                <select multiple class="form-control" name="areas_interesse">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+
+              <br>
+              <h3>Área Geográfica</h3>
+
               <div class="form-group">
                 <label class="control-label">Concelho</label>
                 <select id="concelho_vol" class="form-control" name="concelho_vol">
@@ -101,28 +127,6 @@
                   <option value="one">-</option>
                   <option value="one">Lisboa</option>
                   <option value="two">Leiria</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Grupo de Atuação</label>
-                <select multiple class="form-control" name="grupos_atuacao">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Áreas de Interesse</label>
-                <select multiple class="form-control" name="areas_interesse">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
                 </select>
               </div>
 
