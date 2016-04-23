@@ -33,7 +33,6 @@
     <div id="user_form_end"></div>
 
     <!-- Campos de um Voluntario -->
-
     <div class="volunteer_fields">
       <div class="form-group">
         <label class="control-label">Nome</label>

@@ -61,5 +61,3 @@ $route['signup']['post'] = 'home/register_user';
 $route['login']['get'] = 'home/show_login';
 $route['login']['post'] = 'home/process_login';
 $route['logout']['get'] = 'home/logout';
-
-$route['signup']['get'] = 'home/signup';

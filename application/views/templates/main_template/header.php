@@ -38,17 +38,6 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">@Volunteer FCUL</a>
         </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">About</a></li>
-          <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Other Pets
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">My Pet 1</a></li>
-                <li><a href="#">My Pet 2</a></li>
-              </ul>
-          </li>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
           <?php
             // if ($this->is_logged_in()) {
@@ -66,3 +55,7 @@
         </ul>
       </div>
     </nav>
+
+    <div class="container-fluid">
+      <?= show_flash($this) ?>
+    </div>
