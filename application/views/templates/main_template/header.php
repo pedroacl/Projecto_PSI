@@ -36,11 +36,10 @@
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">@Volunteer FCUL</a>
+          <a class="navbar-brand" href="/">@Volunteer FCUL</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
           <?php
-            // if ($this->is_logged_in()) {
             if ($this->session->userdata('id') !== null) {
               echo "<li><a href='logout'>Logout</a></li>";
             }
@@ -48,10 +47,10 @@
               echo "<li class='";
               echo isset($this->login_tab) ? 'active' : '';
               echo "'><a href='login'>Login</a></li>";
+              echo "<li><a href='signup'>Registar</a></li>";
             }
 
           ?>
-          <li><a href="#">Settings</a></li>
         </ul>
       </div>
     </nav>

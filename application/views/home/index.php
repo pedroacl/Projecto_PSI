@@ -33,7 +33,7 @@
 </div>
 
 <div class="container-fluid">
-  <div class="row contrast-row seperation-content">
+  <div class="row seperation-content">
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <h1>Title <small>teste</small></h1>
@@ -47,7 +47,7 @@
     <div class="col-md-1"></div>
   </div>
 
-  <div class="row">
+  <div class="row seperation-tri-col">
     <div class="col-md-4 inflated-centered">
       <h3>Titulo a bold</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet odio odit Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus fugiat tenetur quae, error laboriosam officiis molestiae consectetur est nemo, officia distinctio pariatur porro explicabo fuga. Minus natus quae velit recusandae.</p>

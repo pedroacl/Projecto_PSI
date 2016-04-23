@@ -1,6 +1,15 @@
 /* THIS FILE IS ALWAYS LOADED */
 
-.navbar-static-top {
+body {
+  background-color: #FFF;
+}
+
+.content {
+  background-color: #555;
+  padding-top: 20px;
+}
+
+.navbar {
   margin-bottom: 0;
 }
 
@@ -18,6 +27,10 @@
   padding-bottom: 40px;
 }
 
+.seperation-tri-col {
+  background-color: #FFF;
+}
+
 .inflated-centered {
   text-align: center;
   padding-left: 70px;
@@ -28,6 +41,30 @@
   margin-top: 20px;
   margin-bottom: 0;
 }
+
+.relative {
+  position: relative;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
