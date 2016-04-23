@@ -50,13 +50,12 @@
       <div class="form-group">
         <label class="control-label">Data de Nascimento</label>
         <div class='input-group date' data-provide="datepicker" class='datepicker'>
-          <input type='text' class="form-control" />
+          <input type='text' name="birthdate" class="form-control" />
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
           </span>
           </div>
       </div>
-
 
       <div class="form-group">
         <label class="control-label">Telefone</label>
@@ -65,22 +64,31 @@
 
       <div class="form-group">
         <label class="control-label">Área Geográfica</label>
-        <select id="geographic_areas" class="form-control" name="message">
+        <select class="form-control" name="geographic_area_id">
           <option value="0">-</option>
           <option value="1">Lisboa</option>
           <option value="2">Leiria</option>
+
+          <?php foreach ($this->data->geographic_areas as $geographic_area) { ?>
+            <option value="<?php echo $geographic_area->key ?>">
+              <?php echo $geographic_area->value ?>
+            </option>
+          <?php } ?>
+
         </select>
       </div>
 
       <div class="form-group">
         <label class="control-label">Habilitações Académicas</label>
-        <select class="form-control" name="message">
-          <?php foreach ($academic_qualifications as $academic_qualification) { ?>
-            <option value="one">-</option>
-            <option value="<?php echo $academic_qualification->key ?>">
-              <?php echo $academic_qualification->value ?>
+        <select class="form-control" name="academic_qualifications_id">
+          <option value="default">-</option>
+
+          <?php foreach ($this->data['academic_qualifications'] as $key => $value) { ?>
+            <option value="<?php echo $key ?>">
+              <?php echo $value ?>
             </option>
           <?php } ?>
+
         </select>
       </div>
     </div>
@@ -119,9 +127,14 @@
       <div class="form-group">
         <label class="control-label">Habilitações Académicas</label>
         <select class="form-control" name="message">
-          <option value="one">-</option>
-          <option value="">Licenciatura</option>
-          <option value="">Mestrado</option>
+          <option value="default">-</option>
+
+          <?php foreach ($this->data['academic_qualifications'] as $key => $value) { ?>
+            <option value="<?php echo $key ?>">
+              <?php echo $value ?>
+            </option>
+          <?php } ?>
+
         </select>
       </div>
     </div>

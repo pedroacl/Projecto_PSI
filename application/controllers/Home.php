@@ -14,6 +14,7 @@ class Home extends MY_Controller {
 
 	}
 
+	// GET /
 	public function index()
 	{
 		$this->load->view('templates/main_template/header');
@@ -21,7 +22,7 @@ class Home extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
-	// GET signup
+	// GET /signup
 	public function signup()
 	{
 		$this->title = "Sign Up";
@@ -37,7 +38,7 @@ class Home extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
-	// POST signup
+	// POST /signup
 	public function register_user()
 	{
 		$this->load->library('form_validation');
@@ -74,7 +75,10 @@ class Home extends MY_Controller {
 		else
 		{
 			// inserir utilizador
+			$user = $this->user->get_signup_form_data($this->input);
 			$user_id = $this->user->insert_entry($user);
+
+			$user_type = $this->input->post('user_type');
 
 			// inserir voluntario
 			if ($user_type == 'volunteer')
@@ -94,7 +98,7 @@ class Home extends MY_Controller {
       return ($password == $confirm_password);
    }
 
-	// GET
+	// GET /login
 	public function show_login()
 	{
 		if ($this->session->userdata("id") !== null)
@@ -112,7 +116,7 @@ class Home extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
-	// POST
+	// POST /login
 	public function process_login()
 	{
 		$this->load->library('form_validation');
@@ -151,7 +155,7 @@ class Home extends MY_Controller {
 		}
 	}
 
-	// GET
+	// GET /logout
 	public function logout()
 	{
 

@@ -64,7 +64,8 @@ class User extends CI_Model {
         $data = array(
             'email'    => $input->post('email'),
             'password' => $input->post('password'),
-            'foto'     => $input->post('photo')
+            'foto'     => $input->post('photo'),
+            'telefone' => $input->post('phone_number')
         );
 
         return $data;
@@ -89,15 +90,17 @@ class User extends CI_Model {
 
     function get_signup_user_data()
     {
-        $data = array(
+       $data = array(
            'academic_qualifications' => array(
-                '1' => 'licenciatura',
-                '2' => 'mestrado'
+                '1' => 'Licenciatura',
+                '2' => 'Mestrado'
             ),
-            'geographic_area' => array(
+            'geographic_areas' => array(
                 '1' => 'Lisboa',
                 '2' => 'Porto'
             )
         );
+
+       return $data;
     }
 }
