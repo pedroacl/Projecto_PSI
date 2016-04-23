@@ -1,6 +1,9 @@
 <div class="container">
   <form class="form-signin" action="" method="POST">
     <h2 class="form-signin-heading">Registar Voluntário</h2>
+
+    <?php echo validation_errors(); ?>
+
     <label for="inputEmail" class="sr-only">Email address</label>
 
     <div class="form-group">
@@ -34,7 +37,7 @@
     <div class="volunteer_fields">
       <div class="form-group">
         <label class="control-label">Nome</label>
-        <input name="name" class="form-control" placeholder="Nome Completo"></input>
+        <input name="user_name" class="form-control" placeholder="Nome Completo"></input>
       </div>
 
       <div class="form-group">
@@ -64,9 +67,9 @@
       <div class="form-group">
         <label class="control-label">Área Geográfica</label>
         <select id="geographic_areas" class="form-control" name="message">
-          <option value="one">-</option>
-          <option value="one">Lisboa</option>
-          <option value="two">Leiria</option>
+          <option value="0">-</option>
+          <option value="1">Lisboa</option>
+          <option value="2">Leiria</option>
         </select>
       </div>
 

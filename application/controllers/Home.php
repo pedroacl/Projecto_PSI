@@ -21,21 +21,23 @@ class Home extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
+	// GET signup
 	public function signup()
 	{
 		$this->title = "Sign Up";
 		$this->load->model('User', 'user');
+		$this->load->library('form_validation');
 
 		// obter dados para preencher selectboxes
 		$this->data = $this->user->get_signup_user_data();
 
 		// carregar views
 		$this->load->view('templates/main_template/header');
-		$this->load->view('home/signup');
+		$this->load->view('home/register_form');
 		$this->load->view('templates/main_template/footer');
 	}
 
-	// POST
+	// POST signup
 	public function register_user()
 	{
 		$this->load->library('form_validation');

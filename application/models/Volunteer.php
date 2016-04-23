@@ -41,20 +41,50 @@ class Volunteer extends CI_Model {
     function get_form_validation_rules() {
         $rules = array(
             array(
-                'field'   => 'email',
-                'label'   => 'Email',
-                'rules'   => 'required|valid_email|min_length[8]'
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|valid_email|min_length[8]'
             ),
             array(
-                'field'   => 'password',
-                'label'   => 'Password',
-                'rules'   => 'required'
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'required'
             ),
             array(
-                'field'   => 'password_confirmation',
-                'label'   => 'Password Confirmation',
-                'rules'   => 'required'
-            )
+                'field' => 'password_confirmation',
+                'label' => 'Password Confirmation',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'user_name',
+                'label' => 'Nome',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'phone_number',
+                'label' => 'Telefone',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'id_area_geografica',
+                'label' => 'Areas Geograficas',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'id_habilitacoes_academicas',
+                'label' => 'Habilitacoes Academicas',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'gender',
+                'label' => 'Género',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'birthdate',
+                'label' => 'Data de Nascimento',
+                'rules' => 'required'
+            ),
         );
 
         return $rules;

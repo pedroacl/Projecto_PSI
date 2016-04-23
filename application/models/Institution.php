@@ -17,45 +17,6 @@ class Institution extends CI_Model {
         return $this->db->insert_id();
     }
 
-    function get_institution_registry_form_validation_rules($user_type) {
-        $rules = array(
-            array(
-                'field'   => 'email',
-                'label'   => 'Email',
-                'rules'   => 'required|valid_email|min_length[8]'
-            ),
-            array(
-                'field'   => 'password',
-                'label'   => 'Password',
-                'rules'   => 'required'
-            ),
-            array(
-                'field'   => 'password_confirmation',
-                'label'   => 'Password Confirmation',
-                'rules'   => 'required'
-            )
-
-        );
-
-        $aux_array = null;
-
-        if ($user_type == 'volunteer') {
-            $aux_array = array(
-                'field' => '',
-                'label' => '',
-                'rules' => '',
-            );
-        }
-        else
-        {
-            $aux_array = array(
-                'field' => '',
-                'label' => '',
-                'rules' => '',
-            );
-        }
-    }
-
     function get_institution_by_email($email)
     {
         // $query = $this->db->get('users', 1);
@@ -68,7 +29,7 @@ class Institution extends CI_Model {
         return $query;
     }
 
-    function get_institution_form_data($input)
+    function get_signup_form_data($input)
     {
         $data = array(
             'nome'               => $input->post('name'),
@@ -84,45 +45,37 @@ class Institution extends CI_Model {
         return $data;
     }
 
-    function get_institution_form_validation_rules($user_type) {
+    function get_form_validation_rules() {
         $rules = array(
             array(
-                'field'   => 'email',
-                'label'   => 'Email',
-                'rules'   => 'required|valid_email|min_length[8]'
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|valid_email|min_length[8]'
             ),
             array(
-                'field'   => 'password',
-                'label'   => 'Password',
-                'rules'   => 'required'
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'required'
             ),
             array(
-                'field'   => 'password_confirmation',
-                'label'   => 'Password Confirmation',
-                'rules'   => 'required'
+                'field' => 'password_confirmation',
+                'label' => 'Password Confirmation',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'nome',
+                'label' => 'nome',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'id_area_geografica',
+                'label' => 'Password Confirmation',
+                'rules' => 'required'
+            ),
+            array(
+
             )
-
         );
-
-        $aux_array = null;
-
-        if ($user_type == 'volunteer') {
-            $aux_array = array(
-                'field' => '',
-                'label' => '',
-                'rules' => '',
-            );
-        }
-        else
-        {
-            $aux_array = array(
-                'field' => '',
-                'label' => '',
-                'rules' => '',
-            );
-        }
-
-        array_push($rules, $aux_array);
 
         return $rules;
     }
