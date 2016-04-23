@@ -1,4 +1,3 @@
-
 <div class="container-fluid content">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
@@ -8,6 +7,8 @@
           
           <form action="" method="POST" enctype="multipart/form-data">
             <h2>Registar Voluntário</h2>
+            <?php echo validation_errors(); ?>
+
             <div class="form-group">
               <label for="inputEmail" class="control-label">Email</label>
               <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
