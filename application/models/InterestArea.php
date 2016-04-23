@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class GeographicArea extends CI_Model {
+class InterestArea extends CI_Model {
 
     function __construct()
     {

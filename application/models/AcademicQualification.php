@@ -5,7 +5,6 @@ class AcademicQualification extends CI_Model {
 
     function __construct()
     {
-        // Call the Model constructor
         parent::__construct();
     }
 
@@ -19,9 +18,7 @@ class AcademicQualification extends CI_Model {
         $this->db->where('instituto_ensino', $academic_qualification['instituto_ensino']);
         $query = $this->db->get();
 
-        $count = $query->num_rows();
-
-        if ($count == 0) {
+        if ($query->num_rows() == 0) {
             $this->db->insert('Habilitacoes_Academicas', $academic_qualification);
             return $this->db->insert_id();
         } else {

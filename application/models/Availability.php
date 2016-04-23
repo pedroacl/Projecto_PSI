@@ -5,7 +5,6 @@ class Availability extends CI_Model {
 
     function __construct()
     {
-        // Call the Model constructor
         parent::__construct();
     }
 
@@ -14,13 +13,14 @@ class Availability extends CI_Model {
         // verificar se já existe uma area geografica adicionada
         $this->db->select('freguesia, concelho, distrito');
         $this->db->from('Areas_Geograficas');
-        $this->db->where('freguesia', $geographic_area['freguesia']);
-        $this->db->where('concelho', $geographic_area['concelho']);
-        $this->db->where('distrito', $geographic_area['distrito']);
+        $this->db->where('freguesia', $geographic_area['parish']);
+        $this->db->where('concelho', $geographic_area['county']);
+        $this->db->where('distrito', $geographic_area['district']);
         $query = $this->db->get();
 
         $count = $query->num_rows();
 
+        // area geografica ainda nao existe
         if ($count == 0) {
             $this->db->insert('Areas_Geograficas', $geographic_area);
             return $this->db->insert_id();

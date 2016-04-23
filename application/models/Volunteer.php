@@ -7,13 +7,18 @@ class Volunteer extends CI_Model {
     {
         $this->load->model('AcademicQualification', 'academic_qualification');
         $this->load->model('GeographicArea', 'geographic_area');
+        $this->load->model('Interest', 'interest');
+        $this->load->model('ActionGroup', 'action_group');
 
+        // insert de qualificações academicas
         $academic_qualification_data = $this->academic_qualification->get_signup_form_data($this->input);
         $this->geographic_area->insert_entry($geographic_area_data);
 
+        // insert de areas geograficas
         $geographic_area_data = $this->geographic_area->get_signup_form_data($this->input);
         $this->geographic_area->insert_entry($geographic_area_data);
 
+        // insert do utilizador
         $volunteer['id_utilizador'] = $user_id;
         $this->db->insert('Voluntarios', $volunteer);
 
@@ -39,6 +44,8 @@ class Volunteer extends CI_Model {
             'data_nascimento'            => $input->post('birthdate'),
             'id_area_geografica'         => $input->post('geographic_area_id'),
             'id_habilitacoes_academicas' => $input->post('academic_qualifications_id'),
+            'id_areas_interesse'         => $input->post('interest_areas'),
+            'id_action_groups'           => $input->post('action_groups'),
             'id_utilizador'              => ''
         );
 

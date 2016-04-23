@@ -106,7 +106,7 @@
 
               <div class="form-group">
                 <label class="control-label">Grupo de Atuação</label>
-                <select multiple class="form-control" name="grupo_atuacao">
+                <select multiple class="form-control" name="grupos_atuacao">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
