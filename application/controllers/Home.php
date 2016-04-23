@@ -24,7 +24,7 @@ class Home extends MY_Controller {
 
 		// carregar views
 		$this->load->view('templates/main_template/header');
-		$this->load->view('home/signup');
+		$this->load->view('home/register_form');
 		$this->load->view('templates/main_template/footer');
 	}
 
