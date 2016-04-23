@@ -47,13 +47,19 @@ class User extends CI_Model {
         return $query;
     }
 
+    function insert_entry($user)
+    {
+        $this->db->insert('Utilizadores', $user);
+        return $this->db->insert_id();
+    }
+
     function update_entry($user)
     {
         $users->updated_at = time();
         $this->db->update('entries', $this, array('id' => $_POST['id']));
     }
 
-    function get_user_form_data($input)
+    function get_signup_form_data($input)
     {
         $data = array(
             'email'    => $input->post('email'),

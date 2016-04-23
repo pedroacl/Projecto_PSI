@@ -5,6 +5,13 @@ class Home extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
+
+/*
+		if ( ! isset($this->session) {
+			redirect('/auth/login', 'refresh');
+		}
+		*/
+
 	}
 
 	public function index()
@@ -17,10 +24,10 @@ class Home extends MY_Controller {
 	public function signup()
 	{
 		$this->title = "Sign Up";
-		$this->load->model('User');
+		$this->load->model('User', 'user');
 
 		// obter dados para preencher selectboxes
-		$this->data = $this->User->get_signup_user_data();
+		$this->data = $this->user->get_signup_user_data();
 
 		// carregar views
 		$this->load->view('templates/main_template/header');
@@ -34,24 +41,27 @@ class Home extends MY_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('session');
 
-		$this->load->model('User');
+		$this->load->model('User', 'user');
 		$this->load->model('Volunteer', 'volunteer');
 		$this->load->model('Institution', 'institution');
 
 		// obter regras de validacao do formulario
 		$user_type  = $this->input->post('user_type');
+		$form_rules = null;
 
 		if ($user_type == 'volunteer') {
-			$form_rules = $this->volunteer->get_volunteer_form_validation_rules($user_type);
+			$form_rules = $this->volunteer->get_form_validation_rules();
+			$volunteer  = $this->volunteer->get_signup_form_data($this->input);
 		}
 		else
 		{
-			$form_rules = $this->institution->get_institution_form_validation_rules($user_type);
+			$form_rules  = $this->institution->get_form_validation_rules();
+			$institution = $this->institution->get_signup_form_data($this->input);
 		}
 
 		$this->form_validation->set_rules($form_rules);
 
-		// validar formulario
+		// formulario invalido
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->load->view('templates/main_template/header');
@@ -61,9 +71,19 @@ class Home extends MY_Controller {
 		}
 		else
 		{
-			$user      = $this->User->get_user_form_data($this->input);
-			$volunteer = $this->User->get_volunteer_form_data($this->input);
-			$this->User->register_user($data);
+			// inserir utilizador
+			$user_id = $this->user->insert_entry($user);
+
+			// inserir voluntario
+			if ($user_type == 'volunteer')
+			{
+				$this->volunteer->insert_entry($volunteer, $user_id);
+			}
+			else
+			{
+				$this->institution->insert_entry($institution, $user_id);
+			}
+
 	      // redirect('', 'refresh');
 		}
 	}

@@ -9,6 +9,14 @@ class Institution extends CI_Model {
         parent::__construct();
     }
 
+    function insert_entry($institution, $user_id)
+    {
+        $institution['id_instituicao'] = $user_id;
+        $this->db->insert('Instituicao', $institution);
+
+        return $this->db->insert_id();
+    }
+
     function get_institution_registry_form_validation_rules($user_type) {
         $rules = array(
             array(
@@ -60,7 +68,6 @@ class Institution extends CI_Model {
         return $query;
     }
 
-
     function get_institution_form_data($input)
     {
         $data = array(
@@ -70,12 +77,12 @@ class Institution extends CI_Model {
             'descricao'          => $input->post('cellphone'),
             'website'            => $input->post('cellphone'),
             'morada'             => $input->post('cellphone'),
-            'id_area_geografica' => $input->post('id_geographic_area')
+            'id_area_geografica' => $input->post('id_geographic_area'),
+            'id_utilizador'      => ''
         );
 
         return $data;
     }
-
 
     function get_institution_form_validation_rules($user_type) {
         $rules = array(
