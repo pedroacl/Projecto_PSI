@@ -69,9 +69,9 @@
           <option value="1">Lisboa</option>
           <option value="2">Leiria</option>
 
-          <?php foreach ($this->data->geographic_areas as $geographic_area) { ?>
-            <option value="<?php echo $geographic_area->key ?>">
-              <?php echo $geographic_area->value ?>
+          <?php foreach ($this->data['geographic_areas'] as $key => $value) { ?>
+            <option value="<?php echo $value ?>">
+              <?php echo $value ?>
             </option>
           <?php } ?>
 
@@ -80,11 +80,11 @@
 
       <div class="form-group">
         <label class="control-label">Habilitações Académicas</label>
-        <select class="form-control" name="academic_qualifications_id">
+        <select class="form-control" name="academic_qualifications">
           <option value="default">-</option>
 
           <?php foreach ($this->data['academic_qualifications'] as $key => $value) { ?>
-            <option value="<?php echo $key ?>">
+            <option value="<?php echo $value ?>">
               <?php echo $value ?>
             </option>
           <?php } ?>
