@@ -18,14 +18,8 @@ $(document).ready(function() {
 		$('.volunteer_fields').show("slow");
 	});
 	
-	var geographic_areas = new Array();
-	geographic_areas['1'] = 'Lisboa';
-	geographic_areas['2'] = 'Leiria';
-	geographic_areas['3'] = 'Santarem';
-
-	var academic_qualifications = new Array();
-	academic_qualifications['1'] = 'Licenciatura';
-	academic_qualifications['2'] = 'Mestrado';
-
-	// alert($('#geographic_areas').html());
+	$('.datepicker').datepicker({
+		format: 'mm/dd/yyyy',
+		startDate: '-3d'
+	});
 });
