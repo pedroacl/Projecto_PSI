@@ -78,6 +78,11 @@
                   <option value="one">-</option>
                   <option value="one">Lisboa</option>
                   <option value="two">Leiria</option>
+                  <?php foreach ($this->data->geographic_areas as $geographic_area) { ?>
+                    <option value="<?php echo $geographic_area->key ?>">
+                      <?php echo $geographic_area->value ?>
+                    </option>
+                  <?php } ?>
                 </select>
               </div>
 
@@ -127,6 +132,11 @@
                 <label class="control-label">Tipo</label>
                 <select class="form-control" name="tipo_habilitacoes">
                     <option value="one">-</option>
+                    <?php foreach ($this->data['academic_qualifications'] as $key => $value) { ?>
+                      <option value="<?php echo $key ?>">
+                        <?php echo $value ?>
+                      </option>
+                    <?php } ?>
                 </select>
               </div>
               <div class="form-group">

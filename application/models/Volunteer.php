@@ -5,6 +5,8 @@ class Volunteer extends CI_Model {
 
     function insert_entry($volunteer, $user_id)
     {
+        $this->load->model('AcademicQualification', 'academic_qualification');
+
         $volunteer['id_utilizador'] = $user_id;
         $this->db->insert('Voluntarios', $volunteer);
 
@@ -25,13 +27,11 @@ class Volunteer extends CI_Model {
 
     function get_signup_form_data($input)
     {
-      $data = array(
-            'nome'                       => $input->post('name'),
+        $data = array(
             'genero'                     => $input->post('gender'),
             'data_nascimento'            => $input->post('birthdate'),
-            'telefone'                   => $input->post('cellphone'),
-            'id_area_geografica'         => $input->post('id_geographic_area'),
-            'id_habilitacoes_academicas' => $input->post('id_academic_qualifications'),
+            'id_area_geografica'         => $input->post('geographic_area_id'),
+            'id_habilitacoes_academicas' => $input->post('academic_qualifications_id'),
             'id_utilizador'              => ''
         );
 
@@ -66,12 +66,12 @@ class Volunteer extends CI_Model {
                 'rules' => 'required'
             ),
             array(
-                'field' => 'id_area_geografica',
+                'field' => 'geographic_area_id',
                 'label' => 'Areas Geograficas',
                 'rules' => 'required'
             ),
             array(
-                'field' => 'id_habilitacoes_academicas',
+                'field' => 'academic_qualifications_id',
                 'label' => 'Habilitacoes Academicas',
                 'rules' => 'required'
             ),

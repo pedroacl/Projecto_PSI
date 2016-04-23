@@ -19,6 +19,8 @@ CREATE TABLE Utilizadores (
 ALTER TABLE Utilizadores
 ADD CONSTRAINT unique_email_utilizador UNIQUE (email);
 
+ALTER TABLE Utilizadores
+ADD CONSTRAINT unique_nome UNIQUE (nome);
 
 CREATE TABLE Areas_Geograficas (
    id                  	INT 			AUTO_INCREMENT,
@@ -40,9 +42,6 @@ CREATE TABLE Instituicoes (
    FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
    FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
 );
-
-ALTER TABLE Instituicoes
-ADD CONSTRAINT unique_nome_instituicao UNIQUE (nome);
 
 
 CREATE TABLE Areas_Interesse (
@@ -106,9 +105,6 @@ CREATE TABLE Voluntarios (
 	FOREIGN KEY (id_habilitacoes_academicas) 	REFERENCES Habilitacoes_Academicas(id),
    FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
 );
-
-ALTER TABLE Voluntarios
-ADD CONSTRAINT unique_nome_voluntario UNIQUE (nome);
 
 
 CREATE TABLE Oportunidades_Voluntariado (
