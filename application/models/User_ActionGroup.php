@@ -8,13 +8,29 @@ class User_ActionGroup extends CI_Model {
       parent::__construct();
    }
 
-   function insert_entry($user_id, $action_group_id)
+   function insert_entries($user_id, $action_groups)
    {
-   	$data = array(
-         'id_utilizador'    => $user_id,
-         'id_grupo_atuacao' => $action_group_id
-   	);
+      //$this->db->select('email, password, salt');
+      $this->db->from('Grupos_Atuacao grupos_atuacao');
+      $this->db->where_in('nome', $action_groups);
+      $query = $this->db->get();
 
-      $this->db->insert('Utilizador_Grupo_Atuacao', $data);
+      foreach ($query->result() as $key => $value) {
+         $data = array(
+            'id_utilizador'    => $user_id,
+            'id_grupo_atuacao' => $key
+         );
+
+         $this->db->insert('Utilizador_Grupo_Atuacao', $data);
+      }
+   }
+
+   function get_signup_form_data($input)
+   {
+      $data = array(
+         '' => $input->post('action_groups'),
+      );
+
+      return $data;
    }
 }

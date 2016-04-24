@@ -47,7 +47,6 @@ class Home extends MY_Controller {
 		$this->load->model('User', 'user');
 		$this->load->model('Volunteer', 'volunteer');
 		$this->load->model('Institution', 'institution');
-		$this->load->model('ActionGroup', 'action_group');
 		$this->load->model('GeographicArea', 'geographic_area');
 		$this->load->model('AcademicQualification', 'academic_qualification');
 
@@ -103,12 +102,14 @@ class Home extends MY_Controller {
 			$user_id = $this->user->insert_entry($user);
 
 			// inserir grupos de actuação
-			$action_groups = $this->action_group->get_signup_form_data($this->input);
-			$this->action_group->insert_entries($user_id, $action_groups);
+			$this->load->model('User_ActionGroup', 'user_action_group');
+			$action_groups = $this->user_action_group->get_signup_form_data($this->input);
+			$this->user_action_group->insert_entries($user_id, $action_groups);
 
 			// inserir areas de interesse
-			$areas_of_interest = $this->area_of_interest->get_signup_form_data($this->input);
-			$this->action_group->insert_entries($areas_of_interest);
+			$this->load->model('User_AreaOfInterest', 'user_area_of_interest');
+			$areas_of_interest = $this->user_area_of_interest->get_signup_form_data($this->input);
+			$this->user_area_of_interest->insert_entries($user_id, $areas_of_interest);
 
 			// inserir area geografica
 			$geographic_area = $this->geographic_area->get_signup_form_data($this->input);
@@ -116,7 +117,7 @@ class Home extends MY_Controller {
 
 			// inserir habilitacoes academicas
 			$academic_qualifications = $this->academic_qualification->get_signup_form_data($this->input);
-			$this->academic_qualifications->insert_entry($academic_qualifications);
+			$this->academic_qualification->insert_entry($academic_qualifications);
 
 			$user_type = $this->input->post('user_type');
 

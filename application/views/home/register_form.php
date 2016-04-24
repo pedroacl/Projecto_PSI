@@ -76,22 +76,22 @@
               <div class="form-group <?= has_error('action_groups') ?>">
                 <label class="control-label">Grupo de Atuação</label>
                 <select multiple class="form-control" name="action_groups">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option value="1">A</option>
+                  <option value="2">B</option>
+                  <option value="3">C</option>
+                  <option value="4">D</option>
+                  <option value="5">E</option>
                 </select>
               </div>
 
               <div class="form-group <?= has_error('areas_of_interest') ?>">
                 <label class="control-label">Áreas de Interesse</label>
                 <select multiple class="form-control" name="areas_of_interest">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                  <option value="1">T</option>
+                  <option value="2">S</option>
+                  <option value="3">J</option>
+                  <option value="4">I</option>
+                  <option value="5">X</option>
                 </select>
               </div>
 
@@ -100,12 +100,12 @@
 
               <div class="form-group <?= has_error('conselho_vol') ?>">
                 <label class="control-label">Concelho</label>
-                <select id="concelho_vol" class="form-control" name="concelho_vol">
-                  <option value="one">-</option>
-                  <option value="one">Lisboa</option>
-                  <option value="two">Leiria</option>
+                <select id="concelho_vol" class="form-control" name="county">
+                  <option value="default">-</option>
+                  <option value="Lisboa">Lisboa</option>
+                  <option value="Leiria">Leiria</option>
                   <?php foreach ($this->data->geographic_areas as $geographic_area) { ?>
-                    <option value="<?php echo $geographic_area->key ?>">
+                    <option value="<?php echo $geographic_area->value ?>">
                       <?php echo $geographic_area->value ?>
                     </option>
                   <?php } ?>
@@ -114,7 +114,7 @@
 
               <div class="form-group <?= has_error('distrito_vol') ?>">
                 <label class="control-label">Distrito</label>
-                <select id="distrito_vol" class="form-control" name="distrito_vol">
+                <select id="distrito_vol" class="form-control" name="district">
                   <option value="one">-</option>
                   <option value="one">Lisboa</option>
                   <option value="two">Leiria</option>
@@ -123,7 +123,7 @@
 
               <div class="form-group <?= has_error('freguesia_vol') ?>">
                 <label class="control-label">Freguesia</label>
-                <select id="freguesia_vol" class="form-control" name="freguesia_vol">
+                <select id="freguesia_vol" class="form-control" name="parish">
                   <option value="one">-</option>
                   <option value="one">Lisboa</option>
                   <option value="two">Leiria</option>
@@ -134,7 +134,7 @@
               <h3>Habilitações Académicas</h3>
               <div class="form-group <?= has_error('tipo_habilitacoes') ?>">
                 <label class="control-label">Tipo</label>
-                <select class="form-control" name="tipo_habilitacoes">
+                <select class="form-control" name="academic_qualifications">
                     <option value="one">-</option>
                     <?php foreach ($this->data['academic_qualifications'] as $key => $value) { ?>
                       <option value="<?php echo $key ?>">
