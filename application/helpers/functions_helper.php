@@ -10,12 +10,18 @@ if ( ! function_exists('test_method'))
 
     foreach ($types as $type) {
       if ($controller->session->flashdata($type) !== null) {
-        $result = $result . "<div class='alert alert-" . $type . "' role='alert' class='close'>" . $controller->session->flashdata($type);
+        $result = $result . "<div class='alert alert-" . $type . "' role='alert' class='close'>";
         $result = $result . "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+        $result = $result . $controller->session->flashdata($type);
         $result = $result . "</div>";
       }
     }
 
     return $result;
+  }
+
+  function has_error($field)
+  {
+    return form_error($field) !== '' ? 'has-error' : '';
   }
 }

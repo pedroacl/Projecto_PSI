@@ -25,7 +25,20 @@ class Home extends MY_Controller {
 	// GET /signup
 	public function signup()
 	{
-		$this->title = "Sign Up";
+		$this->load->library('form_validation');
+		$this->load->library('session');
+		$this->user_type_selected = null;
+
+		$this->title = "Registo de Utilizador";
+		$this->load->view('templates/main_template/header');
+		$this->load->view('home/register_form');
+		$this->load->view('templates/main_template/footer');
+	}
+
+	// POST /signup
+	public function process_signup()
+	{
+		$this->title = "Registo de Utilizador";
 
 		$this->load->model('User', 'user');
 		$this->load->library('form_validation');
@@ -78,6 +91,7 @@ class Home extends MY_Controller {
 		// formulario invalido
 		if ($this->form_validation->run() == FALSE)
 		{
+			$this->session->set_flashdata('danger', validation_errors());
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/register_form');
 			$this->load->view('templates/main_template/footer');
@@ -174,7 +188,7 @@ class Home extends MY_Controller {
 	      redirect('', 'refresh');
 
 			} else {
-				$this->session->set_flashdata('error', 'Username/Password errada: ');
+				$this->session->set_flashdata('danger', 'Combinação de Username/Password errada');
 				redirect('login', 'refresh');
 			}
 		}
@@ -183,7 +197,6 @@ class Home extends MY_Controller {
 	// GET /logout
 	public function logout()
 	{
-
 		$this->session->unset_userdata('id');
 		$this->session->unset_userdata('email');
 		$this->session->sess_destroy();
