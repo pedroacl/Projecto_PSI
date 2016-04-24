@@ -7,24 +7,10 @@ $(document).ready(function() {
 
 	$header_title = $('h2');
 
+	choose_user_type($('#user_type_select').val());
+
 	$('#user_type_select').change(function() {
-		if ($(this).val() === "none") {
-			remove_volunteer_fields();
-			remove_institution_fields();
-			$header_title.html("Registar Utilizador");
-
-		} else if($(this).val() === "volunteer") {
-			remove_institution_fields();
-			$('#user_form_end').append($volunteer_fields);
-			$volunteer_fields.show("slow");
-			$header_title.html("Registar Voluntário");
-
-		} else if($(this).val() === "institution") {
-			remove_volunteer_fields();
-			$('#user_form_end').append($institution_fileds);
-			$institution_fileds.show("slow");
-			$header_title.html("Registar Instituição");
-		}
+		choose_user_type($(this).val());
 	});
 
 	$('.datepicker').datepicker({
@@ -43,4 +29,24 @@ function remove_institution_fields() {
 	$('.institution_fields').hide("slow", function() {
 		$institution_div.remove();
 	});
+}
+
+function choose_user_type(value) {
+	if (value === "none") {
+		remove_volunteer_fields();
+		remove_institution_fields();
+		$header_title.html("Registar Utilizador");
+
+	} else if(value === "volunteer") {
+		remove_institution_fields();
+		$('#user_form_end').append($volunteer_fields);
+		$volunteer_fields.show("slow");
+		$header_title.html("Registar Voluntário");
+
+	} else if(value === "institution") {
+		remove_volunteer_fields();
+		$('#user_form_end').append($institution_fileds);
+		$institution_fileds.show("slow");
+		$header_title.html("Registar Instituição");
+	}
 }
