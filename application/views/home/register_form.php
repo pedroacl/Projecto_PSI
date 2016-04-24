@@ -60,7 +60,7 @@
               <div class="form-group">
                 <label class="control-label">Data de Nascimento</label>
                 <div class='input-group date' data-provide="datepicker" class='datepicker'>
-                  <input type='text' class="form-control" />
+                  <input name="birthdate" value="<?php echo set_value('birthdate'); ?>" type='text' class="form-control" />
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -70,7 +70,7 @@
 
               <div class="form-group">
                 <label class="control-label">Telefone</label>
-                <input name="phone_number" class="form-control" placeholder="Telefone"></input>
+                <input name="phone_number" value="<?php echo set_value('phone_number'); ?>" class="form-control" placeholder="Telefone"></input>
               </div>
 
 
@@ -144,10 +144,12 @@
                     <?php } ?>
                 </select>
               </div>
+
               <div class="form-group">
                 <label class="control-label">Curso</label>
                 <input type="text" class="form-control" name="curso">
               </div>
+
               <div class="form-group">
                 <label class="control-label">Instituto</label>
                 <input type="text" class="form-control" name="instituto">

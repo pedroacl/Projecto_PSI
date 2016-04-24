@@ -72,23 +72,62 @@ class User extends CI_Model {
         return $data;
     }
 
-    function get_login_form_validation_rules() {
+    function get_login_form_validation_rules()
+    {
         $rules = array(
             array(
-                'field'   => 'password',
-                'label'   => 'Password',
-                'rules'   => 'required'
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|valid_email|is_unique[Utilizadores.email]|min_length[8]'
             ),
             array(
-                'field'   => 'email',
-                'label'   => 'Email',
-                'rules'   => 'required|valid_email|min_length[8]'
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'required|matches[password_confirmation]'
             ),
             array(
-                'filed' => 'user_name',
-                'label' => 'User Name',
+                'field' => 'password_confirmation',
+                'label' => 'Confirmação da Password',
                 'rules' => 'required'
             )
+        );
+
+        return $rules;
+    }
+
+    function get_form_validation_rules()
+    {
+        $rules = array(
+            array(
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => 'required|valid_email|is_unique[Utilizadores.email]|min_length[8]'
+            ),
+            array(
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'required|matches[password_confirmation]'
+            ),
+            array(
+                'field' => 'password_confirmation',
+                'label' => 'Confirmação da Password',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'user_name',
+                'label' => 'Nome',
+                'rules' => 'required|is_unique[Utilizadores.nome]'
+            ),
+            array(
+                'field' => 'phone_number',
+                'label' => 'Telefone',
+                'rules' => 'required|min_length[9]'
+            ),
+            array(
+                'field' => 'gender',
+                'label' => 'Género',
+                'rules' => 'required'
+            ),
         );
 
         return $rules;

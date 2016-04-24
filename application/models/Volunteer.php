@@ -56,26 +56,6 @@ class Volunteer extends CI_Model {
     {
         $rules = array(
             array(
-                'field' => 'email',
-                'label' => 'Email',
-                'rules' => 'required|valid_email|is_unique[Utilizadores.email]|min_length[8]'
-            ),
-            array(
-                'field' => 'password',
-                'label' => 'Password',
-                'rules' => 'required|matches[password_confirmation]'
-            ),
-            array(
-                'field' => 'password_confirmation',
-                'label' => 'Password Confirmation',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'user_name',
-                'label' => 'Nome',
-                'rules' => 'required|is_unique[Utilizadores.nome]'
-            ),
-            array(
                 'field' => 'phone_number',
                 'label' => 'Telefone',
                 'rules' => 'required|min_length[9]'
@@ -86,22 +66,12 @@ class Volunteer extends CI_Model {
                 'rules' => 'required'
             ),
             array(
-                'field' => 'academic_qualifications_id',
-                'label' => 'Habilitacoes Academicas',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'gender',
-                'label' => 'Género',
-                'rules' => 'required'
-            ),
-            array(
                 'field' => 'birthdate',
                 'label' => 'Data de Nascimento',
                 'rules' => 'required'
             ),
         );
 
-        return $rules;
+        return array_merge($rules, $this->user->get_form_validation_rules());
     }
 }
