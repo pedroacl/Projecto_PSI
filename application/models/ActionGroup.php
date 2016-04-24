@@ -11,10 +11,10 @@ class ActionGroup extends CI_Model {
     function insert_entry($geographic_area)
     {
         // verificar se já existe uma area geografica adicionada
-        $this->db->select('freguesia, concelho, distrito');
+        $this->db->select('nome, descricao, distrito');
         $this->db->from('Areas_Geograficas');
-        $this->db->where('freguesia', $geographic_area['freguesia']);
-        $this->db->where('concelho', $geographic_area['concelho']);
+        $this->db->where('nome', $geographic_area['freguesia']);
+        $this->db->where('descricao', $geographic_area['concelho']);
         $this->db->where('distrito', $geographic_area['distrito']);
         $query = $this->db->get();
 

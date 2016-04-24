@@ -4,14 +4,14 @@
 
       <div class="panel panel-default">
         <div class="panel-body">
-          
+
           <form action="" method="POST" enctype="multipart/form-data">
             <h2>Registar Voluntário</h2>
             <?php echo validation_errors(); ?>
 
             <div class="form-group">
               <label for="inputEmail" class="control-label">Email</label>
-              <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+              <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value="<?php echo set_value('email'); ?>">
             </div>
 
             <div class="form-group">
@@ -26,10 +26,11 @@
 
             <div class="form-group">
               <label class="control-label">Tipo de Utilizador</label>
-              <select name="user_type" id="user_type_select" class="form-control">
-                <option id="default_user_select" value="none" selected>-</option>
-                <option id="volunteer_select" value="volunteer">Voluntário</option>
-                <option id="institution_select" value="institution">Instituição</option>
+              <select name="user_type" id="user_type_select" class="form-control"
+                value="<?php echo set_value('user_type'); ?>">
+                <option id="default_user_select" value="none" <?php echo $this->user_type_selected['default']; ?>>-</option>
+                <option id="volunteer_select" value="volunteer" <?php echo $this->user_type_selected['volunteer']; ?>>Voluntário</option>
+                <option id="institution_select" value="institution" <?php echo $this->user_type_selected['institution']; ?>>Instituição</option>
               </select>
             </div>
 
@@ -45,7 +46,7 @@
 
               <div class="form-group">
                 <label class="control-label">Nome</label>
-                <input name="name" class="form-control" placeholder="Nome Completo"></input>
+                <input name="user_name" value="<?php echo set_value('user_name'); ?>" class="form-control" placeholder="Nome Completo"></input>
               </div>
 
               <div class="form-group">
@@ -151,9 +152,15 @@
                 <label class="control-label">Instituto</label>
                 <input type="text" class="form-control" name="instituto">
               </div>
+
               <div class="form-group">
-                <label class="control-label">Data de conclusão</label>
-                <input type="text" class="form-control" name="data_conclusao_habilitacoes">
+                <label class="control-label">Data de Conclusão</label>
+                <div class='input-group date' data-provide="datepicker" class='datepicker'>
+                  <input type='text' name='data_conclusao_habilitacoes' class="form-control" />
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                  </div>
               </div>
 
               <br>
@@ -203,7 +210,7 @@
                 </div>
               </div>
             </div>
-              
+
 
             <!-- Campos de um Instituiçao -->
 
@@ -252,7 +259,7 @@
                   <option value="two">Leiria</option>
                 </select>
               </div>
-              
+
               <div class="form-group">
                 <label class="control-label">Habilitações Académicas</label>
                 <select class="form-control" name="message">

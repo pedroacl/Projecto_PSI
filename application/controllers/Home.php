@@ -26,21 +26,8 @@ class Home extends MY_Controller {
 	public function signup()
 	{
 		$this->title = "Sign Up";
+
 		$this->load->model('User', 'user');
-		$this->load->library('form_validation');
-
-		// obter dados para preencher selectboxes
-		$this->data = $this->user->get_signup_user_data();
-
-		// carregar views
-		$this->load->view('templates/main_template/header');
-		$this->load->view('home/register_form');
-		$this->load->view('templates/main_template/footer');
-	}
-
-	// POST /signup
-	public function register_user()
-	{
 		$this->load->library('form_validation');
 		$this->load->library('session');
 
@@ -51,15 +38,36 @@ class Home extends MY_Controller {
 		// obter regras de validacao do formulario
 		$user_type  = $this->input->post('user_type');
 		$form_rules = null;
+		$this->user_type_selected = null;
 
 		if ($user_type == 'volunteer') {
 			$form_rules = $this->volunteer->get_form_validation_rules();
 			$volunteer  = $this->volunteer->get_signup_form_data($this->input);
+
+			$this->user_type_selected = array(
+				'default'     => '',
+				'volunteer' => 'selected',
+				'institution' => ''
+			);
 		}
-		else
+		else if($user_type == 'institution')
 		{
 			$form_rules  = $this->institution->get_form_validation_rules();
 			$institution = $this->institution->get_signup_form_data($this->input);
+
+			$this->user_type_selected = array(
+				'default'     => '',
+				'volunteer'   => '',
+				'institution' => 'selected'
+			);
+		}
+		else
+		{
+			$this->user_type_selected = array(
+				'default'     => 'selected',
+				'volunteer'   => '',
+				'institution' => ''
+			);
 		}
 
 		$this->form_validation->set_rules($form_rules);
@@ -70,12 +78,11 @@ class Home extends MY_Controller {
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/register_form');
 			$this->load->view('templates/main_template/footer');
-	      // redirect('', 'refresh');
 		}
 		else
 		{
 			// inserir utilizador
-			$user = $this->user->get_signup_form_data($this->input);
+			$user    = $this->user->get_signup_form_data($this->input);
 			$user_id = $this->user->insert_entry($user);
 
 			$user_type = $this->input->post('user_type');
@@ -83,14 +90,14 @@ class Home extends MY_Controller {
 			// inserir voluntario
 			if ($user_type == 'volunteer')
 			{
-				$this->volunteer->insert_entry($volunteer, $user_id);
+				$volunteer = $this->volunteer->get_signup_form_data($this->input);
+				$user_id = $this->volunteer->insert_entry($volunteer, $user_id);
 			}
 			else
 			{
-				$this->institution->insert_entry($institution, $user_id);
+				$institution = $this->institution->get_signup_form_data($this->input);
+				$user_id = $this->institution->insert_entry($institution, $user_id);
 			}
-
-	      // redirect('', 'refresh');
 		}
 	}
 

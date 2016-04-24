@@ -63,7 +63,7 @@ class Institution extends CI_Model {
                 'rules' => 'required'
             ),
             array(
-                'field' => 'nome',
+                'field' => 'user_name',
                 'label' => 'nome',
                 'rules' => 'required'
             ),

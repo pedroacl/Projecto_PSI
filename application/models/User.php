@@ -32,7 +32,7 @@ class User extends CI_Model {
 
     function get_all_users()
     {
-        $query = $this->db->get('users', 10);
+        $query = $this->db->get('Utilizadores', 10);
         return $query->result();
     }
 
@@ -65,7 +65,8 @@ class User extends CI_Model {
             'email'    => $input->post('email'),
             'password' => $input->post('password'),
             'foto'     => $input->post('photo'),
-            'telefone' => $input->post('phone_number')
+            'telefone' => $input->post('phone_number'),
+            'nome'     => $input->post('user_name')
         );
 
         return $data;
@@ -82,6 +83,11 @@ class User extends CI_Model {
                 'field'   => 'email',
                 'label'   => 'Email',
                 'rules'   => 'required|valid_email|min_length[8]'
+            ),
+            array(
+                'filed' => 'user_name',
+                'label' => 'User Name',
+                'rules' => 'required'
             )
         );
 
