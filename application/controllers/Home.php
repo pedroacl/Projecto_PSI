@@ -90,7 +90,7 @@ class Home extends MY_Controller {
 
 			// inserir grupos de actuação
 			$action_groups = $this->action_group->get_signup_form_data($this->input);
-			$this->action_group->insert_entries($action_groups);
+			$this->action_group->insert_entries($user_id, $action_groups);
 
 			// inserir areas de interesse
 			$areas_of_interest = $this->area_of_interest->get_signup_form_data($this->input);
@@ -118,12 +118,10 @@ class Home extends MY_Controller {
 				$institution = $this->institution->get_signup_form_data($this->input);
 				$user_id = $this->institution->insert_entry($institution, $user_id);
 			}
+
+			$this->session->set_flashdata('notice', 'Login realizado com sucesso.');
 		}
 	}
-
-	function validate_confirm_password($password, $confirm_password) {
-      return ($password == $confirm_password);
-   }
 
 	// GET /login
 	public function show_login()
@@ -133,7 +131,7 @@ class Home extends MY_Controller {
 			redirect('', 'refresh');
 		}
 
-		$this->session->set_flashdata('notice', 'Login feito com sucesso');
+		$this->session->set_flashdata('notice', 'Login realizado com sucesso.');
 		$this->title = "Login";
 		$this->login_tab = true;
 

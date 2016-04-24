@@ -8,11 +8,17 @@ class ActionGroup extends CI_Model {
       parent::__construct();
    }
 
-   function insert_entry($user_id, $action_group_id)
+   function insert_entries($user_id, $action_groups)
    {
-   	$this->load->model('User_ActionGroup', 'user_action_group');
+      foreach ($action_groups as $key => $value) 
+      {
+         $this->insert_entry($user_id, $key);
+      }
+   }
 
-      $this->db->insert('Grupo_Atuacao', $action_group);
+   function insert_entry($user_id, $action_group)
+   {
+      $this->db->insert('Grupos_Atuacao', $action_group);
       $action_group_id = $this->db->insert_id();
 
       $data = array(
@@ -20,6 +26,7 @@ class ActionGroup extends CI_Model {
 			'id_grupo_atuacao' => $action_group_id
       );
 
+      $this->load->model('User_ActionGroup', 'user_action_group');
       $this->user_action_group->insert_entry($user_id, $action_group_id);
    }
 

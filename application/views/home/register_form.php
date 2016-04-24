@@ -52,8 +52,8 @@
               <div class="form-group">
                 <label class="control-label">Género</label>
                 <div class="checkbox">
-                  <label class="radio-inline"><input type="radio" name="gender" value="m">Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="gender" value="f">Feminino</label>
+                  <label class="radio-inline"><input type="radio" name="gender" value="m" <?php echo set_radio('gender', 'm'); ?>>Masculino</label>
+                  <label class="radio-inline"><input type="radio" name="gender" value="f" <?php echo set_radio('gender', 'f'); ?>>Feminino</label>
                 </div>
               </div>
 
