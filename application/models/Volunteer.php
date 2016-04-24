@@ -60,11 +60,13 @@ class Volunteer extends CI_Model {
                 'label' => 'Telefone',
                 'rules' => 'required|min_length[9]'
             ),
+            /*
             array(
                 'field' => 'geographic_area_id',
                 'label' => 'Areas Geograficas',
                 'rules' => 'required'
             ),
+            */
             array(
                 'field' => 'birthdate',
                 'label' => 'Data de Nascimento',

@@ -3,37 +3,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ActionGroup extends CI_Model {
 
-    function __construct()
-    {
-        parent::__construct();
-    }
+   function __construct()
+   {
+      parent::__construct();
+   }
 
-    function insert_entry($geographic_area)
-    {
-        // verificar se já existe uma area geografica adicionada
-        $this->db->select('nome, descricao, distrito');
-        $this->db->from('Areas_Geograficas');
-        $this->db->where('nome', $geographic_area['freguesia']);
-        $this->db->where('descricao', $geographic_area['concelho']);
-        $this->db->where('distrito', $geographic_area['distrito']);
-        $query = $this->db->get();
+   function insert_entry($user_id, $action_group_id)
+   {
+   	$this->load->model('User_ActionGroup', 'user_action_group');
 
-        if ($query->num_rows() == 0) {
-            $this->db->insert('Areas_Geograficas', $geographic_area);
-            return $this->db->insert_id();
-        } else {
-            return $query->row()->id;
-        }
-    }
+      $this->db->insert('Grupo_Atuacao', $action_group);
+      $action_group_id = $this->db->insert_id();
 
-    function get_signup_form_data($input)
-    {
-        $data = array(
-            'freguesia' => $input->post('parish'),
-            'concelho'  => $input->post('county'),
-            'distrito'  => $input->post('district'),
-        );
+      $data = array(
+			'id_utilizador'    => $user_id,
+			'id_grupo_atuacao' => $action_group_id
+      );
 
-        return $data;
-    }
+      $this->user_action_group->insert_entry($user_id, $action_group_id);
+   }
+
+   function get_signup_form_data($input)
+   {
+      $data = array(
+         'nome'      => $input->post('action_groups'),
+         'descricao' => $input->post('action_groups')
+      );
+
+      return $data;
+   }
 }

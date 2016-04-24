@@ -135,7 +135,7 @@ class User extends CI_Model {
 
     function get_signup_user_data()
     {
-       $data = array(
+        $data = array(
            'academic_qualifications' => array(
                 '1' => 'Licenciatura',
                 '2' => 'Mestrado'
