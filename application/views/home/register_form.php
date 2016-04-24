@@ -6,7 +6,7 @@
         <div class="panel-body">
 
           <form action="" method="POST" enctype="multipart/form-data">
-            <h2>Registar Voluntário</h2>
+            <h2>Registar Utilizador</h2>
             <?php echo validation_errors(); ?>
 
             <div class="form-group">
@@ -37,7 +37,7 @@
             <div id="user_form_end"></div>
 
             <!-- Campos de um Voluntario -->
-            <div class="volunteer_fields">
+            <div class="volunteer_fields" style="display: none;">
 
               <div class="form-group">
                 <label class="control-label">Foto</label>
@@ -216,7 +216,7 @@
 
             <!-- Campos de um Instituiçao -->
 
-            <div class="institution_fields">
+            <div class="institution_fields" style="display: none;">
               <div class="form-group">
                 <label class="control-label">Nome</label>
                 <input class="form-control" name="name" placeholder="Nome Completo" required></input>
