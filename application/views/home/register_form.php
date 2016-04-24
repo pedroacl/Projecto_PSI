@@ -102,11 +102,9 @@
                 <label class="control-label">Concelho</label>
                 <select id="concelho_vol" class="form-control" name="county">
                   <option value="default">-</option>
-                  <option value="Lisboa">Lisboa</option>
-                  <option value="Leiria">Leiria</option>
-                  <?php foreach ($this->data->geographic_areas as $geographic_area) { ?>
-                    <option value="<?php echo $geographic_area->value ?>">
-                      <?php echo $geographic_area->value ?>
+                  <?php foreach ($this->geographic_area_counties as $key => $value) { ?>
+                    <option value="<?php echo $value ?>">
+                      <?php echo $value ?>
                     </option>
                   <?php } ?>
                 </select>
@@ -115,18 +113,24 @@
               <div class="form-group <?= has_error('distrito_vol') ?>">
                 <label class="control-label">Distrito</label>
                 <select id="distrito_vol" class="form-control" name="district">
-                  <option value="one">-</option>
-                  <option value="one">Lisboa</option>
-                  <option value="two">Leiria</option>
+                  <option value="default">-</option>
+                  <?php foreach ($this->geographic_area_districts as $key => $value) { ?>
+                    <option value="<?php echo $value ?>">
+                      <?php echo $value ?>
+                    </option>
+                  <?php } ?>
                 </select>
               </div>
 
               <div class="form-group <?= has_error('freguesia_vol') ?>">
                 <label class="control-label">Freguesia</label>
                 <select id="freguesia_vol" class="form-control" name="parish">
-                  <option value="one">-</option>
-                  <option value="one">Lisboa</option>
-                  <option value="two">Leiria</option>
+                  <option value="default">-</option>
+                  <?php foreach ($this->geographic_area_parishes as $key => $value) { ?>
+                    <option value="<?php echo $value ?>">
+                      <?php echo $value ?>
+                    </option>
+                  <?php } ?>
                 </select>
               </div>
 

@@ -59,6 +59,27 @@ class Home extends MY_Controller {
 			$form_rules = $this->volunteer->get_form_validation_rules();
 			$volunteer  = $this->volunteer->get_signup_form_data($this->input);
 
+			$this->geographic_area_counties = array(
+				'1' => 'Lisboa',
+				'2' => 'Leiria'
+			);
+
+
+			$this->geographic_area_districts = array(
+				'1' => 'Lisboa',
+				'2' => 'Leiria'
+			);
+
+
+			$this->geographic_area_parishes = array(
+				'1' => 'Lisboa',
+				'2' => 'Leiria'
+			);
+
+			$this->academic_qualifications = array(
+				'1' => 'Licenciatura'
+			);
+
 			$this->user_type_selected = array(
 				'default'     => '',
 				'volunteer' => 'selected',
