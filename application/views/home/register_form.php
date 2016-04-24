@@ -102,7 +102,7 @@
                 <label class="control-label">Concelho</label>
                 <select id="concelho_vol" class="form-control" name="county">
                   <option value="default">-</option>
-                  <?php foreach ($this->geographic_area_counties as $key => $value) { ?>
+                  <?php foreach ($this->select_boxes_data['geographic_area_counties'] as $key => $value) { ?>
                     <option value="<?php echo $value ?>">
                       <?php echo $value ?>
                     </option>
@@ -114,7 +114,7 @@
                 <label class="control-label">Distrito</label>
                 <select id="distrito_vol" class="form-control" name="district">
                   <option value="default">-</option>
-                  <?php foreach ($this->geographic_area_districts as $key => $value) { ?>
+                  <?php foreach ($this->select_boxes_data['geographic_area_districts'] as $key => $value) { ?>
                     <option value="<?php echo $value ?>">
                       <?php echo $value ?>
                     </option>
@@ -126,7 +126,7 @@
                 <label class="control-label">Freguesia</label>
                 <select id="freguesia_vol" class="form-control" name="parish">
                   <option value="default">-</option>
-                  <?php foreach ($this->geographic_area_parishes as $key => $value) { ?>
+                  <?php foreach ($this->select_boxes_data['geographic_area_parishes'] as $key => $value) { ?>
                     <option value="<?php echo $value ?>">
                       <?php echo $value ?>
                     </option>
