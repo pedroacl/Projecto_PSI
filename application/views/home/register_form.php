@@ -171,20 +171,13 @@
               <br>
               <h3>Disponibilidade</h3>
 
-              <table class="table">
+              <table class="table" id="disponibilidade_table" style="display: none;">
                 <tr>
                   <th>Data inicio</th>
                   <th>Data fim</th>
                   <th>Periodicidade</th>
                   <th>Repetir até</th>
                   <th>Acções</th>
-                </tr>
-                <tr>
-                  <td>Data inicio</td>
-                  <td>Data fim</td>
-                  <td>Periodicidade</td>
-                  <td>Repetir até</td>
-                  <td><a href="#" class="btn btn-danger btn-sm">Eliminar</a></td>
                 </tr>
               </table>
 
@@ -193,25 +186,25 @@
                 <div class="row relative">
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label>Data de Inicio</label>
-                      <input type="text" class="form-control">
+                      <label class="control-label">Data de Inicio</label>
+                      <input type="text" class="form-control" id="data_inicio_disponibilidade">
                     </div>
                     <div class="form-group">
-                      <label>Periodicidade</label>
-                      <input type="text" class="form-control" name="periodicidade">
+                      <label class="control-label">Periodicidade</label>
+                      <input type="text" class="form-control" id="periodicidade">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label>Data de Inicio</label>
-                      <input type="text" class="form-control">
+                      <label class="control-label">Data de Fim</label>
+                      <input type="text" class="form-control" id="data_fim_disponibilidade">
                     </div>
                     <div class="form-group">
-                      <label>Repetir até</label>
-                      <input type="text" class="form-control" name="repetir_ate">
+                      <label class="control-label">Repetir até</label>
+                      <input type="text" class="form-control" id="repetir_ate_disponibilidade">
                     </div>
                   </div>
-                  <a href="#" class="btn btn-primary bottom">Adicionar disponibilidade</a>
+                  <a id="add_new_disp" class="btn btn-primary bottom">Adicionar disponibilidade</a>
                 </div>
               </div>
             </div>
