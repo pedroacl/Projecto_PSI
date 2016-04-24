@@ -72,6 +72,11 @@ class Volunteer extends CI_Model {
                 'label' => 'Data de Nascimento',
                 'rules' => 'required'
             ),
+            array(
+                'field' => 'academic_qualifications',
+                'label' => 'Habilitacoes Academicas',
+                'rules' => 'required'
+            ),
         );
 
         return array_merge($rules, $this->user->get_form_validation_rules());
