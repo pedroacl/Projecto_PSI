@@ -76,7 +76,7 @@
 
               <div class="form-group">
                 <label class="control-label">Grupo de Atuação</label>
-                <select multiple class="form-control" name="grupos_atuacao">
+                <select multiple class="form-control" name="action_groups">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -87,7 +87,7 @@
 
               <div class="form-group">
                 <label class="control-label">Áreas de Interesse</label>
-                <select multiple class="form-control" name="areas_interesse">
+                <select multiple class="form-control" name="areas_of_interest">
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -225,8 +225,8 @@
               <div class="form-group">
                 <label class="control-label">Género</label>
                 <div class="checkbox">
-                  <label class="radio-inline"><input type="radio" name="gender" value="m">Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="gender" value="f">Feminino</label>
+                  <label class="radio-inline"><input type="radio" name="gender" value='m' <?php echo set_radio(''); ?>>Masculino</label>
+                  <label class="radio-inline"><input type="radio" name="gender" value='f' <?php echo set_radio(''); ?>>>Feminino</label>
                 </div>
               </div>
 
