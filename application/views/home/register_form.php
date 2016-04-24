@@ -7,7 +7,6 @@
 
           <form action="" method="POST" enctype="multipart/form-data">
             <h2>Registar Utilizador</h2>
-            <?php echo validation_errors(); ?>
 
             <div class="form-group">
               <label for="inputEmail" class="control-label">Email</label>
@@ -44,12 +43,12 @@
                 <input type="file">
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('user_name') ?>" >
                 <label class="control-label">Nome</label>
                 <input name="user_name" value="<?php echo set_value('user_name'); ?>" class="form-control" placeholder="Nome Completo"></input>
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('gender') ?>">
                 <label class="control-label">Género</label>
                 <div class="checkbox">
                   <label class="radio-inline"><input type="radio" name="gender" value="m">Masculino</label>
@@ -57,7 +56,7 @@
                 </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('birthdate') ?>">
                 <label class="control-label">Data de Nascimento</label>
                 <div class='input-group date' data-provide="datepicker" class='datepicker'>
                   <input name="birthdate" value="<?php echo set_value('birthdate'); ?>" type='text' class="form-control" />
@@ -68,13 +67,13 @@
               </div>
 
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('phone_number') ?>">
                 <label class="control-label">Telefone</label>
                 <input name="phone_number" value="<?php echo set_value('phone_number'); ?>" class="form-control" placeholder="Telefone"></input>
               </div>
 
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('action_groups') ?>">
                 <label class="control-label">Grupo de Atuação</label>
                 <select multiple class="form-control" name="action_groups">
                   <option>1</option>
@@ -85,7 +84,7 @@
                 </select>
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('areas_of_interest') ?>">
                 <label class="control-label">Áreas de Interesse</label>
                 <select multiple class="form-control" name="areas_of_interest">
                   <option>1</option>
@@ -99,7 +98,7 @@
               <br>
               <h3>Área Geográfica</h3>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('conselho_vol') ?>">
                 <label class="control-label">Concelho</label>
                 <select id="concelho_vol" class="form-control" name="concelho_vol">
                   <option value="one">-</option>
@@ -113,7 +112,7 @@
                 </select>
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('distrito_vol') ?>">
                 <label class="control-label">Distrito</label>
                 <select id="distrito_vol" class="form-control" name="distrito_vol">
                   <option value="one">-</option>
@@ -122,7 +121,7 @@
                 </select>
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('freguesia_vol') ?>">
                 <label class="control-label">Freguesia</label>
                 <select id="freguesia_vol" class="form-control" name="freguesia_vol">
                   <option value="one">-</option>
@@ -133,7 +132,7 @@
 
               <br>
               <h3>Habilitações Académicas</h3>
-              <div class="form-group">
+              <div class="form-group <?= has_error('tipo_habilitacoes') ?>">
                 <label class="control-label">Tipo</label>
                 <select class="form-control" name="tipo_habilitacoes">
                     <option value="one">-</option>
@@ -145,17 +144,17 @@
                 </select>
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('curso') ?>">
                 <label class="control-label">Curso</label>
                 <input type="text" class="form-control" name="curso">
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('instituto') ?>">
                 <label class="control-label">Instituto</label>
                 <input type="text" class="form-control" name="instituto">
               </div>
 
-              <div class="form-group">
+              <div class="form-group <?= has_error('data_conclusao_habilitacoes') ?>">
                 <label class="control-label">Data de Conclusão</label>
                 <div class='input-group date' data-provide="datepicker" class='datepicker'>
                   <input type='text' name='data_conclusao_habilitacoes' class="form-control" />
