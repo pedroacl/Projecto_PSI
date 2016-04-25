@@ -164,7 +164,7 @@
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
-                  </div>
+                </div>
               </div>
 
               <br>
@@ -186,21 +186,40 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label">Data de Inicio</label>
-                      <input type="text" class="form-control" id="data_inicio_disponibilidade">
+                      <div class='input-group date' data-provide="datepicker" class='datepicker'>
+                        <input type="text" class="form-control" id="data_inicio_disponibilidade">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="control-label">Periodicidade</label>
-                      <input type="text" class="form-control" id="periodicidade">
+                      <select id="periodicidade" class="form-control">
+                        <option value="Semanalmente">Semanalmente</option>
+                        <option value="Mensalmente">Mensalmente</option>
+                        <option value="Anualmente">Anualmente</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label">Data de Fim</label>
-                      <input type="text" class="form-control" id="data_fim_disponibilidade">
+                      <div class='input-group date' data-provide="datepicker" class='datepicker'>
+                        <input type="text" class="form-control" id="data_fim_disponibilidade">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="control-label">Repetir até</label>
-                      <input type="text" class="form-control" id="repetir_ate_disponibilidade">
+                      <div class='input-group date' data-provide="datepicker" class='datepicker'>
+                        <input type="text" class="form-control" id="repetir_ate_disponibilidade">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <a id="add_new_disp" class="btn btn-primary bottom">Adicionar disponibilidade</a>

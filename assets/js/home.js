@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	$number_of_disp = 0;
+	$counter_of_disp = 0;
 
 	$volunteer_div = $('.volunteer_fields');
 	$institution_div = $('.institution_fields');
@@ -38,9 +39,14 @@ $(document).ready(function() {
 
 		if ($data_inicio.val() !== '' && $periodicidade.val() !== '' && $data_fim.val() !== '' && $repetir_ate.val() !== '') {
 			
-			// Construct HTML and append
-			var disp_row = "<tr><td>" +$data_inicio.val() + "</td><td>" + $data_fim.val() + "</td><td>" + $periodicidade.val() + "</td><td>" + $repetir_ate.val() + "</td><td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td></tr>";
+			// Construct table HTML
+			var disp_row = "<tr><td>" + $data_inicio.val() + "</td><td>" + $data_fim.val() + "</td><td>" + $periodicidade.val() + "</td><td>" + $repetir_ate.val() + "</td><td><a class='btn btn-danger btn-sm eliminar' data='" + $counter_of_disp + "'>Eliminar</a>";
+
+			// Construct hidden form data and append everything
+			var hidden_form_data = "<input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val() + "'><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_fim]' value='" + $data_fim.val() + "'><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][periodicidade]' value='" + $periodicidade.val() + "'><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][repetir_ate]' value='" + $repetir_ate.val() + "'></td></tr>";
+
 			$('#disponibilidade_table').append(disp_row);
+			$('#disponibilidade_table').append(hidden_form_data);
 
 			// Clear form
 			$data_inicio.val('');
@@ -54,6 +60,8 @@ $(document).ready(function() {
 			$repetir_ate.parent().removeClass('has-error');
 
 			$number_of_disp++;
+			$counter_of_disp++;
+
 			if ($number_of_disp > 0) {
 				$('#disponibilidade_table').show('fast');
 			}
@@ -82,6 +90,7 @@ $(document).ready(function() {
 	// Add event listener to eliminar of disponibilidades
 	$('#disponibilidade_table').on('click', 'tr td a.eliminar', function() {
 		$(this).parent().parent().remove();
+		$("input[value='disponibilidades[" + $(this).attr('data') + "]']").remove();
 		$number_of_disp--;
 		if ($number_of_disp <= 0) {
 			$('#disponibilidade_table').hide('fast');

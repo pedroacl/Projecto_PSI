@@ -92,6 +92,7 @@ class Home extends MY_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->session->set_flashdata('danger', validation_errors());
+			// $this->session->set_flashdata('notice', print_r($_POST['disponibilidades']));
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/register_form');
 			$this->load->view('templates/main_template/footer');
