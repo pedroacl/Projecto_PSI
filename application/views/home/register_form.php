@@ -27,9 +27,9 @@
               <label class="control-label">Tipo de Utilizador</label>
               <select name="user_type" id="user_type_select" class="form-control"
                 value="<?php echo set_value('user_type'); ?>">
-                <option id="default_user_select" value="none" <?php echo $this->user_type_selected['default']; ?>>-</option>
-                <option id="volunteer_select" value="volunteer" <?php echo $this->user_type_selected['volunteer']; ?>>Voluntário</option>
-                <option id="institution_select" value="institution" <?php echo $this->user_type_selected['institution']; ?>>Instituição</option>
+                <option id="default_user_select" value="none" <?php echo set_select('user_type', 'none'); ?>>-</option>
+                <option id="volunteer_select" value="volunteer" <?php echo set_select('user_type', 'volunteer') ?>>Voluntário</option>
+                <option id="institution_select" value="institution" <?php echo set_select('user_type', 'institution') ?>>Instituição</option>
               </select>
             </div>
 
@@ -138,11 +138,10 @@
               <h3>Habilitações Académicas</h3>
               <div class="form-group <?= has_error('tipo_habilitacoes') ?>">
                 <label class="control-label">Tipo</label>
-                <select class="form-control" name="academic_qualifications">
-                    <option value="one">-</option>
-                    <?php foreach ($this->data['academic_qualifications'] as $key => $value) { ?>
-                      <option value="<?php echo $key ?>">
-                        <?php echo $value ?>
+                <select class="form-control" name="academic_qualification_type">
+                    <?php foreach ($this->academic_qualifications_types->result() as $row) { ?>
+                      <option value="<?php echo $row->id ?>">
+                        <?php echo $row->nome ?>
                       </option>
                     <?php } ?>
                 </select>

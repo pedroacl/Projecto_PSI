@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS PSI;
 
 USE PSI;
 
-CREATE TABLE Utilizadores (
+CREATE TABLE IF NOT EXISTS Utilizadores (
    id                  	INT 			   AUTO_INCREMENT,
    salt                 INT            NOT NULL,
    email               	VARCHAR(100) 	NOT NULL,
@@ -22,19 +22,22 @@ ADD CONSTRAINT unique_email_utilizador UNIQUE (email);
 ALTER TABLE Utilizadores
 ADD CONSTRAINT unique_nome UNIQUE (nome);
 
-CREATE TABLE Utilizadores_Grupos_Atuacao (
+
+CREATE TABLE IF NOT EXISTS Utilizadores_Grupos_Atuacao (
    id_utilizador        INT,
    id_grupo_atuacao     INT,
    PRIMARY KEY (id_utilizador, id_grupo_atuacao)
 );
 
-CREATE TABLE Utilizadores_Areas_Interesse (
+
+CREATE TABLE IF NOT EXISTS Utilizadores_Areas_Interesse (
    id_utilizador        INT,
    id_area_interesse    INT,
    PRIMARY KEY (id_utilizador, id_area_interesse)
 );
 
-CREATE TABLE Areas_Geograficas (
+
+CREATE TABLE IF NOT EXISTS Areas_Geograficas (
    id                  	INT 			AUTO_INCREMENT,
    freguesia           	VARCHAR(50) NOT NULL,
    concelho            	VARCHAR(50) NOT NULL,
@@ -43,7 +46,7 @@ CREATE TABLE Areas_Geograficas (
 );
 
 
-CREATE TABLE Instituicoes (
+CREATE TABLE IF NOT EXISTS Instituicoes (
    id                   INT 			 AUTO_INCREMENT,
    id_area_geografica   INT			 NOT NULL,
    id_utilizador        INT          NOT NULL,
@@ -56,7 +59,7 @@ CREATE TABLE Instituicoes (
 );
 
 
-CREATE TABLE Areas_Interesse (
+CREATE TABLE IF NOT EXISTS Areas_Interesse (
    id					    INT AUTO_INCREMENT,
    nome					 VARCHAR(20),
    PRIMARY KEY (id)
@@ -66,7 +69,7 @@ ALTER TABLE Areas_Interesse
 ADD CONSTRAINT unique_nome_area_interesse UNIQUE (nome);
 
 
-CREATE TABLE Disponibilidades (
+CREATE TABLE IF NOT EXISTS Disponibilidades (
    id                  	INT 	NOT NULL AUTO_INCREMENT,
    data_inicio         	DATE 	NOT NULL,
    data_fim           	DATE 	NOT NULL,
@@ -74,7 +77,7 @@ CREATE TABLE Disponibilidades (
 );
 
 
-CREATE TABLE Periodicidades (
+CREATE TABLE IF NOT EXISTS Periodicidades (
    id                  	INT 		AUTO_INCREMENT,
    id_disponibilidade  	INT 		NOT NULL,
    tipo                	BIT(1) 	NOT NULL,
@@ -84,7 +87,7 @@ CREATE TABLE Periodicidades (
 );
 
 
-CREATE TABLE Grupos_Atuacao (
+CREATE TABLE IF NOT EXISTS Grupos_Atuacao (
    id              	INT AUTO_INCREMENT,
    nome            	VARCHAR(50),
    descricao			TEXT,
@@ -95,17 +98,28 @@ ALTER TABLE Grupos_Atuacao
 ADD CONSTRAINT unique_nome_grupo_atuacao UNIQUE (nome);
 
 
-CREATE TABLE Habilitacoes_Academicas (
+CREATE TABLE IF NOT EXISTS Habilitacoes_Academicas (
    id                  	INT 			AUTO_INCREMENT,
-   tipo                	VARCHAR(50) NOT NULL,
-   data_conclusao      	DATE			DEFAULT NULL,
-   curso               	VARCHAR(50) DEFAULT NULL,
-   instituto_ensino    	VARCHAR(50) DEFAULT NULL,
+   id_tipo             	VARCHAR(50) NOT NULL,
+   data_conclusao      	DATE			NOT NULL,
+   curso               	VARCHAR(50) NOT NULL,
+   instituto_ensino    	VARCHAR(50) NOT NULL,
    PRIMARY KEY (id)
 );
 
 
-CREATE TABLE Voluntarios (
+CREATE TABLE IF NOT EXISTS Tipos_Habilitacoes_Academicas (
+   id          INT               AUTO_INCREMENT,
+   nome        VARCHAR(50)       NOT NULL,
+   descricao   VARCHAR(200),
+   PRIMARY KEY (id)
+);
+
+ALTER TABLE Tipos_Habilitacoes_Academicas
+ADD CONSTRAINT unique_nome_tipo_habilitacao_academica UNIQUE (nome);
+
+
+CREATE TABLE IF NOT EXISTS Voluntarios (
 	id                          INT 			   AUTO_INCREMENT,
 	id_area_geografica          INT 			   NOT NULL,
 	id_habilitacoes_academicas  INT 			   NOT NULL,
@@ -119,7 +133,7 @@ CREATE TABLE Voluntarios (
 );
 
 
-CREATE TABLE Oportunidades_Voluntariado (
+CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
    id                  INT 				AUTO_INCREMENT,
    id_area_interesse   INT 				NOT NULL,
    id_grupo_atuacao    INT 				NOT NULL,
@@ -143,7 +157,7 @@ ALTER TABLE Oportunidades_Voluntariado
 ADD CONSTRAINT unique_nome_oportunidade UNIQUE (nome);
 
 
-CREATE TABLE Inscreve_Se (
+CREATE TABLE IF NOT EXISTS Inscreve_Se (
    id_voluntario                   	INT 		NOT NULL AUTO_INCREMENT,
    id_oportunidade_voluntariado    	INT 		NOT NULL,
    data_inscricao                  	DATETIME NOT NULL,

@@ -29,6 +29,9 @@ class Home extends MY_Controller {
 		$this->load->library('session');
 		$this->user_type_selected = null;
 
+		$this->load->model('AcademicQualificationType', 'academic_qualification_type');
+		$this->academic_qualifications_types = $this->academic_qualification_type->get_entries();
+
 		$this->title = "Registo de Utilizador";
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/register_form');
@@ -53,18 +56,18 @@ class Home extends MY_Controller {
 		// obter regras de validacao do formulario
 		$user_type  = $this->input->post('user_type');
 		$form_rules = null;
-		$this->user_type_selected = null;
 
 		if ($user_type == 'volunteer') {
 			$form_rules = $this->volunteer->get_form_validation_rules();
 			$volunteer  = $this->volunteer->get_signup_form_data($this->input);
 
+			// prep form values
 			$this->select_boxes_data = array(
 				'geographic_area_districts' => array(
 					'1' => 'Lisboa',
 					'2' => 'Leiria'
 				),
-				'geographic_area_counties' => array(
+				'geographic_area_' => array(
 					'1' => 'Lisboa',
 					'2' => 'Leiria'
 				),
@@ -74,30 +77,13 @@ class Home extends MY_Controller {
 				)
 			);
 
-			$this->user_type_selected = array(
-				'default'     => '',
-				'volunteer' => 'selected',
-				'institution' => ''
-			);
+			$this->load->model('AcademicQualificationType', 'academic_qualification_type');
+			$this->academic_qualifications_types = $this->academic_qualification_type->get_entries();
 		}
 		else if($user_type == 'institution')
 		{
 			$form_rules  = $this->institution->get_form_validation_rules();
 			$institution = $this->institution->get_signup_form_data($this->input);
-
-			$this->user_type_selected = array(
-				'default'     => '',
-				'volunteer'   => '',
-				'institution' => 'selected'
-			);
-		}
-		else
-		{
-			$this->user_type_selected = array(
-				'default'     => 'selected',
-				'volunteer'   => '',
-				'institution' => ''
-			);
 		}
 
 		$this->form_validation->set_rules($form_rules);
@@ -128,11 +114,11 @@ class Home extends MY_Controller {
 
 			// inserir area geografica
 			$geographic_area = $this->geographic_area->get_signup_form_data($this->input);
-			$this->geographic_area->insert_entry($geographic_area);
+			$geographic_area_id = $this->geographic_area->insert_entry($geographic_area);
 
 			// inserir habilitacoes academicas
 			$academic_qualifications = $this->academic_qualification->get_signup_form_data($this->input);
-			$this->academic_qualification->insert_entry($academic_qualifications);
+			$academic_qualifications_id = $this->academic_qualification->insert_entry($academic_qualifications);
 
 			$user_type = $this->input->post('user_type');
 
@@ -140,7 +126,11 @@ class Home extends MY_Controller {
 			if ($user_type == 'volunteer')
 			{
 				$volunteer = $this->volunteer->get_signup_form_data($this->input);
-				$user_id = $this->volunteer->insert_entry($volunteer, $user_id);
+				$volunteer['id_utilizador']              = $user_id;
+				$volunteer['id_area_geografica']         = $geographic_area_id;
+				$volunteer['id_habilitacoes_academicas'] = $academic_qualifications_id;
+
+				$user_id = $this->volunteer->insert_entry($volunteer);
 			}
 			// inserir instituição
 			else
@@ -150,6 +140,9 @@ class Home extends MY_Controller {
 			}
 
 			$this->session->set_flashdata('notice', 'Login realizado com sucesso.');
+			$this->load->view('templates/main_template/header');
+			$this->load->view('home/index');
+			$this->load->view('templates/main_template/footer');
 		}
 	}
 
