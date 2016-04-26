@@ -80,7 +80,7 @@ class Home extends MY_Controller {
 			// prep form values
 			$this->select_boxes_data = $this->area_geografica->get_select_boxes_data();
 		}
-		else // if($tipo_utilizador == 'instituicao')
+		else
 		{
 			$form_rules  = $this->instituicao->get_form_validation_rules();
 			$instituicao = $this->instituicao->get_signup_form_data($this->input);
@@ -91,7 +91,7 @@ class Home extends MY_Controller {
 		// formulario invalido
 		if ($this->form_validation->run() == FALSE)
 		{
-			// voltar a mostrar formulario
+			// voltar a mostrar formulario com erros assinalados
 			$this->session->set_flashdata('danger', validation_errors());
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/register_form');
@@ -99,42 +99,41 @@ class Home extends MY_Controller {
 		}
 		else
 		{
-			// inserir utilizador
+			// Inserts
+			// utilizador
 			$id_utilizador = $this->utilizador->insert_entry($this->input);
 
-			// inserir grupos de actuação
+			// grupo atuacao
 			$this->utilizador_grupo_atuacao->insert_entries($id_utilizador, $this->input);
 
-			// inserir areas de interesse
+			// area de interesse
 			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $this->input);
 
-			// inserir area geografica
-			$area_geografica_id = $this->area_geografica->insert_entry($input);
+			// area geografica
+			$id_area_geografica = $this->area_geografica->insert_entry($input);
 
-			// inserir habilitacoes academicas
-			$habilitacao_academicas_id = $this->habilitacao_academica->insert_entry($this->input);
+			// habilitacoes academicas
+			$id_habilitacoes_academicas = $this->habilitacao_academica->insert_entry($this->input);
 
-			// inserir disponibilidades
+			// disponibilidades
 			$this->disponibilidade->insert_entry($this->input);
+
 			print_r($this->input->post());
 
-			// inserir voluntario
+			// voluntario
 			if ($this->input->post('tipo_utilizador') == 'voluntario')
 			{
-				$voluntario = $this->voluntario->get_signup_form_data($this->input);
-				$voluntario['id_utilizador']              = $id_utilizador;
-				$voluntario['id_area_geografica']         = $area_geografica_id;
-				$voluntario['id_habilitacoes_academicas'] = $habilitacao_academicas_id;
-
-				$id_utilizador = $this->voluntario->insert_entry($voluntario);
+				$id_voluntario = $this->voluntario->insert_entry($input, $id_utilizador,
+					$id_area_geografica, $id_habilitacoes_academicas);
 			}
-			// inserir instituição
+			// instituição
 			else
 			{
-				$instituicao = $this->instituicao->get_signup_form_data($this->input);
-				$id_utilizador = $this->instituicao->insert_entry($instituicao, $id_utilizador);
+				$instituicao    = $this->instituicao->get_signup_form_data($this->input);
+				$id_instituicao = $this->instituicao->insert_entry($instituicao, $id_utilizador);
 			}
 
+			// success page
 			$this->session->set_flashdata('notice', 'Utilizador registado com sucesso.');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/index');

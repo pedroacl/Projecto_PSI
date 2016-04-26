@@ -1,12 +1,12 @@
 $(document).ready(function() {
 
-	$number_of_disp = 0;
+	$number_of_disp  = 0;
 	$counter_of_disp = 0;
 
-	$voluntario_div = $('.voluntario_fields');
+	$voluntario_div  = $('.voluntario_fields');
 	$instituicao_div = $('.instituicao_fields');
 
-	$voluntario_fields = $voluntario_div.remove();
+	$voluntario_fields  = $voluntario_div.remove();
 	$instituicao_fileds = $instituicao_div.remove();
 
 	$header_title = $('h2');
@@ -28,10 +28,10 @@ $(document).ready(function() {
 		console.log("Here");
 
 		// Get values
-		$data_inicio = $('#data_inicio_disponibilidade');
+		$data_inicio   = $('#data_inicio_disponibilidade');
 		$periodicidade = $('#periodicidade');
-		$data_fim = $('#data_fim_disponibilidade');
-		$repetir_ate = $('#repetir_ate_disponibilidade');
+		$data_fim      = $('#data_fim_disponibilidade');
+		$repetir_ate   = $('#repetir_ate_disponibilidade');
 
 		// Remove error classes, if they exist
 		$data_inicio.parent().removeClass('has-error');
