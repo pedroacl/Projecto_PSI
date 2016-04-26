@@ -147,12 +147,6 @@ class Utilizador extends CI_Model {
 
         $this->load->library('upload', $config);
 
-        // criar directorio de uploads
-        if (!is_dir('uploads/photos'))
-        {
-            mkdir('./uploads', 0777, true);
-        }
-
         // criar directorio do utilizador
         if (!is_dir('uploads/photos/' . $id_utilizador))
         {
