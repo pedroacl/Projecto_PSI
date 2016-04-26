@@ -17,6 +17,10 @@ class Utilizador extends CI_Model {
         if ($query->num_rows() > 0) {
             $utilizador = $query->row();
 
+            if (password_verify($password, $utilizador->password)) {
+                return $utilizador->id;
+            }
+/*
             if (isset($utilizador)) {
                 $encrypted_password = hash("sha256", $utilizador->salt . $password);
 
@@ -24,6 +28,7 @@ class Utilizador extends CI_Model {
                     return $utilizador->id;
                 }
             }
+            */
         }
 
         return null;
@@ -48,7 +53,7 @@ class Utilizador extends CI_Model {
 
     function insert_entry($input)
     {
-        $utlizador = get_signup_form_data($input);
+        $utilizador = $this->get_signup_form_data($input);
         $this->db->insert('Utilizadores', $utilizador);
 
         return $this->db->insert_id();
@@ -62,9 +67,13 @@ class Utilizador extends CI_Model {
 
     function get_signup_form_data($input)
     {
+        // $password = hash("sha256", $utilizador->salt . $password);
+        $password = $input->post('password');
+        $hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
+
         $data = array(
             'email'    => $input->post('email'),
-            'password' => $input->post('password'),
+            'password' => $hashAndSalt,
             'foto'     => $input->post('foto'),
             'telefone' => $input->post('telefone'),
             'nome'     => $input->post('nome_utilizador')

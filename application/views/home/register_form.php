@@ -10,7 +10,7 @@
 
             <div class="form-group <?= has_error('email') ?>">
               <label for="inputEmail" class="control-label">Email</label>
-              <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value="<?php echo set_value('email'); ?>">
+              <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus value="<?php echo set_value('email'); ?>">
             </div>
 
             <div class="form-group <?= has_error('password') ?>">

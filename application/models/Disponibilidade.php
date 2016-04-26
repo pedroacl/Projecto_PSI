@@ -10,14 +10,35 @@ class Disponibilidade extends CI_Model {
 
     function insert_entry($input)
     {
-        $disponibilidades = get_signup_form_data($input);
-        $this->db->insert_batch('Disponibilidades', $disponibilidades);
+        $this->load->model('Periodicidade', 'periodicidade');
+
+        $disponibilidades = $this->input->post('disponibilidades');
+        print_r($disponibilidades[0]);
+
+        foreach ($disponibilidades as $index => $disponibilidade) {
+            $data = $this->get_signup_form_data($disponibilidade);
+
+            // inserir disponibilidade
+            $this->db->insert('Disponibilidades', $data);
+            $id_disponibilidade = $this->db->insert_id();
+
+            // inserir periodicidade associada ah disponibilidade
+            $periodicidades = $this->periodicidade->insert_entry($disponibilidade, $id_disponibilidade);
+        }
 
         return $this->db->insert_id();
     }
 
     function get_signup_form_data($input)
     {
-        return $this->input->post('disponibilidades');
+        $data_inicio = date("Y/m/d", strtotime($input['data_inicio']));
+        $data_fim    = date("Y/m/d", strtotime($input['data_fim']));
+
+        $data = array(
+            'data_inicio' => $data_inicio,
+            'data_fim'    => $data_fim,
+        );
+
+        return $data;
     }
 }

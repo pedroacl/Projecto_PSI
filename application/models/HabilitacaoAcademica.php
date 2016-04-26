@@ -10,7 +10,7 @@ class HabilitacaoAcademica extends CI_Model {
 
     function insert_entry($input)
     {
-        $habilitacoes_academicas = get_signup_form_data($input);
+        $habilitacoes_academicas = $this->get_signup_form_data($input);
         // verificar se já existe uma area geografica adicionada
         $this->db->select('hab.id, data_conclusao, curso, instituto_ensino');
         $this->db->from('Habilitacoes_Academicas as hab');
@@ -31,7 +31,7 @@ class HabilitacaoAcademica extends CI_Model {
 
     function get_signup_form_data($input)
     {
-        $end_date = $newDate = date("Y/m/d", strtotime($input->post('data_conclusao_curso')));
+        $end_date = date("Y/m/d", strtotime($input->post('data_conclusao_curso')));
 
         $data = array(
             'id_tipo'          => $input->post('tipo_habilitacao_academica'),
