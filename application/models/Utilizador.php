@@ -50,6 +50,7 @@ class Utilizador extends CI_Model {
     {
         $utlizador = get_signup_form_data($input);
         $this->db->insert('Utilizadores', $utilizador);
+
         return $this->db->insert_id();
     }
 

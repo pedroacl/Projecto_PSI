@@ -84,7 +84,11 @@ class Voluntario extends CI_Model {
                 'label' => 'Data de Conclusão',
                 'rules' => 'required'
             ),
-
+            array(
+                'field' => 'disponibilidades[]',
+                'label' => 'Disponibilidade',
+                'rules' => 'required'
+            )
         );
 
         return array_merge($rules, $this->utilizador->get_form_validation_rules());
