@@ -135,20 +135,17 @@ class Home extends MY_Controller {
 				$id_utilizador = $this->instituicao->insert_entry($instituicao, $id_utilizador);
 			}
 
-
-			$this->session->set_flashdata('notice', 'Login realizado com sucesso.');
-/*			$this->load->view('templates/main_template/header');
+			$this->session->set_flashdata('notice', 'Utilizador registado com sucesso.');
+			$this->load->view('templates/main_template/header');
 			$this->load->view('home/index');
 			$this->load->view('templates/main_template/footer');
-*/
-
 		}
 	}
 
 	// GET /login
 	public function show_login()
 	{
-		if ($this->session->utilizadordata("id") !== null)
+		if ($this->session->userdata("id") !== null)
 		{
 			redirect('', 'refresh');
 		}
@@ -170,13 +167,13 @@ class Home extends MY_Controller {
 		$this->load->model('Utilizador');
 
 		// obter regras de validacao do formulario
-		$tipo_utilizador = $this->input->post('tipo_utilizador');
-		$form_rules = $this->Utilizador->get_login_form_validation_rules($tipo_utilizador);
+		$form_rules = $this->Utilizador->get_login_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
 
 		// validar formulario
 		if ($this->form_validation->run() == FALSE)
 		{
+			$this->session->set_flashdata('danger', validation_errors());
 			$this->show_login();
 		}
 		else
@@ -186,7 +183,7 @@ class Home extends MY_Controller {
 			$password = $this->input->post('password');
 
 			// authenticar utilizador
-			if (($id = $this->Utilizador->authenticate_utilizador($email, $password)) !== -1) {
+			if (($id = $this->Utilizador->authenticate_utilizador($email, $password)) !== null) {
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
 
 				$cookie = array(
@@ -194,11 +191,11 @@ class Home extends MY_Controller {
 					'email' => $email
 				);
 
-				$this->session->set_utilizadordata($cookie);
-	      	redirect('', 'refresh');
+				$this->session->set_userdata($cookie);
+		      redirect('', 'refresh');
 
 			} else {
-				$this->session->set_flashdata('danger', 'Combinação de Utilizadorname/Password errada');
+				$this->session->set_flashdata('danger', 'Combinação de Email/Password errada');
 				redirect('login', 'refresh');
 			}
 		}
@@ -207,8 +204,8 @@ class Home extends MY_Controller {
 	// GET /logout
 	public function logout()
 	{
-		$this->session->unset_utilizadordata('id');
-		$this->session->unset_utilizadordata('email');
+		$this->session->unset_userdata('id');
+		$this->session->unset_userdata('email');
 		$this->session->sess_destroy();
 
 		redirect('', 'refresh');

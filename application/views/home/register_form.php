@@ -5,7 +5,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
 
-          <form action="" method="POST" enctype="multipart/form-data">
+          <form action="" method="POST" enctype="multipart/form-data" id="form">
             <h2>Registar Utilizador</h2>
 
             <div class="form-group <?= has_error('email') ?>">
@@ -99,7 +99,7 @@
 
               <div class="form-group <?= has_error('concelho') ?>">
                 <label class="control-label">Concelho</label>
-                <select id="concelho_vol" class="form-control" name="concelho">
+                <select id="concelho" class="form-control" name="concelho">
                   <option value="default">-</option>
                   <?php foreach ($this->select_boxes_data['concelho'] as $key => $value) { ?>
                     <option value="<?php echo $value ?>">
@@ -109,9 +109,9 @@
                 </select>
               </div>
 
-              <div class="form-group <?= has_error('distrito_vol') ?>">
+              <div class="form-group <?= has_error('distrito') ?>">
                 <label class="control-label">Distrito</label>
-                <select id="distrito_vol" class="form-control" name="distrito">
+                <select id="distrito" class="form-control" name="distrito">
                   <option value="default">-</option>
                   <?php foreach ($this->select_boxes_data['districto'] as $key => $value) { ?>
                     <option value="<?php echo $value ?>">
@@ -121,9 +121,9 @@
                 </select>
               </div>
 
-              <div class="form-group <?= has_error('freguesia_vol') ?>">
+              <div class="form-group <?= has_error('freguesia') ?>">
                 <label class="control-label">Freguesia</label>
-                <select id="freguesia_vol" class="form-control" name="freguesia">
+                <select id="freguesia" class="form-control" name="freguesia">
                   <option value="default">-</option>
                   <?php foreach ($this->select_boxes_data['freguesia'] as $key => $value) { ?>
                     <option value="<?php echo $value ?>">
@@ -135,7 +135,7 @@
 
               <br>
               <h3>Habilitações Académicas</h3>
-              <div class="form-group <?= has_error('tipo_habilitacoes_academicas') ?>">
+              <div class="form-group <?= has_error('tipo_habilitacao_academica') ?>">
                 <label class="control-label">Tipo</label>
                 <select class="form-control" name="tipo_habilitacao_academica">
                     <?php foreach ($this->tipos_habilitacoes_academicas->result() as $row) { ?>
@@ -223,7 +223,7 @@
                       </div>
                     </div>
                   </div>
-                  <a id="add_new_disp" class="btn btn-primary bottom">Adicionar disponibilidade</a>
+                  <a class="btn btn-primary bottom adicionar_disponibilidade">Adicionar disponibilidade</a>
                 </div>
               </div>
             </div>

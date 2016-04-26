@@ -12,7 +12,6 @@ class Utilizador extends CI_Model {
     function authenticate_utilizador($email, $password)
     {
         $query = $this->get_utilizador_by_email($email);
-        $utilizador = null;
 
         // utilizador existe
         if ($query->num_rows() > 0) {
@@ -22,12 +21,12 @@ class Utilizador extends CI_Model {
                 $encrypted_password = hash("sha256", $utilizador->salt . $password);
 
                 if ($utilizador->password == $encrypted_password) {
-                    $utilizador_authenticated = true;
+                    return $utilizador->id;
                 }
             }
         }
 
-        return $utilizador !== null ? $utilizador->id : -1;
+        return null;
     }
 
     function get_all_utilizadores()
@@ -79,16 +78,11 @@ class Utilizador extends CI_Model {
             array(
                 'field' => 'email',
                 'label' => 'Email',
-                'rules' => 'required|valid_email|is_unique[Utilizadores.email]|min_length[8]'
+                'rules' => 'required|valid_email|min_length[8]'
             ),
             array(
                 'field' => 'password',
                 'label' => 'Password',
-                'rules' => 'required|matches[confirmacao_password]'
-            ),
-            array(
-                'field' => 'confirmacao_password',
-                'label' => 'Confirmação da Password',
                 'rules' => 'required'
             )
         );

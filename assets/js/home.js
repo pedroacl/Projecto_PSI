@@ -23,7 +23,9 @@ $(document).ready(function() {
 	});
 
 
-	$('#add_new_disp').click(function() {
+	$('#form').on('click', 'div.voluntario_fields div.well div.relative a.adicionar_disponibilidade', function() {
+
+		console.log("Here");
 
 		// Get values
 		$data_inicio = $('#data_inicio_disponibilidade');
@@ -59,7 +61,7 @@ $(document).ready(function() {
 
 			// Clear form
 			$data_inicio.val('');
-			$periodicidade.val('');
+			$periodicidade.val('Semanalmente');
 			$data_fim.val('');
 			$repetir_ate.val('');
 
@@ -96,7 +98,10 @@ $(document).ready(function() {
 	// Add event listener to eliminar of disponibilidades
 	$('#disponibilidade_table').on('click', 'tr td a.eliminar', function() {
 		$(this).parent().parent().remove();
-		$("input[value='disponibilidades[" + $(this).attr('data') + "]']").remove();
+		$("input[name='disponibilidades[" + $(this).attr('data') + "][periodicidade]']").remove();
+		$("input[name='disponibilidades[" + $(this).attr('data') + "][repetir_ate]']").remove();
+		$("input[name='disponibilidades[" + $(this).attr('data') + "][data_fim]']").remove();
+		$("input[name='disponibilidades[" + $(this).attr('data') + "][data_inicio]']").remove();
 		$number_of_disp--;
 		if ($number_of_disp <= 0) {
 			$('#disponibilidade_table').hide('fast');
