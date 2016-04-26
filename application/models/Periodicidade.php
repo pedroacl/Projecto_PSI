@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Periodicity extends CI_Model {
+class Periodicidade extends CI_Model {
 
  	function __construct()
    {
       parent::__construct();
    }
 
-   function insert_entry($periodicity)
+   function insert_entry($periodicidade)
    {
-      $this->db->insert('Periodicidades', $periodicity);
+      $this->db->insert('Periodicidades', $periodicidade);
       return $this->db->insert_id();
    }
 

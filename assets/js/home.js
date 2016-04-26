@@ -3,18 +3,18 @@ $(document).ready(function() {
 	$number_of_disp = 0;
 	$counter_of_disp = 0;
 
-	$volunteer_div = $('.volunteer_fields');
-	$institution_div = $('.institution_fields');
+	$voluntario_div = $('.voluntario_fields');
+	$instituicao_div = $('.instituicao_fields');
 
-	$volunteer_fields = $volunteer_div.remove();
-	$institution_fileds = $institution_div.remove();
+	$voluntario_fields = $voluntario_div.remove();
+	$instituicao_fileds = $instituicao_div.remove();
 
 	$header_title = $('h2');
 
-	choose_user_type($('#user_type_select').val());
+	choose_tipo_utilizador($('#tipo_utilizador_select').val());
 
-	$('#user_type_select').change(function() {
-		choose_user_type($(this).val());
+	$('#tipo_utilizador_select').change(function() {
+		choose_tipo_utilizador($(this).val());
 	});
 
 	$('.datepicker').datepicker({
@@ -38,12 +38,21 @@ $(document).ready(function() {
 		$repetir_ate.parent().removeClass('has-error');
 
 		if ($data_inicio.val() !== '' && $periodicidade.val() !== '' && $data_fim.val() !== '' && $repetir_ate.val() !== '') {
-			
+
 			// Construct table HTML
-			var disp_row = "<tr><td>" + $data_inicio.val() + "</td><td>" + $data_fim.val() + "</td><td>" + $periodicidade.val() + "</td><td>" + $repetir_ate.val() + "</td><td><a class='btn btn-danger btn-sm eliminar' data='" + $counter_of_disp + "'>Eliminar</a>";
+			var disp_row = "<tr><td>" + $data_inicio.val() + "</td><td>"
+				+ $data_fim.val() + "</td><td>" + $periodicidade.val() + "</td><td>"
+				+ $repetir_ate.val() + "</td><td><a class='btn btn-danger btn-sm eliminar' data='"
+				+ $counter_of_disp + "'>Eliminar</a>";
 
 			// Construct hidden form data and append everything
-			var hidden_form_data = "<input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val() + "'><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_fim]' value='" + $data_fim.val() + "'><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][periodicidade]' value='" + $periodicidade.val() + "'><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][repetir_ate]' value='" + $repetir_ate.val() + "'></td></tr>";
+			var hidden_form_data = "<input type='hidden' name='disponibilidades["
+				+ $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val()
+				+ "'><input type='hidden' name='disponibilidades[" + $counter_of_disp
+				+ "][data_fim]' value='" + $data_fim.val() + "'><input type='hidden' name='disponibilidades["
+				+ $counter_of_disp + "][periodicidade]' value='" + $periodicidade.val()
+				+ "'><input type='hidden' name='disponibilidades[" + $counter_of_disp
+				+ "][repetir_ate]' value='" + $repetir_ate.val() + "'></td></tr>";
 
 			$('#disponibilidade_table').append(disp_row);
 			$('#disponibilidade_table').append(hidden_form_data);
@@ -99,34 +108,34 @@ $(document).ready(function() {
 
 });
 
-function remove_volunteer_fields() {
-	$('.volunteer_fields').hide("slow", function() {
-		$volunteer_div.remove();
+function remove_voluntario_fields() {
+	$('.voluntario_fields').hide("slow", function() {
+		$voluntario_div.remove();
 	});
 }
 
-function remove_institution_fields() {
-	$('.institution_fields').hide("slow", function() {
-		$institution_div.remove();
+function remove_instituicao_fields() {
+	$('.instituicao_fields').hide("slow", function() {
+		$instituicao_div.remove();
 	});
 }
 
-function choose_user_type(value) {
+function choose_tipo_utilizador(value) {
 	if (value === "none") {
-		remove_volunteer_fields();
-		remove_institution_fields();
+		remove_voluntario_fields();
+		remove_instituicao_fields();
 		$header_title.html("Registar Utilizador");
 
-	} else if(value === "volunteer") {
-		remove_institution_fields();
-		$('#user_form_end').append($volunteer_fields);
-		$volunteer_fields.show("slow");
+	} else if(value === "voluntario") {
+		remove_instituicao_fields();
+		$('#utilizador_form_end').append($voluntario_fields);
+		$voluntario_fields.show("slow");
 		$header_title.html("Registar Voluntário");
 
-	} else if(value === "institution") {
-		remove_volunteer_fields();
-		$('#user_form_end').append($institution_fileds);
-		$institution_fileds.show("slow");
+	} else if(value === "instituicao") {
+		remove_voluntario_fields();
+		$('#utilizador_form_end').append($instituicao_fileds);
+		$instituicao_fileds.show("slow");
 		$header_title.html("Registar Instituição");
 	}
 }

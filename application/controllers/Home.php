@@ -27,16 +27,16 @@ class Home extends MY_Controller {
 	{
 		$this->load->library('form_validation');
 		$this->load->library('session');
-		$this->user_type_selected = null;
+		$this->tipo_utilizador_selected = null;
 
-		$this->load->model('AcademicQualificationType', 'academic_qualification_type');
-		$this->academic_qualifications_types = $this->academic_qualification_type->get_entries();
+		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
+		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 
-		$this->load->model('ActionGroup', 'action_group');
-		$this->action_groups = $this->action_group->get_entries();
+		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
+		$this->grupos_atuacao = $this->grupo_atuacao->get_entries();
 
-		$this->load->model('AreaOfInterest', 'area_of_interest');
-		$this->areas_of_interest = $this->area_of_interest->get_entries();
+		$this->load->model('AreaInteresse', 'area_iteresse');
+		$this->areas_interesse = $this->area_iteresse->get_entries();
 
 		$this->title = "Registo de Utilizador";
 		$this->load->view('templates/main_template/header');
@@ -52,37 +52,38 @@ class Home extends MY_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('session');
 
-		$this->load->model('User', 'user');
-		$this->load->model('Volunteer', 'volunteer');
-		$this->load->model('Institution', 'institution');
-		$this->load->model('GeographicArea', 'geographic_area');
-		$this->load->model('AcademicQualification', 'academic_qualification');
-		$this->load->model('AcademicQualificationType', 'academic_qualification_type');
-		$this->load->model('ActionGroup', 'action_group');
-		$this->load->model('AreaOfInterest', 'area_of_interest');
-		$this->load->model('User_ActionGroup', 'user_action_group');
-		$this->load->model('User_AreaOfInterest', 'user_area_of_interest');
+		$this->load->model('Utilizador', 'utilizador');
+		$this->load->model('Voluntario', 'voluntario');
+		$this->load->model('Instituicao', 'instituicao');
+		$this->load->model('AreaGeografica', 'area_geografica');
+		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');
+		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
+		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
+		$this->load->model('AreaInteresse', 'area_iteresse');
+		$this->load->model('Utilizador_GrupoAtuacao', 'utilizador_grupo_atuacao');
+		$this->load->model('Utilizador_AreaInteresse', 'utilizador_area_iteresse');
 
 		// obter regras de validacao do formulario
-		$user_type  = $this->input->post('user_type');
+		$tipo_utilizador  = $this->input->post('tipo_utilizador');
+
+		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
+		$this->grupos_atuacao                = $this->grupo_atuacao->get_entries();
+		$this->areas_interesse               = $this->area_iteresse->get_entries();
+
 		$form_rules = null;
 
-		if ($user_type == 'volunteer') {
-			$form_rules = $this->volunteer->get_form_validation_rules();
-			$volunteer  = $this->volunteer->get_signup_form_data($this->input);
+
+		if ($tipo_utilizador == 'voluntario') {
+			$form_rules = $this->voluntario->get_form_validation_rules();
+			$voluntario  = $this->voluntario->get_signup_form_data($this->input);
 
 			// prep form values
-			$this->select_boxes_data = $this->geographic_area->get_select_boxes_data();
-
-			$this->academic_qualifications_types = $this->academic_qualification_type->get_entries();
-			$this->action_groups                 = $this->action_group->get_entries();
-			$this->areas_of_interest             = $this->area_of_interest->get_entries();
-
+			$this->select_boxes_data = $this->area_geografica->get_select_boxes_data();
 		}
-		else if($user_type == 'institution')
+		else // if($tipo_utilizador == 'instituicao')
 		{
-			$form_rules  = $this->institution->get_form_validation_rules();
-			$institution = $this->institution->get_signup_form_data($this->input);
+			$form_rules  = $this->instituicao->get_form_validation_rules();
+			$instituicao = $this->instituicao->get_signup_form_data($this->input);
 		}
 
 		$this->form_validation->set_rules($form_rules);
@@ -99,57 +100,57 @@ class Home extends MY_Controller {
 		else
 		{
 			// inserir utilizador
-			$user    = $this->user->get_signup_form_data($this->input);
-			$user_id = $this->user->insert_entry($user);
+			$utilizador    = $this->utilizador->get_signup_form_data($this->input);
+			$id_utilizador = $this->utilizador->insert_entry($utilizador);
 
 			// inserir grupos de actuação
-			$action_groups = $this->user_action_group->get_signup_form_data($this->input);
-			$this->user_action_group->insert_entries($user_id, $action_groups);
+			$grupos_atuacao = $this->utilizador_grupo_atuacao->get_signup_form_data($this->input);
+			$this->utilizador_grupo_atuacao->insert_entries($id_utilizador, $grupos_atuacao);
 
 			// inserir areas de interesse
-			$areas_of_interest = $this->user_area_of_interest->get_signup_form_data($this->input);
-			$this->user_area_of_interest->insert_entries($user_id, $areas_of_interest);
+			$areas_interesse = $this->utilizador_area_iteresse->get_signup_form_data($this->input);
+			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $areas_interesse);
 
 			// inserir area geografica
-			$geographic_area = $this->geographic_area->get_signup_form_data($this->input);
-			$geographic_area_id = $this->geographic_area->insert_entry($geographic_area);
+			$area_geografica = $this->area_geografica->get_signup_form_data($this->input);
+			$area_geografica_id = $this->area_geografica->insert_entry($area_geografica);
 
 			// inserir habilitacoes academicas
-			$academic_qualifications = $this->academic_qualification->get_signup_form_data($this->input);
-			$academic_qualifications_id = $this->academic_qualification->insert_entry($academic_qualifications);
+			$habilitacao_academicas = $this->habilitacao_academica->get_signup_form_data($this->input);
+			$habilitacao_academicas_id = $this->habilitacao_academica->insert_entry($habilitacao_academicas);
 
-			$user_type = $this->input->post('user_type');
+			$tipo_utilizador = $this->input->post('tipo_utilizador');
 
 			// inserir voluntario
-			if ($user_type == 'volunteer')
+			if ($tipo_utilizador == 'voluntario')
 			{
-				$volunteer = $this->volunteer->get_signup_form_data($this->input);
-				$volunteer['id_utilizador']              = $user_id;
-				$volunteer['id_area_geografica']         = $geographic_area_id;
-				$volunteer['id_habilitacoes_academicas'] = $academic_qualifications_id;
+				$voluntario = $this->voluntario->get_signup_form_data($this->input);
+				$voluntario['id_utilizador']              = $id_utilizador;
+				$voluntario['id_area_geografica']         = $area_geografica_id;
+				$voluntario['id_habilitacoes_academicas'] = $habilitacao_academicas_id;
 
-				$user_id = $this->volunteer->insert_entry($volunteer);
+				$id_utilizador = $this->voluntario->insert_entry($voluntario);
 			}
 			// inserir instituição
 			else
 			{
-				$institution = $this->institution->get_signup_form_data($this->input);
-				$user_id = $this->institution->insert_entry($institution, $user_id);
+				$instituicao = $this->instituicao->get_signup_form_data($this->input);
+				$id_utilizador = $this->instituicao->insert_entry($instituicao, $id_utilizador);
 			}
 
-/*
+
 			$this->session->set_flashdata('notice', 'Login realizado com sucesso.');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/index');
 			$this->load->view('templates/main_template/footer');
-			*/
+
 		}
 	}
 
 	// GET /login
 	public function show_login()
 	{
-		if ($this->session->userdata("id") !== null)
+		if ($this->session->utilizadordata("id") !== null)
 		{
 			redirect('', 'refresh');
 		}
@@ -168,11 +169,11 @@ class Home extends MY_Controller {
 	public function process_login()
 	{
 		$this->load->library('form_validation');
-		$this->load->model('User');
+		$this->load->model('Utilizador');
 
 		// obter regras de validacao do formulario
-		$user_type = $this->input->post('user_type');
-		$form_rules = $this->User->get_login_form_validation_rules($user_type);
+		$tipo_utilizador = $this->input->post('tipo_utilizador');
+		$form_rules = $this->Utilizador->get_login_form_validation_rules($tipo_utilizador);
 		$this->form_validation->set_rules($form_rules);
 
 		// validar formulario
@@ -187,17 +188,17 @@ class Home extends MY_Controller {
 			$password = $this->input->post('password');
 
 			// authenticar utilizador
-			if (($id = $this->User->authenticate_user($email, $password)) !== -1) {
+			if (($id = $this->Utilizador->authenticate_utilizador($email, $password)) !== -1) {
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
 				$cookie = array(
 							'id' => $id,
 							'email' => $email
 					);
-				$this->session->set_userdata($cookie);
+				$this->session->set_utilizadordata($cookie);
 	      redirect('', 'refresh');
 
 			} else {
-				$this->session->set_flashdata('danger', 'Combinação de Username/Password errada');
+				$this->session->set_flashdata('danger', 'Combinação de Utilizadorname/Password errada');
 				redirect('login', 'refresh');
 			}
 		}
@@ -206,8 +207,8 @@ class Home extends MY_Controller {
 	// GET /logout
 	public function logout()
 	{
-		$this->session->unset_userdata('id');
-		$this->session->unset_userdata('email');
+		$this->session->unset_utilizadordata('id');
+		$this->session->unset_utilizadordata('email');
 		$this->session->sess_destroy();
 
 		redirect('', 'refresh');
