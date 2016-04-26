@@ -58,7 +58,7 @@
 
               <div class="form-group <?= has_error('data_nascimento') ?>">
                 <label class="control-label">Data de Nascimento</label>
-                <div class='input-group date datepicker' data-provide="datepicker">
+                <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
                   <input name="data_nascimento" value="<?php echo set_value('data_nascimento'); ?>" type='text' class="form-control" />
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
@@ -158,7 +158,7 @@
 
               <div class="form-group <?= has_error('data_conclusao_curso') ?>">
                 <label class="control-label">Data de Conclusão</label>
-                <div class='input-group date datepicker' data-provide="datepicker">
+                <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
                   <input type='text' name='data_conclusao_curso' class="form-control" value="<?php echo set_value('data_conclusao_curso'); ?>"/>
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
@@ -186,7 +186,7 @@
                     <div class="form-group">
                       <label class="control-label">Data de Inicio</label>
 
-                      <div class='input-group date datepicker' data-provide="datepicker">
+                      <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
                         <input type="text" class="form-control" id="data_inicio_disponibilidade">
                         <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
@@ -206,7 +206,7 @@
                     <div class="form-group">
                       <label class="control-label">Data de Fim</label>
 
-                      <div class='input-group date datepicker' data-provide="datepicker">
+                      <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
                         <input type="text" class="form-control" id="data_fim_disponibilidade">
                         <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
@@ -215,7 +215,7 @@
                     </div>
                     <div class="form-group">
                       <label class="control-label">Repetir até</label>
-                      <div class='input-group date datepicker' data-provide="datepicker">
+                      <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
                         <input type="text" class="form-control" id="repetir_ate_disponibilidade">
                         <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
