@@ -32,6 +32,12 @@ class Home extends MY_Controller {
 		$this->load->model('AcademicQualificationType', 'academic_qualification_type');
 		$this->academic_qualifications_types = $this->academic_qualification_type->get_entries();
 
+		$this->load->model('ActionGroup', 'action_group');
+		$this->action_groups = $this->action_group->get_entries();
+
+		$this->load->model('AreaOfInterest', 'area_of_interest');
+		$this->areas_of_interest = $this->area_of_interest->get_entries();
+
 		$this->title = "Registo de Utilizador";
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/register_form');
@@ -43,7 +49,6 @@ class Home extends MY_Controller {
 	{
 		$this->title = "Registo de Utilizador";
 
-		$this->load->model('User', 'user');
 		$this->load->library('form_validation');
 		$this->load->library('session');
 
@@ -52,6 +57,11 @@ class Home extends MY_Controller {
 		$this->load->model('Institution', 'institution');
 		$this->load->model('GeographicArea', 'geographic_area');
 		$this->load->model('AcademicQualification', 'academic_qualification');
+		$this->load->model('AcademicQualificationType', 'academic_qualification_type');
+		$this->load->model('ActionGroup', 'action_group');
+		$this->load->model('AreaOfInterest', 'area_of_interest');
+		$this->load->model('User_ActionGroup', 'user_action_group');
+		$this->load->model('User_AreaOfInterest', 'user_area_of_interest');
 
 		// obter regras de validacao do formulario
 		$user_type  = $this->input->post('user_type');
@@ -62,23 +72,12 @@ class Home extends MY_Controller {
 			$volunteer  = $this->volunteer->get_signup_form_data($this->input);
 
 			// prep form values
-			$this->select_boxes_data = array(
-				'geographic_area_districts' => array(
-					'1' => 'Lisboa',
-					'2' => 'Leiria'
-				),
-				'geographic_area_' => array(
-					'1' => 'Lisboa',
-					'2' => 'Leiria'
-				),
-				'geographic_area_parishes' => array(
-					'1' => 'Lisboa',
-					'2' => 'Leiria'
-				)
-			);
+			$this->select_boxes_data = $this->geographic_area->get_select_boxes_data();
 
-			$this->load->model('AcademicQualificationType', 'academic_qualification_type');
 			$this->academic_qualifications_types = $this->academic_qualification_type->get_entries();
+			$this->action_groups                 = $this->action_group->get_entries();
+			$this->areas_of_interest             = $this->area_of_interest->get_entries();
+
 		}
 		else if($user_type == 'institution')
 		{
@@ -92,6 +91,7 @@ class Home extends MY_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->session->set_flashdata('danger', validation_errors());
+			// $this->session->set_flashdata('notice', print_r($_POST['disponibilidades']));
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/register_form');
 			$this->load->view('templates/main_template/footer');
@@ -103,12 +103,10 @@ class Home extends MY_Controller {
 			$user_id = $this->user->insert_entry($user);
 
 			// inserir grupos de actuação
-			$this->load->model('User_ActionGroup', 'user_action_group');
 			$action_groups = $this->user_action_group->get_signup_form_data($this->input);
 			$this->user_action_group->insert_entries($user_id, $action_groups);
 
 			// inserir areas de interesse
-			$this->load->model('User_AreaOfInterest', 'user_area_of_interest');
 			$areas_of_interest = $this->user_area_of_interest->get_signup_form_data($this->input);
 			$this->user_area_of_interest->insert_entries($user_id, $areas_of_interest);
 
@@ -139,10 +137,12 @@ class Home extends MY_Controller {
 				$user_id = $this->institution->insert_entry($institution, $user_id);
 			}
 
+/*
 			$this->session->set_flashdata('notice', 'Login realizado com sucesso.');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/index');
 			$this->load->view('templates/main_template/footer');
+			*/
 		}
 	}
 

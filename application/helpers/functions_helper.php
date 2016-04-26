@@ -9,14 +9,15 @@ if ( ! function_exists('test_method'))
     $types = array('success', 'danger', 'warning');
 
     foreach ($types as $type) {
-      if ($controller->session->flashdata($type) !== null) {
+      $message = $controller->session->flashdata($type);
+      if ($message !== null) {
         $result = $result . "<div class='alert alert-" . $type . "' role='alert' class='close'>";
         $result = $result . "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
-        $result = $result . $controller->session->flashdata($type);
+        $result = $result . $message;
         $result = $result . "</div>";
       }
     }
-
+    unset($_SESSION['__ci_vars']);
     return $result;
   }
 

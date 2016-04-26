@@ -8,9 +8,17 @@ class ActionGroup extends CI_Model {
       parent::__construct();
    }
 
+   function get_entries()
+   {
+      $this->db->select('*');
+      $this->db->from('Grupos_Atuacao');
+
+      return $this->db->get();
+   }
+
    function insert_entries($user_id, $action_groups)
    {
-      foreach ($action_groups as $key => $value) 
+      foreach ($action_groups as $key => $value)
       {
          $this->insert_entry($user_id, $key);
       }

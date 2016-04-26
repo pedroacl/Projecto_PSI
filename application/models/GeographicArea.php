@@ -8,6 +8,26 @@ class GeographicArea extends CI_Model {
         parent::__construct();
     }
 
+
+    function get_select_boxes_data()
+    {
+        $this->select_boxes_data = array(
+            'geographic_area_districts' => array(
+                '1' => 'Lisboa',
+                '2' => 'Leiria'
+            ),
+            'geographic_area_' => array(
+                '1' => 'Lisboa',
+                '2' => 'Leiria'
+            ),
+            'geographic_area_parishes' => array(
+                '1' => 'Lisboa',
+                '2' => 'Leiria'
+            )
+        );
+    }
+
+
     function insert_entry($geographic_area)
     {
         // verificar se já existe uma area geografica adicionada

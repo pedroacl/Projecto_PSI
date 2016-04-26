@@ -8,6 +8,14 @@ class AreaOfInterest extends CI_Model {
         parent::__construct();
     }
 
+    function get_entries()
+    {
+        $this->db->select('*');
+        $this->db->from('Areas_Interesse');
+
+        return $this->db->get();
+    }
+
     function insert_entry($user_id, $area_of_interest)
     {
         $this->load->model('User_AreaOfInterest', 'user_area_of_interest');

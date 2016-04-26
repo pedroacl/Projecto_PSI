@@ -30,11 +30,13 @@ class AcademicQualification extends CI_Model {
 
     function get_signup_form_data($input)
     {
+        $end_date = $newDate = date("Y/m/d", strtotime($input->post('academic_qualification_end_date')));
+
         $data = array(
             'id_tipo'          => $input->post('academic_qualification_type'),
             'curso'            => $input->post('academic_qualification_degree'),
             'instituto_ensino' => $input->post('academic_qualification_institute'),
-            'data_conclusao'   => $input->post('academic_qualification_end_date'),
+            'data_conclusao'   => $end_date
         );
 
         return $data;

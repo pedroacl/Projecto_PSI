@@ -72,26 +72,25 @@
                 <input name="phone_number" value="<?php echo set_value('phone_number'); ?>" class="form-control" placeholder="Telefone"></input>
               </div>
 
-
               <div class="form-group <?= has_error('action_groups') ?>">
                 <label class="control-label">Grupo de Atuação</label>
-                <select multiple class="form-control" name="action_groups">
-                  <option value="1">A</option>
-                  <option value="2">B</option>
-                  <option value="3">C</option>
-                  <option value="4">D</option>
-                  <option value="5">E</option>
+                <select multiple class="form-control" name="action_groups[]">
+                  <?php foreach ($this->action_groups->result() as $row) { ?>
+                    <option value="<?php echo $row->id ?>" <?php echo set_select('action_groups[]', $row->id) ?>>
+                      <?php echo $row->nome ?>
+                    </option>
+                  <?php } ?>
                 </select>
               </div>
 
               <div class="form-group <?= has_error('areas_of_interest') ?>">
                 <label class="control-label">Áreas de Interesse</label>
-                <select multiple class="form-control" name="areas_of_interest">
-                  <option value="1">T</option>
-                  <option value="2">S</option>
-                  <option value="3">J</option>
-                  <option value="4">I</option>
-                  <option value="5">X</option>
+                <select multiple class="form-control" name="areas_of_interest[]">
+                  <?php foreach ($this->areas_of_interest->result() as $row) { ?>
+                    <option value="<?php echo $row->id ?>" <?php echo set_select('areas_of_interest[]', $row->id) ?>>
+                      <?php echo $row->nome ?>
+                    </option>
+                  <?php } ?>
                 </select>
               </div>
 
@@ -164,7 +163,7 @@
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
-                  </div>
+                </div>
               </div>
 
               <br>
@@ -186,21 +185,42 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label">Data de Inicio</label>
-                      <input type="text" class="form-control" id="start_date">
+
+                      <div class='input-group date' data-provide="datepicker" class='datepicker'>
+                        <input type="text" class="form-control" id="data_inicio_disponibilidade">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="control-label">Periodicidade</label>
-                      <input type="text" class="form-control" id="periodicity">
+                      <select id="periodicidade" class="form-control">
+                        <option value="Semanalmente">Semanalmente</option>
+                        <option value="Mensalmente">Mensalmente</option>
+                        <option value="Anualmente">Anualmente</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label">Data de Fim</label>
-                      <input type="text" class="form-control" id="end_date">
+
+                      <div class='input-group date' data-provide="datepicker" class='datepicker'>
+                        <input type="text" class="form-control" id="data_fim_disponibilidade">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
                     </div>
                     <div class="form-group">
                       <label class="control-label">Repetir até</label>
-                      <input type="text" class="form-control" id="repeat_until">
+                      <div class='input-group date' data-provide="datepicker" class='datepicker'>
+                        <input type="text" class="form-control" id="repetir_ate_disponibilidade">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <a id="add_new_disp" class="btn btn-primary bottom">Adicionar disponibilidade</a>

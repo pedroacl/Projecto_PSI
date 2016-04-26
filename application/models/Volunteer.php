@@ -24,9 +24,11 @@ class Volunteer extends CI_Model {
 
     function get_signup_form_data($input)
     {
+        $birthdate = $newDate = date("Y/m/d", strtotime($input->post('birthdate')));
+
         $data = array(
-            'genero'                     => $input->post('gender'),
-            'data_nascimento'            => $input->post('birthdate'),
+            'genero'          => $input->post('gender'),
+            'data_nascimento' => $birthdate,
         );
 
         return $data;
@@ -50,6 +52,11 @@ class Volunteer extends CI_Model {
             array(
                 'field' => 'birthdate',
                 'label' => 'Data de Nascimento',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'action_groups[]',
+                'label' => 'Grupos Atuação',
                 'rules' => 'required'
             ),
             array(
