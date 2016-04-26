@@ -27,7 +27,6 @@ class Volunteer extends CI_Model {
         $data = array(
             'genero'                     => $input->post('gender'),
             'data_nascimento'            => $input->post('birthdate'),
-            'id_habilitacoes_academicas' => $input->post('academic_qualifications_type'),
         );
 
         return $data;
@@ -58,6 +57,22 @@ class Volunteer extends CI_Model {
                 'label' => 'Habilitacoes Academicas',
                 'rules' => 'required'
             ),
+            array(
+                'field' => 'academic_qualification_degree',
+                'label' => 'Curso',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'academic_qualification_institute',
+                'label' => 'Instituto',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'academic_qualification_end_date',
+                'label' => 'Data de Conclusão',
+                'rules' => 'required'
+            ),
+
         );
 
         return array_merge($rules, $this->user->get_form_validation_rules());

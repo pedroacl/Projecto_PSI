@@ -149,18 +149,18 @@
 
               <div class="form-group <?= has_error('curso') ?>">
                 <label class="control-label">Curso</label>
-                <input type="text" class="form-control" name="curso">
+                <input type="text" class="form-control" name="academic_qualification_degree" value="<?php echo set_value('academic_qualification_degree'); ?>">
               </div>
 
               <div class="form-group <?= has_error('instituto') ?>">
                 <label class="control-label">Instituto</label>
-                <input type="text" class="form-control" name="instituto">
+                <input type="text" class="form-control" name="academic_qualification_institute" value="<?php echo set_value('academic_qualification_institute'); ?>">
               </div>
 
               <div class="form-group <?= has_error('data_conclusao_habilitacoes') ?>">
                 <label class="control-label">Data de Conclusão</label>
                 <div class='input-group date' data-provide="datepicker" class='datepicker'>
-                  <input type='text' name='data_conclusao_habilitacoes' class="form-control" />
+                  <input type='text' name='academic_qualification_end_date' class="form-control" value="<?php echo set_value('academic_qualification_end_date'); ?>"/>
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -186,21 +186,21 @@
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label">Data de Inicio</label>
-                      <input type="text" class="form-control" id="data_inicio_disponibilidade">
+                      <input type="text" class="form-control" id="start_date">
                     </div>
                     <div class="form-group">
                       <label class="control-label">Periodicidade</label>
-                      <input type="text" class="form-control" id="periodicidade">
+                      <input type="text" class="form-control" id="periodicity">
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="form-group">
                       <label class="control-label">Data de Fim</label>
-                      <input type="text" class="form-control" id="data_fim_disponibilidade">
+                      <input type="text" class="form-control" id="end_date">
                     </div>
                     <div class="form-group">
                       <label class="control-label">Repetir até</label>
-                      <input type="text" class="form-control" id="repetir_ate_disponibilidade">
+                      <input type="text" class="form-control" id="repeat_until">
                     </div>
                   </div>
                   <a id="add_new_disp" class="btn btn-primary bottom">Adicionar disponibilidade</a>

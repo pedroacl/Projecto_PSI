@@ -32,9 +32,9 @@ class AcademicQualification extends CI_Model {
     {
         $data = array(
             'id_tipo'          => $input->post('academic_qualification_type'),
-            'data_conclusao'   => $input->post('conclusion_date'),
-            'curso'            => $input->post('degree'),
-            'instituto_ensino' => $input->post('school')
+            'curso'            => $input->post('academic_qualification_degree'),
+            'instituto_ensino' => $input->post('academic_qualification_institute'),
+            'data_conclusao'   => $input->post('academic_qualification_end_date'),
         );
 
         return $data;
