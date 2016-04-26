@@ -74,7 +74,6 @@ class Utilizador extends CI_Model {
         $data = array(
             'email'    => $input->post('email'),
             'password' => $hashAndSalt,
-            'foto'     => $input->post('foto'),
             'telefone' => $input->post('telefone'),
             'nome'     => $input->post('nome_utilizador')
         );
@@ -137,6 +136,40 @@ class Utilizador extends CI_Model {
 
         return $rules;
     }
+
+    function upload_photo($id_utilizador)
+    {
+        $config['upload_path']   = './uploads/photos/' . $id_utilizador . '/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size']      = '100';
+        $config['max_width']     = '1024';
+        $config['max_height']    = '768';
+
+        $this->load->library('upload', $config);
+
+        // criar directorio de uploads
+        if (!is_dir('uploads/photos'))
+        {
+            mkdir('./uploads', 0777, true);
+        }
+
+        // criar directorio do utilizador
+        if (!is_dir('uploads/photos/' . $id_utilizador))
+        {
+            mkdir('./uploads/photos/' . $id_utilizador, 0777, true);
+        }
+
+        // upload da foto
+        if ( ! $this->upload->do_upload('foto'))
+        {
+            return $this->upload->display_errors();
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+        }
+    }
+
 /*
     function get_signup_utilizador_data()
     {

@@ -4,7 +4,6 @@ USE PSI;
 
 CREATE TABLE IF NOT EXISTS Utilizadores (
    id                  	INT 			   AUTO_INCREMENT,
-   salt                 INT            NOT NULL,
    email               	VARCHAR(100) 	NOT NULL,
    password            	VARCHAR(100) 	NOT NULL,
    nome                 VARCHAR(100)   NOT NULL,

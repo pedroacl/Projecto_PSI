@@ -101,6 +101,12 @@ class Home extends MY_Controller {
 			// Inserts
 			// utilizador
 			$id_utilizador = $this->utilizador->insert_entry($this->input);
+			$photo_upload_error = $this->utilizador->upload_photo($id_utilizador);
+
+			if (isset($photo_upload_error)) {
+				$this->form_validation->set_message('foto', $photo_upload_error);
+				echo $photo_upload_error;
+			}
 
 			// grupo atuacao
 			$this->utilizador_grupo_atuacao->insert_entries($id_utilizador, $this->input);
