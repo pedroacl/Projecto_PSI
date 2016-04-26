@@ -8,8 +8,9 @@ class HabilitacaoAcademica extends CI_Model {
         parent::__construct();
     }
 
-    function insert_entry($habilitacoes_academicas)
+    function insert_entry($input)
     {
+        $habilitacoes_academicas = get_signup_form_data($input);
         // verificar se já existe uma area geografica adicionada
         $this->db->select('hab.id, data_conclusao, curso, instituto_ensino');
         $this->db->from('Habilitacoes_Academicas as hab');

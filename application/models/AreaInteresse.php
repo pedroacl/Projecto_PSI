@@ -16,8 +16,10 @@ class AreaInteresse extends CI_Model {
         return $this->db->get();
     }
 
-    function insert_entry($id_utilizador, $area_iteresse)
+    function insert_entry($id_utilizador, $input)
     {
+        $area_iteresse = get_signup_form_data($input);
+
         $this->load->model('Utilizador_AreaInteresse', 'user_area_iteresse');
 
         $this->db->insert('Areas_Interesse', $area_iteresse);

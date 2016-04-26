@@ -8,22 +8,22 @@
           <form action="" method="POST" enctype="multipart/form-data">
             <h2>Registar Utilizador</h2>
 
-            <div class="form-group">
+            <div class="form-group <?= has_error('email') ?>">
               <label for="inputEmail" class="control-label">Email</label>
               <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus value="<?php echo set_value('email'); ?>">
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?= has_error('password') ?>">
               <label class="control-label">Password</label>
               <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?= has_error('confirmacao_password') ?>">
               <label class="control-label">Confirmação da Password</label>
               <input name="confirmacao_password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group <?= has_error('tipo_utilizador') ?>">
               <label class="control-label">Tipo de Utilizador</label>
               <select name="tipo_utilizador" id="tipo_utilizador_select" class="form-control"
                 value="<?php echo set_value('tipo_utilizador'); ?>">
@@ -38,7 +38,7 @@
             <!-- Campos de um Voluntario -->
             <div class="voluntario_fields" style="display: none;">
 
-              <div class="form-group">
+              <div class="form-group" <?= has_error('foto') ?>>
                 <label class="control-label">Foto</label>
                 <input type="file">
               </div>
@@ -72,7 +72,7 @@
                 <input name="telefone" value="<?php echo set_value('telefone'); ?>" class="form-control" placeholder="Telefone"></input>
               </div>
 
-              <div class="form-group <?= has_error('grupos_atuacao') ?>">
+              <div class="form-group <?= has_error('grupos_atuacao[]') ?>">
                 <label class="control-label">Grupo de Atuação</label>
                 <select multiple class="form-control" name="grupos_atuacao[]">
                   <?php foreach ($this->grupos_atuacao->result() as $row) { ?>
@@ -83,7 +83,7 @@
                 </select>
               </div>
 
-              <div class="form-group <?= has_error('areas_interesse') ?>">
+              <div class="form-group <?= has_error('areas_interesse[]') ?>">
                 <label class="control-label">Áreas de Interesse</label>
                 <select multiple class="form-control" name="areas_interesse[]">
                   <?php foreach ($this->areas_interesse->result() as $row) { ?>
@@ -97,7 +97,7 @@
               <br>
               <h3>Área Geográfica</h3>
 
-              <div class="form-group <?= has_error('conselho_vol') ?>">
+              <div class="form-group <?= has_error('concelho') ?>">
                 <label class="control-label">Concelho</label>
                 <select id="concelho_vol" class="form-control" name="concelho">
                   <option value="default">-</option>
@@ -156,7 +156,7 @@
                 <input type="text" class="form-control" name="instituto_ensino" value="<?php echo set_value('instituto_ensino'); ?>">
               </div>
 
-              <div class="form-group <?= has_error('data_conclusao_habilitacoes') ?>">
+              <div class="form-group <?= has_error('data_conclusao_curso') ?>">
                 <label class="control-label">Data de Conclusão</label>
                 <div class='input-group date' data-provide="datepicker" class='datepicker'>
                   <input type='text' name='data_conclusao_curso' class="form-control" value="<?php echo set_value('data_conclusao_curso'); ?>"/>

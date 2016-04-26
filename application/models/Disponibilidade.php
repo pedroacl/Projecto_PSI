@@ -8,21 +8,16 @@ class Disponibilidade extends CI_Model {
         parent::__construct();
     }
 
-    function insert_entry($availabilities)
+    function insert_entry($input)
     {
-        $this->db->insert('Disponibilidades', $availabilities);
+        $disponibilidades = get_signup_form_data($input);
+        $this->db->insert_batch('Disponibilidades', $disponibilidades);
+
         return $this->db->insert_id();
     }
 
     function get_signup_form_data($input)
     {
-        //TODO
-        $data = array(
-            'freguesia' => $input->post('parish'),
-            'concelho'  => $input->post('county'),
-            'distrito'  => $input->post('district'),
-        );
-
-        return $data;
+        return $this->input->post('disponibilidades');
     }
 }

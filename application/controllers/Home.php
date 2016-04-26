@@ -5,13 +5,11 @@ class Home extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
-
 /*
 		if ( ! isset($this->session) {
 			redirect('/auth/login', 'refresh');
 		}
-		*/
-
+*/
 	}
 
 	// GET /
@@ -49,9 +47,11 @@ class Home extends MY_Controller {
 	{
 		$this->title = "Registo de Utilizador";
 
+		// libraries
 		$this->load->library('form_validation');
 		$this->load->library('session');
 
+		// models
 		$this->load->model('Utilizador', 'utilizador');
 		$this->load->model('Voluntario', 'voluntario');
 		$this->load->model('Instituicao', 'instituicao');
@@ -62,8 +62,8 @@ class Home extends MY_Controller {
 		$this->load->model('AreaInteresse', 'area_iteresse');
 		$this->load->model('Utilizador_GrupoAtuacao', 'utilizador_grupo_atuacao');
 		$this->load->model('Utilizador_AreaInteresse', 'utilizador_area_iteresse');
+		$this->load->model('Disponibilidade', 'disponibilidade');
 
-		// obter regras de validacao do formulario
 		$tipo_utilizador  = $this->input->post('tipo_utilizador');
 
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
@@ -72,7 +72,7 @@ class Home extends MY_Controller {
 
 		$form_rules = null;
 
-
+		// obter regras de validacao do formulario
 		if ($tipo_utilizador == 'voluntario') {
 			$form_rules = $this->voluntario->get_form_validation_rules();
 			$voluntario  = $this->voluntario->get_signup_form_data($this->input);
@@ -91,8 +91,8 @@ class Home extends MY_Controller {
 		// formulario invalido
 		if ($this->form_validation->run() == FALSE)
 		{
+			// voltar a mostrar formulario
 			$this->session->set_flashdata('danger', validation_errors());
-			// $this->session->set_flashdata('notice', print_r($_POST['disponibilidades']));
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/register_form');
 			$this->load->view('templates/main_template/footer');
@@ -100,29 +100,26 @@ class Home extends MY_Controller {
 		else
 		{
 			// inserir utilizador
-			$utilizador    = $this->utilizador->get_signup_form_data($this->input);
-			$id_utilizador = $this->utilizador->insert_entry($utilizador);
+			$id_utilizador = $this->utilizador->insert_entry($this->input);
 
 			// inserir grupos de actuação
-			$grupos_atuacao = $this->utilizador_grupo_atuacao->get_signup_form_data($this->input);
-			$this->utilizador_grupo_atuacao->insert_entries($id_utilizador, $grupos_atuacao);
+			$this->utilizador_grupo_atuacao->insert_entries($id_utilizador, $this->input);
 
 			// inserir areas de interesse
-			$areas_interesse = $this->utilizador_area_iteresse->get_signup_form_data($this->input);
-			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $areas_interesse);
+			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $this->input);
 
 			// inserir area geografica
-			$area_geografica = $this->area_geografica->get_signup_form_data($this->input);
-			$area_geografica_id = $this->area_geografica->insert_entry($area_geografica);
+			$area_geografica_id = $this->area_geografica->insert_entry($input);
 
 			// inserir habilitacoes academicas
-			$habilitacao_academicas = $this->habilitacao_academica->get_signup_form_data($this->input);
-			$habilitacao_academicas_id = $this->habilitacao_academica->insert_entry($habilitacao_academicas);
+			$habilitacao_academicas_id = $this->habilitacao_academica->insert_entry($this->input);
 
-			$tipo_utilizador = $this->input->post('tipo_utilizador');
+			// inserir disponibilidades
+			$this->disponibilidade->insert_entry($this->input);
+			print_r($this->input->post());
 
 			// inserir voluntario
-			if ($tipo_utilizador == 'voluntario')
+			if ($this->input->post('tipo_utilizador') == 'voluntario')
 			{
 				$voluntario = $this->voluntario->get_signup_form_data($this->input);
 				$voluntario['id_utilizador']              = $id_utilizador;
@@ -140,9 +137,10 @@ class Home extends MY_Controller {
 
 
 			$this->session->set_flashdata('notice', 'Login realizado com sucesso.');
-			$this->load->view('templates/main_template/header');
+/*			$this->load->view('templates/main_template/header');
 			$this->load->view('home/index');
 			$this->load->view('templates/main_template/footer');
+*/
 
 		}
 	}
@@ -190,12 +188,14 @@ class Home extends MY_Controller {
 			// authenticar utilizador
 			if (($id = $this->Utilizador->authenticate_utilizador($email, $password)) !== -1) {
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
+
 				$cookie = array(
-							'id' => $id,
-							'email' => $email
-					);
+					'id' => $id,
+					'email' => $email
+				);
+
 				$this->session->set_utilizadordata($cookie);
-	      redirect('', 'refresh');
+	      	redirect('', 'refresh');
 
 			} else {
 				$this->session->set_flashdata('danger', 'Combinação de Utilizadorname/Password errada');

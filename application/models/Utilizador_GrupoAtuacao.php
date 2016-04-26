@@ -8,10 +8,12 @@ class Utilizador_GrupoAtuacao extends CI_Model {
       parent::__construct();
    }
 
-   function insert_entries($user_id, $grupos_atuacao)
+   function insert_entries($user_id, $input)
    {
-      $ids = "";
+      $grupos_atuacao = get_signup_form_data($input);
       $grupos_atuacao = $grupos_atuacao['grupos_atuacao'];
+
+      $ids = "";
 
       foreach ($grupos_atuacao as $key => $value) {
          $ids = $ids . " " . $value;

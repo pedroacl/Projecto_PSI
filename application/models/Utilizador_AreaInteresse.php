@@ -8,11 +8,12 @@ class Utilizador_AreaInteresse extends CI_Model {
         parent::__construct();
     }
 
-    function insert_entries($id_utilizador, $areas_interesse)
+    function insert_entries($id_utilizador, $input)
     {
-        $ids = "";
+        $areas_interesse = get_signup_form_data($input);
         $areas_interesse = $areas_interesse['areas_interesse'];
-        print_r($areas_interesse);
+
+        $ids = "";
 
         foreach ($areas_interesse as $key => $value) {
             $ids = $ids . " " . $value;

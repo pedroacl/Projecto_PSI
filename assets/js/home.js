@@ -90,10 +90,7 @@ $(document).ready(function() {
 			if ($repetir_ate.val() === '') {
 				$repetir_ate.parent().addClass('has-error');
 			}
-
 		}
-
-
 	});
 
 	// Add event listener to eliminar of disponibilidades

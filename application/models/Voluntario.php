@@ -60,6 +60,11 @@ class Voluntario extends CI_Model {
                 'rules' => 'required'
             ),
             array(
+                'field' => 'areas_interesse[]',
+                'label' => 'Areas Interesse',
+                'rules' => 'required'
+            ),
+            array(
                 'field' => 'tipo_habilitacao_academica',
                 'label' => 'Habilitacoes Academicas',
                 'rules' => 'required'

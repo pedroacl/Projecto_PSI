@@ -28,18 +28,20 @@ class AreaGeografica extends CI_Model {
     }
 
 
-    function insert_entry($geographic_area)
+    function insert_entry($input)
     {
+        $area_geografica = get_signup_form_data($input);
+
         // verificar se já existe uma area geografica adicionada
         $this->db->select('id, freguesia, concelho, distrito');
         $this->db->from('Areas_Geograficas');
-        $this->db->where('freguesia', $geographic_area['freguesia']);
-        $this->db->where('concelho', $geographic_area['concelho']);
-        $this->db->where('distrito', $geographic_area['distrito']);
+        $this->db->where('freguesia', $area_geografica['freguesia']);
+        $this->db->where('concelho', $area_geografica['concelho']);
+        $this->db->where('distrito', $area_geografica['distrito']);
         $query = $this->db->get();
 
         if ($query->num_rows() == 0) {
-            $this->db->insert('Areas_Geograficas', $geographic_area);
+            $this->db->insert('Areas_Geograficas', $area_geografica);
             return $this->db->insert_id();
         } else {
             $row = $query->row();

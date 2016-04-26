@@ -47,8 +47,9 @@ class Utilizador extends CI_Model {
         return $query;
     }
 
-    function insert_entry($utilizador)
+    function insert_entry($input)
     {
+        $utlizador = get_signup_form_data($input);
         $this->db->insert('Utilizadores', $utilizador);
         return $this->db->insert_id();
     }
@@ -140,7 +141,7 @@ class Utilizador extends CI_Model {
                 '1' => 'Licenciatura',
                 '2' => 'Mestrado'
             ),
-            'geographic_areas' => array(
+            'area_geograficas' => array(
                 '1' => 'Lisboa',
                 '2' => 'Porto'
             )
