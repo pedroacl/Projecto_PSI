@@ -69,13 +69,13 @@ class Home extends MY_Controller {
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 		$this->grupos_atuacao                = $this->grupo_atuacao->get_entries();
 		$this->areas_interesse               = $this->area_iteresse->get_entries();
+		$this->disponibilidades					 = $this->input->post('disponibilidades[]');
 
 		$form_rules = null;
 
 		// obter regras de validacao do formulario
 		if ($tipo_utilizador == 'voluntario') {
 			$form_rules = $this->voluntario->get_form_validation_rules();
-			$voluntario  = $this->voluntario->get_signup_form_data($this->input);
 
 			// prep form values
 			$this->select_boxes_data = $this->area_geografica->get_select_boxes_data();
@@ -102,6 +102,13 @@ class Home extends MY_Controller {
 			// Inserts
 			// utilizador
 			$id_utilizador = $this->utilizador->insert_entry($this->input);
+			$photo_upload_error = $this->utilizador->upload_photo($id_utilizador);
+
+			// erro de upload da foto
+			if (isset($photo_upload_error)) {
+				$this->form_validation->set_message('foto', $photo_upload_error);
+				echo $photo_upload_error;
+			}
 
 			// grupo atuacao
 			$this->utilizador_grupo_atuacao->insert_entries($id_utilizador, $this->input);
@@ -110,7 +117,7 @@ class Home extends MY_Controller {
 			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $this->input);
 
 			// area geografica
-			$id_area_geografica = $this->area_geografica->insert_entry($input);
+			$id_area_geografica = $this->area_geografica->insert_entry($this->input);
 
 			// habilitacoes academicas
 			$id_habilitacoes_academicas = $this->habilitacao_academica->insert_entry($this->input);
@@ -123,7 +130,7 @@ class Home extends MY_Controller {
 			// voluntario
 			if ($this->input->post('tipo_utilizador') == 'voluntario')
 			{
-				$id_voluntario = $this->voluntario->insert_entry($input, $id_utilizador,
+				$id_voluntario = $this->voluntario->insert_entry($this->input, $id_utilizador,
 					$id_area_geografica, $id_habilitacoes_academicas);
 			}
 			// instituição
@@ -140,6 +147,24 @@ class Home extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 		}
 	}
+
+	// callbacks de validacao
+   function data_fim($data_fim) {
+   	$disponibilidades = $this->input->post('disponibilidades[]');
+
+   	foreach ($disponibilidades as $key => $value) {
+
+   	}
+
+      $data_fim = date("Y/m/d", strtotime($input->post('')));
+
+      if (intval($data_fim) > 24) {
+   	   $this->form_validation->set_message('numcheck', 'Larger than 24');
+      	return FALSE;
+      } else {
+       	return TRUE;
+      }
+   }
 
 	// GET /login
 	public function show_login()
@@ -163,10 +188,10 @@ class Home extends MY_Controller {
 	public function process_login()
 	{
 		$this->load->library('form_validation');
-		$this->load->model('Utilizador');
+		$this->load->model('Utilizador', 'utilizador');
 
 		// obter regras de validacao do formulario
-		$form_rules = $this->Utilizador->get_login_form_validation_rules();
+		$form_rules = $this->utilizador->get_login_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
 
 		// validar formulario
@@ -182,7 +207,7 @@ class Home extends MY_Controller {
 			$password = $this->input->post('password');
 
 			// authenticar utilizador
-			if (($id = $this->Utilizador->authenticate_utilizador($email, $password)) !== null) {
+			if (($id = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
 
 				$cookie = array(
@@ -195,7 +220,11 @@ class Home extends MY_Controller {
 
 			} else {
 				$this->session->set_flashdata('danger', 'Combinação de Email/Password errada');
-				redirect('login', 'refresh');
+
+				// load view
+				$this->load->view('templates/main_template/header');
+				$this->load->view('home/login');
+				$this->load->view('templates/main_template/footer');
 			}
 		}
 	}

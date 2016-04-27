@@ -10,7 +10,7 @@ class Utilizador_AreaInteresse extends CI_Model {
 
     function insert_entries($id_utilizador, $input)
     {
-        $areas_interesse = get_signup_form_data($input);
+        $areas_interesse = $this->get_signup_form_data($input);
         $areas_interesse = $areas_interesse['areas_interesse'];
 
         $ids = "";

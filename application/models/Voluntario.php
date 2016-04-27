@@ -3,8 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Voluntario extends CI_Model {
 
-    function insert_entry($voluntario)
+    function insert_entry($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas)
     {
+        $voluntario = $this->get_signup_form_data($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas);
+
         $this->db->insert('Voluntarios', $voluntario);
 
         return $this->db->insert_id();
@@ -22,13 +24,16 @@ class Voluntario extends CI_Model {
         return $query;
     }
 
-    function get_signup_form_data($input)
+    function get_signup_form_data($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas)
     {
         $data_nascimento = $newDate = date("Y/m/d", strtotime($input->post('data_nascimento')));
 
         $data = array(
-            'genero'          => $input->post('genero'),
-            'data_nascimento' => $data_nascimento,
+            'genero'                     => $input->post('genero'),
+            'data_nascimento'            => $data_nascimento,
+            'id_utilizador'              => $id_utilizador,
+            'id_area_geografica'         => $id_area_geografica,
+            'id_habilitacoes_academicas' => $id_habilitacoes_academicas
         );
 
         return $data;
@@ -93,4 +98,5 @@ class Voluntario extends CI_Model {
 
         return array_merge($rules, $this->utilizador->get_form_validation_rules());
     }
+
 }

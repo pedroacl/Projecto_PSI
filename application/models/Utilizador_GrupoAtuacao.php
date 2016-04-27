@@ -10,7 +10,7 @@ class Utilizador_GrupoAtuacao extends CI_Model {
 
    function insert_entries($user_id, $input)
    {
-      $grupos_atuacao = get_signup_form_data($input);
+      $grupos_atuacao = $this->get_signup_form_data($input);
       $grupos_atuacao = $grupos_atuacao['grupos_atuacao'];
 
       $ids = "";

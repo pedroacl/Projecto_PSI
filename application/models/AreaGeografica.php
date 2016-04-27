@@ -30,7 +30,7 @@ class AreaGeografica extends CI_Model {
 
     function insert_entry($input)
     {
-        $area_geografica = get_signup_form_data($input);
+        $area_geografica = $this->get_signup_form_data($input);
 
         // verificar se já existe uma area geografica adicionada
         $this->db->select('id, freguesia, concelho, distrito');
