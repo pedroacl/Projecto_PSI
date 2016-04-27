@@ -24,6 +24,7 @@
     <script src="<?= base_url('/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') ?>"></script>
     <script src="<?= base_url('/assets/vendor/bootstrap/bootstrap.min.js') ?>"></script>
     <script src="<?= base_url('/assets/js/home.js') ?>"></script>
+    <script src="<?= base_url('/assets/js/areas_geograficas.js') ?>"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
