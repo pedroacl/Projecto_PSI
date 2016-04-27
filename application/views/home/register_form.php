@@ -246,6 +246,94 @@
                   <a class="btn btn-primary bottom adicionar_disponibilidade">Adicionar disponibilidade</a>
                 </div>
               </div>
+
+
+
+
+              <h3>Disponibilidade</h3>
+              <?php if (isset($this->disponibilidades)) { ?>
+                <table id="disp_table" class="table">
+                  <tbody>
+                    <tr>
+                      <th>Data inicio</th>
+                      <th>Data fim</th>
+                      <th>Periodicidade</th>
+                      <th>Repetir até</th>
+                      <th>Acções</th>
+                    </tr>
+                    <?php foreach ($this->disponibilidades as $key => $disponibilidade) { ?>
+                      <tr id="disponibilidade_<?php echo $key; ?>">
+                        <td><?php echo $disponibilidade['data_inicio'] ?></td>
+                        <input type="hidden" name="disponibilidades[<?php echo $key ?>]['data_inicio']"/>
+
+                        <td><?php echo $disponibilidade['data_fim'] ?></td>
+                        <input type="hidden" name="disponibilidades[<?php echo $key ?>]['data_fim']"/>
+
+                        <td><?php echo $disponibilidade['periodicidade'] ?></td>
+                        <input type="hidden" name="disponibilidades[<?php echo $key ?>]['periodicidade']"/>
+
+                        <td><?php echo $disponibilidade['repetir_ate'] ?></td>
+                        <input type="hidden" name="disponibilidades[<?php echo $key ?>]['repetir_ate']"/>
+
+                        <td></td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              <?php } ?>
+
+              <div class="well">
+                <div class="row relative">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="control-label">Data de Inicio</label>
+
+                      <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                        <input class="form-control" id="data_inicio_disponibilidade" type="text" required>
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Periodicidade</label>
+                      <select id="periodicidade" class="form-control">
+                        <option value="Semanalmente">Semanalmente</option>
+                        <option value="Mensalmente">Mensalmente</option>
+                        <option value="Anualmente">Anualmente</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="control-label">Data de Fim</label>
+
+                      <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                        <input class="form-control" id="data_fim_disponibilidade" type="text">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Repetir até</label>
+                      <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                        <input class="form-control" id="repetir_ate_disponibilidade" type="text">
+                        <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <a class="btn btn-primary bottom adicionar_disponibilidade">Adicionar disponibilidade</a>
+                </div>
+              </div>
+
+
+
+
+
+
             </div>
 
 
@@ -308,93 +396,9 @@
             </div>
 
 
-<!--
-
-            <?php if (isset($this->disponibilidades)) { ?>
-              <h3>Test</h3>
-
-              <table id="disp_table" class="table">
-                <tbody>
-                  <tr>
-                    <th>Data inicio</th>
-                    <th>Data fim</th>
-                    <th>Periodicidade</th>
-                    <th>Repetir até</th>
-                    <th>Acções</th>
-                  </tr>
-                  <?php foreach ($this->disponibilidades as $key => $disponibilidade) { ?>
-                    <tr>
-                      <td><?php echo $disponibilidade['data_inicio'] ?></td>
-                      <input type="hidden" name="disponibilidades[<?php echo $key ?>]['data_inicio']"/>
-
-                      <td><?php echo $disponibilidade['data_fim'] ?></td>
-                      <input type="hidden" name="disponibilidades[<?php echo $key ?>]['data_fim']"/>
-
-                      <td><?php echo $disponibilidade['periodicidade'] ?></td>
-                      <input type="hidden" name="disponibilidades[<?php echo $key ?>]['periodicidade']"/>
-
-                      <td><?php echo $disponibilidade['repetir_ate'] ?></td>
-                      <input type="hidden" name="disponibilidades[<?php echo $key ?>]['repetir_ate']"/>
-
-                      <td></td>
-                    </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-            <?php } ?>
 
 
 
-
-
-              <div class="well">
-                <div class="row relative">
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label class="control-label">Data de Inicio</label>
-
-                      <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                        <input class="form-control" id="data_inicio_disponibilidade" type="text" required>
-                        <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label">Periodicidade</label>
-                      <select id="periodicidade" class="form-control">
-                        <option value="Semanalmente">Semanalmente</option>
-                        <option value="Mensalmente">Mensalmente</option>
-                        <option value="Anualmente">Anualmente</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="form-group">
-                      <label class="control-label">Data de Fim</label>
-
-                      <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                        <input class="form-control" id="data_fim_disponibilidade" type="text">
-                        <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label">Repetir até</label>
-                      <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                        <input class="form-control" id="repetir_ate_disponibilidade" type="text">
-                        <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <a class="btn btn-primary bottom adicionar_disponibilidade">Adicionar disponibilidade</a>
-                </div>
-              </div>
-
--->
 
 
             <div class="pull-right">
