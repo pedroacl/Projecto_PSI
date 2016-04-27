@@ -149,7 +149,18 @@ class Home extends MY_Controller {
 	}
 
 	// callbacks de validacao
-   function data_fim($data_fim) {
+	function not_default($str)
+	{
+		if ($str == 'default') {
+			$this->form_validation->set_message('not_default', 'The %s field can not be empty');
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+
+   function data_fim($data_fim)
+   {
    	$disponibilidades = $this->input->post('disponibilidades[]');
 
    	foreach ($disponibilidades as $key => $value) {
