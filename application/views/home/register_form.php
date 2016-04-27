@@ -9,31 +9,31 @@
             <h2>Registar Utilizador</h2>
 
             <div class="form-group <?= has_error('email') ?>">
-              <?php echo form_error('email')?>
               <label for="inputEmail" class="control-label">Email</label>
-              <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus value="<?php echo set_value('email'); ?>">
+              <?= form_error('email', "<span class='help-block'>", "</span>")?>
+              <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus value="<?= set_value('email'); ?>">
             </div>
 
             <div class="form-group <?= has_error('password') ?>">
-              <?php echo form_error('password')?>
               <label class="control-label">Password</label>
+              <?= form_error('password', "<span class='help-block'>", "</span>")?>
               <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
             </div>
 
             <div class="form-group <?= has_error('confirmacao_password') ?>">
-              <?php echo form_error('confirmacao_password')?>
               <label class="control-label">Confirmação da Password</label>
+              <?= form_error('confirmacao_password', "<span class='help-block'>", "</span>")?>
               <input name="confirmacao_password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
             </div>
 
             <div class="form-group <?= has_error('tipo_utilizador') ?>">
-              <?php echo form_error('tipo_utilizador')?>
               <label class="control-label">Tipo de Utilizador</label>
+              <?= form_error('tipo_utilizador', "<span class='help-block'>", "</span>")?>
               <select name="tipo_utilizador" id="tipo_utilizador_select" class="form-control"
-                value="<?php echo set_value('tipo_utilizador'); ?>">
-                <option id="default_utilizador_select" value="none" <?php echo set_select('tipo_utilizador', 'none'); ?>>-</option>
-                <option id="voluntario_select" value="voluntario" <?php echo set_select('tipo_utilizador', 'voluntario') ?>>Voluntário</option>
-                <option id="instituicao_select" value="instituicao" <?php echo set_select('tipo_utilizador', 'instituicao') ?>>Instituição</option>
+                value="<?= set_value('tipo_utilizador'); ?>">
+                <option id="default_utilizador_select" value="none" <?= set_select('tipo_utilizador', 'none'); ?>>-</option>
+                <option id="voluntario_select" value="voluntario" <?= set_select('tipo_utilizador', 'voluntario') ?>>Voluntário</option>
+                <option id="instituicao_select" value="instituicao" <?= set_select('tipo_utilizador', 'instituicao') ?>>Instituição</option>
               </select>
             </div>
 
@@ -51,25 +51,25 @@
               </div>
 
               <div class="form-group <?= has_error('nome_utilizador') ?>" >
-                <?php echo form_error('nome_utilizador')?>
                 <label class="control-label">Nome</label>
-                <input name="nome_utilizador" value="<?php echo set_value('nome_utilizador'); ?>" class="form-control" placeholder="Nome Completo"></input>
+                <?= form_error('nome_utilizador', "<span class='help-block'>", "</span>")?>
+                <input name="nome_utilizador" value="<?= set_value('nome_utilizador'); ?>" class="form-control" placeholder="Nome Completo"></input>
               </div>
 
               <div class="form-group <?= has_error('genero') ?>">
-                <?php echo form_error('genero')?>
                 <label class="control-label">Género</label>
+                <?= form_error('genero', "<span class='help-block'>", "</span>")?>
                 <div class="checkbox">
-                  <label class="radio-inline"><input type="radio" name="genero" value="m" <?php echo set_radio('genero', 'm'); ?>>Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="genero" value="f" <?php echo set_radio('genero', 'f'); ?>>Feminino</label>
+                  <label class="radio-inline"><input type="radio" name="genero" value="m" <?= set_radio('genero', 'm'); ?>>Masculino</label>
+                  <label class="radio-inline"><input type="radio" name="genero" value="f" <?= set_radio('genero', 'f'); ?>>Feminino</label>
                 </div>
               </div>
 
               <div class="form-group <?= has_error('data_nascimento') ?>">
-                <?php echo form_error('data_nascimento')?>
                 <label class="control-label">Data de Nascimento</label>
+                <?= form_error('data_nascimento', "<span class='help-block'>", "</span>")?>
                 <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                  <input name="data_nascimento" value="<?php echo set_value('data_nascimento'); ?>" type='text' class="form-control" />
+                  <input name="data_nascimento" value="<?= set_value('data_nascimento'); ?>" type='text' class="form-control" />
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -78,30 +78,30 @@
 
 
               <div class="form-group <?= has_error('telefone') ?>">
-                <?php echo form_error('telefone')?>
                 <label class="control-label">Telefone</label>
-                <input name="telefone" value="<?php echo set_value('telefone'); ?>" class="form-control" placeholder="Telefone"></input>
+                <?= form_error('telefone', "<span class='help-block'>", "</span>")?>
+                <input name="telefone" value="<?= set_value('telefone'); ?>" class="form-control" placeholder="Telefone"></input>
               </div>
 
               <div class="form-group <?= has_error('grupos_atuacao[]') ?>">
-                <?php echo form_error('grupos_atuacao[]')?>
                 <label class="control-label">Grupo de Atuação</label>
+                <?= form_error('grupos_atuacao[]', "<span class='help-block'>", "</span>")?>
                 <select multiple class="form-control" name="grupos_atuacao[]">
                   <?php foreach ($this->grupos_atuacao->result() as $row) { ?>
-                    <option value="<?php echo $row->id ?>" <?php echo set_select('grupos_atuacao[]', $row->id) ?>>
-                      <?php echo $row->nome ?>
+                    <option value="<?= $row->id ?>" <?= set_select('grupos_atuacao[]', $row->id) ?>>
+                      <?= $row->nome ?>
                     </option>
                   <?php } ?>
                 </select>
               </div>
 
               <div class="form-group <?= has_error('areas_interesse[]') ?>">
-                <?php echo form_error('areas_interesse[]')?>
                 <label class="control-label">Áreas de Interesse</label>
+                <?= form_error('areas_interesse[]', "<span class='help-block'>", "</span>")?>
                 <select multiple class="form-control" name="areas_interesse[]">
                   <?php foreach ($this->areas_interesse->result() as $row) { ?>
-                    <option value="<?php echo $row->id ?>" <?php echo set_select('areas_interesse[]', $row->id) ?>>
-                      <?php echo $row->nome ?>
+                    <option value="<?= $row->id ?>" <?= set_select('areas_interesse[]', $row->id) ?>>
+                      <?= $row->nome ?>
                     </option>
                   <?php } ?>
                 </select>
@@ -111,39 +111,39 @@
               <h3>Área Geográfica</h3>
 
               <div class="form-group <?= has_error('concelho') ?>">
-                <?php echo form_error('concelho')?>
                 <label class="control-label">Concelho</label>
+                <?= form_error('concelho', "<span class='help-block'>", "</span>")?>
                 <select id="concelho" class="form-control" name="concelho">
                   <option value="default">-</option>
                   <?php foreach ($this->select_boxes_data['concelho'] as $key => $value) { ?>
-                    <option value="<?php echo $value ?>">
-                      <?php echo $value ?>
+                    <option value="<?= $value ?>">
+                      <?= $value ?>
                     </option>
                   <?php } ?>
                 </select>
               </div>
 
               <div class="form-group <?= has_error('distrito') ?>">
-                <?php echo form_error('distrito')?>
                 <label class="control-label">Distrito</label>
+                <?= form_error('distrito', "<span class='help-block'>", "</span>")?>
                 <select id="distrito" class="form-control" name="distrito">
                   <option value="default">-</option>
                   <?php foreach ($this->select_boxes_data['districto'] as $key => $value) { ?>
-                    <option value="<?php echo $value ?>">
-                      <?php echo $value ?>
+                    <option value="<?= $value ?>">
+                      <?= $value ?>
                     </option>
                   <?php } ?>
                 </select>
               </div>
 
               <div class="form-group <?= has_error('freguesia') ?>">
-                <?php echo form_error('freguesia')?>
                 <label class="control-label">Freguesia</label>
+                <?= form_error('freguesia', "<span class='help-block'>", "</span>")?>
                 <select id="freguesia" class="form-control" name="freguesia">
                   <option value="default">-</option>
                   <?php foreach ($this->select_boxes_data['freguesia'] as $key => $value) { ?>
-                    <option value="<?php echo $value ?>">
-                      <?php echo $value ?>
+                    <option value="<?= $value ?>">
+                      <?= $value ?>
                     </option>
                   <?php } ?>
                 </select>
@@ -152,34 +152,34 @@
               <br>
               <h3>Habilitações Académicas</h3>
               <div class="form-group <?= has_error('tipo_habilitacao_academica') ?>">
-                <?php echo form_error('tipo_habilitacao_academica')?>
                 <label class="control-label">Tipo</label>
+                <?= form_error('tipo_habilitacao_academica', "<span class='help-block'>", "</span>")?>
                 <select class="form-control" name="tipo_habilitacao_academica">
                     <?php foreach ($this->tipos_habilitacoes_academicas->result() as $row) { ?>
-                      <option value="<?php echo $row->id ?>">
-                        <?php echo $row->nome ?>
+                      <option value="<?= $row->id ?>">
+                        <?= $row->nome ?>
                       </option>
                     <?php } ?>
                 </select>
               </div>
 
               <div class="form-group <?= has_error('curso') ?>">
-                <?php echo form_error('curso')?>
                 <label class="control-label">Curso</label>
-                <input type="text" class="form-control" name="curso" value="<?php echo set_value('curso'); ?>">
+                <?= form_error('curso', "<span class='help-block'>", "</span>")?>
+                <input type="text" class="form-control" name="curso" value="<?= set_value('curso'); ?>">
               </div>
 
               <div class="form-group <?= has_error('instituto_ensino') ?>">
-                <?php echo form_error('instituto_ensino')?>
                 <label class="control-label">Instituto</label>
-                <input type="text" class="form-control" name="instituto_ensino" value="<?php echo set_value('instituto_ensino'); ?>">
+                <?= form_error('instituto_ensino', "<span class='help-block'>", "</span>")?>
+                <input type="text" class="form-control" name="instituto_ensino" value="<?= set_value('instituto_ensino'); ?>">
               </div>
 
               <div class="form-group <?= has_error('data_conclusao_curso') ?>">
-                <?php echo form_error('data_conclusao_curso')?>
                 <label class="control-label">Data de Conclusão</label>
+                <?= form_error('data_conclusao_curso', "<span class='help-block'>", "</span>")?>
                 <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                  <input type='text' name='data_conclusao_curso' class="form-control" value="<?php echo set_value('data_conclusao_curso'); ?>"/>
+                  <input type='text' name='data_conclusao_curso' class="form-control" value="<?= set_value('data_conclusao_curso'); ?>"/>
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -285,8 +285,8 @@
               <div class="form-group">
                 <label class="control-label">Género</label>
                 <div class="checkbox">
-                  <label class="radio-inline"><input type="radio" name="genero" value='m' <?php echo set_radio(''); ?>>Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="genero" value='f' <?php echo set_radio(''); ?>>>Feminino</label>
+                  <label class="radio-inline"><input type="radio" name="genero" value='m' <?= set_radio(''); ?>>Masculino</label>
+                  <label class="radio-inline"><input type="radio" name="genero" value='f' <?= set_radio(''); ?>>>Feminino</label>
                 </div>
               </div>
 
