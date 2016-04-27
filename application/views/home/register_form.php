@@ -110,29 +110,19 @@
               <br>
               <h3>Área Geográfica</h3>
 
-              <div class="form-group <?= has_error('concelho') ?>">
-                <label class="control-label">Concelho</label>
-                <?= form_error('concelho', "<span class='help-block'>", "</span>")?>
-                <select id="concelho" class="form-control" name="concelho">
-                  <option value="default">-</option>
-                  <?php foreach ($this->select_boxes_data['concelho'] as $key => $value) { ?>
-                    <option value="<?= $value ?>">
-                      <?= $value ?>
-                    </option>
-                  <?php } ?>
-                </select>
-              </div>
-
               <div class="form-group <?= has_error('distrito') ?>">
                 <label class="control-label">Distrito</label>
                 <?= form_error('distrito', "<span class='help-block'>", "</span>")?>
                 <select id="distrito" class="form-control" name="distrito">
                   <option value="default">-</option>
-                  <?php foreach ($this->select_boxes_data['districto'] as $key => $value) { ?>
-                    <option value="<?= $value ?>">
-                      <?= $value ?>
-                    </option>
-                  <?php } ?>
+                </select>
+              </div>
+
+              <div class="form-group <?= has_error('concelho') ?>">
+                <label class="control-label">Concelho</label>
+                <?= form_error('concelho', "<span class='help-block'>", "</span>")?>
+                <select id="concelho" class="form-control" name="concelho">
+                  <option value="default">-</option>
                 </select>
               </div>
 
@@ -141,11 +131,6 @@
                 <?= form_error('freguesia', "<span class='help-block'>", "</span>")?>
                 <select id="freguesia" class="form-control" name="freguesia">
                   <option value="default">-</option>
-                  <?php foreach ($this->select_boxes_data['freguesia'] as $key => $value) { ?>
-                    <option value="<?= $value ?>">
-                      <?= $value ?>
-                    </option>
-                  <?php } ?>
                 </select>
               </div>
 
