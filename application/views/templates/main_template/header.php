@@ -34,45 +34,51 @@
   </head>
 
   <body>
-    <div class="container container-base">
-      <div class="row">
-        <!-- <div class="col-md-2">
-          <div class="sidebar">
-            <h3></h3>
-            <img src="" alt="">
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-          </div>
-        </div> -->
-
-        <div class="col-md-12">
-
-          <nav class="navbar navbar-default navbar-static-top">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="/">@Volunteer FCUL</a>
-              </div>
-              <ul class="nav navbar-nav navbar-right">
-                <?php
-                  if ($this->session->userdata('id') !== null) {
-                    echo "<li><a href='logout'>Logout</a></li>";
-                  }
-                  else {
-                    echo "<li class='";
-                    echo isset($this->login_tab) ? 'active' : '';
-                    echo "'><a href='login'>Login</a></li>";
-                    echo "<li><a href='signup'>Registar</a></li>";
-                  }
-
-                ?>
-              </ul>
-            </div>
-          </nav>
-
-          <div class="container-fluid">
-            <?= show_flash($this) ?>
-          </div>
+    <div class="wrapper">
+      <div class="sidebar-wrapper">
+        <h3>Volunteer @ FCUL</h3>
+        <div class="image-holder">
+          <img src="<?= base_url('/assets/images/logo.jpeg') ?>" alt="logo">
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#">Perfil</a></li>
+            <li><a href="#">Pesquisar</a></li>
+            <li><a href="#">Instituições</a></li>
+          </ul>
+        </nav>
           
+      </div>
+      <div class="page-content-wrapper">
+        <div class="container container-base">
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <nav class="navbar navbar-default navbar-static-top">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="/">@Volunteer FCUL</a>
+                  </div>
+                  <ul class="nav navbar-nav navbar-right">
+                    <?php
+                      if ($this->session->userdata('id') !== null) {
+                        echo "<li><a href='logout'>Logout</a></li>";
+                      }
+                      else {
+                        echo "<li class='";
+                        echo isset($this->login_tab) ? 'active' : '';
+                        echo "'><a href='login'>Login</a></li>";
+                        echo "<li><a href='signup'>Registar</a></li>";
+                      }
+
+                    ?>
+                  </ul>
+                </div>
+              </nav>
+
+              <div class="container-fluid">
+                <?= show_flash($this) ?>
+              </div>
+      
+        

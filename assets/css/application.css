@@ -8,8 +8,78 @@ body {
   padding: 0;
 }
 
+.wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding-left: 250px;
+}
+
 .sidebar {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
   background-color: red;
+  height: 100%;
+  width: 16.8888888%;
+  padding: 20px;
+}
+
+.sidebar-wrapper h3 {
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.sidebar-wrapper .image-holder {
+  width: 115px;
+  text-align: center;
+  margin: 30px auto;
+}
+
+.sidebar-wrapper .image-holder img {
+  width: 100%;
+  max-width: 100%;
+}
+
+.sidebar-wrapper nav ul {
+  padding: 0;
+}
+
+.sidebar-wrapper nav ul li {
+  list-style: none;
+  text-align: center;
+}
+
+.sidebar-wrapper nav ul li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
 }
 
 .content {
@@ -77,11 +147,26 @@ body {
 html {
   position: relative;
   min-height: 100%;
+  height: 100%;
 }
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  position: relative;
+  min-height: 100%;
+  height: 100%;
 }
+
+.wrapper {
+  min-height: 100%;
+  height: 100%;
+  position: relative;
+}
+.page-content-wrapper {
+  position: relative;
+  padding-bottom: 60px;
+  min-height: 100%;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

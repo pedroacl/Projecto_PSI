@@ -1,6 +1,6 @@
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
     <footer class="footer">
       <div class="container-fluid">
         <div class="row">
@@ -13,5 +13,7 @@
         </div>
       </div>
     </footer>
+      </div>
+    </div>
   </body>
 </html>
