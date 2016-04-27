@@ -11,7 +11,7 @@ class Voluntario extends CI_Model {
 
         return $this->db->insert_id();
     }
-
+/*
     function get_volunteer_by_email($email)
     {
         // $query = $this->db->get('utilizadores', 1);
@@ -22,6 +22,16 @@ class Voluntario extends CI_Model {
         $query = $this->db->get();
 
         return $query;
+    }
+*/
+    function get_voluntario_by_id($id_utilizador)
+    {
+        $this->db->select('');
+        $this->db->from('Utilizadores as utilizadores');
+        $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = voluntarios.id_utilizador');
+        $this->db->where('id', $id_utilizador);
+
+        return $this->db->get();
     }
 
     function get_signup_form_data($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas)
@@ -67,6 +77,21 @@ class Voluntario extends CI_Model {
             array(
                 'field' => 'areas_interesse[]',
                 'label' => 'Areas Interesse',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'concelho',
+                'label' => 'Concelho',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'distrito',
+                'label' => 'Distrito',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'freguesia',
+                'label' => 'Freguesia',
                 'rules' => 'required'
             ),
             array(

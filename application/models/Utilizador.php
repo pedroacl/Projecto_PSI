@@ -11,7 +11,10 @@ class Utilizador extends CI_Model {
 
     function authenticate_utilizador($email, $password)
     {
-        $query = $this->get_utilizador_by_email($email);
+        $this->db->select('id, email, password');
+        $this->db->from('Utilizadores');
+        $this->db->where('email', $email);
+        $query = $this->db->get();
 
         // utilizador existe
         if ($query->num_rows() > 0) {
@@ -40,15 +43,27 @@ class Utilizador extends CI_Model {
         return $query->result();
     }
 
-    function get_utilizador_by_email($email)
+    function get_utilizador_by_id($id_utilizador, $user_type)
     {
-        // $query = $this->db->get('utilizadores', 1);
-        $this->db->select('id, email, password, salt');
-        $this->db->from('Utilizadores');
-        $this->db->where('email', $email);
-        $query = $this->db->get();
+        if ($user_type == 'voluntario') {
+            return get_voluntario_by_id($id_utilizador);
+        }
+        else
+        {
+            return get_instituicao_by_id($id_utilizador);
+        }
+    }
 
-        return $query;
+
+
+    function get_instituicao_by_id($id_utilizador)
+    {
+        $this->db->select('');
+        $this->db->from('Utilizadores as utilizadores');
+        $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = voluntarios.id_utilizador');
+        $this->db->where('id', $id_utilizador);
+
+        return $this->db->get();
     }
 
     function insert_entry($input)
