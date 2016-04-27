@@ -4,7 +4,7 @@ var areas_geograficas = {
 		"nome"      : "Lisboa",
 		"concelhos" : [
 			{
-				"nome"      : "Amadora"
+				"nome"      : "Amadora",
 				"freguesias": [
 					{ "nome" : "Águas Livres" },
 					{ "nome" : "Alfragide" },
@@ -26,7 +26,7 @@ var areas_geograficas = {
 		"nome"      : "Portalegre",
 		"concelhos" : [
 			{
-				"nome"      : "Avis"
+				"nome"      : "Avis",
 				"freguesias": [
 					{ "nome" : "Aldeia Velha" },
 					{ "nome" : "Avis" },
@@ -48,7 +48,7 @@ var areas_geograficas = {
 		"nome"      : "Porto",
 		"concelhos" : [
 			{
-				"nome"      : "Amarante"
+				"nome"      : "Amarante",
 				"freguesias": [
 					{ "nome" : "Amarante" },
 					{ "nome" : "Gondar" },
