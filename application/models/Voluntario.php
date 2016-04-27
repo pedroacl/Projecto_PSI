@@ -82,17 +82,17 @@ class Voluntario extends CI_Model {
             array(
                 'field' => 'concelho',
                 'label' => 'Concelho',
-                'rules' => 'required'
+                'rules' => 'required|callback_not_default'
             ),
             array(
                 'field' => 'distrito',
                 'label' => 'Distrito',
-                'rules' => 'required'
+                'rules' => 'required|callback_not_default'
             ),
             array(
                 'field' => 'freguesia',
                 'label' => 'Freguesia',
-                'rules' => 'required'
+                'rules' => 'required|callback_not_default'
             ),
             array(
                 'field' => 'tipo_habilitacao_academica',
