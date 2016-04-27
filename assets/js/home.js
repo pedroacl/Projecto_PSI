@@ -1,7 +1,11 @@
 $(document).ready(function() {
 
-	$number_of_disp  = 0;
-	$counter_of_disp = 0;
+	$number_of_disp  = $('#disponibilidade_table').children().children().length - 1;
+	$counter_of_disp = $number_of_disp;
+
+	if ($number_of_disp <= 0) {
+		$('#disponibilidade_table').hide('fast');
+	}
 
 	$voluntario_div  = $('.voluntario_fields');
 	$instituicao_div = $('.instituicao_fields');
@@ -42,22 +46,9 @@ $(document).ready(function() {
 		if ($data_inicio.val() !== '' && $periodicidade.val() !== '' && $data_fim.val() !== '' && $repetir_ate.val() !== '') {
 
 			// Construct table HTML
-			var disp_row = "<tr><td>" + $data_inicio.val() + "</td><td>"
-				+ $data_fim.val() + "</td><td>" + $periodicidade.val() + "</td><td>"
-				+ $repetir_ate.val() + "</td><td><a class='btn btn-danger btn-sm eliminar' data='"
-				+ $counter_of_disp + "'>Eliminar</a>";
-
-			// Construct hidden form data and append everything
-			var hidden_form_data = "<input type='hidden' name='disponibilidades["
-				+ $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val()
-				+ "'><input type='hidden' name='disponibilidades[" + $counter_of_disp
-				+ "][data_fim]' value='" + $data_fim.val() + "'><input type='hidden' name='disponibilidades["
-				+ $counter_of_disp + "][periodicidade]' value='" + $periodicidade.val()
-				+ "'><input type='hidden' name='disponibilidades[" + $counter_of_disp
-				+ "][repetir_ate]' value='" + $repetir_ate.val() + "'></td></tr>";
+			var disp_row = "<tr id='disponibilidade_" + $counter_of_disp + "'><td>" + $data_inicio.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val() + "'><td>" + $data_fim.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_fim]' value='" + $data_fim.val() + "'><td>" + $periodicidade.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][periodicidade]' value='" + $periodicidade.val() + "'><td>" + $repetir_ate.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][repetir_ate]' value='" + $repetir_ate.val() + "'><td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>" + "</tr>";
 
 			$('#disponibilidade_table').append(disp_row);
-			$('#disponibilidade_table').append(hidden_form_data);
 
 			// Clear form
 			$data_inicio.val('');
@@ -96,12 +87,8 @@ $(document).ready(function() {
 	});
 
 	// Add event listener to eliminar of disponibilidades
-	$('#disponibilidade_table').on('click', 'tr td a.eliminar', function() {
+	$('body').on('click', 'a.eliminar', function() {
 		$(this).parent().parent().remove();
-		$("input[name='disponibilidades[" + $(this).attr('data') + "][periodicidade]']").remove();
-		$("input[name='disponibilidades[" + $(this).attr('data') + "][repetir_ate]']").remove();
-		$("input[name='disponibilidades[" + $(this).attr('data') + "][data_fim]']").remove();
-		$("input[name='disponibilidades[" + $(this).attr('data') + "][data_inicio]']").remove();
 		$number_of_disp--;
 		if ($number_of_disp <= 0) {
 			$('#disponibilidade_table').hide('fast');

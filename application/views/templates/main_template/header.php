@@ -35,7 +35,7 @@
   <body>
     <div class="container container-base">
       <div class="row">
-        <div class="col-md-2">
+        <!-- <div class="col-md-2">
           <div class="sidebar">
             <h3></h3>
             <img src="" alt="">
@@ -45,9 +45,9 @@
               <li></li>
             </ul>
           </div>
-        </div>
+        </div> -->
 
-        <div class="col-md-10">
+        <div class="col-md-12">
 
           <nav class="navbar navbar-default navbar-static-top">
             <div class="container-fluid">
