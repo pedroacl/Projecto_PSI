@@ -69,6 +69,7 @@ class Home extends MY_Controller {
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 		$this->grupos_atuacao                = $this->grupo_atuacao->get_entries();
 		$this->areas_interesse               = $this->area_iteresse->get_entries();
+		$this->disponibilidades					 = $this->input->post('disponibilidades[]');
 
 		$form_rules = null;
 

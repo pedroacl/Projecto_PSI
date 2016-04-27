@@ -47,7 +47,7 @@
 
               <div class="form-group <?= has_error('foto') ?>">
                 <label class="control-label">Foto</label>
-                <input type="file" name="foto" value="<?php echo set_value('foto'); ?>"/>
+                <input type="file" name="foto"/>
               </div>
 
               <div class="form-group <?= has_error('nome_utilizador') ?>" >
@@ -306,6 +306,34 @@
                 </select>
               </div>
             </div>
+
+
+
+            <?php if (isset($this->disponibilidades)) { ?>
+              <h3>Test</h3>
+
+              <table id="disp_table" class="table">
+                <tbody>
+                  <tr>
+                    <th>Data inicio</th>
+                    <th>Data fim</th>
+                    <th>Periodicidade</th>
+                    <th>Repetir até</th>
+                    <th>Acções</th>
+                  </tr>
+                  <?php foreach ($this->disponibilidades as $disponibilidade => $value) { ?>
+                    <tr>
+                      <td><?php echo $disponibilidade['data_inicio'] ?></td>
+                      <td><?php echo $disponibilidade['data_fim'] ?></td>
+                      <td><?php echo $disponibilidade['periodicidade'] ?></td>
+                      <td><?php echo $disponibilidade['repetir_ate'] ?></td>
+                  <?php } ?>
+                </tbody>
+              </table>
+            <?php } ?>
+
+
+
             <div class="pull-right">
               <a href="#" onclick="window.history.back();" class="btn btn-danger">Cancelar</a>
               <button class="btn btn-success" type="submit">Registar</button>
