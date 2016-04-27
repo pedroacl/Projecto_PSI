@@ -6,3 +6,6 @@ TODO
 =========
 - Alterar comandos SQL
 - Adicionar tabelas de relações que faltam (gruposAtuacao-Utilizadores, areasInteresse-Utilizadores, etc..)
+
+- Perfil de voluntário
+- Editar perfil de voluntário

@@ -33,45 +33,28 @@
   </head>
 
   <body>
-    <div class="container container-base">
-      <div class="row">
-        <div class="col-md-2">
-          <div class="sidebar">
-            <h3></h3>
-            <img src="" alt="">
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-            </ul>
-          </div>
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">@Volunteer FCUL</a>
         </div>
+        <ul class="nav navbar-nav navbar-right">
+          <?php
+            if ($this->session->userdata('id') !== null) {
+              echo "<li><a href='logout'>Logout</a></li>";
+            }
+            else {
+              echo "<li class='";
+              echo isset($this->login_tab) ? 'active' : '';
+              echo "'><a href='login'>Login</a></li>";
+              echo "<li><a href='signup'>Registar</a></li>";
+            }
 
-        <div class="col-md-10">
+          ?>
+        </ul>
+      </div>
+    </nav>
 
-          <nav class="navbar navbar-default navbar-static-top">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="/">@Volunteer FCUL</a>
-              </div>
-              <ul class="nav navbar-nav navbar-right">
-                <?php
-                  if ($this->session->userdata('id') !== null) {
-                    echo "<li><a href='logout'>Logout</a></li>";
-                  }
-                  else {
-                    echo "<li class='";
-                    echo isset($this->login_tab) ? 'active' : '';
-                    echo "'><a href='login'>Login</a></li>";
-                    echo "<li><a href='signup'>Registar</a></li>";
-                  }
-
-                ?>
-              </ul>
-            </div>
-          </nav>
-
-          <div class="container-fluid">
-            <?= show_flash($this) ?>
-          </div>
-          
+    <div class="container-fluid">
+      <?= show_flash($this) ?>
+    </div>

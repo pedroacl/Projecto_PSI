@@ -14,4 +14,11 @@ class Volunteer extends CI_Controller {
 		$this->load->view('volunteers/signup');
 		$this->load->view('templates/main_template/footer');
 	}
+
+	public function profile()
+	{
+		$this->load->view('templates/main_template/header');
+		$this->load->view('volunteers/profile');
+		$this->load->view('templates/main_template/footer');
+	}
 }

@@ -4,6 +4,14 @@ body {
   background-color: #555;
 }
 
+.container.container-base {
+  padding: 0;
+}
+
+.sidebar {
+  background-color: red;
+}
+
 .content {
   padding-top: 20px;
 }
