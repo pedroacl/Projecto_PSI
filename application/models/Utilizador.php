@@ -139,7 +139,8 @@ class Utilizador extends CI_Model {
 
     function upload_photo($id_utilizador)
     {
-        $config['upload_path']   = './uploads/photos/' . $id_utilizador . '/';
+        $photo_upload_path       = './uploads/' . $id_utilizador . '/photos';
+        $config['upload_path']   = $photo_upload_path;
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['max_size']      = '100';
         $config['max_width']     = '1024';
@@ -148,19 +149,27 @@ class Utilizador extends CI_Model {
         $this->load->library('upload', $config);
 
         // criar directorio do utilizador
-        if (!is_dir('uploads/photos/' . $id_utilizador))
+        if (!is_dir($photo_upload_path))
         {
-            mkdir('./uploads/photos/' . $id_utilizador, 0777, true);
+            mkdir($photo_upload_path, 0777, true);
         }
 
-        // upload da foto
+        // erro de upload da foto
         if ( ! $this->upload->do_upload('foto'))
         {
             return $this->upload->display_errors();
         }
+        // atualizar path da foto
         else
         {
-            $data = array('upload_data' => $this->upload->data());
+            $upload_data = $this->upload->data();
+
+            $user_data = array(
+                'foto' => $photo_upload_path . '/' . $upload_data['file_name']
+            );
+
+            $this->db->where('id', $id_utilizador);
+            $this->db->update('Utilizadores', $user_data);
         }
     }
 

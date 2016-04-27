@@ -307,6 +307,9 @@
               </div>
             </div>
 
+
+<!--
+
             <?php if (isset($this->disponibilidades)) { ?>
               <h3>Test</h3>
 
@@ -391,7 +394,7 @@
                 </div>
               </div>
 
-
+-->
 
 
             <div class="pull-right">

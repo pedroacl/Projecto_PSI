@@ -104,6 +104,7 @@ class Home extends MY_Controller {
 			$id_utilizador = $this->utilizador->insert_entry($this->input);
 			$photo_upload_error = $this->utilizador->upload_photo($id_utilizador);
 
+			// erro de upload da foto
 			if (isset($photo_upload_error)) {
 				$this->form_validation->set_message('foto', $photo_upload_error);
 				echo $photo_upload_error;
