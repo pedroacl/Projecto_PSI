@@ -11,8 +11,9 @@ class Utilizador extends CI_Model {
 
     function authenticate_utilizador($email, $password)
     {
-        $this->db->select('id, email, password');
+        $this->db->select('id, email, password, nome');
         $this->db->from('Utilizadores');
+        $this->db->join('')
         $this->db->where('email', $email);
         $query = $this->db->get();
 
@@ -89,11 +90,12 @@ class Utilizador extends CI_Model {
         $hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
 
         $data = array(
-            'email'          => $input->post('email'),
-            'password'       => $hashAndSalt,
-            'telefone'       => $input->post('telefone'),
-            'nome'           => $input->post('nome_utilizador'),
-            'recovery_token' => ''
+            'email'           => $input->post('email'),
+            'password'        => $hashAndSalt,
+            'telefone'        => $input->post('telefone'),
+            'nome'            => $input->post('nome_utilizador'),
+            'tipo_utilizador' => $input->post('tipo_utilizador'),
+            'recovery_token'  => ''
         );
 
         return $data;

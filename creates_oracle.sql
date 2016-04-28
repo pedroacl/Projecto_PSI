@@ -85,6 +85,6 @@ CREATE TABLE Periodicidades (
    tipo                 BIT(1)    CONSTRAINT nn_tipo               NOT NULL,
    data_fim             DATETIME  CONSTRAINT nn_data_fim           NOT NULL,
    CONSTRAINT pk_disponibilidade PRIMARY KEY (id),
-   CONSTRAINT fk_disponibilidade FOREIGN KEY (id_disponibilidade)   REFERENCES Disponibilidades(id),
-   FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id) ON DELETE CASCADE
+   CONSTRAINT fk_disponibilidade FOREIGN KEY (id_disponibilidade)
+      REFERENCES Disponibilidades(id) ON DELETE CASCADE,
 );

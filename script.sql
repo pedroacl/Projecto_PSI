@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS Utilizadores (
    password            	VARCHAR(100) 	NOT NULL,
    nome                 VARCHAR(100)   NOT NULL,
    telefone             VARCHAR(20)    NOT NULL,
+   tipo_utilizador      VARCHAR(20)    NOT NULL,
    created_at          	TIMESTAMP 		NOT NULL,
    updated_at          	TIMESTAMP 		NOT NULL,
    recovery_token       VARCHAR(50)    DEFAULT NULL,
