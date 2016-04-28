@@ -60,8 +60,8 @@
                 <label class="control-label">Género</label>
                 <?= form_error('genero', "<span class='help-block'>", "</span>")?>
                 <div class="checkbox">
-                  <label class="radio-inline"><input type="radio" name="genero" value="<?= set_radio('genero', 'm'); ?>">Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="genero" value="<?= set_radio('genero', 'f'); ?>">Feminino</label>
+                  <label class="radio-inline"><input type="radio" name="genero" value="m" <?= set_radio('genero', 'm'); ?>/>Masculino</label>
+                  <label class="radio-inline"><input type="radio" name="genero" value="f" <?= set_radio('genero', 'f'); ?>/>Feminino</label>
                 </div>
               </div>
 

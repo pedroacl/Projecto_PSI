@@ -135,7 +135,7 @@ class Utilizador extends CI_Model {
             array(
                 'field' => 'nome_utilizador',
                 'label' => 'Nome',
-                'rules' => 'required|is_unique[Utilizadores.nome]'
+                'rules' => 'required'
             ),
             array(
                 'field' => 'telefone',

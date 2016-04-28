@@ -117,7 +117,7 @@ class Voluntario extends CI_Model {
             array(
                 'field' => 'disponibilidades[]',
                 'label' => 'Disponibilidade',
-                'rules' => 'required'
+                'rules' => ''
             )
         );
 

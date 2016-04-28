@@ -34,7 +34,8 @@
   </head>
 
   <body>
-    <div class="wrapper">
+    <?php $class_if_not_loggedin = $this->session->userdata('id') !== null ? '' : 'toggled'; ?>
+    <div class="wrapper <?= $class_if_not_loggedin ?>">
       <div class="sidebar-wrapper">
         <h3>Volunteer @ FCUL</h3>
         <div class="image-holder">
