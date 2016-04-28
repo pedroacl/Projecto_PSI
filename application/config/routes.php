@@ -61,3 +61,6 @@ $route['signup']['post'] = 'home/process_signup';
 $route['login']['get']  = 'home/show_login';
 $route['login']['post'] = 'home/process_login';
 $route['logout']['get'] = 'home/logout';
+
+// voluntario
+$route['profile']['get']  = 'voluntario/profile';

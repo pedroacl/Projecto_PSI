@@ -37,13 +37,13 @@
     <?php $class_if_not_loggedin = $this->session->userdata('id') !== null ? '' : 'toggled'; ?>
     <div class="wrapper <?= $class_if_not_loggedin ?>">
       <div class="sidebar-wrapper">
-        <h3>Volunteer @ FCUL</h3>
+        <h3><a href="/">Volunteer @ FCUL</a></h3>
         <div class="image-holder">
           <img src="<?= base_url('/assets/images/logo.jpeg') ?>" alt="logo">
         </div>
         <nav>
           <ul>
-            <li><a href="#">Perfil</a></li>
+            <li><a href="/profile">Perfil</a></li>
             <li><a href="#">Pesquisar</a></li>
             <li><a href="#">Instituições</a></li>
           </ul>

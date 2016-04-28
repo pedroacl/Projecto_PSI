@@ -23,6 +23,12 @@ class Home extends MY_Controller {
 	// GET /signup
 	public function signup()
 	{
+
+		if ($this->session->userdata("id") !== null)
+		{
+			redirect('', 'refresh');
+		}
+
 		$this->load->library('form_validation');
 		$this->load->library('session');
 		$this->tipo_utilizador_selected = null;
