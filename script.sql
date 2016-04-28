@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS Grupos_Atuacao (
    id              	INT AUTO_INCREMENT,
    nome            	VARCHAR(50) UNIQUE,
    descricao			TEXT,
+
    PRIMARY KEY (id)
 );
 
@@ -77,6 +78,7 @@ CREATE TABLE IF NOT EXISTS Tipos_Habilitacoes_Academicas (
    id          INT               AUTO_INCREMENT,
    nome        VARCHAR(50)       NOT NULL UNIQUE,
    descricao   VARCHAR(200),
+
    PRIMARY KEY (id)
 );
 
@@ -87,11 +89,18 @@ CREATE TABLE IF NOT EXISTS Habilitacoes_Academicas (
    data_conclusao      	DATE			NOT NULL,
    curso               	VARCHAR(50) NOT NULL,
    instituto_ensino    	VARCHAR(50) NOT NULL,
+
    PRIMARY KEY (id),
    FOREIGN KEY (id_tipo) REFERENCES Tipos_Habilitacoes_Academicas(id) ON DELETE CASCADE
 );
 
 
+CREATE TABLE IF NOT EXISTS Utilizadores_Habilitacoes_Academicas (
+   id_utilizador              INT NOT NULL,
+   id_habilitacao_academica   INT NOT NULL,
+
+   PRIMARY KEY (id_utilizador, id_habilitacao_academica)
+);
 
 
 CREATE TABLE IF NOT EXISTS Voluntarios (
@@ -102,10 +111,20 @@ CREATE TABLE IF NOT EXISTS Voluntarios (
    genero                      CHAR          NOT NULL,
    data_nascimento             DATE          NOT NULL,
    foto                        VARCHAR(100)  DEFAULT NULL,
+
    PRIMARY KEY (id),
    FOREIGN KEY (id_area_geografica)          REFERENCES Areas_Geograficas(id),
    FOREIGN KEY (id_habilitacoes_academicas)  REFERENCES Habilitacoes_Academicas(id),
    FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS Voluntarios_Oportunidades_Voluntariado (
+   id_voluntario                 INT NOT NULL,
+   id_oportunidade_voluntariado  INT NOT NULL,
+
+   PRIMARY KEY (id_voluntario, id_oportunidade_voluntariado)
 );
 
 
@@ -150,8 +169,8 @@ CREATE TABLE IF NOT EXISTS Inscreve_Se (
    data_inscricao                  	DATETIME NOT NULL,
    aceite							      BIT(1)  	DEFAULT 0,
    PRIMARY KEY (id_voluntario, id_oportunidade_voluntariado),
-   FOREIGN KEY (id_voluntario) 				REFERENCES Voluntarios(id) ON DELETE CASCADE,
-   FOREIGN KEY (id_oportunidade_voluntariado) 	REFERENCES Oportunidades_Voluntariado(id) ON DELETE CASCADE
+   FOREIGN KEY (id_voluntario) 				       REFERENCES Voluntarios(id) ON DELETE CASCADE,
+   FOREIGN KEY (id_oportunidade_voluntariado) 	 REFERENCES Oportunidades_Voluntariado(id) ON DELETE CASCADE
 );
 
 ## CODEIGNITER
