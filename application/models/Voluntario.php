@@ -124,4 +124,39 @@ class Voluntario extends CI_Model {
         return array_merge($rules, $this->utilizador->get_form_validation_rules());
     }
 
+    function upload_photo($id_voluntario)
+    {
+        $photo_upload_path       = './uploads/' . $id_voluntario . '/photos';
+        $config['upload_path']   = $photo_upload_path;
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size']      = '100';
+        $config['max_width']     = '1024';
+        $config['max_height']    = '768';
+
+        $this->load->library('upload', $config);
+
+        // criar directorio do utilizador
+        if (!is_dir($photo_upload_path))
+        {
+            mkdir($photo_upload_path, 0777, true);
+        }
+
+        // erro de upload da foto
+        if ( ! $this->upload->do_upload('foto'))
+        {
+            return $this->upload->display_errors();
+        }
+        // atualizar path da foto
+        else
+        {
+            $upload_data = $this->upload->data();
+
+            $user_data = array(
+                'foto' => $photo_upload_path . '/' . $upload_data['file_name']
+            );
+
+            $this->db->where('id', $id_voluntario);
+            $this->db->update('Voluntarios', $user_data);
+        }
+    }
 }
