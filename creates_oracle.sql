@@ -10,7 +10,9 @@ CREATE TABLE Utilizadores (
 	foto 				VARCHAR2(20),
 	recovery_token VARCHAR2(20),
 
-	CONSTRAINT pk_utilizador PRIMARY KEY (id)
+	CONSTRAINT pk_utilizador PRIMARY KEY (id),
+   CONSTRAINT uc_email UNIQUE (email),
+   CONSTRAINT uc_nome  UNIQUE (nome)
 );
 
 
@@ -76,6 +78,7 @@ CREATE TABLE Areas_Interesse (
    nome               VARCHAR2(50),
 
    CONSTRAINT pk_area_interesse PRIMARY KEY (id),
+   CONSTRAINT uc_nome UNIQUE (nome),
 );
 
 
@@ -98,4 +101,57 @@ CREATE TABLE Periodicidades (
 
    CONSTRAINT fk_disponibilidade FOREIGN KEY (id_disponibilidade)
       REFERENCES Disponibilidades(id) ON DELETE CASCADE,
+);
+
+
+CREATE TABLE Grupos_Atuacao (
+   id                NUMBER(4),
+   nome              VARCHAR(100),
+   descricao         TEXT,
+
+   CONSTRAINT pk_grupo_atuacao PRIMARY KEY (id),
+   CONSTRAINT uc_nome UNIQUE (nome)
+);
+
+
+CREATE TABLE Habilitacoes_Academicas (
+   id                   NUMBER(4),
+   id_tipo              VARCHAR2(50)   NOT NULL,
+   data_conclusao       DATE           NOT NULL,
+   curso                VARCHAR2(50)   NOT NULL,
+   instituto_ensino     VARCHAR2(50)   NOT NULL,
+
+   PRIMARY KEY (id)
+   CONSTRAINT fk_id_tipo FOREIGN KEY (id_tipo) REFERENCES Tipos_Habilitacoes_Academicas(id)
+      ON DELETE CASCADE
+);
+
+
+CREATE TABLE Tipos_Habilitacoes_Academicas (
+   id          NUMBER(4),
+   nome        VARCHAR2(50)   CONSTRAINT nn_nome NOT NULL,
+   descricao   VARCHAR2(200),
+
+   CONSTRAINT pk_tipo_habilitacao_academica PRIMARY KEY (id),
+);
+
+
+CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
+   id                  INT             AUTO_INCREMENT,
+   id_area_interesse   INT             NOT NULL,
+   id_grupo_atuacao    INT             NOT NULL,
+   id_disponibilidade  INT             NOT NULL,
+   id_area_geografica  INT             NOT NULL,
+   id_instituicao      INT             NOT NULL,
+   nome                VARCHAR(150)    NOT NULL,
+   funcao              VARCHAR(50)     NOT NULL,
+   pais                VARCHAR(50)     NOT NULL,
+   vagas               INT             DEFAULT 1,
+   ativa               BIT(1)          DEFAULT 0,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_area_interesse)  REFERENCES Areas_Interesse(id),
+   FOREIGN KEY (id_grupo_atuacao)   REFERENCES Grupos_Atuacao(id),
+   FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id),
+   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
+   FOREIGN KEY (id_instituicao)     REFERENCES Instituicoes(id)
 );

@@ -22,6 +22,35 @@ ALTER TABLE Utilizadores
 ADD CONSTRAINT unique_nome UNIQUE (nome);
 
 
+CREATE TABLE IF NOT EXISTS Voluntarios (
+   id                          INT           AUTO_INCREMENT,
+   id_area_geografica          INT           NOT NULL,
+   id_habilitacoes_academicas  INT           NOT NULL,
+   id_utilizador               INT           NOT NULL,
+   genero                      CHAR(1)       NOT NULL,
+   data_nascimento             DATE          NOT NULL,
+   foto                        VARCHAR(100)  DEFAULT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_area_geografica)          REFERENCES Areas_Geograficas(id),
+   FOREIGN KEY (id_habilitacoes_academicas)  REFERENCES Habilitacoes_Academicas(id),
+   FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS Instituicoes (
+   id                   INT          AUTO_INCREMENT,
+   id_area_geografica   INT          NOT NULL,
+   id_utilizador        INT          NOT NULL,
+   descricao            VARCHAR(50)  NOT NULL,
+   morada               VARCHAR(50)  NOT NULL,
+   email_instituicao    VARCHAR(20)  NOT NULL,
+   website              VARCHAR(20)  DEFAULT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
+   FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
+);
+
+
 CREATE TABLE IF NOT EXISTS Utilizadores_Grupos_Atuacao (
    id_utilizador        INT,
    id_grupo_atuacao     INT,
@@ -45,18 +74,6 @@ CREATE TABLE IF NOT EXISTS Areas_Geograficas (
 );
 
 
-CREATE TABLE IF NOT EXISTS Instituicoes (
-   id                   INT 			 AUTO_INCREMENT,
-   id_area_geografica   INT			 NOT NULL,
-   id_utilizador        INT          NOT NULL,
-   descricao            VARCHAR(50)  NOT NULL,
-   morada               VARCHAR(50)  NOT NULL,
-   email_instituicao    VARCHAR(20)  NOT NULL,
-   website              VARCHAR(20)  DEFAULT NULL,
-   PRIMARY KEY (id),
-   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
-   FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
-);
 
 
 CREATE TABLE IF NOT EXISTS Areas_Interesse (
@@ -100,11 +117,12 @@ ADD CONSTRAINT unique_nome_grupo_atuacao UNIQUE (nome);
 
 CREATE TABLE IF NOT EXISTS Habilitacoes_Academicas (
    id                  	INT 			AUTO_INCREMENT,
-   id_tipo             	VARCHAR(50) NOT NULL,
+   id_tipo             	INT         NOT NULL,
    data_conclusao      	DATE			NOT NULL,
    curso               	VARCHAR(50) NOT NULL,
    instituto_ensino    	VARCHAR(50) NOT NULL,
-   PRIMARY KEY (id)
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_tipo) REFERENCES Tipos_Habilitacoes_Academicas(id) ON DELETE CASCADE
 );
 
 
@@ -117,21 +135,6 @@ CREATE TABLE IF NOT EXISTS Tipos_Habilitacoes_Academicas (
 
 ALTER TABLE Tipos_Habilitacoes_Academicas
 ADD CONSTRAINT unique_nome_tipo_habilitacao_academica UNIQUE (nome);
-
-
-CREATE TABLE IF NOT EXISTS Voluntarios (
-	id                          INT 			   AUTO_INCREMENT,
-	id_area_geografica          INT       	   NOT NULL,
-	id_habilitacoes_academicas  INT 			   NOT NULL,
-   id_utilizador               INT           NOT NULL,
-	genero                      CHAR(1)			NOT NULL,
-   data_nascimento             DATE          NOT NULL,
-   foto                        VARCHAR(100)  DEFAULT NULL,
-	PRIMARY KEY (id),
-	FOREIGN KEY (id_area_geografica) 			REFERENCES Areas_Geograficas(id),
-	FOREIGN KEY (id_habilitacoes_academicas) 	REFERENCES Habilitacoes_Academicas(id),
-   FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
-);
 
 
 CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
