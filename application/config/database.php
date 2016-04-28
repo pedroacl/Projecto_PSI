@@ -70,25 +70,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
+
+
+// $active_group = 'default';
+// $query_builder = TRUE;
+
+// $tnsname = '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = luna.alunos.di.fc.ul.pt)(PORT = 1521))
+//         (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = difcul.alunos.di.fc.ul.pt)))';
+
+// $db['default'] = array(
+// 	'dsn'	=> '//luna.alunos.di.fc.ul.pt/difcul.alunos.di.fc.ul.pt',
+// //	'hostname' => 'localhost',
+// 	'hostname' => $tnsname,
+// 	'username' => 'psi24',
+// 	'password' => 'fcultos024',
+// 	'database' => '',
+// //	'dbdriver' => 'mysqli',
+// 	'dbdriver' => 'oci8',
+// 	'dbprefix' => '',
+// 	'pconnect' => FALSE,
+// 	'db_debug' => TRUE,
+// 	//'db_debug' => (ENVIRONMENT !== 'production'),
+// 	'cache_on' => FALSE,
+// 	'cachedir' => '',
+// 	'char_set' => 'utf8',
+// 	'dbcollat' => 'utf8_general_ci',
+// 	'swap_pre' => '',
+// 	'encrypt' => FALSE,
+// 	'compress' => FALSE,
+// 	'stricton' => FALSE,
+// 	'failover' => array(),
+// 	'save_queries' => TRUE
+// );
+
+
+
 $active_group = 'default';
 $query_builder = TRUE;
 
-$tnsname = '(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = luna.alunos.di.fc.ul.pt)(PORT = 1521))
-        (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = difcul.alunos.di.fc.ul.pt)))';
-
 $db['default'] = array(
-	'dsn'	=> '//luna.alunos.di.fc.ul.pt/difcul.alunos.di.fc.ul.pt',
-//	'hostname' => 'localhost',
-	'hostname' => $tnsname,
-	'username' => 'psi24',
-	'password' => 'fcultos024',
-	'database' => '',
-//	'dbdriver' => 'mysqli',
-	'dbdriver' => 'oci8',
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+	// 'hostname' => $tnsname,
+	'username' => 'root',
+	'password' => 'root',
+	'database' => 'PSI',
+	'dbdriver' => 'mysqli',
+	// 'dbdriver' => 'oci8',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => TRUE,
-	//'db_debug' => (ENVIRONMENT !== 'production'),
+	// 'db_debug' => TRUE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',
@@ -100,4 +132,3 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
