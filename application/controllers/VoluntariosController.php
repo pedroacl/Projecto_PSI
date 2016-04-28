@@ -27,11 +27,12 @@ class VoluntariosController extends MY_Controller {
 		$this->authenticate_user();
 		$this->load->library('form_validation');
 
-		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica_de_utilizador');
-		$this->habilitacoes_academicas_de_utilizador = $this->habilitacao_academica_de_utilizador->get_habilitacoes_academicas_from_utilizador($this->session->userdata('id'));
+		// $this->load->model('HabilitacaoAcademica', 'habilitacao_academica_de_utilizador');
+		// $this->habilitacoes_academicas_de_utilizador = $this->habilitacao_academica_de_utilizador->get_habilitacoes_academicas_from_utilizador($this->session->userdata('id'));
 
 		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
+
 
 		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
 		$this->load->model('Utilizador_GrupoAtuacao', 'grupos_atuacao_de_utilizador');
@@ -48,6 +49,9 @@ class VoluntariosController extends MY_Controller {
 
 		$this->load->model('Voluntario', 'voluntario');
 		$this->voluntario = $this->voluntario->get_voluntario_by_id($this->session->userdata('id'))->row();
+
+		$this->load->model('AreaGeografica', 'area_geografica_de_utilizador');
+		$this->area_geografica_de_utilizador = $this->area_geografica_de_utilizador->get_area_geografica_from_id($this->voluntario->id_area_geografica);
 		
 		$this->js_file = 'edit_profile_voluntarios.js';
 		$this->load->view('templates/main_template/header');

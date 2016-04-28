@@ -16,8 +16,6 @@ class HabilitacaoAcademica extends CI_Model {
       $query = $this->db->get();
       $result;
 
-      print_r($query->result());
-
       $i = 0;
       foreach ($query->result() as $value) {
          $result[$i] = $value->id_area_interesse;

@@ -190,7 +190,7 @@ class HomeController extends MY_Controller {
 		if ($this->user_logged_in())
 		{
 			$this->session->set_flashdata('notice', 'Utilizador já se encontra registado.');
-			redirect('home', 'refresh');
+			redirect('', 'refresh');
 		}
 
 		$this->title = "Login";
@@ -198,7 +198,7 @@ class HomeController extends MY_Controller {
 
 		// load view
 		$this->load->view('templates/main_template/header');
-		$this->load->view('home/login');
+		$this->load->view('homecontroller/login');
 		$this->load->view('templates/main_template/footer');
 	}
 

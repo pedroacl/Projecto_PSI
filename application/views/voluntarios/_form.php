@@ -1,8 +1,15 @@
 <div class="voluntario_fields" style="display: none;">
 
+  <div class="row">
+    <div class="col-xs-3 col-md-3">
+      <a href="#" class="thumbnail">
+        <img src="<?= $this->voluntario->foto ?>">
+      </a>
+    </div>
+  </div>
   <div class="form-group <?= has_error('foto') ?>">
     <label class="control-label">Foto</label>
-    <input type="file" name="foto"/>
+    <input value="<?= set_value('foto', $this->voluntario->foto); ?>" type="file" name="foto"/>
   </div>
 
   <div class="form-group <?= has_error('nome_utilizador') ?>" >
@@ -70,6 +77,7 @@
     <?= form_error('distrito', "<span class='help-block'>", "</span>")?>
     <select id="distrito" class="form-control" name="distrito">
       <option value="default">-</option>
+      <option value="<?= set_select('distrito', ) ?>">-</option>
     </select>
   </div>
 
