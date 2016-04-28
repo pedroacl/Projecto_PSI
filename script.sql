@@ -7,11 +7,10 @@ CREATE TABLE IF NOT EXISTS Utilizadores (
    email               	VARCHAR(100) 	NOT NULL,
    password            	VARCHAR(100) 	NOT NULL,
    nome                 VARCHAR(100)   NOT NULL,
-   foto					   VARCHAR(100)	DEFAULT NULL,
    telefone             VARCHAR(20)    NOT NULL,
-   recovery_token      	VARCHAR(50) 	DEFAULT NULL,
    created_at          	TIMESTAMP 		NOT NULL,
    updated_at          	TIMESTAMP 		NOT NULL,
+   recovery_token       VARCHAR(50)    DEFAULT NULL,
    PRIMARY KEY (id)
 );
 
@@ -51,6 +50,7 @@ CREATE TABLE IF NOT EXISTS Instituicoes (
    id_utilizador        INT          NOT NULL,
    descricao            VARCHAR(50)  NOT NULL,
    morada               VARCHAR(50)  NOT NULL,
+   email_instituicao    VARCHAR(20)  NOT NULL,
    website              VARCHAR(20)  DEFAULT NULL,
    PRIMARY KEY (id),
    FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
@@ -120,11 +120,12 @@ ADD CONSTRAINT unique_nome_tipo_habilitacao_academica UNIQUE (nome);
 
 CREATE TABLE IF NOT EXISTS Voluntarios (
 	id                          INT 			   AUTO_INCREMENT,
-	id_area_geografica          INT 			   NOT NULL,
+	id_area_geografica          INT       	   NOT NULL,
 	id_habilitacoes_academicas  INT 			   NOT NULL,
    id_utilizador               INT           NOT NULL,
-	genero                      CHAR(1)			DEFAULT NULL,
-	data_nascimento             DATE 			DEFAULT NULL,
+	genero                      CHAR(1)			NOT NULL,
+   data_nascimento             DATE          NOT NULL,
+   foto                        VARCHAR(100)  DEFAULT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id_area_geografica) 			REFERENCES Areas_Geograficas(id),
 	FOREIGN KEY (id_habilitacoes_academicas) 	REFERENCES Habilitacoes_Academicas(id),

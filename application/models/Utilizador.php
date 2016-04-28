@@ -69,6 +69,8 @@ class Utilizador extends CI_Model {
     function insert_entry($input)
     {
         $utilizador = $this->get_signup_form_data($input);
+        $utilizador['recovery_token'] = md5( uniqid( mt_rand(), true));
+
         $this->db->insert('Utilizadores', $utilizador);
 
         return $this->db->insert_id();
@@ -87,10 +89,11 @@ class Utilizador extends CI_Model {
         $hashAndSalt = password_hash($password, PASSWORD_BCRYPT);
 
         $data = array(
-            'email'    => $input->post('email'),
-            'password' => $hashAndSalt,
-            'telefone' => $input->post('telefone'),
-            'nome'     => $input->post('nome_utilizador')
+            'email'          => $input->post('email'),
+            'password'       => $hashAndSalt,
+            'telefone'       => $input->post('telefone'),
+            'nome'           => $input->post('nome_utilizador'),
+            'recovery_token' => ''
         );
 
         return $data;
@@ -150,42 +153,6 @@ class Utilizador extends CI_Model {
         );
 
         return $rules;
-    }
-
-    function upload_photo($id_utilizador)
-    {
-        $photo_upload_path       = './uploads/' . $id_utilizador . '/photos';
-        $config['upload_path']   = $photo_upload_path;
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size']      = '100';
-        $config['max_width']     = '1024';
-        $config['max_height']    = '768';
-
-        $this->load->library('upload', $config);
-
-        // criar directorio do utilizador
-        if (!is_dir($photo_upload_path))
-        {
-            mkdir($photo_upload_path, 0777, true);
-        }
-
-        // erro de upload da foto
-        if ( ! $this->upload->do_upload('foto'))
-        {
-            return $this->upload->display_errors();
-        }
-        // atualizar path da foto
-        else
-        {
-            $upload_data = $this->upload->data();
-
-            $user_data = array(
-                'foto' => $photo_upload_path . '/' . $upload_data['file_name']
-            );
-
-            $this->db->where('id', $id_utilizador);
-            $this->db->update('Utilizadores', $user_data);
-        }
     }
 
 /*
