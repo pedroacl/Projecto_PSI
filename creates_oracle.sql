@@ -1,153 +1,247 @@
-CREATE TABLE Utilizadores (
-	id 				NUMBER(4),
-	email				VARCHAR2(20) 	CONSTRAINT nn_email 			     NOT NULL,
-	password 		VARCHAR2(20) 	CONSTRAINT nn_password 		     NOT NULL,
-	nome 				VARCHAR2(50) 	CONSTRAINT nn_nome 			     NOT NULL,
-	telefone 		VARCHAR2(20) 	CONSTRAINT nn_telefone 		     NOT NULL,
-   telefone       VARCHAR2(20)   CONSTRAINT nn_tipo_utilizador   NOT NULL,
-	created_at 		DATE 				CONSTRAINT nn_created_at 	     NOT NULL,
-	updated_at 		DATE 				CONSTRAINT nn_updated_at 	     NOT NULL,
-	foto 				VARCHAR2(20),
-	recovery_token VARCHAR2(20),
+CREATE USER PSI IDENTIFIED BY PSI;
 
-	CONSTRAINT pk_utilizador PRIMARY KEY (id),
-   CONSTRAINT uc_email UNIQUE (email),
-   CONSTRAINT uc_nome  UNIQUE (nome)
+ALTER SESSION SET CURRENT_SCHEMA = PSI;
+
+CREATE TABLE Utilizadores (
+   id                   NUMBER(10)          ,
+   email                VARCHAR2(100)  NOT NULL UNIQUE,
+   password             VARCHAR2(100)  NOT NULL,
+   nome                 VARCHAR2(100)   NOT NULL,
+   telefone             VARCHAR2(20)    NOT NULL,
+   tipo_utilizador      VARCHAR2(20)    NOT NULL,
+   created_at           TIMESTAMP(0)      NOT NULL,
+   updated_at           TIMESTAMP(0)      NOT NULL,
+   recovery_token       VARCHAR2(50)    DEFAULT NULL,
+   PRIMARY KEY (id)
 );
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Utilizadores_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Utilizadores_seq_tr
+ BEFORE INSERT ON Utilizadores FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Utilizadores_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
 
 
 CREATE TABLE Voluntarios (
-   id                          NUMBER(4),
-   id_area_geografica          NUMBER(4)        CONSTRAINT nn_id_area_geografica       NOT NULL,
-   id_habilitacoes_academicas  NUMBER(4)        CONSTRAINT nn_id_habilitacao_academica NOT NULL,
-   id_utilizador               NUMBER(4)        CONSTRAINT nn_id_utilizador            NOT NULL,
-   foto                        VARCHAR2(100),
-   genero                      CHAR(1)          CONSTRAINT nn_genero                   NOT NULL,
-   data_nascimento             DATE             CONSTRAINT nn_data_nascimento          NOT NULL,
-
-   CONSTRAINT pk_voluntario PRIMARY KEY (id),
-   CONSTRAINT fk_utilizador               FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id),
-   CONSTRAINT fk_area_geografica          FOREIGN KEY (id_area_geografica)          REFERENCES Areas_Geograficas(id),
-   CONSTRAINT fk_habilitacoes_academicas  FOREIGN KEY (id_habilitacoes_academicas)  REFERENCES Habilitacoes_Academicas(id),
+   id                          NUMBER(10)          ,
+   id_area_geografica          NUMBER(10)           NOT NULL,
+   id_habilitacoes_academicas  NUMBER(10)           NOT NULL,
+   id_utilizador               NUMBER(10)           NOT NULL,
+   genero                      CHAR(1)       NOT NULL,
+   data_nascimento             DATE          NOT NULL,
+   foto                        VARCHAR2(100)  DEFAULT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_area_geografica)          REFERENCES Areas_Geograficas(id),
+   FOREIGN KEY (id_habilitacoes_academicas)  REFERENCES Habilitacoes_Academicas(id),
+   FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
 );
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Voluntarios_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Voluntarios_seq_tr
+ BEFORE INSERT ON Voluntarios FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Voluntarios_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
+
+
+CREATE TABLE Instituicoes (
+   id                   NUMBER(10)         ,
+   id_area_geografica   NUMBER(10)          NOT NULL,
+   id_utilizador        NUMBER(10)          NOT NULL,
+   descricao            VARCHAR2(50)  NOT NULL,
+   morada               VARCHAR2(50)  NOT NULL,
+   email_instituicao    VARCHAR2(20)  NOT NULL,
+   website              VARCHAR2(20)  DEFAULT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
+   FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
+);
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Instituicoes_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Instituicoes_seq_tr
+ BEFORE INSERT ON Instituicoes FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Instituicoes_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
 
 
 CREATE TABLE Utilizadores_Grupos_Atuacao (
-   id_utilizador        NUMBER(4),
-   id_grupo_atuacao     NUMBER(4),
-
-	CONSTRAINT pk_utilizador_grupo_atuacao PRIMARY KEY (id_utilizador, id_grupo_atuacao)
+   id_utilizador        NUMBER(10),
+   id_grupo_atuacao     NUMBER(10),
+   PRIMARY KEY (id_utilizador, id_grupo_atuacao)
 );
 
 
 CREATE TABLE Utilizadores_Areas_Interesse (
-   id_utilizador        NUMBER(4),
-   id_area_interesse    NUMBER(4),
-
-   CONSTRAINT pk_utilizador_area_interesse PRIMARY KEY (id_utilizador, id_area_interesse)
+   id_utilizador        NUMBER(10),
+   id_area_interesse    NUMBER(10),
+   PRIMARY KEY (id_utilizador, id_area_interesse)
 );
 
 
 CREATE TABLE Areas_Geograficas (
-   id                   NUMBER(4),
-   freguesia            VARCHAR2(50) CONSTRAINT nn_freguesia NOT NULL,
-   concelho             VARCHAR2(50) CONSTRAINT nn_concelho  NOT NULL,
-   distrito             VARCHAR2(50) CONSTRAINT nn_distrito  NOT NULL,
-
-   CONSTRAINT pk_area_geografica PRIMARY KEY (id)
+   id                   NUMBER(10)     ,
+   freguesia            VARCHAR2(50) NOT NULL,
+   concelho             VARCHAR2(50) NOT NULL,
+   distrito             VARCHAR2(50) NOT NULL,
+   PRIMARY KEY (id)
 );
 
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Areas_Geograficas_seq START WITH 1 INCREMENT BY 1;
 
-CREATE TABLE Instituicoes (
-   id                   NUMBER(4),
-   id_area_geografica   NUMBER(4)      CONSTRAINT nn_area_geografica    NOT NULL,
-   id_utilizador        NUMBER(4)      CONSTRAINT nn_id_utilizador      NOT NULL,
-   descricao            VARCHAR2(100)  CONSTRAINT nn_descricao          NOT NULL,
-   morada               VARCHAR2(100)  CONSTRAINT nn_morada             NOT NULL,
-   email_instituicao    VARCHAR2(20)   CONSTRAINT nn_email_instituicao  NOT NULL,
-   website              VARCHAR2(20),
-
-   CONSTRAINT pk_instituicao     PRIMARY KEY (id),
-   CONSTRAINT fk_area_geografica FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
-   CONSTRAINT fk_utilizador      FOREIGN KEY (id_utilizador)      REFERENCES Utilizadores(id),
-);
+CREATE OR REPLACE TRIGGER Areas_Geograficas_seq_tr
+ BEFORE INSERT ON Areas_Geograficas FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Areas_Geograficas_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
 
 
 CREATE TABLE Areas_Interesse (
-   id                 NUMBER(4),
-   nome               VARCHAR2(50),
-
-   CONSTRAINT pk_area_interesse PRIMARY KEY (id),
-   CONSTRAINT uc_nome UNIQUE (nome),
+   id                 NUMBER(10),
+   nome               VARCHAR2(20) UNIQUE,
+   PRIMARY KEY (id)
 );
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Areas_Interesse_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Areas_Interesse_seq_tr
+ BEFORE INSERT ON Areas_Interesse FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Areas_Interesse_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
 
 
 CREATE TABLE Disponibilidades (
-   id                   NUMBER(4),
-   data_inicio          DATE  CONSTRAINT nn_data_inicio  NOT NULL,
-   data_fim             DATE  CONSTRAINT nn_data_fim     NOT NULL,
-
-   CONSTRAINT pk_disponibilidade PRIMARY KEY (id),
+   id                   NUMBER(10)  NOT NULL,
+   data_inicio          DATE  NOT NULL,
+   data_fim             DATE  NOT NULL,
+   PRIMARY KEY (id)
 );
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Disponibilidades_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Disponibilidades_seq_tr
+ BEFORE INSERT ON Disponibilidades FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Disponibilidades_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
 
 
 CREATE TABLE Periodicidades (
-   id                   NUMBER(4),
-   id_disponibilidade   NUMBER(4) CONSTRAINT nn_is_disponibilidade NOT NULL,
-   tipo                 BIT(1)    CONSTRAINT nn_tipo               NOT NULL,
-   data_fim             DATETIME  CONSTRAINT nn_data_fim           NOT NULL,
-
-   CONSTRAINT pk_disponibilidade PRIMARY KEY (id),
-
-   CONSTRAINT fk_disponibilidade FOREIGN KEY (id_disponibilidade)
-      REFERENCES Disponibilidades(id) ON DELETE CASCADE,
+   id                   NUMBER(10)  ,
+   id_disponibilidade   NUMBER(10)     NOT NULL,
+   tipo                 RAW(1)   NOT NULL,
+   data_fim             TIMESTAMP(0)   NOT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id) ON DELETE CASCADE
 );
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Periodicidades_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Periodicidades_seq_tr
+ BEFORE INSERT ON Periodicidades FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Periodicidades_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
 
 
 CREATE TABLE Grupos_Atuacao (
-   id                NUMBER(4),
-   nome              VARCHAR(100),
-   descricao         TEXT,
-
-   CONSTRAINT pk_grupo_atuacao PRIMARY KEY (id),
-   CONSTRAINT uc_nome UNIQUE (nome)
+   id                NUMBER(10),
+   nome              VARCHAR2(50) UNIQUE,
+   descricao         CLOB,
+   PRIMARY KEY (id)
 );
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Grupos_Atuacao_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Grupos_Atuacao_seq_tr
+ BEFORE INSERT ON Grupos_Atuacao FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Grupos_Atuacao_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
 
 
 CREATE TABLE Habilitacoes_Academicas (
-   id                   NUMBER(4),
-   id_tipo              VARCHAR2(50)   NOT NULL,
-   data_conclusao       DATE           NOT NULL,
-   curso                VARCHAR2(50)   NOT NULL,
-   instituto_ensino     VARCHAR2(50)   NOT NULL,
-
-   PRIMARY KEY (id)
-   CONSTRAINT fk_id_tipo FOREIGN KEY (id_tipo) REFERENCES Tipos_Habilitacoes_Academicas(id)
-      ON DELETE CASCADE
+   id                   NUMBER(10)     ,
+   id_tipo              NUMBER(10)         NOT NULL,
+   data_conclusao       DATE        NOT NULL,
+   curso                VARCHAR2(50) NOT NULL,
+   instituto_ensino     VARCHAR2(50) NOT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_tipo) REFERENCES Tipos_Habilitacoes_Academicas(id) ON DELETE CASCADE
 );
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Habilitacoes_Academicas_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Habilitacoes_Academicas_seq_tr
+ BEFORE INSERT ON Habilitacoes_Academicas FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Habilitacoes_Academicas_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
 
 
 CREATE TABLE Tipos_Habilitacoes_Academicas (
-   id          NUMBER(4),
-   nome        VARCHAR2(50)   CONSTRAINT nn_nome NOT NULL,
+   id          NUMBER(10)              ,
+   nome        VARCHAR2(50)       NOT NULL UNIQUE,
    descricao   VARCHAR2(200),
-
-   CONSTRAINT pk_tipo_habilitacao_academica PRIMARY KEY (id),
+   PRIMARY KEY (id)
 );
 
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Tipos_Habilitacoes_Academicas_seq START WITH 1 INCREMENT BY 1;
 
-CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
-   id                  INT             AUTO_INCREMENT,
-   id_area_interesse   INT             NOT NULL,
-   id_grupo_atuacao    INT             NOT NULL,
-   id_disponibilidade  INT             NOT NULL,
-   id_area_geografica  INT             NOT NULL,
-   id_instituicao      INT             NOT NULL,
-   nome                VARCHAR(150)    NOT NULL,
-   funcao              VARCHAR(50)     NOT NULL,
-   pais                VARCHAR(50)     NOT NULL,
-   vagas               INT             DEFAULT 1,
-   ativa               BIT(1)          DEFAULT 0,
+CREATE OR REPLACE TRIGGER Tipos_Habilitacoes_Academicas_seq_tr
+ BEFORE INSERT ON Tipos_Habilitacoes_Academicas FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Tipos_Habilitacoes_Academicas_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
+
+
+CREATE TABLE Oportunidades_Voluntariado (
+   id                  NUMBER(10)         ,
+   id_area_interesse   NUMBER(10)            NOT NULL,
+   id_grupo_atuacao    NUMBER(10)            NOT NULL,
+   id_disponibilidade  NUMBER(10)            NOT NULL,
+   id_area_geografica  NUMBER(10)            NOT NULL,
+   id_instituicao      NUMBER(10)            NOT NULL,
+   nome                VARCHAR2(150)   NOT NULL UNIQUE,
+   funcao              VARCHAR2(50)       NOT NULL,
+   pais                VARCHAR2(50)       NOT NULL,
+   vagas               NUMBER(10)            DEFAULT 1,
+   ativa               RAW(1)          DEFAULT 0,
    PRIMARY KEY (id),
    FOREIGN KEY (id_area_interesse)  REFERENCES Areas_Interesse(id),
    FOREIGN KEY (id_grupo_atuacao)   REFERENCES Grupos_Atuacao(id),
@@ -155,3 +249,47 @@ CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
    FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
    FOREIGN KEY (id_instituicao)     REFERENCES Instituicoes(id)
 );
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Oportunidades_Voluntariado_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Oportunidades_Voluntariado_seq_tr
+ BEFORE INSERT ON Oportunidades_Voluntariado FOR EACH ROW
+ WHEN (NEW.id IS NULL)
+BEGIN
+ SELECT Oportunidades_Voluntariado_seq.NEXTVAL INTO :NEW.id FROM DUAL;
+END;
+/
+
+
+CREATE TABLE Inscreve_Se (
+   id_voluntario                    NUMBER(10)     NOT NULL,
+   id_oportunidade_voluntariado     NUMBER(10)     NOT NULL,
+   data_inscricao                   TIMESTAMP(0) NOT NULL,
+   aceite                           RAW(1)   DEFAULT 0,
+   PRIMARY KEY (id_voluntario, id_oportunidade_voluntariado),
+   FOREIGN KEY (id_voluntario)            REFERENCES Voluntarios(id) ON DELETE CASCADE,
+   FOREIGN KEY (id_oportunidade_voluntariado)   REFERENCES Oportunidades_Voluntariado(id) ON DELETE CASCADE
+);
+
+-- Generate ID using sequence and trigger
+CREATE SEQUENCE Inscreve_Se_seq START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER Inscreve_Se_seq_tr
+ BEFORE INSERT ON Inscreve_Se FOR EACH ROW
+ WHEN (NEW.id_voluntario IS NULL)
+BEGIN
+ SELECT Inscreve_Se_seq.NEXTVAL INTO :NEW.id_voluntario FROM DUAL;
+END;
+/
+
+--# CODEIGNITER
+CREATE TABLE ci_sessions (
+   id varchar2(40) NOT NULL,
+   ip_address varchar2(45) NOT NULL,
+   timestamp number(10) DEFAULT 0 check (timestamp > 0) NOT NULL,
+   data blob NOT NULL,
+   PRIMARY KEY (id)
+);
+
+CREATE INDEX ci_sessions_timestamp ON ci_sessions (timestamp);

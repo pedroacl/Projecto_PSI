@@ -4,7 +4,7 @@ USE PSI;
 
 CREATE TABLE IF NOT EXISTS Utilizadores (
    id                  	INT 			   AUTO_INCREMENT,
-   email               	VARCHAR(100) 	NOT NULL,
+   email               	VARCHAR(100) 	NOT NULL UNIQUE,
    password            	VARCHAR(100) 	NOT NULL,
    nome                 VARCHAR(100)   NOT NULL,
    telefone             VARCHAR(20)    NOT NULL,
@@ -13,41 +13,6 @@ CREATE TABLE IF NOT EXISTS Utilizadores (
    updated_at          	TIMESTAMP 		NOT NULL,
    recovery_token       VARCHAR(50)    DEFAULT NULL,
    PRIMARY KEY (id)
-);
-
-ALTER TABLE Utilizadores
-ADD CONSTRAINT unique_email_utilizador UNIQUE (email);
-
-ALTER TABLE Utilizadores
-ADD CONSTRAINT unique_nome UNIQUE (nome);
-
-
-CREATE TABLE IF NOT EXISTS Voluntarios (
-   id                          INT           AUTO_INCREMENT,
-   id_area_geografica          INT           NOT NULL,
-   id_habilitacoes_academicas  INT           NOT NULL,
-   id_utilizador               INT           NOT NULL,
-   genero                      CHAR(1)       NOT NULL,
-   data_nascimento             DATE          NOT NULL,
-   foto                        VARCHAR(100)  DEFAULT NULL,
-   PRIMARY KEY (id),
-   FOREIGN KEY (id_area_geografica)          REFERENCES Areas_Geograficas(id),
-   FOREIGN KEY (id_habilitacoes_academicas)  REFERENCES Habilitacoes_Academicas(id),
-   FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
-);
-
-
-CREATE TABLE IF NOT EXISTS Instituicoes (
-   id                   INT          AUTO_INCREMENT,
-   id_area_geografica   INT          NOT NULL,
-   id_utilizador        INT          NOT NULL,
-   descricao            VARCHAR(50)  NOT NULL,
-   morada               VARCHAR(50)  NOT NULL,
-   email_instituicao    VARCHAR(20)  NOT NULL,
-   website              VARCHAR(20)  DEFAULT NULL,
-   PRIMARY KEY (id),
-   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
-   FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
 );
 
 
@@ -74,16 +39,11 @@ CREATE TABLE IF NOT EXISTS Areas_Geograficas (
 );
 
 
-
-
 CREATE TABLE IF NOT EXISTS Areas_Interesse (
    id					    INT AUTO_INCREMENT,
-   nome					 VARCHAR(20),
+   nome					 VARCHAR(20) UNIQUE,
    PRIMARY KEY (id)
 );
-
-ALTER TABLE Areas_Interesse
-ADD CONSTRAINT unique_nome_area_interesse UNIQUE (nome);
 
 
 CREATE TABLE IF NOT EXISTS Disponibilidades (
@@ -106,13 +66,19 @@ CREATE TABLE IF NOT EXISTS Periodicidades (
 
 CREATE TABLE IF NOT EXISTS Grupos_Atuacao (
    id              	INT AUTO_INCREMENT,
-   nome            	VARCHAR(50),
+   nome            	VARCHAR(50) UNIQUE,
    descricao			TEXT,
    PRIMARY KEY (id)
 );
 
-ALTER TABLE Grupos_Atuacao
-ADD CONSTRAINT unique_nome_grupo_atuacao UNIQUE (nome);
+
+
+CREATE TABLE IF NOT EXISTS Tipos_Habilitacoes_Academicas (
+   id          INT               AUTO_INCREMENT,
+   nome        VARCHAR(50)       NOT NULL UNIQUE,
+   descricao   VARCHAR(200),
+   PRIMARY KEY (id)
+);
 
 
 CREATE TABLE IF NOT EXISTS Habilitacoes_Academicas (
@@ -126,15 +92,35 @@ CREATE TABLE IF NOT EXISTS Habilitacoes_Academicas (
 );
 
 
-CREATE TABLE IF NOT EXISTS Tipos_Habilitacoes_Academicas (
-   id          INT               AUTO_INCREMENT,
-   nome        VARCHAR(50)       NOT NULL,
-   descricao   VARCHAR(200),
-   PRIMARY KEY (id)
+
+
+CREATE TABLE IF NOT EXISTS Voluntarios (
+   id                          INT           AUTO_INCREMENT,
+   id_area_geografica          INT           NOT NULL,
+   id_habilitacoes_academicas  INT           NOT NULL,
+   id_utilizador               INT           NOT NULL,
+   genero                      CHAR          NOT NULL,
+   data_nascimento             DATE          NOT NULL,
+   foto                        VARCHAR(100)  DEFAULT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_area_geografica)          REFERENCES Areas_Geograficas(id),
+   FOREIGN KEY (id_habilitacoes_academicas)  REFERENCES Habilitacoes_Academicas(id),
+   FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
 );
 
-ALTER TABLE Tipos_Habilitacoes_Academicas
-ADD CONSTRAINT unique_nome_tipo_habilitacao_academica UNIQUE (nome);
+
+CREATE TABLE IF NOT EXISTS Instituicoes (
+   id                   INT          AUTO_INCREMENT,
+   id_area_geografica   INT          NOT NULL,
+   id_utilizador        INT          NOT NULL,
+   descricao            VARCHAR(50)  NOT NULL,
+   morada               VARCHAR(50)  NOT NULL,
+   email_instituicao    VARCHAR(20)  NOT NULL,
+   website              VARCHAR(20)  DEFAULT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
+   FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
+);
 
 
 CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
@@ -144,7 +130,7 @@ CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
    id_disponibilidade  INT 				NOT NULL,
    id_area_geografica  INT 				NOT NULL,
    id_instituicao      INT 				NOT NULL,
-   nome                VARCHAR(150) 	NOT NULL,
+   nome                VARCHAR(150) 	NOT NULL UNIQUE,
    funcao              VARCHAR(50) 		NOT NULL,
    pais                VARCHAR(50) 		NOT NULL,
    vagas               INT 				DEFAULT 1,
@@ -156,9 +142,6 @@ CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
    FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
    FOREIGN KEY (id_instituicao) 		REFERENCES Instituicoes(id)
 );
-
-ALTER TABLE Oportunidades_Voluntariado
-ADD CONSTRAINT unique_nome_oportunidade UNIQUE (nome);
 
 
 CREATE TABLE IF NOT EXISTS Inscreve_Se (
@@ -180,3 +163,40 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
    PRIMARY KEY (id),
    KEY `ci_sessions_timestamp` (`timestamp`)
 );
+
+
+# Inserts
+USE PSI;
+
+INSERT INTO Areas_Geograficas (freguesia, concelho, distrito)
+VALUES ('Campo Grande', 'Lisboa', 'Lisboa');
+
+INSERT INTO Areas_Geograficas (freguesia, concelho, distrito)
+VALUES ('Leiria', 'Leiria', 'Leiria');
+
+
+INSERT INTO Areas_Interesse (nome)
+VALUES ('Saude');
+
+INSERT INTO Areas_Interesse (nome)
+VALUES ('Educação');
+
+INSERT INTO Areas_Interesse (nome)
+VALUES ('Desporto');
+
+
+INSERT INTO Grupos_Atuacao (nome, descricao)
+VALUES ('Idosos', 'Grupo de pessoas idosas');
+
+INSERT INTO Grupos_Atuacao (nome, descricao)
+VALUES ('Crianças', 'Grupos de crianças');
+
+
+INSERT INTO Tipos_Habilitacoes_Academicas (nome, descricao)
+VALUES ('Licenciatura', 'Grau de licenciado');
+
+INSERT INTO Tipos_Habilitacoes_Academicas (nome, descricao)
+VALUES ('Mestrado', 'Grau de mestre');
+
+INSERT INTO Tipos_Habilitacoes_Academicas (nome, descricao)
+VALUES ('Doutoramento', 'Grau de doutorado');
