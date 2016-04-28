@@ -64,8 +64,7 @@
                   <ul class="nav navbar-nav navbar-right">
                     <?php
                       if ($this->session->userdata('id') !== null) {
-                        // echo "<li><a href='logout'>" . $this->session->userdata('nome') . "</a></li>";
-                        echo "<li><a href='/profile'>Name of user</a></li>";
+                        echo "<li><a href='/profile'>" . $this->session->userdata('nome') . "</a></li>";
                         echo "<li><a href='logout'>Logout</a></li>";
                       }
                       else {

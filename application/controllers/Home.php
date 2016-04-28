@@ -232,10 +232,10 @@ class Home extends MY_Controller {
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
 
 				$cookie = array(
-					'id' => $user->$id,
+					'id' => $user['id'],
 					'email' => $email,
-					'tipo_utilizador' => $user->$tipo_utilizador,
-					'nome' => $user->$nome
+					'tipo_utilizador' => $user['tipo_utilizador'],
+					'nome' => $user['nome']
 				);
 
 				$this->session->set_userdata($cookie);

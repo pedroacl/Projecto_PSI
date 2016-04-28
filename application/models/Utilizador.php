@@ -11,7 +11,7 @@ class Utilizador extends CI_Model {
 
     function authenticate_utilizador($email, $password)
     {
-        $this->db->select('id, email, nome, tipo_utilizador');
+        $this->db->select('id, email, nome, tipo_utilizador, password');
         $this->db->from('Utilizadores');
         $this->db->where('email', $email);
         $query = $this->db->get();
@@ -21,7 +21,13 @@ class Utilizador extends CI_Model {
             $utilizador = $query->row();
 
             if (password_verify($password, $utilizador->password)) {
-                return $utilizador;
+                $user = array(
+                    'id' => $utilizador->id,
+                    'email' => $utilizador->email,
+                    'nome' => $utilizador->nome,
+                    'tipo_utilizador' => $utilizador->tipo_utilizador
+                    );
+                return $user;
             }
 /*
             if (isset($utilizador)) {
