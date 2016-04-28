@@ -8,6 +8,25 @@ class HabilitacaoAcademica extends CI_Model {
         parent::__construct();
     }
 
+    function get_habilitacoes_academicas_from_utilizador($user_id)
+    {
+      $this->db->select('id, id_tipo, data_conclusao, curso, instituto_ensino');
+      $this->db->from('Habilitacoes_Academicas');
+      $this->db->where_in('id_utilizador', $user_id);
+      $query = $this->db->get();
+      $result;
+
+      print_r($query->result());
+
+      $i = 0;
+      foreach ($query->result() as $value) {
+         $result[$i] = $value->id_area_interesse;
+         $i++;
+      }
+
+      return $result;
+    }
+
     function insert_entry($input)
     {
         $habilitacoes_academicas = $this->get_signup_form_data($input);

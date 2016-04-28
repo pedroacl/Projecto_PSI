@@ -26,10 +26,10 @@ class Voluntario extends CI_Model {
 */
     function get_voluntario_by_id($id_utilizador)
     {
-        $this->db->select('');
+        $this->db->select('*');
         $this->db->from('Utilizadores as utilizadores');
         $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = voluntarios.id_utilizador');
-        $this->db->where('id', $id_utilizador);
+        $this->db->where('voluntarios.id_utilizador', $id_utilizador);
 
         return $this->db->get();
     }

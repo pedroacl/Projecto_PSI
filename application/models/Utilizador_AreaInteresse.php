@@ -8,6 +8,23 @@ class Utilizador_AreaInteresse extends CI_Model {
         parent::__construct();
     }
 
+    function get_areas_interesse_from_utilizador($user_id)
+    {
+      $this->db->select('id_area_interesse');
+      $this->db->from('Utilizadores_Areas_Interesse');
+      $this->db->where_in('id_utilizador', $user_id);
+      $query = $this->db->get();
+      $result;
+
+      $i = 0;
+      foreach ($query->result() as $value) {
+         $result[$i] = $value->id_area_interesse;
+         $i++;
+      }
+
+      return $result;
+    }
+
     function insert_entries($id_utilizador, $input)
     {
         $areas_interesse = $this->get_signup_form_data($input);

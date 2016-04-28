@@ -1,15 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends MY_Controller {
+class HomeController extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
-/*
-		if ( ! isset($this->session) {
-			redirect('/auth/login', 'refresh');
-		}
-*/
+
 	}
 
 	// GET /
@@ -32,6 +28,8 @@ class Home extends MY_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('session');
 
+		$this->teste = 'something';
+
 		$this->tipo_utilizador_selected = null;
 
 		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
@@ -44,6 +42,7 @@ class Home extends MY_Controller {
 		$this->areas_interesse = $this->area_iteresse->get_entries();
 
 		$this->title = "Registo de Utilizador";
+		$this->js_file = 'home.js';
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/register_form');
 		$this->load->view('templates/main_template/footer');

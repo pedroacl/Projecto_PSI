@@ -49,22 +49,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller']   = 'home';
+$route['default_controller']   = 'homecontroller';
 $route['404_override']         = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // homepage
-$route['home']['get'] = 'home/';
+$route['home']['get'] = 'homecontroller/';
 
 // signup
-$route['signup']['get']  = 'home/signup';
-$route['signup']['post'] = 'home/process_signup';
+$route['signup']['get']  = 'homecontroller/signup';
+$route['signup']['post'] = 'homecontroller/process_signup';
 
 // login
-$route['login']['get']  = 'home/show_login';
-$route['login']['post'] = 'home/process_login';
-$route['logout']['get'] = 'home/logout';
+$route['login']['get']  = 'homecontroller/show_login';
+$route['login']['post'] = 'homecontroller/process_login';
+$route['logout']['get'] = 'homecontroller/logout';
 
 // voluntario
-$route['profile']['get']  = 'voluntarios/profile';
-$route['edit_profile']['get']  = 'voluntarios/edit_profile';
+$route['profile']['get']  = 'voluntarioscontroller/profile';
+$route['edit_profile']['get']  = 'voluntarioscontroller/edit_profile';
+$route['edit_profile']['post']  = 'voluntarioscontroller/process_edit_profile';
