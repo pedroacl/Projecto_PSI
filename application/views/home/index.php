@@ -43,6 +43,10 @@
       consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
       cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <blockquote>
+        <p>Sê a diferença que queres ver no Mundo.</p>
+        <footer>Mahatma Ghandi</footer>
+      </blockquote>
     </div>
     <div class="col-md-1"></div>
   </div>

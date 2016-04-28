@@ -23,11 +23,11 @@ class Home extends MY_Controller {
 	// GET /signup
 	public function signup()
 	{
-		if ($this->user_logged_in())
-		{
-			$this->session->set_flashdata('notice', 'Utilizador ja se encontra registado.');
-			redirect('', 'refresh');
-		}
+		// if ($this->user_logged_in())
+		// {
+		// 	$this->session->set_flashdata('notice', 'Utilizador ja se encontra registado.');
+		// 	redirect('', 'refresh');
+		// }
 
 		$this->load->library('form_validation');
 		$this->load->library('session');
@@ -228,12 +228,14 @@ class Home extends MY_Controller {
 			$password = $this->input->post('password');
 
 			// authenticar utilizador
-			if (($id = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
+			if (($user = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
 
 				$cookie = array(
-					'id' => $id,
-					'email' => $email
+					'id' => $user->$id,
+					'email' => $email,
+					'tipo_utilizador' => $user->$tipo_utilizador,
+					'nome' => $user->$nome
 				);
 
 				$this->session->set_userdata($cookie);
@@ -255,6 +257,8 @@ class Home extends MY_Controller {
 	{
 		$this->session->unset_userdata('id');
 		$this->session->unset_userdata('email');
+		$this->session->unset_userdata('nome');
+		$this->session->unset_userdata('tipo_utilizador');
 		$this->session->sess_destroy();
 
 		redirect('', 'refresh');
