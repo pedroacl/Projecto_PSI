@@ -53,6 +53,9 @@ $route['default_controller']   = 'home';
 $route['404_override']         = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// homepage
+$route['home']['get'] = 'home/';
+
 // signup
 $route['signup']['get']  = 'home/signup';
 $route['signup']['post'] = 'home/process_signup';

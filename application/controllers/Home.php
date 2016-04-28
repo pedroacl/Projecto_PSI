@@ -23,14 +23,15 @@ class Home extends MY_Controller {
 	// GET /signup
 	public function signup()
 	{
-
-		if ($this->session->userdata("id") !== null)
+		if ($this->user_logged_in())
 		{
+			$this->session->set_flashdata('notice', 'Utilizador ja se encontra registado.');
 			redirect('', 'refresh');
 		}
 
 		$this->load->library('form_validation');
 		$this->load->library('session');
+
 		$this->tipo_utilizador_selected = null;
 
 		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
@@ -154,7 +155,7 @@ class Home extends MY_Controller {
 		}
 	}
 
-	// callbacks de validacao
+	// callback de validacao do valor default das select boxes
 	function not_default($str)
 	{
 		if ($str == 'default') {
@@ -186,12 +187,13 @@ class Home extends MY_Controller {
 	// GET /login
 	public function show_login()
 	{
-		if ($this->session->userdata("id") !== null)
+		// utilizador ja esta autenticado
+		if ($this->user_logged_in())
 		{
-			redirect('', 'refresh');
+			$this->session->set_flashdata('notice', 'Utilizador já se encontra registado.');
+			redirect('home', 'refresh');
 		}
 
-		$this->session->set_flashdata('notice', 'Login realizado com sucesso.');
 		$this->title = "Login";
 		$this->login_tab = true;
 

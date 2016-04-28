@@ -5,17 +5,20 @@ class MY_Controller extends CI_Controller {
 
 	public function __construct()
 	{
-    $this->title = "Title homepage";
 		parent::__construct();
+    	$this->title = "Title homepage";
+    	$this->load->library('session');
 	}
 
-	public function validate_user()
+	public function authenticate_user()
 	{
-		// teste
+		if (!$this->user_logged_in()) {
+			redirect('login', 'refresh');
+		}
 	}
 
-  public function is_logged_in()
-  {
-    return TRUE;
-  }
+  	public function user_logged_in()
+  	{
+    	return $this->session->userdata('id');
+  	}
 }

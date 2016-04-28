@@ -50,10 +50,21 @@ $(document).ready(function() {
 		$data_fim.parent().removeClass('has-error');
 		$repetir_ate.parent().removeClass('has-error');
 
-		if ($data_inicio.val() !== '' && $periodicidade.val() !== '' && $data_fim.val() !== '' && $repetir_ate.val() !== '') {
+		if ($data_inicio.val() !== '' && $periodicidade.val() !== ''
+			&& $data_fim.val() !== '' && $repetir_ate.val() !== '') {
 
 			// Construct table HTML
-			var disp_row = "<tr id='disponibilidade_" + $counter_of_disp + "'><td>" + $data_inicio.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val() + "'><td>" + $data_fim.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_fim]' value='" + $data_fim.val() + "'><td>" + $periodicidade.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][periodicidade]' value='" + $periodicidade.val() + "'><td>" + $repetir_ate.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][repetir_ate]' value='" + $repetir_ate.val() + "'><td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>" + "</tr>";
+			var disp_row = "<tr id='disponibilidade_" + $counter_of_disp + "'><td>"
+				+ $data_inicio.val() + "</td><input type='hidden' name='disponibilidades["
+				+ $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val() + "'><td>"
+				+ $data_fim.val() + "</td><input type='hidden' name='disponibilidades["
+				+ $counter_of_disp + "][data_fim]' value='" + $data_fim.val() + "'><td>"
+				+ $periodicidade.val() + "</td><input type='hidden' name='disponibilidades["
+				+ $counter_of_disp + "][periodicidade]' value='" + $periodicidade.val()
+				+ "'><td>" + $repetir_ate.val() + "</td><input type='hidden' name='disponibilidades["
+				+ $counter_of_disp + "][repetir_ate]' value='" + $repetir_ate.val()
+				+ "'><td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>"
+				+ "</tr>";
 
 			$('#disponibilidade_table').append(disp_row);
 

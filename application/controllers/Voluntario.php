@@ -6,8 +6,6 @@ class Voluntario extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 
-		// $this->load->model('Voluntario', 'voluntario');
-		// $this->load->library('session');
 	}
 
 	public function index()
@@ -17,11 +15,19 @@ class Voluntario extends MY_Controller {
 
 	public function profile()
 	{
-		// $id_utilizador = $this->session->userdata('id');
-		// $this->voluntario = $this->voluntario->get_voluntario_by_id($id_utilizador);
+		$this->authenticate_user();
 
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
+		$this->load->view('templates/main_template/footer');
+	}
+
+	public function edit_profile()
+	{
+		$this->authenticate_user();
+
+		$this->load->view('templates/main_template/header');
+		$this->load->view('voluntarios/edit_profile');
 		$this->load->view('templates/main_template/footer');
 	}
 }

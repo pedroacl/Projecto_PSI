@@ -173,40 +173,40 @@
 
               <br>
               <h3>Disponibilidade</h3>
-                <table id="disponibilidade_table" class="table">
-                  <tbody>
-                    <tr>
-                      <th>Data inicio</th>
-                      <th>Data fim</th>
-                      <th>Periodicidade</th>
-                      <th>Repetir até</th>
-                      <th>Acções</th>
-                    </tr>
-                    <?php if (isset($this->disponibilidades)) {
-                            $i = 0;
-                            foreach ($this->disponibilidades as $key => $disponibilidade) { ?>
+              <table id="disponibilidade_table" class="table">
+                <tbody>
+                  <tr>
+                    <th>Data inicio</th>
+                    <th>Data fim</th>
+                    <th>Periodicidade</th>
+                    <th>Repetir até</th>
+                    <th>Acções</th>
+                  </tr>
 
-                            <tr id="disponibilidade_<?= $i; ?>">
-                              <td><?= $disponibilidade['data_inicio'] ?></td>
-                              <input type="hidden" name="disponibilidades[<?= $i ?>]['data_inicio']"/>
+                  <?php if (isset($this->disponibilidades)) {
+                    $i = 0;
+                    foreach ($this->disponibilidades as $key => $disponibilidade) { ?>
+                      <tr id="disponibilidade_<?= $i; ?>">
+                        <td><?= $disponibilidade['data_inicio'] ?></td>
+                        <input type="hidden" name="disponibilidades[<?= $i ?>]['data_inicio']"/>
 
-                              <td><?= $disponibilidade['data_fim'] ?></td>
-                              <input type="hidden" name="disponibilidades[<?= $i ?>]['data_fim']"/>
+                        <td><?= $disponibilidade['data_fim'] ?></td>
+                        <input type="hidden" name="disponibilidades[<?= $i ?>]['data_fim']"/>
 
-                              <td><?= $disponibilidade['periodicidade'] ?></td>
-                              <input type="hidden" name="disponibilidades[<?= $i ?>]['periodicidade']"/>
+                        <td><?= $disponibilidade['periodicidade'] ?></td>
+                        <input type="hidden" name="disponibilidades[<?= $i ?>]['periodicidade']"/>
 
-                              <td><?= $disponibilidade['repetir_ate'] ?></td>
-                              <input type="hidden" name="disponibilidades[<?= $i ?>]['repetir_ate']"/>
+                        <td><?= $disponibilidade['repetir_ate'] ?></td>
+                        <input type="hidden" name="disponibilidades[<?= $i ?>]['repetir_ate']"/>
 
-                              <td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>
-                            </tr>
-                      <?php 
-                            $i++;
-                          }
-                         } ?>
-                  </tbody>
-                </table>
+                        <td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>
+                      </tr>
+                  <?php
+                      $i++;
+                    }
+                  } ?>
+                </tbody>
+              </table>
 
               <br>
               <div class="well">
