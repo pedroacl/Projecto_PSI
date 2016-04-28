@@ -25,6 +25,10 @@ class Voluntario extends MY_Controller {
 	public function edit_profile()
 	{
 		$this->authenticate_user();
+		$this->load->library('form_validation');
+		$this->load->model('Voluntario', 'voluntario');
+		$this->voluntario = $this->voluntario->get_voluntario_by_id($this->session->userdata('id'));
+		print_r($this->voluntario);
 
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/edit_profile');

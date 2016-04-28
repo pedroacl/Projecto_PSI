@@ -125,8 +125,6 @@ class Home extends MY_Controller {
 			// disponibilidades
 			$this->disponibilidade->insert_entry($this->input);
 
-			print_r($this->input->post());
-
 			// voluntario
 			if ($this->input->post('tipo_utilizador') == 'voluntario')
 			{
