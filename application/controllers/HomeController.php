@@ -37,6 +37,13 @@ class HomeController extends MY_Controller {
 
 		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
 		$this->grupos_atuacao = $this->grupo_atuacao->get_entries();
+		$this->areas_interesse_de_utilizador = array(); 
+		$this->grupos_atuacao_de_utilizador = array();
+		$this->area_geografica_de_utilizador = array(
+					'distrito' => '',
+					'concelho' => '',
+					'freguesia' => ''
+			);
 
 		$this->load->model('AreaInteresse', 'area_iteresse');
 		$this->areas_interesse = $this->area_iteresse->get_entries();
