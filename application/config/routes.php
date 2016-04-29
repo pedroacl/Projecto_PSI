@@ -62,7 +62,7 @@ $route['signup']['post'] = 'HomeController/process_signup';
 
 // login
 $route['login']['get']  = 'HomeController/show_login';
-$route['login']['post'] = 'homecoHomeControllerntroller/process_login';
+$route['login']['post'] = 'HomeController/process_login';
 $route['logout']['get'] = 'HomeController/logout';
 
 // voluntario

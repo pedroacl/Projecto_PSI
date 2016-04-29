@@ -8,7 +8,19 @@ $(document).ready(function() {
   $voluntario_fields = $('.voluntario_fields').show();
 
   for (var key in areas_geograficas) {
-    $('#distrito').append("<option value=" + key + ">" + key + "</option>");
+    if ($('#distrito').val() !== key)
+      $('#distrito').append("<option value=" + key + ">" + key + "</option>");
+  }
+
+  for (var key in areas_geograficas[$('#distrito').val()]) {
+    if ($('#concelho').val() !== key)
+      $('#concelho').append("<option value=" + key + ">" + key + "</option>");
+  }
+
+  var freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
+  for (var i = 0; i < freguesias.length; i++) {
+    if ($('#freguesia').val() !== freguesias[i])
+      $('#freguesia').append("<option value=" + freguesias[i] + ">" + freguesias[i] + "</option>");
   }
 
   if ($number_of_disp <= 0) {
