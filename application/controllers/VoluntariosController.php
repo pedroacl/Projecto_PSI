@@ -20,6 +20,7 @@ class VoluntariosController extends MY_Controller {
 		$this->load->model('Voluntario', 'voluntario');
 		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
 		$this->load->model('AreaInteresse', 'area_interesse');
+		$this->load->model('Disponibilidade', 'disponibilidade');
 
 		$id_utilizador    = $this->session->userdata('id');
 
@@ -33,8 +34,11 @@ class VoluntariosController extends MY_Controller {
 		$this->grupos_atuacao = $this->grupo_atuacao->get_by_id_utilizador($id_utilizador)->result();
 		print_r($this->grupos_atuacao);
 
+		// areas de iteresse
 		$this->areas_interesse = $this->area_interesse->get_by_id_utilizador($id_utilizador)->result();
 
+		// disponibilidades
+		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($id_utilizador)->result();
 
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
