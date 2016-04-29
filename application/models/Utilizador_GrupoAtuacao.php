@@ -29,22 +29,11 @@ class Utilizador_GrupoAtuacao extends CI_Model {
    {
       $grupos_atuacao = $this->get_signup_form_data($input);
       $grupos_atuacao = $grupos_atuacao['grupos_atuacao'];
-
-      $ids = "";
-
+      
       foreach ($grupos_atuacao as $key => $value) {
-         $ids = $ids . " " . $value;
-      }
-
-      $this->db->select('id');
-      $this->db->from('Grupos_Atuacao');
-      $this->db->where_in('id', $ids);
-      $query = $this->db->get();
-
-      foreach ($query->result() as $value) {
          $data = array(
             'id_utilizador'    => $user_id,
-            'id_grupo_atuacao' => $value->id
+            'id_grupo_atuacao' => $value
          );
 
          $this->db->insert('Utilizadores_Grupos_Atuacao', $data);
@@ -54,7 +43,7 @@ class Utilizador_GrupoAtuacao extends CI_Model {
    function get_signup_form_data($input)
    {
       $data = array(
-         'grupos_atuacao' => $input->post('grupos_atuacao'),
+         'grupos_atuacao' => $input->post('grupos_atuacao[]'),
       );
 
       return $data;
