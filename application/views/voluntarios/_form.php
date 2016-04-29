@@ -77,7 +77,7 @@
     <?= form_error('distrito', "<span class='help-block'>", "</span>")?>
     <select id="distrito" class="form-control" name="distrito">
       <option value="default">-</option>
-      <option value="<?= set_select('distrito', ) ?>">-</option>
+      <option value="<?= $this->area_geografica_de_utilizador[0]->distrito ?>" <?= set_select('distrito', $this->area_geografica_de_utilizador[0]->distrito, TRUE) ?>><?= $this->area_geografica_de_utilizador[0]->distrito ?></option>
     </select>
   </div>
 
@@ -86,6 +86,7 @@
     <?= form_error('concelho', "<span class='help-block'>", "</span>")?>
     <select id="concelho" class="form-control" name="concelho">
       <option value="default">-</option>
+      <option value="<?= $this->area_geografica_de_utilizador[0]->concelho ?>" <?= set_select('concelho', $this->area_geografica_de_utilizador[0]->concelho, TRUE) ?>><?= $this->area_geografica_de_utilizador[0]->concelho ?></option>
     </select>
   </div>
 
@@ -94,6 +95,7 @@
     <?= form_error('freguesia', "<span class='help-block'>", "</span>")?>
     <select id="freguesia" class="form-control" name="freguesia">
       <option value="default">-</option>
+      <option value="<?= $this->area_geografica_de_utilizador[0]->freguesia ?>" <?= set_select('freguesia', $this->area_geografica_de_utilizador[0]->freguesia, TRUE) ?>><?= $this->area_geografica_de_utilizador[0]->freguesia ?></option>
     </select>
   </div>
 
