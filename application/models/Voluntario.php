@@ -24,11 +24,13 @@ class Voluntario extends CI_Model {
         return $query;
     }
 */
-    function get_voluntario_by_id($id_utilizador)
+    function get_by_id_utilizador($id_utilizador)
     {
-        $this->db->select('*');
+        $this->db->select('utilizadores.id, utilizadores.email, utilizadores.nome, voluntarios.genero, voluntarios.data_nascimento, areas_geograficas.distrito, areas_geograficas.concelho, areas_geograficas.freguesia, utilizadores.telefone, voluntarios.foto');
+
         $this->db->from('Utilizadores as utilizadores');
         $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = voluntarios.id_utilizador');
+        $this->db->join('Areas_Geograficas as areas_geograficas', 'areas_geograficas.id = voluntarios.id_area_geografica');
         $this->db->where('voluntarios.id_utilizador', $id_utilizador);
 
         return $this->db->get();

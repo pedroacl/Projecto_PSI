@@ -15,7 +15,17 @@ class VoluntariosController extends MY_Controller {
 
 	public function profile()
 	{
-		$this->authenticate_user();
+		//$this->authenticate_user();
+
+		$this->load->model('Voluntario', 'voluntario');
+		$id_utilizador    = $this->session->userdata('id');
+
+		$this->voluntario =
+			$this->voluntario->get_by_id_utilizador($id_utilizador)->row();
+
+		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
+
+		print_r($this->voluntario);
 
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
@@ -41,19 +51,19 @@ class VoluntariosController extends MY_Controller {
 		$this->load->model('Utilizador_AreaInteresse', 'areas_interesse_de_utilizador');
 		$this->areas_interesse = $this->area_iteresse->get_entries();
 		$this->areas_interesse_de_utilizador = $this->areas_interesse_de_utilizador->get_areas_interesse_from_utilizador($this->session->userdata('id'));
-		
+
 		// $this->load->model('Disponibilidades', 'disponibilidade');
 		// $this->disponibilidades = $this->disponibilidade->get_disponibilidades_by_user_id($this->session->userdata('id'));
 
 		$this->load->model('Voluntario', 'voluntario');
-		$this->voluntario = $this->voluntario->get_voluntario_by_id($this->session->userdata('id'))->row();
+		$this->voluntario = $this->voluntario->get_by_id_utilizador($this->session->userdata('id'))->row();
 
 		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica_de_utilizador');
 		$this->habilitacoes_academicas_de_utilizador = $this->habilitacao_academica_de_utilizador->get_habilitacoes_academicas_from_id($this->voluntario->id_habilitacoes_academicas);
 
 		$this->load->model('AreaGeografica', 'area_geografica_de_utilizador');
 		$this->area_geografica_de_utilizador = $this->area_geografica_de_utilizador->get_area_geografica_from_id($this->voluntario->id_area_geografica);
-		
+
 		$this->data['foto'] = $this->voluntario->foto;
 		$this->data['nome'] = $this->voluntario->nome;
 		$this->data['genero'] = $this->voluntario->genero;
