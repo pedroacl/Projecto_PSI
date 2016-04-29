@@ -14,7 +14,7 @@ class HabilitacaoAcademica extends CI_Model {
       $this->db->from('Habilitacoes_Academicas');
       $this->db->where_in('id', $habilitacao_id);
       $query = $this->db->get();
-      print_r($query->result());
+      // print_r($query->result());
       return $query->result();
     }
 

@@ -54,6 +54,12 @@ class VoluntariosController extends MY_Controller {
 		$this->load->model('AreaGeografica', 'area_geografica_de_utilizador');
 		$this->area_geografica_de_utilizador = $this->area_geografica_de_utilizador->get_area_geografica_from_id($this->voluntario->id_area_geografica);
 		
+		$this->data['foto'] = $this->voluntario->foto;
+		$this->data['nome'] = $this->voluntario->nome;
+		$this->data['genero'] = $this->voluntario->genero;
+		$this->data['data_nascimento'] = $this->voluntario->data_nascimento;
+		$this->data['telefone'] = $this->voluntario->telefone;
+		
 		$this->js_file = 'edit_profile_voluntarios.js';
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/edit_profile');

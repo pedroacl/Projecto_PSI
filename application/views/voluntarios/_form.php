@@ -1,5 +1,6 @@
 <div class="voluntario_fields" style="display: none;">
-
+  
+  <? if ($this->data['foto'] !== '') { ?>
   <div class="row">
     <div class="col-xs-3 col-md-3">
       <a href="#" class="thumbnail">
@@ -7,6 +8,7 @@
       </a>
     </div>
   </div>
+  <? } ?>
   <div class="form-group <?= has_error('foto') ?>">
     <label class="control-label">Foto</label>
     <input value="<?= set_value('foto', $this->data['foto']); ?>" type="file" name="foto"/>
@@ -77,7 +79,9 @@
     <?= form_error('distrito', "<span class='help-block'>", "</span>")?>
     <select id="distrito" class="form-control" name="distrito">
       <option value="default">-</option>
+      <? if ($this->area_geografica_de_utilizador['distrito'] !== '') { ?>
       <option value="<?= $this->area_geografica_de_utilizador['distrito'] ?>" <?= set_select('distrito', $this->area_geografica_de_utilizador['distrito'], TRUE) ?>><?= $this->area_geografica_de_utilizador['distrito'] ?></option>
+      <? } ?>
     </select>
   </div>
 
@@ -86,7 +90,9 @@
     <?= form_error('concelho', "<span class='help-block'>", "</span>")?>
     <select id="concelho" class="form-control" name="concelho">
       <option value="default">-</option>
+      <? if ($this->area_geografica_de_utilizador['concelho'] !== '') { ?>
       <option value="<?= $this->area_geografica_de_utilizador['concelho'] ?>" <?= set_select('concelho', $this->area_geografica_de_utilizador['concelho'], TRUE) ?>><?= $this->area_geografica_de_utilizador['concelho'] ?></option>
+      <? } ?>
     </select>
   </div>
 
@@ -95,7 +101,9 @@
     <?= form_error('freguesia', "<span class='help-block'>", "</span>")?>
     <select id="freguesia" class="form-control" name="freguesia">
       <option value="default">-</option>
+      <? if ($this->area_geografica_de_utilizador['freguesia'] !== '') { ?>
       <option value="<?= $this->area_geografica_de_utilizador['freguesia'] ?>" <?= set_select('freguesia', $this->area_geografica_de_utilizador['freguesia'], TRUE) ?>><?= $this->area_geografica_de_utilizador['freguesia'] ?></option>
+      <? } ?>
     </select>
   </div>
 
@@ -190,6 +198,7 @@
         <div class="form-group">
           <label class="control-label">Periodicidade</label>
           <select id="periodicidade" class="form-control">
+            <option value="only_once">Apenas uma vez</option>
             <option value="Semanalmente">Semanalmente</option>
             <option value="Mensalmente">Mensalmente</option>
             <option value="Anualmente">Anualmente</option>
