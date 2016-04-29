@@ -11,6 +11,7 @@ class HomeController extends MY_Controller {
 	// GET /
 	public function index()
 	{
+		$this->js_file = 'home.js';
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/index');
 		$this->load->view('templates/main_template/footer');
@@ -70,6 +71,7 @@ class HomeController extends MY_Controller {
 	public function process_signup()
 	{
 		$this->title = "Registo de Utilizador";
+		$this->js_file = 'home.js';
 
 		// libraries
 		$this->load->library('form_validation');

@@ -158,7 +158,10 @@
 
       <?php if (isset($this->disponibilidades)) {
         $i = 0;
-        foreach ($this->disponibilidades as $key => $disponibilidade) { ?>
+        foreach ($this->disponibilidades as $key => $disponibilidade) {
+            print_r((array)$disponibilidade);
+            $disponibilidade = (array)$disponibilidade;
+          ?>
           <tr id="disponibilidade_<?= $i; ?>">
             <td><?= $disponibilidade['data_inicio'] ?></td>
             <input type="hidden" name="disponibilidades[<?= $i ?>]['data_inicio']"/>
@@ -166,11 +169,11 @@
             <td><?= $disponibilidade['data_fim'] ?></td>
             <input type="hidden" name="disponibilidades[<?= $i ?>]['data_fim']"/>
 
-            <td><?= $disponibilidade['periodicidade'] ?></td>
-            <input type="hidden" name="disponibilidades[<?= $i ?>]['periodicidade']"/>
+            <td><?= $disponibilidade['tipo_periodicidade'] ?></td>
+            <input type="hidden" name="disponibilidades[<?= $i ?>]['tipo_periodicidade']"/>
 
-            <td><?= $disponibilidade['repetir_ate'] ?></td>
-            <input type="hidden" name="disponibilidades[<?= $i ?>]['repetir_ate']"/>
+            <td><?= $disponibilidade['data_fim_periodicidade'] ?></td>
+            <input type="hidden" name="disponibilidades[<?= $i ?>]['data_fim_periodicidade']"/>
 
             <td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>
           </tr>

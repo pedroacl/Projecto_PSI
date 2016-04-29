@@ -43,6 +43,7 @@ class VoluntariosController extends MY_Controller {
 		// habilitacoes academicas
 		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_utilizador($id_utilizador)->result();
 
+		$this->js_file = 'home.js';
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
 		$this->load->view('templates/main_template/footer');
@@ -81,8 +82,8 @@ class VoluntariosController extends MY_Controller {
 
 		$this->load->model('Disponibilidade', 'disponibilidades');
 		$this->disponibilidades = $this->disponibilidades->get_by_id_utilizador($this->voluntario->id);
-		$this->disponibilidades = $this->disponibilidades->row();
-		print_r($this->disponibilidades);
+		$this->disponibilidades = $this->disponibilidades->result();
+		// print_r($this->disponibilidades);
 
 		$this->data['foto'] = $this->voluntario->foto;
 		$this->data['nome'] = $this->voluntario->nome;
