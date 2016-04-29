@@ -211,7 +211,7 @@ class HomeController extends MY_Controller {
 
 		// load view
 		$this->load->view('templates/main_template/header');
-		$this->load->view('homecontroller/login');
+		$this->load->view('home/login');
 		$this->load->view('templates/main_template/footer');
 	}
 

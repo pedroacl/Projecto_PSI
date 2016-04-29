@@ -24,28 +24,28 @@
                 <dd>2193123123</dd>
 
                 <dt>Género</dt>
-                <dd>Masculino</dd>
+                <dd><?php echo ($this->voluntario->genero == 'm' ? 'Masculino' : 'Feminino'); ?></dd>
 
                 <dt>Data de Nascimento</dt>
-                <dd>20/12/1988 (20 anos)</dd>
+                <dd><?php echo $this->voluntario->data_nascimento ?></dd>
 
                 <dt>Email</dt>
-                <dd>simao@email.pt</dd>
+                <dd><?php echo $this->voluntario->email ?></dd>
 
                 <dt>Distrito</dt>
-                <dd>Distrito</dd>
+                <dd><?php echo $this->voluntario->distrito ?></dd>
 
                 <dt>Concelho</dt>
-                <dd>Concelho</dd>
+                <dd><?php echo $this->voluntario->concelho ?></dd>
 
                 <dt>Freguesia</dt>
-                <dd>Freguesia</dd>
+                <dd><?php echo $this->voluntario->freguesia ?></dd>
               </dl>
             </div>
             <div class="col-md-8">
               <div class="row">
                 <div class="col-md-12">
-                  <h1>Nome do voluntário</h1>
+                  <h1><?php echo $this->voluntario->nome ?></h1>
                 </div>
               </div>
 
