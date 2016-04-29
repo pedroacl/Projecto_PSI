@@ -76,8 +76,10 @@ class VoluntariosController extends MY_Controller {
 		$this->load->model('AreaGeografica', 'area_geografica_de_utilizador');
 		$this->area_geografica_de_utilizador = $this->area_geografica_de_utilizador->get_area_geografica_from_id($this->voluntario->id_area_geografica);
 
-		// $this->load->model('Disponibilidade', 'disponibilidades');
-		// $this->disponibilidades = $this->disponibilidades->get_by_id_utilizador($this->voluntario->id);
+		$this->load->model('Disponibilidade', 'disponibilidades');
+		$this->disponibilidades = $this->disponibilidades->get_by_id_utilizador($this->voluntario->id);
+		$this->disponibilidades = $this->disponibilidades->row();
+		print_r($this->disponibilidades);
 
 		$this->data['foto'] = $this->voluntario->foto;
 		$this->data['nome'] = $this->voluntario->nome;
