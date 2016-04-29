@@ -93,4 +93,17 @@ class VoluntariosController extends MY_Controller {
 		$this->load->view('voluntarios/edit_profile');
 		$this->load->view('templates/main_template/footer');
 	}
+
+	function update_entry()
+	{
+		$this->load->model('Voluntario', 'voluntario');
+		$this->load->model('Utilizador', 'utilizador');
+		$this->load->model('AreaGeografica', 'area_geografica');
+
+		$data_voluntario = $this->voluntario->get_update_form_data($this->input);
+		$data_utilizador = $this->utilizador->get_update_form_data($this->input);
+
+		$this->db->update('Voluntarios', $data_voluntario);
+		$this->db->update('Utilizadores', $data_utilizador);
+	}
 }

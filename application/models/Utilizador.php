@@ -60,8 +60,6 @@ class Utilizador extends CI_Model {
         }
     }
 
-
-
     function get_instituicao_by_id($id_utilizador)
     {
         $this->db->select('');
@@ -101,6 +99,17 @@ class Utilizador extends CI_Model {
             'nome'            => $input->post('nome_utilizador'),
             'tipo_utilizador' => $input->post('tipo_utilizador'),
             'recovery_token'  => ''
+        );
+
+        return $data;
+    }
+
+    function get_update_form_data($input)
+    {
+        $data = array(
+            'telefone'        => $input->post('telefone'),
+            'nome'            => $input->post('nome_utilizador'),
+            'tipo_utilizador' => $input->post('tipo_utilizador'),
         );
 
         return $data;
