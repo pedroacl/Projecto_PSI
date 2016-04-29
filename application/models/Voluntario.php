@@ -26,7 +26,7 @@ class Voluntario extends CI_Model {
 */
     function get_by_id_utilizador($id_utilizador)
     {
-        $this->db->select('utilizadores.id, utilizadores.email, utilizadores.nome, voluntarios.genero, voluntarios.data_nascimento, areas_geograficas.distrito, areas_geograficas.concelho, areas_geograficas.freguesia, utilizadores.telefone, voluntarios.foto, grupos_atuacao.nome as nome_grupo_atuacao');
+        $this->db->select('utilizadores.id, utilizadores.email, utilizadores.nome, voluntarios.genero, voluntarios.data_nascimento, areas_geograficas.distrito, areas_geograficas.concelho, areas_geograficas.freguesia, utilizadores.telefone, voluntarios.foto');
 
         $this->db->from('Utilizadores as utilizadores');
         $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = voluntarios.id_utilizador');
