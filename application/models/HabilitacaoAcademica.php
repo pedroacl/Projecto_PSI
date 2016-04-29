@@ -26,7 +26,7 @@ class HabilitacaoAcademica extends CI_Model {
       $this->db->where_in('utilizadores_hab.id_utilizador', $user_id);
       $query = $this->db->get();
       print_r($query->result());
-      return $query->result();
+      return $query->row();
     }
 
     function insert_entry($input)
