@@ -53,7 +53,7 @@
                 <div class="col-md-6">
                   <h4>Grupos de atuação</h4>
                   <ul>
-                    <li>Grupo 1</li>
+                    <li><?php echo $this->voluntario->nome_grupo_atuacao ?></li>
                     <li>Grupo 2</li>
                   </ul>
                 </div>

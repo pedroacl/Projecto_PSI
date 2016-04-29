@@ -54,6 +54,13 @@ CREATE TABLE IF NOT EXISTS Disponibilidades (
 );
 
 
+CREATE TABLE IF NOT EXISTS Utilizadores_Disponibilidades (
+   id_utilizador           INT,
+   id_disponibilidade      INT,
+   PRIMARY KEY (id_utilizador, id_disponibilidade)
+);
+
+
 CREATE TABLE IF NOT EXISTS Periodicidades (
    id                  	INT 		AUTO_INCREMENT,
    id_disponibilidade  	INT 		NOT NULL,
