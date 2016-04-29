@@ -73,18 +73,16 @@
                   <h4>Habilitações Académicas</h4>
                   <table class="table">
                     <tbody>
-                      <tr>
-                        <th>Tipo</th>
-                        <th>Curso</th>
-                        <th>Instituição</th>
-                        <th>Data de Concluisão</th>
-                      </tr>
-                      <tr>
-                        <td>Tipo</td>
-                        <td>Curso</td>
-                        <td>Instituição</td>
-                        <td>Data de Concluisão</td>
-                      </tr>
+                      <?php
+                        foreach ($this->habilitacoes_academicas as $habilitacao_academica) {
+                          echo '<tr>';
+                          echo '<td>' . $habilitacao_academica->nome . '</td>';
+                          echo '<td>' . $habilitacao_academica->curso . '</td>';
+                          echo '<td>' . $habilitacao_academica->instituto_ensino . '</td>';
+                          echo '<td>' . date("d/m/Y", strtotime($habilitacao_academica->data_conclusao)) . '</td>';
+                          echo '</tr>';
+                        }
+                      ?>
                     </tbody>
                   </table>
 

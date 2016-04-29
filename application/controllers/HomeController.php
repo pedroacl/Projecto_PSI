@@ -37,7 +37,7 @@ class HomeController extends MY_Controller {
 
 		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
 		$this->grupos_atuacao = $this->grupo_atuacao->get_entries();
-		$this->areas_interesse_de_utilizador = array(); 
+		$this->areas_interesse_de_utilizador = array();
 		$this->grupos_atuacao_de_utilizador = array();
 		$this->area_geografica_de_utilizador = array(
 					'distrito' => '',
@@ -120,7 +120,7 @@ class HomeController extends MY_Controller {
 		{
 			// Inserts
 			// utilizador
-			$id_utilizador = $this->utilizador->insert_entry($this->input);	
+			$id_utilizador = $this->utilizador->insert_entry($this->input);
 
 			// grupo atuacao
 			$this->utilizador_grupo_atuacao->insert_entries($id_utilizador, $this->input);
