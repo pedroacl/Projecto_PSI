@@ -132,6 +132,8 @@ class Voluntario extends CI_Model {
             )
         );
 
+        $this->load->model('Utilizador', 'utilizador');
+
         return array_merge($rules, $this->utilizador->get_form_validation_rules());
     }
 
