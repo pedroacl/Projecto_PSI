@@ -25,7 +25,7 @@ class HabilitacaoAcademica extends CI_Model {
       $this->db->join('Utilizadores_Habilitacoes_Academicas as utilizadores_hab', 'utilizadores_hab.id_habilitacao_academica = Habilitacoes_Academicas.id');
       $this->db->where_in('utilizadores_hab.id_utilizador', $user_id);
       $query = $this->db->get();
-      print_r($query->result());
+      // print_r($query->result());
       return $query->row();
     }
 

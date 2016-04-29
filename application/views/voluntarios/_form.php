@@ -159,8 +159,7 @@
       <?php if (isset($this->disponibilidades)) {
         $i = 0;
         foreach ($this->disponibilidades as $key => $disponibilidade) {
-            print_r((array)$disponibilidade);
-            $disponibilidade = (array)$disponibilidade;
+          $disponibilidade = (array)$disponibilidade;
           ?>
           <tr id="disponibilidade_<?= $i; ?>">
             <td><?= $disponibilidade['data_inicio'] ?></td>

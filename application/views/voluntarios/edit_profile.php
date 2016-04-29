@@ -1,4 +1,3 @@
-<?= print_r($this->voluntario); ?>
 <div class="container-fluid content">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
