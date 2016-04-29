@@ -73,12 +73,13 @@ class VoluntariosController extends MY_Controller {
 
 		$this->load->model('Voluntario', 'voluntario');
 		$this->voluntario = $this->voluntario->get_by_id_utilizador($this->session->userdata('id'))->row();
+		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
 
 		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica_de_utilizador');
 		$this->habilitacoes_academicas_de_utilizador = $this->habilitacao_academica_de_utilizador->get_habilitacoes_academicas_from_user_id($this->voluntario->id);
 
-		$this->load->model('AreaGeografica', 'area_geografica_de_utilizador');
-		$this->area_geografica_de_utilizador = $this->area_geografica_de_utilizador->get_area_geografica_from_id($this->voluntario->id_area_geografica);
+		$this->load->model('AreaGeografica', 'area_geografica');
+		$this->area_geografica = $this->area_geografica->get_by_id($this->voluntario->id_area_geografica);
 
 		$this->load->model('Disponibilidade', 'disponibilidades');
 		$this->disponibilidades = $this->disponibilidades->get_by_id_utilizador($this->voluntario->id);

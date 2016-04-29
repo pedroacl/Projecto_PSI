@@ -166,6 +166,16 @@ class HomeController extends MY_Controller {
 				$id_instituicao = $this->instituicao->insert_entry($instituicao, $id_utilizador);
 			}
 
+			// registar utilizador na sessao
+			$cookie = array(
+				'id'              => $id_utilizador,
+				'email'           =>	$this->input->post('email'),
+				'tipo_utilizador' => $this->input->post('tipo_utilizador'),
+				'nome'            => $this->input->post('nome_utilizador')
+			);
+
+			$this->session->set_userdata($cookie);
+
 			// success page
 			$this->session->set_flashdata('notice', 'Utilizador registado com sucesso.');
 			$this->load->view('templates/main_template/header');
@@ -249,10 +259,10 @@ class HomeController extends MY_Controller {
 				$this->session->set_flashdata('notice', 'Utilizador autenticado');
 
 				$cookie = array(
-					'id' => $user['id'],
-					'email' => $email,
+					'id'              => $user['id'],
+					'email'           => $email,
 					'tipo_utilizador' => $user['tipo_utilizador'],
-					'nome' => $user['nome']
+					'nome'            => $user['nome']
 				);
 
 				$this->session->set_userdata($cookie);

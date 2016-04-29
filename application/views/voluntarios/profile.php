@@ -21,7 +21,7 @@
               </div>
               <dl class="dl-horizontal">
                 <dt>Telefone</dt>
-                <dd>2193123123</dd>
+                <dd><?php echo $this->voluntario->telefone ?></dd>
 
                 <dt>Género</dt>
                 <dd><?php echo ($this->voluntario->genero == 'm' ? 'Masculino' : 'Feminino'); ?></dd>

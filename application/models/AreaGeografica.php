@@ -22,6 +22,16 @@ class AreaGeografica extends CI_Model {
         return $result;
     }
 
+    function get_by_id($id_area_geografica)
+    {
+        $this->db->select('id, freguesia, concelho, distrito');
+        $this->db->from('Areas_Geograficas');
+        $this->db->where('id', $id_area_geografica);
+        $query = $this->db->get();
+
+        return $query;
+    }
+
 
     function get_select_boxes_data()
     {

@@ -8,42 +8,9 @@
           <form action="" method="POST" enctype="multipart/form-data" id="form">
             <h2>Registar Utilizador</h2>
 
-            <div class="form-group <?= has_error('email') ?>">
-              <label for="inputEmail" class="control-label">Email</label>
-              <?= form_error('email', "<span class='help-block'>", "</span>")?>
-              <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus value="<?= set_value('email'); ?>">
-            </div>
-
-            <div class="form-group <?= has_error('password') ?>">
-              <label class="control-label">Password</label>
-              <?= form_error('password', "<span class='help-block'>", "</span>")?>
-              <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            </div>
-
-            <div class="form-group <?= has_error('confirmacao_password') ?>">
-              <label class="control-label">Confirmação da Password</label>
-              <?= form_error('confirmacao_password', "<span class='help-block'>", "</span>")?>
-              <input name="confirmacao_password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            </div>
-
-            <div class="form-group <?= has_error('tipo_utilizador') ?>">
-              <label class="control-label">Tipo de Utilizador</label>
-              <?= form_error('tipo_utilizador', "<span class='help-block'>", "</span>")?>
-              <select name="tipo_utilizador" id="tipo_utilizador_select" class="form-control"
-                value="<?= set_value('tipo_utilizador'); ?>">
-                <option id="default_utilizador_select" value="none" <?= set_select('tipo_utilizador', 'none'); ?>>-</option>
-                <option id="voluntario_select" value="voluntario" <?= set_select('tipo_utilizador', 'voluntario') ?>>Voluntário</option>
-                <option id="instituicao_select" value="instituicao" <?= set_select('tipo_utilizador', 'instituicao') ?>>Instituição</option>
-              </select>
-            </div>
-
-            <div id="utilizador_form_end"></div>
-
-
             <!-- Campos de um Voluntario -->
 
-
-            <div class="voluntario_fields" style="display: none;">
+            <div class="voluntario_fields">
 
               <div class="form-group <?= has_error('foto') ?>">
                 <label class="control-label">Foto</label>
@@ -53,7 +20,7 @@
               <div class="form-group <?= has_error('nome_utilizador') ?>" >
                 <label class="control-label">Nome</label>
                 <?= form_error('nome_utilizador', "<span class='help-block'>", "</span>")?>
-                <input name="nome_utilizador" value="<?= set_value('nome_utilizador'); ?>" class="form-control" placeholder="Nome Completo"></input>
+                <input name="nome_utilizador" value="<?= set_value('nome_utilizador', $this->voluntario->nome); ?>" class="form-control" placeholder="Nome Completo"></input>
               </div>
 
               <div class="form-group <?= has_error('genero') ?>">
@@ -69,7 +36,7 @@
                 <label class="control-label">Data de Nascimento</label>
                 <?= form_error('data_nascimento', "<span class='help-block'>", "</span>")?>
                 <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                  <input name="data_nascimento" value="<?= set_value('data_nascimento'); ?>" type='text' class="form-control" />
+                  <input name="data_nascimento" value="<?= set_value('data_nascimento', $this->voluntario->data_nascimento); ?>" type='text' class="form-control" />
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -80,7 +47,7 @@
               <div class="form-group <?= has_error('telefone') ?>">
                 <label class="control-label">Telefone</label>
                 <?= form_error('telefone', "<span class='help-block'>", "</span>")?>
-                <input name="telefone" value="<?= set_value('telefone'); ?>" class="form-control" placeholder="Telefone"></input>
+                <input name="telefone" value="<?= set_value('telefone', $this->voluntario->telefone); ?>" class="form-control" placeholder="Telefone"></input>
               </div>
 
               <div class="form-group <?= has_error('grupos_atuacao[]') ?>">
@@ -188,10 +155,10 @@
                     foreach ($this->disponibilidades as $key => $disponibilidade) { 
                       $disponibilidade = (array)$disponibilidade ?>
                       <tr id="disponibilidade_<?= $i; ?>">
-                        <td><?= $disponibilidade['data_inicio'] ?></td>
+                        <td><?= date("d/m/Y", strtotime($disponibilidade['data_inicio'])); ?></td>
                         <input type="hidden" name="disponibilidades[<?= $i ?>]['data_inicio']"/>
 
-                        <td><?= $disponibilidade['data_fim'] ?></td>
+                        <td><?= date("d/m/Y", strtotime($disponibilidade['data_fim'])); ?></td>
                         <input type="hidden" name="disponibilidades[<?= $i ?>]['data_fim']"/>
 
                         <td><?= $disponibilidade['tipo_periodicidade'] ?></td>
