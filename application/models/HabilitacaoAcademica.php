@@ -8,13 +8,14 @@ class HabilitacaoAcademica extends CI_Model {
         parent::__construct();
     }
 
-    function get_habilitacoes_academicas_from_id($habilitacao_id)
+    function get_habilitacoes_academicas_from_user_id($user_id)
     {
       $this->db->select('id, id_tipo, data_conclusao, curso, instituto_ensino');
       $this->db->from('Habilitacoes_Academicas');
-      $this->db->where_in('id', $habilitacao_id);
+      $this->db->join('Utilizadores_Habilitacoes_Academicas as utilizadores_hab', 'utilizadores_hab.id_habilitacao_academica = Habilitacoes_Academicas.id');
+      $this->db->where_in('utilizadores_hab.id_utilizador', $user_id);
       $query = $this->db->get();
-      // print_r($query->result());
+      print_r($query->result());
       return $query->result();
     }
 
