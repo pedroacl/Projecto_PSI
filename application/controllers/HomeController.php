@@ -39,6 +39,11 @@ class HomeController extends MY_Controller {
 		$this->grupos_atuacao = $this->grupo_atuacao->get_entries();
 		$this->areas_interesse_de_utilizador = array();
 		$this->grupos_atuacao_de_utilizador = array();
+		$this->habilitacoes_academicas_de_utilizador = new stdClass();
+		$this->habilitacoes_academicas_de_utilizador->id_tipo = -1;
+		$this->habilitacoes_academicas_de_utilizador->curso = '';
+		$this->habilitacoes_academicas_de_utilizador->instituto_ensino = '';
+		$this->habilitacoes_academicas_de_utilizador->data_conclusao = '';
 		$this->area_geografica_de_utilizador = array(
 					'distrito' => '',
 					'concelho' => '',
