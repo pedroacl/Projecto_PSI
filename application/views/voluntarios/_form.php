@@ -3,27 +3,27 @@
   <div class="row">
     <div class="col-xs-3 col-md-3">
       <a href="#" class="thumbnail">
-        <img src="<?= $this->voluntario->foto ?>">
+        <img src="<?= $this->data['foto'] ?>">
       </a>
     </div>
   </div>
   <div class="form-group <?= has_error('foto') ?>">
     <label class="control-label">Foto</label>
-    <input value="<?= set_value('foto', $this->voluntario->foto); ?>" type="file" name="foto"/>
+    <input value="<?= set_value('foto', $this->data['foto']); ?>" type="file" name="foto"/>
   </div>
 
   <div class="form-group <?= has_error('nome_utilizador') ?>" >
     <label class="control-label">Nome</label>
     <?= form_error('nome_utilizador', "<span class='help-block'>", "</span>")?>
-    <input name="nome_utilizador" value="<?= set_value('nome_utilizador', $this->voluntario->nome); ?>" class="form-control" placeholder="Nome Completo"></input>
+    <input name="nome_utilizador" value="<?= set_value('nome_utilizador', $this->data['nome']); ?>" class="form-control" placeholder="Nome Completo"></input>
   </div>
 
   <div class="form-group <?= has_error('genero') ?>">
     <label class="control-label">Género</label>
     <?= form_error('genero', "<span class='help-block'>", "</span>")?>
     <div class="checkbox">
-      <label class="radio-inline"><input type="radio" name="genero" value="m" <?= set_radio('genero', 'm', $this->voluntario->genero === 'm'); ?>/>Masculino</label>
-      <label class="radio-inline"><input type="radio" name="genero" value="f" <?= set_radio('genero', 'f', $this->voluntario->genero === 'f'); ?>/>Feminino</label>
+      <label class="radio-inline"><input type="radio" name="genero" value="m" <?= set_radio('genero', 'm', $this->data['genero'] === 'm'); ?>/>Masculino</label>
+      <label class="radio-inline"><input type="radio" name="genero" value="f" <?= set_radio('genero', 'f', $this->data['genero'] === 'f'); ?>/>Feminino</label>
     </div>
   </div>
 
@@ -31,7 +31,7 @@
     <label class="control-label">Data de Nascimento</label>
     <?= form_error('data_nascimento', "<span class='help-block'>", "</span>")?>
     <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-      <input name="data_nascimento" value="<?= set_value('data_nascimento', $this->voluntario->data_nascimento); ?>" type='text' class="form-control" />
+      <input name="data_nascimento" value="<?= set_value('data_nascimento', $this->data['data_nascimento']); ?>" type='text' class="form-control" />
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
@@ -42,7 +42,7 @@
   <div class="form-group <?= has_error('telefone') ?>">
     <label class="control-label">Telefone</label>
     <?= form_error('telefone', "<span class='help-block'>", "</span>")?>
-    <input name="telefone" value="<?= set_value('telefone', $this->voluntario->telefone); ?>" class="form-control" placeholder="Telefone"></input>
+    <input name="telefone" value="<?= set_value('telefone', $this->data['telefone']); ?>" class="form-control" placeholder="Telefone"></input>
   </div>
 
   <div class="form-group <?= has_error('grupos_atuacao[]') ?>">

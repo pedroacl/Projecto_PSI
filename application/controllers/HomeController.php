@@ -41,6 +41,12 @@ class HomeController extends MY_Controller {
 		$this->load->model('AreaInteresse', 'area_iteresse');
 		$this->areas_interesse = $this->area_iteresse->get_entries();
 
+		$this->data['foto'] = '';
+		$this->data['nome'] = '';
+		$this->data['genero'] = '';
+		$this->data['data_nascimento'] = '';
+		$this->data['telefone'] = '';
+
 		$this->title = "Registo de Utilizador";
 		$this->js_file = 'home.js';
 		$this->load->view('templates/main_template/header');
