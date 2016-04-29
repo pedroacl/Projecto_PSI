@@ -9,18 +9,18 @@ $(document).ready(function() {
 
   for (var key in areas_geograficas) {
     if ($('#distrito').val() !== key)
-      $('#distrito').append("<option value=" + key + ">" + key + "</option>");
+      $('#distrito').append("<option value='" + key + "'>" + key + "</option>");
   }
 
-  for (var key in areas_geograficas[$('#distrito').val()]) {
-    if ($('#concelho').val() !== key)
-      $('#concelho').append("<option value=" + key + ">" + key + "</option>");
+  for (var key2 in areas_geograficas[$('#distrito').val()]) {
+    if ($('#concelho').val() !== key2)
+      $('#concelho').append("<option value='" + key2 + "'>" + key2 + "</option>");
   }
 
-  var freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
-  for (var i = 0; i < freguesias.length; i++) {
-    if ($('#freguesia').val() !== freguesias[i])
-      $('#freguesia').append("<option value=" + freguesias[i] + ">" + freguesias[i] + "</option>");
+  $freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
+  for (var i = 0; i < $freguesias.length; i++) {
+    if ($('#freguesia').val() !== $freguesias[i])
+      $('#freguesia').append("<option value='" + $freguesias[i] + "'>" + $freguesias[i] + "</option>");
   }
 
   if ($number_of_disp <= 0) {
@@ -117,11 +117,11 @@ $(document).ready(function() {
     $('#freguesia').children().remove();
     $('#concelho').append("<option value='default'>-</option>");
     for (var key in areas_geograficas[$(this).val()]) {
-      $('#concelho').append("<option value=" + key + ">" + key + "</option>");
+      $('#concelho').append("<option value='" + key + "'>" + key + "</option>");
     }
     $('#freguesia').append("<option value='default'>-</option>");
     for (var i = 0; i < freguesias.length; i++) {
-      $('#freguesia').append("<option value=" + freguesias[i] + ">" + freguesias[i] + "</option>");
+      $('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
     }
   });
 
@@ -130,7 +130,7 @@ $(document).ready(function() {
     $('#freguesia').children().remove();
     $('#freguesia').append("<option value='default'>-</option>");
     for (var i = 0; i < freguesias.length; i++) {
-      $('#freguesia').append("<option value=" + freguesias[i] + ">" + freguesias[i] + "</option>");
+      $('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
     }
   });
 

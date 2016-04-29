@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 
 	for (var key in areas_geograficas) {
-		$('#distrito').append("<option value=" + key + ">" + key + "</option>");
+		$('#distrito').append("<option value='" + key + "'>" + key + "</option>");
 	}
 
 	if ($number_of_disp <= 0) {
@@ -120,11 +120,11 @@ $(document).ready(function() {
 		$('#freguesia').children().remove();
 		$('#concelho').append("<option value='default'>-</option>");
 		for (var key in areas_geograficas[$(this).val()]) {
-			$('#concelho').append("<option value=" + key + ">" + key + "</option>");
+			$('#concelho').append("<option value='" + key + "'>" + key + "</option>");
 		}
 		$('#freguesia').append("<option value='default'>-</option>");
 		for (var i = 0; i < freguesias.length; i++) {
-			$('#freguesia').append("<option value=" + freguesias[i] + ">" + freguesias[i] + "</option>");
+			$('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
 		}
 	});
 
@@ -133,7 +133,7 @@ $(document).ready(function() {
 		$('#freguesia').children().remove();
 		$('#freguesia').append("<option value='default'>-</option>");
 		for (var i = 0; i < freguesias.length; i++) {
-			$('#freguesia').append("<option value=" + freguesias[i] + ">" + freguesias[i] + "</option>");
+			$('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
 		}
 	});
 
