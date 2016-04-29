@@ -15,7 +15,8 @@ class AreaGeografica extends CI_Model {
         $this->db->where_in('id', $area_id);
         $query = $this->db->get();
         $result;
-        foreach ($query->result()[0] as $key => $value) {
+
+        foreach ($query->row() as $key => $value) {
             $result[$key] = $value;
         }
         return $result;
