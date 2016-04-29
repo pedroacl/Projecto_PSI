@@ -16,6 +16,19 @@ class AreaInteresse extends CI_Model {
         return $this->db->get();
     }
 
+    function delete_by_id_utilizador($id_utilizador)
+    {
+      $sql = "DELETE utilizadores_areas_interesse
+            FROM Utilizadores utilizadores
+            JOIN Utilizadores_Areas_Interesse utilizadores_areas_interesse
+               ON utilizadores.id = utilizadores_areas_interesse.id_utilizador
+            JOIN Areas_Interesse areas_interesse
+               ON areas_interesse.id = utilizadores_areas_interesse.id_area_interesse
+            WHERE utilizadores.id = ?";
+
+      $this->db->query($sql, array($id_utilizador));
+   }
+
    function get_by_id_utilizador($id_utilizador)
    {
       $this->db->select('areas_interesse.nome');
@@ -30,7 +43,7 @@ class AreaInteresse extends CI_Model {
 
     function insert_entry($id_utilizador, $input)
     {
-        $area_iteresse = get_signup_form_data($input);
+        $area_iteresse = $this->get_signup_form_data($input);
 
         $this->load->model('Utilizador_AreaInteresse', 'user_area_iteresse');
 
@@ -43,9 +56,7 @@ class AreaInteresse extends CI_Model {
     function get_signup_form_data($input)
     {
         $data = array(
-            'freguesia' => $input->post('freguesia'),
-            'concelho'  => $input->post('concelho'),
-            'distrito'  => $input->post('distrito'),
+            'nome' => $input->post('nome')
         );
 
         return $data;

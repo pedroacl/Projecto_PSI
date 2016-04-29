@@ -68,4 +68,4 @@ $route['logout']['get'] = 'HomeController/logout';
 // voluntario
 $route['profile']['get']       = 'VoluntariosController/profile';
 $route['edit_profile']['get']  = 'VoluntariosController/edit_profile';
-$route['edit_profile']['post'] = 'VoluntariosController/process_edit_profile';
+$route['edit_profile']['post'] = 'VoluntariosController/update_profile';

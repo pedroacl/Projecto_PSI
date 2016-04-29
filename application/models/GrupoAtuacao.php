@@ -16,6 +16,19 @@ class GrupoAtuacao extends CI_Model {
       return $this->db->get();
    }
 
+   function delete_by_id_utilizador($id_utilizador)
+   {
+      $sql = "DELETE utilizadores_grupos_atuacao
+            FROM Utilizadores utilizadores
+            JOIN Utilizadores_Grupos_Atuacao utilizadores_grupos_atuacao
+               ON utilizadores.id = utilizadores_grupos_atuacao.id_utilizador
+            JOIN Grupos_Atuacao grupos_atuacao
+               ON grupos_atuacao.id = utilizadores_grupos_atuacao.id_grupo_atuacao
+            WHERE utilizadores.id = ?";
+
+      $this->db->query($sql, array($id_utilizador));
+   }
+
    function get_by_id_utilizador($id_utilizador)
    {
       $this->db->select('grupos_atuacao.nome');

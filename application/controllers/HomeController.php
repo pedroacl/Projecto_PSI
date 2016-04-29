@@ -45,11 +45,12 @@ class HomeController extends MY_Controller {
 		$this->habilitacoes_academicas_de_utilizador->curso = '';
 		$this->habilitacoes_academicas_de_utilizador->instituto_ensino = '';
 		$this->habilitacoes_academicas_de_utilizador->data_conclusao = '';
+
 		$this->area_geografica_de_utilizador = array(
-					'distrito' => '',
-					'concelho' => '',
-					'freguesia' => ''
-			);
+			'distrito' => '',
+			'concelho' => '',
+			'freguesia' => ''
+		);
 
 		$this->load->model('AreaInteresse', 'area_iteresse');
 		$this->areas_interesse = $this->area_iteresse->get_entries();

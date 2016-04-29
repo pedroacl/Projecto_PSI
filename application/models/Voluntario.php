@@ -50,11 +50,11 @@ class Voluntario extends CI_Model {
         return $data;
     }
 
-    function get_update_form_data()
+    function get_update_form_data($input)
     {
         $data = array(
-            'genero'                     => $input->post('genero'),
-            'data_nascimento'            => $data_nascimento,
+            'genero'          => $input->post('genero'),
+            'data_nascimento' => $input->post('data_nascimento'),
         );
 
         return $data;

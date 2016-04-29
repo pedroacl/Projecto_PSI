@@ -84,7 +84,7 @@
               </div>
 
               <div class="form-group <?= has_error('grupos_atuacao[]') ?>">
-                <label class="control-label">Grupo de Atuação</label>
+                <label class="control-label">Grupos de Atuação</label>
                 <?= form_error('grupos_atuacao[]', "<span class='help-block'>", "</span>")?>
                 <select multiple class="form-control" name="grupos_atuacao[]">
                   <?php foreach ($this->grupos_atuacao->result() as $row) { ?>

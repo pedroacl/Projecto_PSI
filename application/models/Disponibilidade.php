@@ -8,6 +8,19 @@ class Disponibilidade extends CI_Model {
         parent::__construct();
     }
 
+    function delete_by_id_utilizador($id_utilizador)
+    {
+      $sql = "DELETE utilizadores_disponibilidades
+            FROM Utilizadores utilizadores
+            JOIN Utilizadores_Disponibilidades utilizadores_disponibilidades
+               ON utilizadores.id = utilizadores_disponibilidades.id_utilizador
+            JOIN Disponibilidades disponibilidades
+               ON disponibilidades.id = utilizadores_disponibilidades.id_disponibilidade
+            WHERE utilizadores.id = ?";
+
+        $this->db->query($sql, array($id_utilizador));
+    }
+
     function get_by_id_utilizador($id_utilizador)
     {
         $this->db->select('disponibilidades.data_inicio, disponibilidades.data_fim,
@@ -29,7 +42,6 @@ class Disponibilidade extends CI_Model {
         $this->load->model('Periodicidade', 'periodicidade');
 
         $disponibilidades = $this->input->post('disponibilidades');
-        print_r($disponibilidades[0]);
 
         foreach ($disponibilidades as $index => $disponibilidade) {
             // inserir disponibilidade
