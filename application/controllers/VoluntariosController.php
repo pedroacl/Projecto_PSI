@@ -18,14 +18,23 @@ class VoluntariosController extends MY_Controller {
 		//$this->authenticate_user();
 
 		$this->load->model('Voluntario', 'voluntario');
+		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
+		$this->load->model('AreaInteresse', 'area_interesse');
+
 		$id_utilizador    = $this->session->userdata('id');
 
+		// voluntario
 		$this->voluntario =
 			$this->voluntario->get_by_id_utilizador($id_utilizador)->row();
 
 		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
 
-		print_r($this->voluntario);
+		// grupos de atuacao
+		$this->grupos_atuacao = $this->grupo_atuacao->get_by_id_utilizador($id_utilizador)->result();
+		print_r($this->grupos_atuacao);
+
+		$this->areas_interesse = $this->area_interesse->get_by_id_utilizador($id_utilizador)->result();
+
 
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
@@ -40,7 +49,6 @@ class VoluntariosController extends MY_Controller {
 
 		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
-
 
 		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
 		$this->load->model('Utilizador_GrupoAtuacao', 'grupos_atuacao_de_utilizador');

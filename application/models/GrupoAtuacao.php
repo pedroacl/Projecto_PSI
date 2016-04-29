@@ -16,6 +16,18 @@ class GrupoAtuacao extends CI_Model {
       return $this->db->get();
    }
 
+   function get_by_id_utilizador($id_utilizador)
+   {
+      $this->db->select('grupos_atuacao.nome');
+      $this->db->from('Grupos_Atuacao as grupos_atuacao');
+      $this->db->join('Utilizadores_Grupos_Atuacao as utilizadores_grupos_atuacao',
+         'grupos_atuacao.id = utilizadores_grupos_atuacao.id_grupo_atuacao');
+      $this->db->join('Utilizadores as utilizadores', 'utilizadores_grupos_atuacao.id_utilizador = utilizadores.id');
+      $this->db->where('utilizadores.id', $id_utilizador);
+
+      return $this->db->get();
+   }
+
    function insert_entries($id_utilizador, $grupos_atuacao)
    {
       foreach ($grupos_atuacao as $key => $value)

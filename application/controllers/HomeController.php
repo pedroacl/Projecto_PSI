@@ -135,7 +135,7 @@ class HomeController extends MY_Controller {
 			$id_habilitacoes_academicas = $this->habilitacao_academica->insert_entry($this->input);
 
 			// disponibilidades
-			$this->disponibilidade->insert_entry($this->input);
+			$this->disponibilidade->insert_entry($id_utilizador, $this->input);
 
 			// voluntario
 			if ($this->input->post('tipo_utilizador') == 'voluntario')

@@ -16,6 +16,18 @@ class AreaInteresse extends CI_Model {
         return $this->db->get();
     }
 
+   function get_by_id_utilizador($id_utilizador)
+   {
+      $this->db->select('areas_interesse.nome');
+      $this->db->from('Areas_Interesse as areas_interesse');
+      $this->db->join('Utilizadores_Areas_Interesse as utilizadores_areas_interesse',
+         'areas_interesse.id = utilizadores_areas_interesse.id_area_interesse');
+      $this->db->join('Utilizadores as utilizadores', 'utilizadores_areas_interesse.id_utilizador = utilizadores.id');
+      $this->db->where('utilizadores.id', $id_utilizador);
+
+      return $this->db->get();
+   }
+
     function insert_entry($id_utilizador, $input)
     {
         $area_iteresse = get_signup_form_data($input);
