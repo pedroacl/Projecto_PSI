@@ -87,8 +87,8 @@
                       </tr>
                     </tbody>
                   </table>
-                  
-                  <h4>Disponibilidade</h4>
+
+                  <h4>Disponibilidades</h4>
                   <table class="table">
                     <tbody>
                       <tr>
@@ -97,12 +97,16 @@
                         <th>Periodicidade</th>
                         <th>Repetir até</th>
                       </tr>
-                      <tr>
-                        <td>Data de Inicio</td>
-                        <td>Data de Fim</td>
-                        <td>Periodicidade</td>
-                        <td>Repetir até</td>
-                      </tr>
+                      <?php
+                        foreach ($this->disponibilidades as $disponibilidade) {
+                          echo '<tr>';
+                          echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_inicio)) . '</td>';
+                          echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim)) . '</td>';
+                          echo '<td>' . $disponibilidade->tipo_periodicidade . '</td>';
+                          echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim_periodicidade)) . '</td>';
+                          echo '</tr>';
+                        }
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -110,7 +114,7 @@
 
             </div>
           </div>
-          
+
 
         </div>
       </div>
