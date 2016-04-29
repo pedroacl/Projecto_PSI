@@ -120,7 +120,7 @@ body {
 
 .alert {
   margin-top: 20px;
-  margin-bottom: 0;
+  margin-bottom: 20px;
 }
 
 .relative {

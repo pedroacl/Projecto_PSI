@@ -16,6 +16,9 @@ class HabilitacaoAcademica extends CI_Model {
         $this->db->join('Voluntarios as voluntarios', 'voluntarios.id_habilitacoes_academicas = habilitacoes_academicas.id');
         $this->db->where('voluntarios.id', $id_voluntario);
 
+        // $query = $this->db->get();
+        // print_r($query->result());
+
         return $this->db->get();
     }
 

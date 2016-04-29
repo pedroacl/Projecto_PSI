@@ -4,7 +4,6 @@
 
       <div class="panel panel-default">
         <div class="panel-body profile-voluntario">
-          <?= print_r($this->voluntario); ?>
           <div class="row buttons-top">
             <div class="col-md-12">
               <div class="pull-right">
@@ -75,7 +74,7 @@
                   <table class="table">
                     <tbody>
                       <?php
-                        foreach ($this->habilitacoes_academicas as $habilitacao_academica) {
+                        foreach ($this->habilitacoes_academicas->result() as $habilitacao_academica) {
                           echo '<tr>';
                           echo '<td>' . $habilitacao_academica->nome . '</td>';
                           echo '<td>' . $habilitacao_academica->curso . '</td>';

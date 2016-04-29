@@ -40,7 +40,7 @@ class VoluntariosController extends MY_Controller {
 		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($id_utilizador)->result();
 
 		// habilitacoes academicas
-		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->voluntario->id)->result();
+		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->voluntario->id);
 
 		$this->js_file = 'home.js';
 		$this->load->view('templates/main_template/header');
@@ -72,22 +72,21 @@ class VoluntariosController extends MY_Controller {
 		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
 
 		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');
-		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->voluntario->id)->row();
-		$this->habilitacoes_academicas->data_conclusao = date("d/m/Y", strtotime($this->habilitacoes_academicas->data_conclusao));
+		$this->habilitacoes_academicas = $this->habilitacao_academica->get_habilitacoes_academicas_from_user_id($this->voluntario->id);
+		// $this->habilitacoes_academicas->data_conclusao = date("d/m/Y", strtotime($this->habilitacoes_academicas['data_conclusao']));
 
 		$this->load->model('AreaGeografica', 'area_geografica');
-		$this->area_geografica = $this->area_geografica->get_by_id($this->voluntario->id_area_geografica);
+		$this->area_geografica_de_utilizador = $this->area_geografica->get_area_geografica_from_id($this->voluntario->id_area_geografica);
+		
+		$this->grupos_atuacao_de_utilizador = $this->grupos_atuacao_de_utilizador->get_grupos_atuacao_from_utilizador($this->voluntario->id);
+		$this->areas_interesse_de_utilizador = $this->areas_interesse_de_utilizador->get_areas_interesse_from_utilizador($this->voluntario->id);
+		
 
 		$this->load->model('Disponibilidade', 'disponibilidades');
 		$this->disponibilidades = $this->disponibilidades->get_by_id_utilizador($this->voluntario->id);
 		$this->disponibilidades = $this->disponibilidades->result();
 		// print_r($this->disponibilidades);
 
-		$this->data['foto'] = $this->voluntario->foto;
-		$this->data['nome'] = $this->voluntario->nome;
-		$this->data['genero'] = $this->voluntario->genero;
-		$this->data['data_nascimento'] = $this->voluntario->data_nascimento;
-		$this->data['telefone'] = $this->voluntario->telefone;
 
 		$this->js_file = 'edit_profile_voluntarios.js';
 		$this->load->view('templates/main_template/header');
