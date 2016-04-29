@@ -6,7 +6,7 @@
         <div class="panel-body">
 
           <form action="" method="POST" enctype="multipart/form-data" id="form">
-            <h2>Registar Utilizador</h2>
+            <h2>Editar Utilizador</h2>
 
             <!-- Campos de um Voluntario -->
 

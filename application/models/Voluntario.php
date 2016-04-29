@@ -37,7 +37,7 @@ class Voluntario extends CI_Model {
 
     function get_signup_form_data($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas)
     {
-        $data_nascimento = $newDate = date("Y/m/d", strtotime($input->post('data_nascimento')));
+        $data_nascimento = date("Y/m/d", strtotime($input->post('data_nascimento')));
 
         $data = array(
             'genero'                     => $input->post('genero'),
