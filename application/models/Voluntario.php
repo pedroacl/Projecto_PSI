@@ -29,7 +29,7 @@ class Voluntario extends CI_Model {
         $this->db->select('utilizadores.id, utilizadores.email, utilizadores.nome, voluntarios.genero, voluntarios.data_nascimento, areas_geograficas.distrito, areas_geograficas.concelho, areas_geograficas.freguesia, utilizadores.telefone, voluntarios.foto, voluntarios.id_area_geografica');
 
         $this->db->from('Utilizadores as utilizadores');
-        $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = voluntarios.id_utilizador');
+        $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = ' . $id_utilizador);
         $this->db->join('Areas_Geograficas as areas_geograficas', 'areas_geograficas.id = voluntarios.id_area_geografica');
 
         return $this->db->get();

@@ -24,7 +24,6 @@ class VoluntariosController extends MY_Controller {
 		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');
 
 		$id_utilizador    = $this->session->userdata('id');
-
 		// voluntario
 		$this->voluntario =
 			$this->voluntario->get_by_id_utilizador($id_utilizador)->row();

@@ -4,6 +4,7 @@
 
       <div class="panel panel-default">
         <div class="panel-body profile-voluntario">
+          <?= print_r($this->voluntario); ?>
           <div class="row buttons-top">
             <div class="col-md-12">
               <div class="pull-right">
@@ -16,36 +17,36 @@
             <div class="col-md-4">
               <div class="profile-photo-container">
                 <a href="#" class="thumbnail">
-                  <img src="/assets/images/fcul1.jpg" alt="Name user">
+                  <img src="<?= $this->voluntario->foto ?>">
                 </a>
               </div>
               <dl class="dl-horizontal">
                 <dt>Telefone</dt>
-                <dd><?php echo $this->voluntario->telefone ?></dd>
+                <dd><?= $this->voluntario->telefone ?></dd>
 
                 <dt>Género</dt>
-                <dd><?php echo ($this->voluntario->genero == 'm' ? 'Masculino' : 'Feminino'); ?></dd>
+                <dd><?= ($this->voluntario->genero == 'm' ? 'Masculino' : 'Feminino'); ?></dd>
 
                 <dt>Data de Nascimento</dt>
-                <dd><?php echo $this->voluntario->data_nascimento ?></dd>
+                <dd><?= $this->voluntario->data_nascimento ?></dd>
 
                 <dt>Email</dt>
-                <dd><?php echo $this->voluntario->email ?></dd>
+                <dd><?= $this->voluntario->email ?></dd>
 
                 <dt>Distrito</dt>
-                <dd><?php echo $this->voluntario->distrito ?></dd>
+                <dd><?= $this->voluntario->distrito ?></dd>
 
                 <dt>Concelho</dt>
-                <dd><?php echo $this->voluntario->concelho ?></dd>
+                <dd><?= $this->voluntario->concelho ?></dd>
 
                 <dt>Freguesia</dt>
-                <dd><?php echo $this->voluntario->freguesia ?></dd>
+                <dd><?= $this->voluntario->freguesia ?></dd>
               </dl>
             </div>
             <div class="col-md-8">
               <div class="row">
                 <div class="col-md-12">
-                  <h1><?php echo $this->voluntario->nome ?></h1>
+                  <h1><?= $this->voluntario->nome ?></h1>
                 </div>
               </div>
 
