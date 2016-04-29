@@ -53,15 +53,17 @@
                 <div class="col-md-6">
                   <h4>Grupos de atuação</h4>
                   <ul>
-                    <li><?php echo $this->voluntario->nome_grupo_atuacao ?></li>
-                    <li>Grupo 2</li>
+                    <?php foreach ($this->grupos_atuacao as $grupo_atuacao) {
+                      echo '<li>' . $grupo_atuacao->nome . '</li>';
+                    } ?>
                   </ul>
                 </div>
                 <div class="col-md-6">
                   <h4>Areas de Interesse</h4>
                   <ul>
-                    <li>Area 1</li>
-                    <li>Area 2</li>
+                    <?php foreach ($this->areas_interesse as $areas_interesse) {
+                      echo '<li>' . $areas_interesse->nome . '</li>';
+                    } ?>
                   </ul>
                 </div>
               </div>

@@ -8,7 +8,20 @@ class Disponibilidade extends CI_Model {
         parent::__construct();
     }
 
-    function insert_entry($input)
+    function get_by_id_utilizador($id_utilizador)
+    {
+        $this->db->select('disponibilidades.data_inicio, disponibilidades.data_fim');
+        $this->db->from('Disponibilidades', 'disponibilidades');
+
+        $this->db->join('Utilizadores_Disponibilidades as utilizadores_disponibilidades',
+            'disponibilidades.id = utilizadores_disponibilidades.id_disponibilidade');
+        $this->db->join('Utilizadores as utilizadores', 'utilizadores.id = utilizadores_disponibilidades.id_utilizador');
+        $this->db->where('utilizadores_disponibilidades.id_utilizador', $id_utilizador);
+
+        return $this->db->get();
+    }
+
+    function insert_entry($id_utilizador, $input)
     {
         $this->load->model('Periodicidade', 'periodicidade');
 
@@ -16,11 +29,18 @@ class Disponibilidade extends CI_Model {
         print_r($disponibilidades[0]);
 
         foreach ($disponibilidades as $index => $disponibilidade) {
-            $data = $this->get_signup_form_data($disponibilidade);
-
             // inserir disponibilidade
-            $this->db->insert('Disponibilidades', $data);
+            $data_disponibilidade = $this->get_signup_form_data($disponibilidade);
+            $this->db->insert('Disponibilidades', $data_disponibilidade);
             $id_disponibilidade = $this->db->insert_id();
+
+            // criar join table
+            $data_utilizadores_disponibilidades = array(
+                'id_utilizador'      => $id_utilizador,
+                'id_disponibilidade' => $id_disponibilidade
+            );
+
+            $this->db->insert('Utilizadores_Disponibilidades', $data_utilizadores_disponibilidades);
 
             // inserir periodicidade associada ah disponibilidade
             $periodicidades = $this->periodicidade->insert_entry($disponibilidade, $id_disponibilidade);
