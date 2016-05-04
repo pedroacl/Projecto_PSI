@@ -257,7 +257,7 @@ class HomeController extends MY_Controller {
 
 			// authenticar utilizador
 			if (($user = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
-				$this->session->set_flashdata('notice', 'Utilizador autenticado');
+				$this->session->set_flashdata('success', 'Utilizador autenticado');
 
 				$cookie = array(
 					'id'              => $user['id'],

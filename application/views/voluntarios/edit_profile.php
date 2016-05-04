@@ -6,7 +6,7 @@
         <div class="panel-body">
 
           <form action="" method="POST" enctype="multipart/form-data" id="form">
-            <h2>Editar Utilizador</h2>
+            <h2>Editar Voluntário</h2>
 
             <!-- Campos de um Voluntario -->
 
@@ -54,7 +54,7 @@
                 <?= form_error('grupos_atuacao[]', "<span class='help-block'>", "</span>")?>
                 <select multiple class="form-control" name="grupos_atuacao[]">
                   <?php foreach ($this->grupos_atuacao->result() as $row) { ?>
-                    <option value="<?= $row->id ?>" <?= set_select('grupos_atuacao[]', $row->id) ?>>
+                    <option value="<?= $row->id ?>" <?= set_select('grupos_atuacao[]', $row->id, in_array($row->id, $this->grupos_atuacao_de_utilizador)) ?>>
                       <?= $row->nome ?>
                     </option>
                   <?php } ?>
@@ -66,7 +66,7 @@
                 <?= form_error('areas_interesse[]', "<span class='help-block'>", "</span>")?>
                 <select multiple class="form-control" name="areas_interesse[]">
                   <?php foreach ($this->areas_interesse->result() as $row) { ?>
-                    <option value="<?= $row->id ?>" <?= set_select('areas_interesse[]', $row->id) ?>>
+                    <option value="<?= $row->id ?>" <?= set_select('areas_interesse[]', $row->id, in_array($row->id, $this->areas_interesse_de_utilizador)) ?>>
                       <?= $row->nome ?>
                     </option>
                   <?php } ?>
@@ -81,6 +81,9 @@
                 <?= form_error('distrito', "<span class='help-block'>", "</span>")?>
                 <select id="distrito" class="form-control" name="distrito">
                   <option value="default">-</option>
+                  <? if ($this->area_geografica_de_utilizador['distrito'] !== '') { ?>
+                    <option value="<?= $this->area_geografica_de_utilizador['distrito'] ?>" <?= set_select('distrito', $this->area_geografica_de_utilizador['distrito'], TRUE) ?>><?= $this->area_geografica_de_utilizador['distrito'] ?></option>
+                  <? } ?>
                 </select>
               </div>
 
@@ -89,6 +92,9 @@
                 <?= form_error('concelho', "<span class='help-block'>", "</span>")?>
                 <select id="concelho" class="form-control" name="concelho">
                   <option value="default">-</option>
+                  <? if ($this->area_geografica_de_utilizador['concelho'] !== '') { ?>
+                  <option value="<?= $this->area_geografica_de_utilizador['concelho'] ?>" <?= set_select('concelho', $this->area_geografica_de_utilizador['concelho'], TRUE) ?>><?= $this->area_geografica_de_utilizador['concelho'] ?></option>
+                  <? } ?>
                 </select>
               </div>
 
@@ -97,6 +103,9 @@
                 <?= form_error('freguesia', "<span class='help-block'>", "</span>")?>
                 <select id="freguesia" class="form-control" name="freguesia">
                   <option value="default">-</option>
+                  <? if ($this->area_geografica_de_utilizador['freguesia'] !== '') { ?>
+                  <option value="<?= $this->area_geografica_de_utilizador['freguesia'] ?>" <?= set_select('freguesia', $this->area_geografica_de_utilizador['freguesia'], TRUE) ?>><?= $this->area_geografica_de_utilizador['freguesia'] ?></option>
+                  <? } ?>
                 </select>
               </div>
 
@@ -117,20 +126,20 @@
               <div class="form-group <?= has_error('curso') ?>">
                 <label class="control-label">Curso</label>
                 <?= form_error('curso', "<span class='help-block'>", "</span>")?>
-                <input type="text" class="form-control" name="curso" value="<?= set_value('curso', $this->habilitacoes_academicas->curso); ?>">
+                <input type="text" class="form-control" name="curso" value="<?= set_value('curso', $this->habilitacoes_academicas['curso']); ?>">
               </div>
 
               <div class="form-group <?= has_error('instituto_ensino') ?>">
                 <label class="control-label">Instituto</label>
                 <?= form_error('instituto_ensino', "<span class='help-block'>", "</span>")?>
-                <input type="text" class="form-control" name="instituto_ensino" value="<?= set_value('instituto_ensino', $this->habilitacoes_academicas->instituto_ensino) ?>">
+                <input type="text" class="form-control" name="instituto_ensino" value="<?= set_value('instituto_ensino', $this->habilitacoes_academicas['instituto_ensino']) ?>">
               </div>
 
               <div class="form-group <?= has_error('data_conclusao_curso') ?>">
                 <label class="control-label">Data de Conclusão</label>
                 <?= form_error('data_conclusao_curso', "<span class='help-block'>", "</span>")?>
                 <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                  <input type='text' name='data_conclusao_curso' class="form-control" value="<?= set_value('data_conclusao_curso', $this->habilitacoes_academicas->data_conclusao); ?>"/>
+                  <input type='text' name='data_conclusao_curso' class="form-control" value="<?= set_value('data_conclusao_curso', $this->habilitacoes_academicas['data_conclusao']); ?>"/>
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>

@@ -25,8 +25,6 @@ class Utilizador_AreaInteresse extends CI_Model {
       return $result;
     }
 
-
-
     function insert_entries($id_utilizador, $input)
     {
         $areas_interesse = $this->get_signup_form_data($input);
