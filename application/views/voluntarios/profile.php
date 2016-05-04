@@ -4,7 +4,6 @@
 
       <div class="panel panel-default">
         <div class="panel-body profile-voluntario">
-          <?= print_r($this->voluntario); ?>
           <div class="row buttons-top">
             <div class="col-md-12">
               <div class="pull-right">
