@@ -157,15 +157,10 @@ class Utilizador extends CI_Model {
                 'rules' => 'required'
             ),
             array(
-                'field' => 'telefone',
-                'label' => 'Telefone',
+                'field' => 'tipo_utilizador',
+                'label' => 'Tipo de Utilizador',
                 'rules' => 'required|min_length[9]'
-            ),
-            array(
-                'field' => 'genero',
-                'label' => 'Género',
-                'rules' => 'required'
-            ),
+            )
         );
 
         return $rules;

@@ -100,20 +100,7 @@ class HomeController extends MY_Controller {
 
 		$form_rules = null;
 
-		// obter regras de validacao do formulario
-		if ($tipo_utilizador == 'voluntario') {
-			$form_rules = $this->voluntario->get_form_validation_rules();
-
-			// prep form values
-			$this->select_boxes_data = $this->area_geografica->get_select_boxes_data();
-		}
-		else
-		{
-			$form_rules  = $this->instituicao->get_form_validation_rules();
-			$instituicao = $this->instituicao->get_signup_form_data($this->input);
-		}
-
-		$this->form_validation->set_rules($form_rules);
+		$form_rules = $this->utilizador->get_form_validation_rules();
 
 		// formulario invalido
 		if ($this->form_validation->run() == FALSE)
@@ -129,43 +116,6 @@ class HomeController extends MY_Controller {
 			// Inserts
 			// utilizador
 			$id_utilizador = $this->utilizador->insert_entry($this->input);
-
-			// grupo atuacao
-			$this->utilizador_grupo_atuacao->insert_entries($id_utilizador, $this->input);
-
-			// area de interesse
-			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $this->input);
-
-			// area geografica
-			$id_area_geografica = $this->area_geografica->insert_entry($this->input);
-
-			// habilitacoes academicas
-			$id_habilitacoes_academicas = $this->habilitacao_academica->insert_entry($this->input);
-
-			// disponibilidades
-			$this->disponibilidade->insert_entry($id_utilizador, $this->input);
-
-			// voluntario
-			if ($this->input->post('tipo_utilizador') == 'voluntario')
-			{
-				$id_voluntario = $this->voluntario->insert_entry($this->input, $id_utilizador,
-					$id_area_geografica, $id_habilitacoes_academicas);
-
-				// foto do voluntario
-				$photo_upload_error = $this->voluntario->upload_photo($id_voluntario);
-
-				// erro de upload da foto
-				if (isset($photo_upload_error)) {
-					$this->form_validation->set_message('foto', $photo_upload_error);
-					echo $photo_upload_error;
-				}
-			}
-			// instituição
-			else
-			{
-				$instituicao    = $this->instituicao->get_signup_form_data($this->input);
-				$id_instituicao = $this->instituicao->insert_entry($instituicao, $id_utilizador);
-			}
 
 			// registar utilizador na sessao
 			$cookie = array(
