@@ -17,14 +17,7 @@ class Habilitacoes_academicas extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
-	public function add($id_voluntario)
-	{
-		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
-		$this->habilitacao_academica->insert_entry($id_voluntario, $this->input);
-
-		redirect('voluntarios/profile');
-	}
-
+	// GET habilitacoes_academicas/delete/:id_voluntario
 	public function delete($id_voluntario)
 	{
 		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');

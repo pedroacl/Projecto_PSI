@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Voluntario extends CI_Model {
 
-    function insert_entry($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas)
+    function insert_entry($input)
     {
         $voluntario = $this->get_signup_form_data($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas);
 
@@ -11,6 +11,16 @@ class Voluntario extends CI_Model {
 
         return $this->db->insert_id();
     }
+
+    function get_main_profile($id_voluntario)
+    {
+        $this->db->select('nome, genero, foto, telefone, data_nascimento, concelho, distrito, freguesia');
+        $this->db->from('Voluntarios as v');
+        $this->db->join('Areas_Geograficas as ag', 'v.id_area_geografica = ag.id');
+
+        return $this->db->get();
+    }
+
 /*
     function get_volunteer_by_email($email)
     {
@@ -109,27 +119,8 @@ class Voluntario extends CI_Model {
                 'field' => 'tipo_habilitacao_academica',
                 'label' => 'Habilitacoes Academicas',
                 'rules' => 'required'
-            ),
-            array(
-                'field' => 'curso',
-                'label' => 'Curso',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'instituto_ensino',
-                'label' => 'Instituto Ensino',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'data_conclusao_curso',
-                'label' => 'Data de Conclusão',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'disponibilidades[]',
-                'label' => 'Disponibilidade',
-                'rules' => ''
             )
+
         );
 
         $this->load->model('Utilizador', 'utilizador');

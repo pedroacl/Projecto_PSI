@@ -121,7 +121,7 @@
                         <td><input class="form-control" name="curso"/></td>
                         <td><input class="form-control" name="instituto_ensino"/></td>
                         <td><input class="form-control" name="data_conclusao"/></td>
-                        <td colspan="2"><input class="btn btn-primary btn-sm" type="submit" value="Adicionar"/></td>
+                        <td><input class="btn btn-primary btn-sm" type="submit" value="Adicionar"/></td>
                       <?= form_close() ?>
                     </tr>
                 </tbody>

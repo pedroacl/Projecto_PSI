@@ -58,4 +58,25 @@ class Habilitacao_academica extends CI_Model {
 
         return $data;
     }
+
+    function get_form_validation_rules()
+    {
+        return array(
+            array(
+                'field' => 'curso',
+                'label' => 'Curso',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'instituto_ensino',
+                'label' => 'Instituto Ensino',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'data_conclusao',
+                'label' => 'Data de Conclusão',
+                'rules' => 'required'
+            )
+        );
+    }
 }
