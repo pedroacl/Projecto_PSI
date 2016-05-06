@@ -71,7 +71,7 @@
                 } ?>
               </ul>
 
-              <?= form_open('areas_interesse/add/' . $this->session->userdata('id'), array('class' => 'form-inline', 'style' => 'display: none;')) ?>
+              <?= form_open('areas_interesse/add/', array('class' => 'form-inline', 'style' => 'display: none;')) ?>
                 <select class="form-control">
                   <option>Area 1</option>
                   <option>Area 2</option>
