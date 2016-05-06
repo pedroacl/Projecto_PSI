@@ -23,7 +23,7 @@ class Disponibilidade extends CI_Model {
 
     function get_by_id_utilizador($id_utilizador)
     {
-        $this->db->select('disponibilidades.data_inicio, disponibilidades.data_fim,
+        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim,
             periodicidades.tipo as tipo_periodicidade, periodicidades.data_fim as data_fim_periodicidade');
         $this->db->from('Disponibilidades as disponibilidades');
 
