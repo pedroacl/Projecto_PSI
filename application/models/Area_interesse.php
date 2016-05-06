@@ -8,6 +8,15 @@ class Area_interesse extends CI_Model {
         parent::__construct();
     }
 
+    public function get_entry($id_area_interesse)
+    {
+      $this->db->select('*');
+      $this->db->from('Area_Interesse');
+      $this->db->where();
+
+      return $this->db->get();
+    }
+
     function get_entries()
     {
         $this->db->select('*');

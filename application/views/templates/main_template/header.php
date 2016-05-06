@@ -42,7 +42,7 @@
         </div>
         <nav>
           <ul>
-            <li><a href="<?= $this->user_profile_link ?>">Perfil</a></li>
+            <li><a href="<?= site_url($this->user_profile_link) ?>">Perfil</a></li>
             <li><a href="#">Pesquisar</a></li>
             <li><a href="#">Instituições</a></li>
           </ul>
@@ -63,7 +63,7 @@
                   <ul class="nav navbar-nav navbar-right">
                     <?php
                       if ($this->session->userdata('id') !== null) {
-                        echo '<li><a href="' . $this->user_profile_link . '"</a></li>';
+                        echo '<li><a href="' . site_url($this->user_profile_link) . '"</a>' . $this->nome_utilizador . '</li>';
                         echo '<li><a href="' . site_url("logout") . '">Logout</a></li>';
                       }
                       else {
