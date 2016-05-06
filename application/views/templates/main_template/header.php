@@ -42,7 +42,7 @@
         </div>
         <nav>
           <ul>
-            <li><a href="<?= site_url($this->user_profile_link) ?>">Perfil</a></li>
+            <li><a href="<?= $this->user_profile_link ?>">Perfil</a></li>
             <li><a href="#">Pesquisar</a></li>
             <li><a href="#">Instituições</a></li>
           </ul>

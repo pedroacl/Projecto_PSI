@@ -85,6 +85,17 @@ class Voluntarios extends MY_Controller {
 		}
 	}
 
+	public function add_area_interessa($id_voluntario, $id_area_interesse)
+	{
+		
+	}
+
+	public function delete_area_interesse($id_voluntario, $id_area_interesse)
+	{
+		$this->load->model('Area_Interesse', 'area_interesse');
+		$this->profile();
+	}
+
 	public function add_habilitacao_academica($id_voluntario)
 	{
 		$this->load->library('form_validation');
