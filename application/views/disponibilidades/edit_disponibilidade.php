@@ -5,14 +5,14 @@
       <div class="panel panel-default">
         <div class="panel-body">
 
-          <form action="<?= site_url('disponibilidades/process_edit') ?>" method="POST" enctype="multipart/form-data" id="form">
+          <form action="<?= site_url('disponibilidades/process_edit') ?>" method="POST" id="form">
             <h2>Disponibilidade</h2>
             
             <div class="form-group">
               <label for="data_inicio">Data Inicio</label>
               <?= form_error('data_inicio', "<span class='help-block'>", "</span>")?>
               <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                <input type="text" class="form-control" name='data_inicio' value="<?= $this->disponibilidade->data_inicio ?> <?= set_value('data_inicio'); ?>">
+                <input type="text" class="form-control" name='data_inicio' value="<?= $this->disponibilidade->data_inicio ?><?= set_value('data_inicio'); ?>">
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -23,7 +23,7 @@
               <label for="data_fim">Data Fim</label>
               <?= form_error('data_fim', "<span class='help-block'>", "</span>")?>
               <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                <input type="text" class="form-control" name='data_fim' value="<?= $this->disponibilidade->data_fim ?> <?= set_value('data_fim'); ?>">
+                <input type="text" class="form-control" name='data_fim' value="<?= $this->disponibilidade->data_fim ?><?= set_value('data_fim'); ?>">
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -45,7 +45,7 @@
               <label for="data_fim_periodicidade">Repetir até</label>
               <?= form_error('data_fim_periodicidade', "<span class='help-block'>", "</span>")?>
               <div class="input-group date datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                <input type="text" class="form-control" name='data_fim_periodicidade' value="<?= $this->disponibilidade->data_fim_periodicidade ?> <?= set_value('data_fim_periodicidade'); ?>">
+                <input type="text" class="form-control" name='data_fim_periodicidade' value="<?= $this->disponibilidade->data_fim_periodicidade ?><?= set_value('data_fim_periodicidade'); ?>">
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
                 </span>
