@@ -37,6 +37,22 @@ class Disponibilidade extends CI_Model {
         return $this->db->get();
     }
 
+    function get_by_id($id_disponibilidade)
+    {
+        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim,
+            periodicidades.tipo as tipo_periodicidade, periodicidades.data_fim as data_fim_periodicidade');
+        $this->db->from('Disponibilidades as disponibilidades');
+
+        $this->db->join('Utilizadores_Disponibilidades as utilizadores_disponibilidades',
+            'disponibilidades.id = utilizadores_disponibilidades.id_disponibilidade');
+
+        $this->db->join('Utilizadores as utilizadores', 'utilizadores.id = utilizadores_disponibilidades.id_utilizador');
+        $this->db->join('Periodicidades as periodicidades', 'periodicidades.id_disponibilidade = disponibilidades.id');
+        $this->db->where('disponibilidades.id', $id_disponibilidade);
+
+        return $this->db->get();
+    }
+
     function insert_entry($id_utilizador, $input)
     {
         $this->load->model('Periodicidade', 'periodicidade');
