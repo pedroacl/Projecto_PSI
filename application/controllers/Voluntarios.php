@@ -41,8 +41,6 @@ class Voluntarios extends MY_Controller {
 		// disponibilidades
 		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($id_utilizador)->result();
 
-		print_r($this->disponibilidades);
-
 		// habilitacoes academicas
 		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->voluntario->id);
 
