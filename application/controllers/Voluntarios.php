@@ -51,6 +51,68 @@ class Voluntarios extends MY_Controller {
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
 		$this->load->view('templates/main_template/footer');
+
+		print_r(validation_errors());
+	}
+
+	public function edit_main_profile()
+	{
+		$this->load->model('Voluntario', 'voluntario');
+
+		$this->$voluntario = $this->voluntario->get_main_profile();
+
+		$this->load->view('templates/main_template/header');
+		$this->load->view('voluntarios/edit_profile');
+		$this->load->view('templates/main_template/footer');
+	}
+
+	public function update_main_profile()
+	{
+		$this->load->library('form_validation');
+		$this->load->model('Voluntario', 'voluntario');
+	}
+
+	public function add_habilitacao_academica($id_voluntario)
+	{
+		$this->load->library('form_validation');
+		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
+
+		$form_rules = $this->habilitacao_academica->get_form_validation_rules();
+		$this->form_validation->set_rules($form_rules);
+
+		if ($this->form_validation->run() == FALSE) {
+			echo "Erro!";
+			echo validation_errors();
+			print_r($this->input->post());
+	 	} else {
+			$this->habilitacao_academica->insert_entry($id_voluntario, $this->input);
+	 		$this->session->set_flashdata('notice', 'Hablitacao Academica adicionada com sucesso!');
+			print_r($this->input->post());
+	 	}
+
+	 	// voltar a exibir perfil
+		$this->profile();
+	}
+
+	public function add_disponibilidade($id_voluntario)
+	{
+		$this->load->library('form_validation');
+		$this->load->model('Disponibilidade', 'disponibilidade');
+
+		$form_rules = $this->disponibilidade->get_form_validation_rules();
+		$this->form_validation->set_rules($form_rules);
+
+		if ($this->form_validation->run() == FALSE) {
+			echo validation_errors();
+			print_r($this->input->post());
+	 	} else {
+			$this->disponibilidade->insert_entry($id_voluntario, $this->input);
+			$this->session->set_flashdata('notice', 'Disponibilidade adicionada com sucesso!');
+			print_r($this->input->post());
+	 	}
+
+	 	// voltar a exibir perfil
+		$this->profile();
 	}
 
 	public function edit($id)
@@ -82,10 +144,10 @@ class Voluntarios extends MY_Controller {
 
 		$this->load->model('AreaGeografica', 'area_geografica');
 		$this->area_geografica_de_utilizador = $this->area_geografica->get_area_geografica_from_id($this->voluntario->id_area_geografica);
-		
+
 		$this->grupos_atuacao_de_utilizador = $this->grupos_atuacao_de_utilizador->get_grupos_atuacao_from_utilizador($this->voluntario->id);
 		$this->areas_interesse_de_utilizador = $this->areas_interesse_de_utilizador->get_areas_interesse_from_utilizador($this->voluntario->id);
-		
+
 
 		$this->load->model('Disponibilidade', 'disponibilidades');
 		$this->disponibilidades = $this->disponibilidades->get_by_id_utilizador($this->voluntario->id);

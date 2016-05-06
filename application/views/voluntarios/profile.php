@@ -114,7 +114,7 @@
                           echo '</tr>';
                         }
                       ?>
-                      <?= form_open('habilitacoes_academicas/add/' . $this->session->userdata('id')) ?>
+                      <?= form_open('voluntarios/profile/' . $this->session->userdata('id')) ?>
                         <tr>
                           <td>
                             <?php
@@ -127,7 +127,7 @@
                               echo '</select>';
                             ?>
                           </td>
-                          <td><input name="curso"/></td>
+                          <td><input name="curso" value="asdf"/></td>
                           <td><input name="instituto_ensino"/></td>
                           <td><input name="data_conclusao"/></td>
                           <td colspan="2"><input type="submit" value="Adicionar"/></td>
