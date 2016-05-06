@@ -29,12 +29,6 @@ class Grupo_atuacao extends CI_Model {
       return $this->db->query($sql, array($id_utilizador));
    }
 
-   public function delete_entry($id_utilizador, $id_grupo_atuacao)
-   {
-      $this->load->model('Utilizador_grupo_atuacao', 'utilizador_grupo_atuacao');
-      $this->utilizador_grupo_atuacao->delete_entry($id_utilizador, $id_grupo_atuacao);
-   }
-
    function delete_by_id_utilizador($id_utilizador)
    {
       $sql = "DELETE utilizadores_grupos_atuacao

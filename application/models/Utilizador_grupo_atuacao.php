@@ -20,7 +20,10 @@ class Utilizador_grupo_atuacao extends CI_Model {
 
    public function delete_entry($id_utilizador, $id_grupo_atuacao)
    {
-      $this->db->where('id_utlizador', $id_utilizador);
+      $this->db->where(array(
+         'id_utilizador' => $id_utilizador,
+         'id_grupo_atuacao' => $id_grupo_atuacao));
+
       $this->db->delete('Utilizadores_Grupos_Atuacao');
    }
 

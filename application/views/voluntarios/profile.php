@@ -48,8 +48,8 @@
             <div class="col-md-6" id="edit_grupos_atuacao">
               <h4>Grupos de atuação <a class="btn btn-warning btn-sm">Editar</a></h4>
               <ul>
-                <?php foreach ($this->grupos_atuacao->result() as $grupo_atuacao) {
-                  echo '<li>' . $grupo_atuacao->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('grupos_atuacao/delete/' . $grupo_atuacao->id) . '">&#10005;</a></li>';
+                <?php foreach ($this->grupos_atuacao_utilizador->result() as $grupos_atuacao_utilizador) {
+                  echo '<li>' . $grupos_atuacao_utilizador->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('grupos_atuacao/delete/' . $grupos_atuacao_utilizador->id) . '">&#10005;</a></li>';
                 } ?>
               </ul>
               <?= form_open('grupos_atuacao/add/', array('class' => 'form-inline', 'style' => 'display: none;')) ?>
@@ -66,14 +66,14 @@
               <h4>Areas de Interesse <a class="btn btn-warning btn-sm">Editar</a></h4>
               <ul>
                 <?php foreach ($this->areas_interesse_utilizador->result() as $area_interesse_utilizador) {
-                    echo '<li>' . $area_interesse_utilizador->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="">&#10005;</a></li>';
+                    echo '<li>' . $area_interesse_utilizador->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('areas_interesse/delete/' . $area_interesse_utilizador->id) . '">&#10005;</a></li>';
                 } ?>
               </ul>
 
               <?= form_open('areas_interesse/add/', array('class' => 'form-inline', 'style' => 'display: none;')) ?>
-                <select class="form-control">
-                  <?php foreach ($this->areas_interesse->result() as $area_interesse) {
-                    echo '<option>' . $area_interesse->nome . '</option>';
+                <select class="form-control" name="id_area_interesse">
+                  <?php foreach ($this->tipos_areas_interesse->result() as $tipo_area_interesse) {
+                    echo '<option value="' . $tipo_area_interesse->id . '">' . $tipo_area_interesse->nome . '</option>';
                   } ?>
                 </select>
                 <input class="btn btn-primary btn-sm" type="submit" value="Adicionar"/>

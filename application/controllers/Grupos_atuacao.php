@@ -24,7 +24,9 @@ class Grupos_atuacao extends MY_Controller {
 	// GET /areas_interessa/delete/:id_area_interesse
 	public function delete($id_grupo_atuacao)
 	{
-		$this->grupo_atuacao->delete_entry($this->id_utilizador, $id_grupo_atuacao);
-		$this->edit();
+		$this->load->model('Utilizador_grupo_atuacao', 'utilizador_grupo_atuacao');
+		$this->utilizador_grupo_atuacao->delete_entry($this->id_utilizador, $id_grupo_atuacao);
+
+		redirect('voluntarios/profile');
 	}
 }

@@ -18,6 +18,8 @@ class Voluntarios extends MY_Controller {
 		//$this->authenticate_user();
 		$this->load->helper('form');
 
+		print_r($this->session->userdata);
+
 		$this->load->model('Voluntario', 'voluntario');
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
@@ -32,13 +34,13 @@ class Voluntarios extends MY_Controller {
 		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
 
 		// grupos de atuacao
-		$this->grupos_atuacao = $this->grupo_atuacao->get_without_utilizador($this->id_utilizador);
+		$this->grupos_atuacao_utilizador = $this->grupo_atuacao->get_by_id_utilizador($this->id_utilizador);
 
 		// tipos de grupos de atuacao (povoar select boxes)
-		$this->tipos_grupos_atuacao = $this->grupo_atuacao->get_entries();
+		$this->tipos_grupos_atuacao = $this->grupo_atuacao->get_without_utilizador($this->id_utilizador);
 
 		// areas de iteresse
-		$this->areas_interesse = $this->area_interesse->get_without_utilizador($this->id_utilizador);
+		$this->tipos_areas_interesse = $this->area_interesse->get_without_utilizador($this->id_utilizador);
 
 		// tipos de areas de interesse (povoar select boxes)
 		$this->areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador($this->id_utilizador);
