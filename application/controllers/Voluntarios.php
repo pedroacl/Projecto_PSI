@@ -16,12 +16,14 @@ class Voluntarios extends MY_Controller {
 	public function profile()
 	{
 		//$this->authenticate_user();
+		$this->load->helper('form');
 
 		$this->load->model('Voluntario', 'voluntario');
-		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
-		$this->load->model('AreaInteresse', 'area_interesse');
+		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
+		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');
+		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
+		$this->load->model('Tipo_habilitacao_academica', 'tipo_habilitacao_academica');
 
 		$id_utilizador    = $this->session->userdata('id');
 		// voluntario
@@ -41,6 +43,9 @@ class Voluntarios extends MY_Controller {
 
 		// habilitacoes academicas
 		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->voluntario->id);
+
+		// tipos de habilitacoes academicas
+		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 
 		$this->js_file = 'home.js';
 		$this->load->view('templates/main_template/header');

@@ -114,15 +114,25 @@
                           echo '</tr>';
                         }
                       ?>
-                      <form action="habilitacoes_academicas/add" method="POST">
+                      <?= form_open('habilitacoes_academicas/add') ?>
                         <tr>
-                          <td><input name="nome"/></td>
+                          <td>
+                            <?php
+                              echo '<select class="form-control" name="tipo_habilitacao_academica">';
+                              foreach ($this->tipos_habilitacoes_academicas->result() as $row) {
+                                echo '<option value="' . $row->id . '">';
+                                echo $row->nome;
+                                echo '</option>';
+                              }
+                              echo '</select>';
+                            ?>
+                          </td>
                           <td><input name="curso"/></td>
                           <td><input name="instituto_ensino"/></td>
                           <td><input name="data_conclusao"/></td>
                           <td colspan="2"><input type="submit" value="Adicionar"/></td>
                         </tr>
-                      </form>
+                      <?= form_close() ?>
                     </tbody>
                   </table>
 

@@ -19,10 +19,10 @@ class Habilitacoes_academicas extends MY_Controller {
 
 	public function add()
 	{
-		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');
-		$habilitacao_academica = $this->input->post();
+		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
+		$this->habilitacao_academica->insert_entry($this->input);
 
-		$this->habilitacao_academica->add($habilitacao_academica);
+		redirect('voluntarios/profile');
 	}
 
 	public function delete()
