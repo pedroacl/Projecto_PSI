@@ -11,10 +11,10 @@ class Habilitacoes_academicas extends MY_Controller {
 	// GET habilitacoes_academicas/delete/:id_voluntario
 	public function delete($id_habilitacao_academica)
 	{
-		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');
+		$this->load->model('Utilizador_habilitacao_academica', 'utlizador_habilitacao_academica');
 
 		$id = $this->input->get('id');
-		$this->habilitacao_academica->delete_entry($id_utilizador, $id_habilitacao_academica);
+		$this->utilizador_habilitacao_academica->delete_entry($id_utilizador, $id_habilitacao_academica);
 
 		redirect('voluntarios/profile');
 	}

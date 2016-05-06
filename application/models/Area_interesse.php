@@ -8,21 +8,46 @@ class Area_interesse extends CI_Model {
         parent::__construct();
     }
 
-    public function get_entry($id_area_interesse)
+    public function get_by_id($id_utilizador, $id_area_interesse)
     {
       $this->db->select('*');
-      $this->db->from('Area_Interesse');
-      $this->db->where();
+      $this->db->from('Areas_Interesse');
+      $this->db->where('id', $id_area_interesse);
+
+      return $this->db->get();
+    }
+
+    public function get_without_utilizador($id_utilizador)
+    {
+      $sql = "SELECT DISTINCT ai.nome, ai.id
+        FROM Areas_Interesse AS ai
+        WHERE ai.id NOT IN (
+          SELECT uai.id_area_interesse
+          FROM Utilizadores_Areas_Interesse AS uai
+          WHERE uai.id_utilizador = ?
+        )";
+
+      return $this->db->query($sql, array($id_utilizador));
+    }
+
+    function get_by_id_utilizador($id_utilizador)
+    {
+      $this->db->select('areas_interesse.nome');
+      $this->db->from('Areas_Interesse as areas_interesse');
+      $this->db->join('Utilizadores_Areas_Interesse as utilizadores_areas_interesse',
+         'areas_interesse.id = utilizadores_areas_interesse.id_area_interesse');
+      $this->db->join('Utilizadores as utilizadores', 'utilizadores_areas_interesse.id_utilizador = utilizadores.id');
+      $this->db->where('utilizadores.id', $id_utilizador);
 
       return $this->db->get();
     }
 
     function get_entries()
     {
-        $this->db->select('*');
-        $this->db->from('Areas_Interesse');
+      $this->db->select('*');
+      $this->db->from('Areas_Interesse');
 
-        return $this->db->get();
+      return $this->db->get();
     }
 
     function delete_by_id_utilizador($id_utilizador)
@@ -38,17 +63,7 @@ class Area_interesse extends CI_Model {
       $this->db->query($sql, array($id_utilizador));
    }
 
-   function get_by_id_utilizador($id_utilizador)
-   {
-      $this->db->select('areas_interesse.nome');
-      $this->db->from('Areas_Interesse as areas_interesse');
-      $this->db->join('Utilizadores_Areas_Interesse as utilizadores_areas_interesse',
-         'areas_interesse.id = utilizadores_areas_interesse.id_area_interesse');
-      $this->db->join('Utilizadores as utilizadores', 'utilizadores_areas_interesse.id_utilizador = utilizadores.id');
-      $this->db->where('utilizadores.id', $id_utilizador);
 
-      return $this->db->get();
-   }
 
     function insert_entry($id_utilizador, $input)
     {

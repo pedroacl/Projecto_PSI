@@ -25,23 +25,26 @@ class Voluntarios extends MY_Controller {
 		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
 		$this->load->model('Tipo_habilitacao_academica', 'tipo_habilitacao_academica');
 
-		$id_utilizador    = $this->session->userdata('id');
 		// voluntario
 		$this->voluntario =
-			$this->voluntario->get_by_id_utilizador($id_utilizador)->row();
+			$this->voluntario->get_by_id_utilizador($this->id_utilizador)->row();
 
 		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
 
 		// grupos de atuacao
-		$this->grupos_atuacao = $this->grupo_atuacao->get_by_id_utilizador($id_utilizador)->result();
+		$this->grupos_atuacao = $this->grupo_atuacao->get_without_utilizador($this->id_utilizador);
+
+		// tipos de grupos de atuacao (povoar select boxes)
+		$this->tipos_grupos_atuacao = $this->grupo_atuacao->get_entries();
 
 		// areas de iteresse
-		$this->areas_interesse = $this->area_interesse->get_by_id_utilizador($id_utilizador)->result();
+		$this->areas_interesse = $this->area_interesse->get_without_utilizador($this->id_utilizador);
+
+		// tipos de areas de interesse (povoar select boxes)
+		$this->areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador($this->id_utilizador);
 
 		// disponibilidades
-		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($id_utilizador)->result();
-
-		print_r($this->disponibilidades);
+		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($this->id_utilizador);
 
 		// habilitacoes academicas
 		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->voluntario->id);
@@ -53,8 +56,6 @@ class Voluntarios extends MY_Controller {
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
 		$this->load->view('templates/main_template/footer');
-
-		print_r(validation_errors());
 	}
 
 	// GET /voluntarios/edit_profile
