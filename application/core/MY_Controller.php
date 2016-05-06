@@ -13,11 +13,13 @@ class MY_Controller extends CI_Controller {
     	$this->title = "Title homepage";
 
 		$links = array(
-			'voluntario'  => site_url("voluntarios/profile"),
-			'instituicao' => site_url("instituicoes/profile")
-    	);
+			'voluntario'  => "voluntarios/profile",
+			'instituicao' => "instituicoes/profile"
+ 		);
 
-    	$this->user_profile_link = $links[$this->session->userdata('tipo_utilizador')];
+		$this->user_profile_link = $links[$this->session->userdata('tipo_utilizador')];
+		$this->nome_utilizador   = $this->session->userdata('nome');
+		$this->id_utilizador     = $this->session->userdata('id');
 	}
 
 	public function authenticate_user()
