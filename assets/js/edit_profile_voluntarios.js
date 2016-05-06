@@ -32,6 +32,37 @@ $(document).ready(function() {
     startDate: '-3d'
   });
 
+  $('body').on('change', '#distrito',function() {
+    var concelhos = areas_geograficas[$('#distrito').val()];
+    var freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
+    $('#concelho').children().remove();
+    $('#freguesia').children().remove();
+    $('#concelho').append("<option value='default'>-</option>");
+    for (var key in areas_geograficas[$(this).val()]) {
+      $('#concelho').append("<option value='" + key + "'>" + key + "</option>");
+    }
+    $('#freguesia').append("<option value='default'>-</option>");
+    for (var i = 0; i < freguesias.length; i++) {
+      $('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
+    }
+  });
+
+  $('body').on('change', '#concelho',function() {
+    var freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
+    $('#freguesia').children().remove();
+    $('#freguesia').append("<option value='default'>-</option>");
+    for (var i = 0; i < freguesias.length; i++) {
+      $('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
+    }
+  });
+
+
+
+
+
+
+
+  // DESNECESSARIO daqui para baixo?!
 
   $('#form').on('click', 'div.voluntario_fields div.well div.relative a.adicionar_disponibilidade', function() {
     
@@ -107,30 +138,6 @@ $(document).ready(function() {
     $number_of_disp--;
     if ($number_of_disp <= 0) {
       $('#disponibilidade_table').hide('fast');
-    }
-  });
-
-  $('body').on('change', '#distrito',function() {
-    var concelhos = areas_geograficas[$('#distrito').val()];
-    var freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
-    $('#concelho').children().remove();
-    $('#freguesia').children().remove();
-    $('#concelho').append("<option value='default'>-</option>");
-    for (var key in areas_geograficas[$(this).val()]) {
-      $('#concelho').append("<option value='" + key + "'>" + key + "</option>");
-    }
-    $('#freguesia').append("<option value='default'>-</option>");
-    for (var i = 0; i < freguesias.length; i++) {
-      $('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
-    }
-  });
-
-  $('body').on('change', '#concelho',function() {
-    var freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
-    $('#freguesia').children().remove();
-    $('#freguesia').append("<option value='default'>-</option>");
-    for (var i = 0; i < freguesias.length; i++) {
-      $('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
     }
   });
 
