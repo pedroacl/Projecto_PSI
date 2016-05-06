@@ -8,7 +8,7 @@
             <div class="col-md-4">
               <div class="profile-photo-container">
                 <a href="#" class="thumbnail">
-                  <img src="<?= $this->voluntario->foto ?>">
+                  <img src="<?= base_url($this->voluntario->foto) ?>">
                 </a>
               </div>
             </div>
@@ -39,7 +39,7 @@
                     <dt>Freguesia</dt>
                     <dd><?= $this->voluntario->freguesia ?></dd>
                   </dl>
-                  <a class="btn btn-warning" href="voluntarios/edit/<?= $this->voluntario->id ?>">Editar Perfil</a>
+                  <a class="btn btn-warning" href="<?= site_url('voluntarios/edit_profile') ?>">Editar Perfil</a>
                 </div>
               </div>
 
@@ -101,7 +101,7 @@
                       echo '<td>' . $habilitacao_academica->curso . '</td>';
                       echo '<td>' . $habilitacao_academica->instituto_ensino . '</td>';
                       echo '<td>' . date("d/m/Y", strtotime($habilitacao_academica->data_conclusao)) . '</td>';
-                      echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='habilitacoes_academicas/" . $habilitacao_academica->id . "/edit'>Editar</a><a class='btn btn-danger btn-sm' href='habilitacoes_academicas/" . $habilitacao_academica->id . "/delete'>Eliminar</a></td>";
+                      echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("habilitacoes_academicas/edit/" . $habilitacao_academica->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("habilitacoes_academicas/delete/" . $habilitacao_academica->id) . "'>Eliminar</a></td>";
                       echo '</tr>';
                     }
                   ?>
@@ -147,7 +147,7 @@
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim)) . '</td>';
                       echo '<td>' . $disponibilidade->tipo_periodicidade . '</td>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim_periodicidade)) . '</td>';
-                      echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='habilitacoes_academicas/" . $habilitacao_academica->id . "/edit'>Editar</a><a class='btn btn-danger btn-sm' href='habilitacoes_academicas/" . $habilitacao_academica->id . "/delete'>Eliminar</a></td>";
+                      echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("disponibilidades/edit/" . $disponibilidade->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("disponibilidade/delete/" . $disponibilidade->id) . "'>Eliminar</a></td>";
                       echo '</tr>';
                     }
                   ?>

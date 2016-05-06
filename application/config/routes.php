@@ -66,6 +66,10 @@ $route['login']['post'] = 'Home/process_login';
 $route['logout']['get'] = 'Home/logout';
 
 // voluntario
-$route['profile']['get']       = 'VoluntariosController/profile';
-$route['voluntarios/edit/:id']['get']  = 'VoluntariosController/edit/:id';
-$route['edit_profile']['post'] = 'VoluntariosController/update_profile';
+$route['profile']['get']       = 'Voluntarios/profile';
+$route['voluntarios/edit_profile']['get']  = 'Voluntarios/edit_profile';
+$route['edit_profile']['post'] = 'Voluntarios/update_profile';
+
+// Disponibilidades
+$route['disponibilidades/edit/:id']['get'] = 'Disponibilidades/edit/:id';
+$route['disponibilidades/delete/:id']['get'] = 'Disponibilidades/delete/:id';
