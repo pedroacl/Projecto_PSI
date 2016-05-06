@@ -78,26 +78,14 @@ class Voluntario extends CI_Model {
                 'label' => 'Telefone',
                 'rules' => 'required|min_length[9]'
             ),
-            /*
             array(
-                'field' => 'area_geografica_id',
-                'label' => 'Areas Geograficas',
+                'field' => 'genero',
+                'label' => 'Género',
                 'rules' => 'required'
             ),
-            */
             array(
                 'field' => 'data_nascimento',
                 'label' => 'Data de Nascimento',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'grupos_atuacao[]',
-                'label' => 'Grupos Atuação',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'areas_interesse[]',
-                'label' => 'Areas Interesse',
                 'rules' => 'required'
             ),
             array(
@@ -114,13 +102,7 @@ class Voluntario extends CI_Model {
                 'field' => 'freguesia',
                 'label' => 'Freguesia',
                 'rules' => 'required|callback_not_default'
-            ),
-            array(
-                'field' => 'tipo_habilitacao_academica',
-                'label' => 'Habilitacoes Academicas',
-                'rules' => 'required'
             )
-
         );
 
         $this->load->model('Utilizador', 'utilizador');

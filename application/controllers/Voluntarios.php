@@ -55,6 +55,7 @@ class Voluntarios extends MY_Controller {
 		print_r(validation_errors());
 	}
 
+	// GET /voluntarios/edit_main_profile
 	public function edit_main_profile()
 	{
 		$this->load->model('Voluntario', 'voluntario');
@@ -66,10 +67,22 @@ class Voluntarios extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
+	// POST /voluntarios/update_main_profile
 	public function update_main_profile()
 	{
 		$this->load->library('form_validation');
 		$this->load->model('Voluntario', 'voluntario');
+
+		$form_rules = $this->voluntario->get_form_validation_rules();
+		$this->form_validation->set_rules($form_rules);
+
+		if ($this->form_validation->run() == FALSE) {
+			// mostrar novamente formulario
+			$this->edit_profile();
+		} else {
+	 		$this->session->set_flashdata('notice', 'Perfil atualizado com sucesso!');
+			redirect('voluntarios/profile');
+		}
 	}
 
 	public function add_habilitacao_academica($id_voluntario)
@@ -94,6 +107,7 @@ class Voluntarios extends MY_Controller {
 		$this->profile();
 	}
 
+	// POST /voluntarios/add_disponibilidade
 	public function add_disponibilidade($id_voluntario)
 	{
 		$this->load->library('form_validation');
@@ -103,12 +117,10 @@ class Voluntarios extends MY_Controller {
 		$this->form_validation->set_rules($form_rules);
 
 		if ($this->form_validation->run() == FALSE) {
-			echo validation_errors();
-			print_r($this->input->post());
+
 	 	} else {
 			$this->disponibilidade->insert_entry($id_voluntario, $this->input);
 			$this->session->set_flashdata('notice', 'Disponibilidade adicionada com sucesso!');
-			print_r($this->input->post());
 	 	}
 
 	 	// voltar a exibir perfil
