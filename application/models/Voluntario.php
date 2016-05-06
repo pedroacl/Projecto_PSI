@@ -12,11 +12,13 @@ class Voluntario extends CI_Model {
         return $this->db->insert_id();
     }
 
-    function get_main_profile($id_voluntario)
+    function get_main_profile($id_utilizador)
     {
         $this->db->select('nome, genero, foto, telefone, data_nascimento, concelho, distrito, freguesia');
         $this->db->from('Voluntarios as v');
+        $this->db->where('ut.id', $id_utilizador);
         $this->db->join('Areas_Geograficas as ag', 'v.id_area_geografica = ag.id');
+        $this->db->join('Utilizadores as ut', 'ut.id = v.id_utilizador');
 
         return $this->db->get();
     }

@@ -69,3 +69,4 @@ $route['logout']['get'] = 'Home/logout';
 $route['profile']['get']       = 'VoluntariosController/profile';
 $route['voluntarios/edit/:id']['get']  = 'VoluntariosController/edit/:id';
 $route['edit_profile']['post'] = 'VoluntariosController/update_profile';
+$route['edit_profile']['get'] = 'Voluntarios/edit_main_profile';

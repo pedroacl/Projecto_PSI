@@ -58,8 +58,10 @@ class Voluntarios extends MY_Controller {
 	public function edit_main_profile()
 	{
 		$this->load->model('Voluntario', 'voluntario');
+		$this->load->model('Voluntario', 'voluntario');
+		$this->load->helper('form');
 
-		$this->$voluntario = $this->voluntario->get_main_profile();
+		$this->voluntario = $this->voluntario->get_main_profile($this->session->userdata('id'))->row();
 
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/edit_profile');
