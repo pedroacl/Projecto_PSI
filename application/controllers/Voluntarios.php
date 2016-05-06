@@ -47,7 +47,7 @@ class Voluntarios extends MY_Controller {
 		// tipos de habilitacoes academicas
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 
-		$this->js_file = 'home.js';
+		$this->js_file = 'voluntarios/edit_profile.js';
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
 		$this->load->view('templates/main_template/footer');
