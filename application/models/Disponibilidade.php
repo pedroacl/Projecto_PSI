@@ -8,9 +8,9 @@ class Disponibilidade extends CI_Model {
         parent::__construct();
     }
 
-    function delete_by_id_utilizador($id_utilizador)
+    function delete_entry($id_utilizador)
     {
-      $sql = "DELETE utilizadores_disponibilidades
+        $sql = "DELETE utilizadores_disponibilidades
             FROM Utilizadores utilizadores
             JOIN Utilizadores_Disponibilidades utilizadores_disponibilidades
                ON utilizadores.id = utilizadores_disponibilidades.id_utilizador

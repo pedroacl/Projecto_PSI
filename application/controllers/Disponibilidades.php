@@ -17,7 +17,7 @@ class Disponibilidades extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
-	public function add()
+	public function add($id_utilizador)
 	{
 		$this->load->model('Disponibilidade', 'disponibilidade');
 		$disponibilidade = $this->input->post();
@@ -25,11 +25,9 @@ class Disponibilidades extends MY_Controller {
 		$this->disponibilidade->add($habilitacao_academica);
 	}
 
-	public function delete()
+	public function delete($id_utilizador)
 	{
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$id = $this->input->get('id');
-
 		$this->disponibilidade->delete($id);
 	}
 }

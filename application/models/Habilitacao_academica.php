@@ -19,7 +19,12 @@ class Habilitacao_academica extends CI_Model {
         return $this->db->get();
     }
 
-    function insert_entry($input)
+    function delete_entry($id_habilitacao_academica)
+    {
+        $this->db->delete('Habilitacoes_Academicas', array('id' => $id_habilitacao_academica));
+    }
+
+    function insert_entry($id_voluntario, $input)
     {
         $habilitacoes_academicas = $this->get_form_data($input);
         // verificar se já existe uma area geografica adicionada

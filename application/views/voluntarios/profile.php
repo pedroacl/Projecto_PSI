@@ -114,7 +114,7 @@
                           echo '</tr>';
                         }
                       ?>
-                      <?= form_open('habilitacoes_academicas/add') ?>
+                      <?= form_open('habilitacoes_academicas/add/' . $this->session->userdata('id')) ?>
                         <tr>
                           <td>
                             <?php
@@ -172,14 +172,10 @@
                   </table>
                 </div>
               </div>
-
             </div>
           </div>
-
-
         </div>
       </div>
-
     </div>
   </div>
 
