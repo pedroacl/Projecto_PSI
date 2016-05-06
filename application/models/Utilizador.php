@@ -21,23 +21,8 @@ class Utilizador extends CI_Model {
             $utilizador = $query->row();
 
             if (password_verify($password, $utilizador->password)) {
-                $user = array(
-                    'id' => $utilizador->id,
-                    'email' => $utilizador->email,
-                    'nome' => $utilizador->nome,
-                    'tipo_utilizador' => $utilizador->tipo_utilizador
-                    );
-                return $user;
+                return $utilizador;
             }
-/*
-            if (isset($utilizador)) {
-                $encrypted_password = hash("sha256", $utilizador->salt . $password);
-
-                if ($utilizador->password == $encrypted_password) {
-                    return $utilizador->id;
-                }
-            }
-            */
         }
 
         return null;

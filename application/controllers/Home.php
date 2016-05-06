@@ -26,38 +26,8 @@ class Home extends MY_Controller {
 		// 	redirect('', 'refresh');
 		// }
 
-		$this->load->library('form_validation');
 		$this->load->library('session');
-
-		$this->tipo_utilizador_selected = null;
-
-		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
-		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
-
-		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
-		$this->grupos_atuacao = $this->grupo_atuacao->get_entries();
-		$this->areas_interesse_de_utilizador = array();
-		$this->grupos_atuacao_de_utilizador = array();
-		$this->habilitacoes_academicas_de_utilizador = new stdClass();
-		$this->habilitacoes_academicas_de_utilizador->id_tipo = -1;
-		$this->habilitacoes_academicas_de_utilizador->curso = '';
-		$this->habilitacoes_academicas_de_utilizador->instituto_ensino = '';
-		$this->habilitacoes_academicas_de_utilizador->data_conclusao = '';
-
-		$this->area_geografica_de_utilizador = array(
-			'distrito' => '',
-			'concelho' => '',
-			'freguesia' => ''
-		);
-
-		$this->load->model('AreaInteresse', 'area_iteresse');
-		$this->areas_interesse = $this->area_iteresse->get_entries();
-
-		$this->data['foto'] = '';
-		$this->data['nome'] = '';
-		$this->data['genero'] = '';
-		$this->data['data_nascimento'] = '';
-		$this->data['telefone'] = '';
+		$this->load->library('form_validation');
 
 		$this->title = "Registo de Utilizador";
 		$this->js_file = 'home.js';
@@ -205,20 +175,20 @@ class Home extends MY_Controller {
 
 			// authenticar utilizador
 			if (($user = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
-				$this->session->set_flashdata('success', 'Utilizador autenticado');
+				$this->session->set_flashdata('success', 'Utilizador autenticado com sucesso!');
 
 				$cookie = array(
-					'id'              => $user['id'],
+					'id'              => $user->id,
 					'email'           => $email,
-					'tipo_utilizador' => $user['tipo_utilizador'],
-					'nome'            => $user['nome']
+					'tipo_utilizador' => $user->tipo_utilizador,
+					'nome'            => $user->nome
 				);
 
 				$this->session->set_userdata($cookie);
 		      redirect('', 'refresh');
 
 			} else {
-				$this->session->set_flashdata('danger', 'Combinação de Email/Password errada');
+				$this->session->set_flashdata('danger', 'Combinação de Email/Password errada.');
 
 				// load view
 				$this->load->view('templates/main_template/header');

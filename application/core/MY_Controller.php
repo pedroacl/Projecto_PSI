@@ -6,8 +6,19 @@ class MY_Controller extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-    	$this->title = "Title homepage";
     	$this->load->library('session');
+    	$this->load->helper('url');
+
+    	$this->title = "Title homepage";
+
+    	print_r($this->session->userdata());
+
+		$links = array(
+			'voluntario'  => site_url("voluntarios/profile"),
+			'instituicao' => site_url("instituicoes/profile")
+    	);
+
+    	$this->user_profile_link = $links[$this->session->userdata('tipo_utilizador')];
 	}
 
 	public function authenticate_user()

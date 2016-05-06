@@ -42,12 +42,12 @@
         </div>
         <nav>
           <ul>
-            <li><a href="/profile">Perfil</a></li>
+            <li><a href="<?= site_url($this->user_profile_link) ?>">Perfil</a></li>
             <li><a href="#">Pesquisar</a></li>
             <li><a href="#">Instituições</a></li>
           </ul>
         </nav>
-          
+
       </div>
       <div class="page-content-wrapper">
         <div class="container container-base">
@@ -63,14 +63,14 @@
                   <ul class="nav navbar-nav navbar-right">
                     <?php
                       if ($this->session->userdata('id') !== null) {
-                        echo "<li><a href='/profile'>" . $this->session->userdata('nome') . "</a></li>";
-                        echo "<li><a href='logout'>Logout</a></li>";
+                        echo '<li><a href="' . $this->user_profile_link . '"</a></li>';
+                        echo '<li><a href="' . site_url("logout") . '">Logout</a></li>';
                       }
                       else {
                         echo "<li class='";
                         echo isset($this->login_tab) ? 'active' : '';
-                        echo "'><a href='login'>Login</a></li>";
-                        echo "<li><a href='signup'>Registar</a></li>";
+                        echo "'><a href='" . site_url("login") . "'>Login</a></li>";
+                        echo "<li><a href='" . site_url("signup") . "'>Registar</a></li>";
                       }
 
                     ?>
@@ -81,5 +81,5 @@
               <div class="container-fluid">
                 <?= show_flash($this) ?>
               </div>
-      
-        
+
+
