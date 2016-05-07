@@ -69,10 +69,15 @@ class Utilizador extends CI_Model {
         return $query->result();
     }
 
-    function get_utilizador_by_id($id_utilizador, $user_type)
+    function get_by_id($id_utilizador, $user_type)
     {
         if ($user_type == 'voluntario') {
-            return get_voluntario_by_id($id_utilizador);
+            $this->db->select('u.id AS id_utilizador, v.id AS id_voluntario, u.email, u.tipo_utilizador, u.nome');
+            $this->db->from('Utilizadores AS u');
+            $this->db->join('Voluntarios AS v', 'u.id = v.id_utilizador');
+            $this->db->where('u.id', $utilizador->id);
+
+            return $this->db->get()->row();
         }
         else
         {
@@ -100,10 +105,13 @@ class Utilizador extends CI_Model {
         return $this->db->insert_id();
     }
 
-    function update_entry($utilizador)
+    function update_entry($id_utilizador, $input)
     {
         $utilizadores->updated_at = time();
-        $this->db->update('entries', $this, array('id' => $_POST['id']));
+        $data_utilizador = $this->get_update_form_data($input);
+
+        $this->db->where('id', $id_utilizador);
+        $this->db->update('Utilizadores', $data_utilizador);
     }
 
     function get_signup_form_data($input)
@@ -128,8 +136,7 @@ class Utilizador extends CI_Model {
     {
         $data = array(
             'telefone'        => $input->post('telefone'),
-            'nome'            => $input->post('nome_utilizador'),
-            'tipo_utilizador' => $input->post('tipo_utilizador'),
+            'nome'            => $input->post('nome_utilizador')
         );
 
         return $data;
@@ -169,11 +176,6 @@ class Utilizador extends CI_Model {
             array(
                 'field' => 'confirmacao_password',
                 'label' => 'Confirmação da Password',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'nome_utilizador',
-                'label' => 'Nome',
                 'rules' => 'required'
             ),
             array(

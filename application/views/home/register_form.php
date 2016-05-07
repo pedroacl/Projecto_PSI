@@ -4,8 +4,8 @@
 
       <div class="panel panel-default">
         <div class="panel-body">
-
-          <form action="" method="POST" enctype="multipart/form-data" id="form">
+          <?php echo validation_errors(); ?>
+           <form action="" method="POST" enctype="multipart/form-data" id="form">
             <h2>Registar Utilizador</h2>
 
             <div class="form-group <?= has_error('email') ?>">

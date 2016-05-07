@@ -5,7 +5,9 @@ class Voluntarios extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
+
 		$this->authenticate_user();
+		$this->load->model('Voluntario', 'voluntario');
 	}
 
 	public function index()
@@ -18,18 +20,20 @@ class Voluntarios extends MY_Controller {
 		//$this->authenticate_user();
 		$this->load->helper('form');
 
-		$this->load->model('Voluntario', 'voluntario');
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Area_geografica', 'area_geografica');
 		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
 		$this->load->model('Tipo_habilitacao_academica', 'tipo_habilitacao_academica');
 
 		// voluntario
 		$this->voluntario =
 			$this->voluntario->get_by_id_utilizador($this->id_utilizador)->row();
-
 		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
+
+		// area geografica
+		$this->area_geografica = $this->area_geografica->get_by_id_utilizador($this->id_utilizador);
 
 		// grupos de atuacao
 		$this->grupos_atuacao_utilizador = $this->grupo_atuacao->get_by_id_utilizador($this->id_utilizador);
@@ -47,7 +51,7 @@ class Voluntarios extends MY_Controller {
 		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($this->id_utilizador);
 
 		// habilitacoes academicas
-		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->voluntario->id);
+		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->id_voluntario);
 
 		// tipos de habilitacoes academicas
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
@@ -58,34 +62,28 @@ class Voluntarios extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
-	// GET /voluntarios/edit_profile
+	// GET or POST /voluntarios/edit_profile
 	public function edit_profile()
 	{
-		$this->load->model('Voluntario', 'voluntario');
-		$this->load->model('Voluntario', 'voluntario');
 		$this->load->helper('form');
-
-		$this->voluntario = $this->voluntario->get_main_profile($this->session->userdata('id'))->row();
-
-		$this->js_file = 'edit_profile_voluntarios.js';
-		$this->load->view('templates/main_template/header');
-		$this->load->view('voluntarios/edit_profile');
-		$this->load->view('templates/main_template/footer');
-	}
-
-	// POST /voluntarios/update_main_profile
-	public function update_main_profile()
-	{
 		$this->load->library('form_validation');
-		$this->load->model('Voluntario', 'voluntario');
+		$this->load->model('Utilizador', 'utilizador');
+
+		$this->voluntario_data = $this->voluntario->get_main_profile($this->session->userdata('id_utilizador'))->row();
 
 		$form_rules = $this->voluntario->get_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
 
 		if ($this->form_validation->run() == FALSE) {
 			// mostrar novamente formulario
-			$this->edit_profile();
+			$this->load->view('templates/main_template/header');
+			$this->load->view('voluntarios/edit_profile');
+			$this->load->view('templates/main_template/footer');
+
 		} else {
+			$this->voluntario->update_entry($this->id_voluntario, $this->input);
+			$this->utilizador->update_entry($this->id_utilizador, $this->input);
+
 	 		$this->session->set_flashdata('notice', 'Perfil atualizado com sucesso!');
 			redirect('voluntarios/profile');
 		}

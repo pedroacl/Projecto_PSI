@@ -8,7 +8,6 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 
     	$this->load->library('session');
-    	$this->load->model('Utilizador');
     	$this->load->helper('url');
 
     	$this->title = "Title homepage";
@@ -24,8 +23,9 @@ class MY_Controller extends CI_Controller {
 			$this->user_profile_link = $links[$this->session->userdata('tipo_utilizador')];
 		}
 
-		$this->nome_utilizador   = $this->session->userdata('nome');
-		$this->id_utilizador     = $this->session->userdata('id_utilizador');
+		$this->nome_utilizador = $this->session->userdata('nome');
+		$this->id_utilizador   = $this->session->userdata('id_utilizador');
+		$this->id_voluntario   = $this->session->userdata('id_voluntario');
 	}
 
 	public function authenticate_user()

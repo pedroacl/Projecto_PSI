@@ -12,7 +12,6 @@
                 </a>
               </div>
             </div>
-
             <div class="col-md-8">
               <div class="row">
                 <div class="col-md-12">
@@ -30,14 +29,16 @@
                     <dt>Email</dt>
                     <dd><?= $this->voluntario->email ?></dd>
 
-                    <dt>Distrito</dt>
-                    <dd><?= $this->voluntario->distrito ?></dd>
+                    <?php if($this->area_geografica->row() != null) { ?>
+                      <dt>Distrito</dt>
+                      <dd><?= $this->area_geografica->distrito ?></dd>
 
-                    <dt>Concelho</dt>
-                    <dd><?= $this->voluntario->concelho ?></dd>
+                      <dt>Concelho</dt>
+                      <dd><?= $this->area_geografica->concelho ?></dd>
 
-                    <dt>Freguesia</dt>
-                    <dd><?= $this->voluntario->freguesia ?></dd>
+                      <dt>Freguesia</dt>
+                      <dd><?= $this->area_geografica->freguesia ?></dd>
+                    <?php } ?>
                   </dl>
                   <a class="btn btn-warning" href="<?= site_url('voluntarios/edit_profile') ?>">Editar Perfil</a>
                 </div>

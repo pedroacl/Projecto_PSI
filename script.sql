@@ -2,16 +2,28 @@ CREATE DATABASE IF NOT EXISTS PSI;
 
 USE PSI;
 
+
+CREATE TABLE IF NOT EXISTS Areas_Geograficas (
+   id                   INT         AUTO_INCREMENT,
+   freguesia            VARCHAR(50) NOT NULL,
+   concelho             VARCHAR(50) NOT NULL,
+   distrito             VARCHAR(50) NOT NULL,
+   PRIMARY KEY (id)
+);
+
+
 CREATE TABLE IF NOT EXISTS Utilizadores (
    id                  	INT 			   AUTO_INCREMENT,
    email               	VARCHAR(100) 	NOT NULL UNIQUE,
    password            	VARCHAR(100) 	NOT NULL,
-   nome                 VARCHAR(100)   NOT NULL,
-   telefone             VARCHAR(20)    NOT NULL,
    tipo_utilizador      VARCHAR(20)    NOT NULL,
+   nome                 VARCHAR(100),
+   telefone             VARCHAR(20),
+   id_area_geografica   INT,
    created_at          	TIMESTAMP 		NOT NULL,
    updated_at          	TIMESTAMP 		NOT NULL,
    recovery_token       VARCHAR(50)    DEFAULT NULL,
+   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
    PRIMARY KEY (id)
 );
 
@@ -27,15 +39,6 @@ CREATE TABLE IF NOT EXISTS Utilizadores_Areas_Interesse (
    id_utilizador        INT,
    id_area_interesse    INT,
    PRIMARY KEY (id_utilizador, id_area_interesse)
-);
-
-
-CREATE TABLE IF NOT EXISTS Areas_Geograficas (
-   id                  	INT 			AUTO_INCREMENT,
-   freguesia           	VARCHAR(50) NOT NULL,
-   concelho            	VARCHAR(50) NOT NULL,
-   distrito            	VARCHAR(50) NOT NULL,
-   PRIMARY KEY (id)
 );
 
 
@@ -90,41 +93,30 @@ CREATE TABLE IF NOT EXISTS Tipos_Habilitacoes_Academicas (
 );
 
 
-CREATE TABLE IF NOT EXISTS Habilitacoes_Academicas (
-   id                  	INT 			AUTO_INCREMENT,
-   id_tipo             	INT         NOT NULL,
-   data_conclusao      	DATE			NOT NULL,
-   curso               	VARCHAR(50) NOT NULL,
-   instituto_ensino    	VARCHAR(50) NOT NULL,
-
-   PRIMARY KEY (id),
-   FOREIGN KEY (id_tipo) REFERENCES Tipos_Habilitacoes_Academicas(id) ON DELETE CASCADE
-);
-
-
-CREATE TABLE IF NOT EXISTS Utilizadores_Habilitacoes_Academicas (
-   id_utilizador              INT NOT NULL,
-   id_habilitacao_academica   INT NOT NULL,
-
-   PRIMARY KEY (id_utilizador, id_habilitacao_academica)
-);
-
-
 CREATE TABLE IF NOT EXISTS Voluntarios (
    id                          INT           AUTO_INCREMENT,
-   id_area_geografica          INT           NOT NULL,
-   id_habilitacoes_academicas  INT           NOT NULL,
-   id_utilizador               INT           NOT NULL,
-   genero                      CHAR          NOT NULL,
-   data_nascimento             DATE          NOT NULL,
+   id_utilizador               INT           DEFAULT NULL,
+   genero                      CHAR          DEFAULT NULL,
+   data_nascimento             DATE          DEFAULT NULL,
    foto                        VARCHAR(100)  DEFAULT NULL,
 
    PRIMARY KEY (id),
-   FOREIGN KEY (id_area_geografica)          REFERENCES Areas_Geograficas(id),
-   FOREIGN KEY (id_habilitacoes_academicas)  REFERENCES Habilitacoes_Academicas(id),
    FOREIGN KEY (id_utilizador)               REFERENCES Utilizadores(id)
 );
 
+
+CREATE TABLE IF NOT EXISTS Habilitacoes_Academicas (
+   id                   INT         AUTO_INCREMENT,
+   id_tipo              INT         NOT NULL,
+   id_voluntario        INT         NOT NULL,
+   data_conclusao       DATE        NOT NULL,
+   curso                VARCHAR(50) NOT NULL,
+   instituto_ensino     VARCHAR(50) NOT NULL,
+
+   PRIMARY KEY (id),
+   FOREIGN KEY (id_voluntario) REFERENCES Voluntarios(id) ON DELETE CASCADE,
+   FOREIGN KEY (id_tipo) REFERENCES Tipos_Habilitacoes_Academicas(id) ON DELETE CASCADE
+);
 
 
 CREATE TABLE IF NOT EXISTS Voluntarios_Oportunidades_Voluntariado (
@@ -137,14 +129,12 @@ CREATE TABLE IF NOT EXISTS Voluntarios_Oportunidades_Voluntariado (
 
 CREATE TABLE IF NOT EXISTS Instituicoes (
    id                   INT          AUTO_INCREMENT,
-   id_area_geografica   INT          NOT NULL,
    id_utilizador        INT          NOT NULL,
    descricao            VARCHAR(50)  NOT NULL,
    morada               VARCHAR(50)  NOT NULL,
    email_instituicao    VARCHAR(20)  NOT NULL,
    website              VARCHAR(20)  DEFAULT NULL,
    PRIMARY KEY (id),
-   FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
    FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
 );
 

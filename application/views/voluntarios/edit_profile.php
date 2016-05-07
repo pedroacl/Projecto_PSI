@@ -11,6 +11,7 @@
             <!-- Campos de um Voluntario -->
 
             <div class="voluntario_fields">
+              <?php echo validation_errors() ?>
 
               <div class="form-group <?= has_error('foto') ?>">
                 <label class="control-label">Foto</label>
@@ -20,15 +21,15 @@
               <div class="form-group <?= has_error('nome_utilizador') ?>" >
                 <label class="control-label">Nome</label>
                 <?= form_error('nome_utilizador', "<span class='help-block'>", "</span>")?>
-                <input name="nome_utilizador" value="<?= set_value('nome_utilizador', $this->voluntario->nome); ?>" class="form-control" placeholder="Nome Completo"></input>
+                <input name="nome_utilizador" value="<?= set_value('nome_utilizador', $this->voluntario_data->nome); ?>" class="form-control" placeholder="Nome Completo"></input>
               </div>
 
               <div class="form-group <?= has_error('genero') ?>">
                 <label class="control-label">Género</label>
                 <?= form_error('genero', "<span class='help-block'>", "</span>")?>
                 <div class="checkbox">
-                  <label class="radio-inline"><input type="radio" name="genero" value="m" <?= ($this->voluntario->genero === 'm' ? 'checked' : '') ?>/>Masculino</label>
-                  <label class="radio-inline"><input type="radio" name="genero" value="f" <?= ($this->voluntario->genero === 'f' ? 'checked' : '') ?>/>Feminino</label>
+                  <label class="radio-inline"><input type="radio" name="genero" value="m" <?= ($this->voluntario_data->genero === 'm' ? 'checked' : '') ?>/>Masculino</label>
+                  <label class="radio-inline"><input type="radio" name="genero" value="f" <?= ($this->voluntario_data->genero === 'f' ? 'checked' : '') ?>/>Feminino</label>
                 </div>
               </div>
 
@@ -36,7 +37,7 @@
                 <label class="control-label">Data de Nascimento</label>
                 <?= form_error('data_nascimento', "<span class='help-block'>", "</span>")?>
                 <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                  <input name="data_nascimento" value="<?= set_value('data_nascimento', $this->voluntario->data_nascimento); ?>" type='text' class="form-control" />
+                  <input name="data_nascimento" value="<?= set_value('data_nascimento', $this->voluntario_data->data_nascimento); ?>" type='text' class="form-control" />
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
@@ -46,7 +47,7 @@
               <div class="form-group <?= has_error('telefone') ?>">
                 <label class="control-label">Telefone</label>
                 <?= form_error('telefone', "<span class='help-block'>", "</span>")?>
-                <input name="telefone" value="<?= set_value('telefone', $this->voluntario->telefone); ?>" class="form-control" placeholder="Telefone"></input>
+                <input name="telefone" value="<?= set_value('telefone', $this->voluntario_data->telefone); ?>" class="form-control" placeholder="Telefone"></input>
               </div>
 
               <br>
@@ -57,8 +58,8 @@
                 <?= form_error('distrito', "<span class='help-block'>", "</span>")?>
                 <select id="distrito" class="form-control" name="distrito">
                   <option value="default">-</option>
-                  <? if ($this->voluntario->distrito !== '') { ?>
-                    <option value="<?= $this->voluntario->distrito ?>" <?= set_select('distrito', $this->voluntario->distrito, TRUE) ?>><?= $this->voluntario->distrito ?></option>
+                  <? if ($this->voluntario_data->distrito !== '') { ?>
+                    <option value="<?= $this->voluntario_data->distrito ?>" <?= set_select('distrito', $this->voluntario_data->distrito, TRUE) ?>><?= $this->voluntario_data->distrito ?></option>
                   <? } ?>
                 </select>
               </div>
@@ -68,8 +69,8 @@
                 <?= form_error('concelho', "<span class='help-block'>", "</span>")?>
                 <select id="concelho" class="form-control" name="concelho">
                   <option value="default">-</option>
-                  <? if ($this->voluntario->concelho !== '') { ?>
-                  <option value="<?= $this->voluntario->concelho ?>" <?= set_select('concelho', $this->voluntario->concelho, TRUE) ?>><?= $this->voluntario->concelho ?></option>
+                  <? if ($this->voluntario_data->concelho !== '') { ?>
+                  <option value="<?= $this->voluntario_data->concelho ?>" <?= set_select('concelho', $this->voluntario_data->concelho, TRUE) ?>><?= $this->voluntario_data->concelho ?></option>
                   <? } ?>
                 </select>
               </div>
@@ -79,8 +80,8 @@
                 <?= form_error('freguesia', "<span class='help-block'>", "</span>")?>
                 <select id="freguesia" class="form-control" name="freguesia">
                   <option value="default">-</option>
-                  <? if ($this->voluntario->freguesia !== '') { ?>
-                  <option value="<?= $this->voluntario->freguesia ?>" <?= set_select('freguesia', $this->voluntario->freguesia, TRUE) ?>><?= $this->voluntario->freguesia ?></option>
+                  <? if ($this->voluntario_data->freguesia !== '') { ?>
+                  <option value="<?= $this->voluntario_data->freguesia ?>" <?= set_select('freguesia', $this->voluntario_data->freguesia, TRUE) ?>><?= $this->voluntario_data->freguesia ?></option>
                   <? } ?>
                 </select>
               </div>
