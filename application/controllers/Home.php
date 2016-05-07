@@ -62,9 +62,10 @@ class Home extends MY_Controller {
 		$tipo_utilizador  = $this->input->post('tipo_utilizador');
 
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
-		$this->grupos_atuacao                = $this->grupo_atuacao->get_entries();
-		$this->areas_interesse               = $this->area_iteresse->get_entries();
-		$this->disponibilidades					 = $this->input->post('disponibilidades[]');
+
+		$this->grupos_atuacao   = $this->grupo_atuacao->get_entries();
+		$this->areas_interesse  = $this->area_iteresse->get_entries();
+		$this->disponibilidades = $this->input->post('disponibilidades[]');
 
 		$form_rules = null;
 
@@ -84,16 +85,6 @@ class Home extends MY_Controller {
 			// Inserts
 			// utilizador
 			$id_utilizador = $this->utilizador->insert_entry($this->input);
-
-			// registar utilizador na sessao
-			$cookie = array(
-				'id'              => $id_utilizador,
-				'email'           =>	$this->input->post('email'),
-				'tipo_utilizador' => $this->input->post('tipo_utilizador'),
-				'nome'            => $this->input->post('nome_utilizador')
-			);
-
-			$this->session->set_userdata($cookie);
 
 			// success page
 			$this->session->set_flashdata('notice', 'Utilizador registado com sucesso.');
@@ -177,14 +168,6 @@ class Home extends MY_Controller {
 			if (($user = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
 				$this->session->set_flashdata('success', 'Utilizador autenticado com sucesso!');
 
-				$cookie = array(
-					'id'              => $user->id,
-					'email'           => $email,
-					'tipo_utilizador' => $user->tipo_utilizador,
-					'nome'            => $user->nome
-				);
-
-				$this->session->set_userdata($cookie);
 		      redirect('', 'refresh');
 
 			} else {

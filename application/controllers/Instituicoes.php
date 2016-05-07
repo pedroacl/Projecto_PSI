@@ -5,7 +5,7 @@ class Instituicoes extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
-
+		$this->authenticate_user();
 	}
 
 	public function index()
@@ -21,7 +21,7 @@ class Instituicoes extends MY_Controller {
 		$this->load->model('Instituicao', 'instituicao');
 		$this->load->model('Disponibilidade', 'disponibilidade');
 
-		$id_utilizador    = $this->session->userdata('id');
+		$id_utilizador = $this->session->userdata('id');
 
 		// instituicao
 		$this->instituicao =

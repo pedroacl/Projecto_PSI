@@ -8,6 +8,7 @@ class MY_Controller extends CI_Controller {
 		parent::__construct();
 
     	$this->load->library('session');
+    	$this->load->model('Utilizador');
     	$this->load->helper('url');
 
     	$this->title = "Title homepage";
@@ -24,18 +25,19 @@ class MY_Controller extends CI_Controller {
 		}
 
 		$this->nome_utilizador   = $this->session->userdata('nome');
-		$this->id_utilizador     = $this->session->userdata('id');
+		$this->id_utilizador     = $this->session->userdata('id_utilizador');
 	}
 
 	public function authenticate_user()
 	{
 		if (!$this->user_logged_in()) {
+	 		$this->session->set_flashdata('warning', 'Utilizador nao registado!');
 			redirect('login', 'refresh');
 		}
 	}
 
   	public function user_logged_in()
   	{
-    	return $this->session->userdata('id');
+    	return $this->session->userdata('id_utilizador');
   	}
 }

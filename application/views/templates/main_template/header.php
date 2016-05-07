@@ -33,7 +33,7 @@
   </head>
 
   <body>
-    <?php $class_if_not_loggedin = $this->session->userdata('id') !== null ? '' : 'toggled'; ?>
+    <?php $class_if_not_loggedin = $this->session->userdata('id_utilizador') !== null ? '' : 'toggled'; ?>
     <div class="wrapper <?= $class_if_not_loggedin ?>">
       <div class="sidebar-wrapper">
         <h3><a href="/">Volunteer @ FCUL</a></h3>
@@ -62,7 +62,7 @@
                   </div>
                   <ul class="nav navbar-nav navbar-right">
                     <?php
-                      if ($this->session->userdata('id') !== null) {
+                      if ($this->session->userdata('id_utilizador') !== null) {
                         echo '<li><a href="' . site_url($this->user_profile_link) . '"</a>' . $this->nome_utilizador . '</li>';
                         echo '<li><a href="' . site_url("logout") . '">Logout</a></li>';
                       }

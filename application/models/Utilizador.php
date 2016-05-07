@@ -5,14 +5,15 @@ class Utilizador extends CI_Model {
 
     function __construct()
     {
-        // Call the Model constructor
         parent::__construct();
     }
 
     function authenticate_utilizador($email, $password)
     {
+        $this->load->library('session');
+
         $this->db->select('id, email, nome, tipo_utilizador, password');
-        $this->db->from('Utilizadores');
+        $this->db->from('Utilizadores AS u');
         $this->db->where('email', $email);
         $query = $this->db->get();
 
@@ -21,6 +22,40 @@ class Utilizador extends CI_Model {
             $utilizador = $query->row();
 
             if (password_verify($password, $utilizador->password)) {
+                if ($utilizador->tipo_utilizador == 'voluntario') {
+
+                    $this->db->select('u.id AS id_utilizador, v.id AS id_voluntario, u.email, u.tipo_utilizador, u.nome');
+                    $this->db->from('Utilizadores AS u');
+                    $this->db->join('Voluntarios AS v', 'u.id = v.id_utilizador');
+                    $this->db->where('u.id', $utilizador->id);
+                    $utilizador = $this->db->get()->row();
+
+                    $user_data = array(
+                        'id_utilizador'   => $utilizador->id_utilizador,
+                        'id_voluntario'   => $utilizador->id_voluntario,
+                        'email'           => $email,
+                        'tipo_utilizador' => $utilizador->tipo_utilizador,
+                        'nome'            => $utilizador->nome
+                    );
+                } else {
+                    $this->db->select('u.id AS id_utilizador, i.id AS id_instituicao, u.email, u.tipo_utilizador, u.nome');
+                    $this->db->from('Utilizadores AS u');
+                    $this->db->join('Instituicoes AS i', 'u.id = i.id_utilizador');
+                    $this->db->where('u.id', $utilizador->id);
+                    $utilizador = $this->db->get()->row();
+
+                    $user_data = array(
+                        'id_utilizador'   => $utilizador->id_utilizador,
+                        'id_instituicao'  => $utilizador->id_instituicao,
+                        'email'           => $email,
+                        'tipo_utilizador' => $user->tipo_utilizador,
+                        'nome'            => $user->nome
+                    );
+                }
+
+                $this->session->set_userdata($user_data);
+                print_r($utilizador);
+                print_r($this->session->userdata());
                 return $utilizador;
             }
         }
@@ -150,22 +185,4 @@ class Utilizador extends CI_Model {
 
         return $rules;
     }
-
-/*
-    function get_signup_utilizador_data()
-    {
-        $data = array(
-           'habilitacao_academicas' => array(
-                '1' => 'Licenciatura',
-                '2' => 'Mestrado'
-            ),
-            'area_geograficas' => array(
-                '1' => 'Lisboa',
-                '2' => 'Porto'
-            )
-        );
-
-       return $data;
-    }
-    */
 }

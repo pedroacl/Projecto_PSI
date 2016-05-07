@@ -5,7 +5,7 @@ class Voluntarios extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
-
+		$this->authenticate_user();
 	}
 
 	public function index()
@@ -17,8 +17,6 @@ class Voluntarios extends MY_Controller {
 	{
 		//$this->authenticate_user();
 		$this->load->helper('form');
-
-		print_r($this->session->userdata);
 
 		$this->load->model('Voluntario', 'voluntario');
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
