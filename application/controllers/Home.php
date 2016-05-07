@@ -20,13 +20,6 @@ class Home extends MY_Controller {
 	// GET /signup
 	public function signup()
 	{
-		// if ($this->user_logged_in())
-		// {
-		// 	$this->session->set_flashdata('notice', 'Utilizador ja se encontra registado.');
-		// 	redirect('', 'refresh');
-		// }
-
-		$this->load->library('session');
 		$this->load->library('form_validation');
 
 		$this->title = "Registo de Utilizador";
@@ -44,31 +37,14 @@ class Home extends MY_Controller {
 
 		// libraries
 		$this->load->library('form_validation');
-		$this->load->library('session');
 
 		// models
 		$this->load->model('Utilizador', 'utilizador');
-		$this->load->model('Voluntario', 'voluntario');
-		$this->load->model('Instituicao', 'instituicao');
-		$this->load->model('AreaGeografica', 'area_geografica');
-		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');
-		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
-		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
-		$this->load->model('AreaInteresse', 'area_iteresse');
-		$this->load->model('Utilizador_GrupoAtuacao', 'utilizador_grupo_atuacao');
-		$this->load->model('Utilizador_AreaInteresse', 'utilizador_area_iteresse');
-		$this->load->model('Disponibilidade', 'disponibilidade');
 
 		$tipo_utilizador  = $this->input->post('tipo_utilizador');
 
-		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
-		$this->grupos_atuacao                = $this->grupo_atuacao->get_entries();
-		$this->areas_interesse               = $this->area_iteresse->get_entries();
-		$this->disponibilidades					 = $this->input->post('disponibilidades[]');
-
-		$form_rules = null;
-
 		$form_rules = $this->utilizador->get_form_validation_rules();
+		$this->form_validation->set_rules($form_rules);
 
 		// formulario invalido
 		if ($this->form_validation->run() == FALSE)
@@ -81,22 +57,36 @@ class Home extends MY_Controller {
 		}
 		else
 		{
-			// Inserts
-			// utilizador
+			// criar utilizador e voluntario
 			$id_utilizador = $this->utilizador->insert_entry($this->input);
+			$session_data = null;
 
-			// registar utilizador na sessao
-			$cookie = array(
-				'id'              => $id_utilizador,
-				'email'           =>	$this->input->post('email'),
-				'tipo_utilizador' => $this->input->post('tipo_utilizador'),
-				'nome'            => $this->input->post('nome_utilizador')
-			);
+			if ($this->input->post('tipo_utilizador') == 'voluntario') {
+				$this->load->model('Voluntario', 'voluntario');
+				$id_voluntario = $this->voluntario->insert_entry($id_utilizador);
 
-			$this->session->set_userdata($cookie);
+				$session_data = array(
+					'id_utilizador'   => $id_utilizador,
+					'id_voluntario'   => $id_voluntario,
+					'email'				=> $this->input->post('email'),
+					'tipo_utilizador' => $this->input->post('tipo_utilizador')
+				);
+			} else if($this->input->post('tipo_utilizador') == 'instituicao') {
+				$this->load->model('Instituicao', 'instituicao');
+				$id_instituicao = $this->instituicao->insert_entry($id_utilizador);
 
-			// success page
-			$this->session->set_flashdata('notice', 'Utilizador registado com sucesso.');
+				$session_data = array(
+					'id_utilizador'   => $id_utilizador,
+					'id_instituicao'  => $id_instituicao,
+					'email'				=> $this->input->post('email'),
+					'tipo_utilizador' => $this->input->post('tipo_utilizador')
+				);
+			}
+
+			$this->session->set_userdata($session_data);
+
+			$this->session->set_flashdata('notice',
+				'Utilizador registado com sucesso.');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('home/index');
 			$this->load->view('templates/main_template/footer');
@@ -107,7 +97,8 @@ class Home extends MY_Controller {
 	function not_default($str)
 	{
 		if ($str == 'default') {
-			$this->form_validation->set_message('not_default', 'The %s field can not be empty');
+			$this->form_validation->set_message('not_default',
+				'The %s field can not be empty');
 			return FALSE;
 		}
 
@@ -177,14 +168,6 @@ class Home extends MY_Controller {
 			if (($user = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
 				$this->session->set_flashdata('success', 'Utilizador autenticado com sucesso!');
 
-				$cookie = array(
-					'id'              => $user->id,
-					'email'           => $email,
-					'tipo_utilizador' => $user->tipo_utilizador,
-					'nome'            => $user->nome
-				);
-
-				$this->session->set_userdata($cookie);
 		      redirect('', 'refresh');
 
 			} else {

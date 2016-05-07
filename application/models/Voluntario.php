@@ -3,113 +3,78 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Voluntario extends CI_Model {
 
-    function insert_entry($input)
+    function insert_entry($id_utilizador)
     {
-        $voluntario = $this->get_signup_form_data($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas);
-
-        $this->db->insert('Voluntarios', $voluntario);
-
+        $this->db->insert('Voluntarios', array('id_utilizador' => $id_utilizador));
         return $this->db->insert_id();
     }
 
     function get_main_profile($id_utilizador)
     {
-        $this->db->select('nome, genero, foto, telefone, data_nascimento, concelho, distrito, freguesia');
-        $this->db->from('Voluntarios as v');
-        $this->db->where('ut.id', $id_utilizador);
-        $this->db->join('Areas_Geograficas as ag', 'v.id_area_geografica = ag.id');
-        $this->db->join('Utilizadores as ut', 'ut.id = v.id_utilizador');
+        $this->db->select('nome, genero, foto, telefone, data_nascimento');
+        $this->db->from('Voluntarios AS v');
+        $this->db->join('Utilizadores AS u', 'u.id = v.id_utilizador');
+        $this->db->where('u.id', $id_utilizador);
 
         return $this->db->get();
     }
 
-/*
-    function get_volunteer_by_email($email)
+    public function update_entry($id_voluntario, $input)
     {
-        // $query = $this->db->get('utilizadores', 1);
-        $this->db->select('email, password, salt');
-        $this->db->from('Utilizadores utilizadores');
-        $this->db->join('Voluntarios voluntarios', 'voluntarios.id_utilizador = utilizadores.id', 'left');
-        $this->db->where('email', $email);
-        $query = $this->db->get();
+        $data_voluntarios = $this->get_form_data($input);
 
-        return $query;
+        $this->db->where('id', $id_voluntario);
+        $this->db->update('Voluntarios', $data_voluntarios);
     }
-*/
+
+
     function get_by_id_utilizador($id_utilizador)
     {
-        $this->db->select('utilizadores.id, utilizadores.email, utilizadores.nome, voluntarios.genero, voluntarios.data_nascimento, areas_geograficas.distrito, areas_geograficas.concelho, areas_geograficas.freguesia, utilizadores.telefone, voluntarios.foto, voluntarios.id_area_geografica');
+        $this->db->select('utilizadores.id, utilizadores.email, utilizadores.nome, voluntarios.genero, voluntarios.data_nascimento, utilizadores.telefone, voluntarios.foto');
 
         $this->db->from('Utilizadores as utilizadores');
-        $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = ' . $id_utilizador);
-        $this->db->join('Areas_Geograficas as areas_geograficas', 'areas_geograficas.id = voluntarios.id_area_geografica');
+        $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = voluntarios.id_utilizador');
+        $this->db->where('utilizadores.id', $id_utilizador);
 
         return $this->db->get();
     }
 
-    function get_signup_form_data($input, $id_utilizador, $id_area_geografica, $id_habilitacoes_academicas)
-    {
-        $data_nascimento = date("Y/m/d", strtotime($input->post('data_nascimento')));
-
-        $data = array(
-            'genero'                     => $input->post('genero'),
-            'data_nascimento'            => $data_nascimento,
-            'id_utilizador'              => $id_utilizador,
-            'id_area_geografica'         => $id_area_geografica,
-            'id_habilitacoes_academicas' => $id_habilitacoes_academicas
-        );
-
-        return $data;
-    }
-
-    function get_update_form_data($input)
+    function get_form_data($input)
     {
         $data = array(
             'genero'          => $input->post('genero'),
-            'data_nascimento' => $input->post('data_nascimento'),
+            'data_nascimento' => date("Y/m/d", strtotime($input->post('data_nascimento')))
         );
 
         return $data;
     }
 
-    function get_form_validation_rules()
+    public function get_form_validation_rules()
     {
         $rules = array(
             array(
                 'field' => 'telefone',
                 'label' => 'Telefone',
-                'rules' => 'required|min_length[9]'
-            ),
-            array(
-                'field' => 'genero',
-                'label' => 'Género',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'data_nascimento',
-                'label' => 'Data de Nascimento',
-                'rules' => 'required'
-            ),
+                'rules' => 'min_length[9]'
+            )/*,
             array(
                 'field' => 'concelho',
                 'label' => 'Concelho',
-                'rules' => 'required|callback_not_default'
+                'rules' => 'callback_not_default'
             ),
             array(
                 'field' => 'distrito',
                 'label' => 'Distrito',
-                'rules' => 'required|callback_not_default'
+                'rules' => 'callback_not_default'
             ),
             array(
                 'field' => 'freguesia',
                 'label' => 'Freguesia',
-                'rules' => 'required|callback_not_default'
-            )
+                'rules' => 'callback_not_default'
+            )*/
         );
 
-        $this->load->model('Utilizador', 'utilizador');
-
-        return array_merge($rules, $this->utilizador->get_form_validation_rules());
+        return $rules;
     }
 
     function upload_photo($id_voluntario)
