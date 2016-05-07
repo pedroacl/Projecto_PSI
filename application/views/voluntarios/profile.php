@@ -42,22 +42,21 @@
                   <a class="btn btn-warning" href="<?= site_url('voluntarios/edit_profile') ?>">Editar Perfil</a>
                 </div>
               </div>
-
-              
             </div>
           </div>
           <div class="row">
             <div class="col-md-6" id="edit_grupos_atuacao">
               <h4>Grupos de atuação <a class="btn btn-warning btn-sm">Editar</a></h4>
               <ul>
-                <?php foreach ($this->grupos_atuacao as $grupo_atuacao) {
-                  echo '<li>' . $grupo_atuacao->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="">&#10005;</a></li>';
+                <?php foreach ($this->grupos_atuacao_utilizador->result() as $grupos_atuacao_utilizador) {
+                  echo '<li>' . $grupos_atuacao_utilizador->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('grupos_atuacao/delete/' . $grupos_atuacao_utilizador->id) . '">&#10005;</a></li>';
                 } ?>
               </ul>
-              <?= form_open('grupos_atuacao/add/' . $this->session->userdata('id'), array('class' => 'form-inline', 'style' => 'display: none;')) ?>
-                <select class="form-control">
-                  <option>Grupo 1</option>
-                  <option>Grupo 2</option>
+              <?= form_open('grupos_atuacao/add/', array('class' => 'form-inline', 'style' => 'display: none;')) ?>
+                <select name="id_grupo_atuacao" class="form-control">
+                  <?php foreach ($this->tipos_grupos_atuacao->result() as $tipo_grupo_atuacao) {
+                    echo '<option value="' . $tipo_grupo_atuacao->id . '">' . $tipo_grupo_atuacao->nome . '</option>';
+                  } ?>
                 </select>
                 <input class="btn btn-primary btn-sm" type="submit" value="Adicionar"/>
               <?= form_close() ?>
@@ -66,15 +65,16 @@
             <div class="col-md-6" id="edit_areas_interesse">
               <h4>Areas de Interesse <a class="btn btn-warning btn-sm">Editar</a></h4>
               <ul>
-                <?php foreach ($this->areas_interesse as $areas_interesse) {
-                  echo '<li>' . $areas_interesse->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="">&#10005;</a></li>';
+                <?php foreach ($this->areas_interesse_utilizador->result() as $area_interesse_utilizador) {
+                    echo '<li>' . $area_interesse_utilizador->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('areas_interesse/delete/' . $area_interesse_utilizador->id) . '">&#10005;</a></li>';
                 } ?>
               </ul>
 
               <?= form_open('areas_interesse/add/', array('class' => 'form-inline', 'style' => 'display: none;')) ?>
-                <select class="form-control">
-                  <option>Area 1</option>
-                  <option>Area 2</option>
+                <select class="form-control" name="id_area_interesse">
+                  <?php foreach ($this->tipos_areas_interesse->result() as $tipo_area_interesse) {
+                    echo '<option value="' . $tipo_area_interesse->id . '">' . $tipo_area_interesse->nome . '</option>';
+                  } ?>
                 </select>
                 <input class="btn btn-primary btn-sm" type="submit" value="Adicionar"/>
               <?= form_close() ?>
@@ -131,6 +131,11 @@
           <div class="row">
             <div class="col-md-12" id="edit_disponibilidades">
               <h4>Disponibilidades <a class="btn btn-warning btn-sm">Editar</a></h4>
+              <?php if((isset($this->disponibilidades)) && ($this->disponibilidades->num_rows() > 0)) { ?>
+
+              <?php } else { ?>
+                <h2>Não existem disponibilidades adicionadas</h2>
+              <?php } ?>
               <table class="table">
                 <tbody>
                   <tr>
@@ -141,7 +146,7 @@
                     <th class="actions" style="display: none;">Acções</th>
                   </tr>
                   <?php
-                    foreach ($this->disponibilidades as $disponibilidade) {
+                    foreach ($this->disponibilidades->result() as $disponibilidade) {
                       echo '<tr>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_inicio)) . '</td>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim)) . '</td>';

@@ -16,6 +16,19 @@ class Grupo_atuacao extends CI_Model {
       return $this->db->get();
    }
 
+   public function get_without_utilizador($id_utilizador)
+   {
+      $sql = "SELECT DISTINCT ga.nome, ga.id
+         FROM Grupos_Atuacao AS ga
+         WHERE ga.id NOT IN (
+            SELECT uga.id_grupo_atuacao
+            FROM Utilizadores_Grupos_Atuacao AS uga
+            WHERE uga.id_utilizador = ?
+         )";
+
+      return $this->db->query($sql, array($id_utilizador));
+   }
+
    function delete_by_id_utilizador($id_utilizador)
    {
       $sql = "DELETE utilizadores_grupos_atuacao
@@ -31,7 +44,7 @@ class Grupo_atuacao extends CI_Model {
 
    function get_by_id_utilizador($id_utilizador)
    {
-      $this->db->select('grupos_atuacao.nome');
+      $this->db->select('grupos_atuacao.id, grupos_atuacao.nome');
       $this->db->from('Grupos_Atuacao as grupos_atuacao');
       $this->db->join('Utilizadores_Grupos_Atuacao as utilizadores_grupos_atuacao',
          'grupos_atuacao.id = utilizadores_grupos_atuacao.id_grupo_atuacao');
@@ -49,17 +62,14 @@ class Grupo_atuacao extends CI_Model {
       }
    }
 
-   function insert_entry($id_utilizador, $grupo_atuacao)
+   function insert_entry($id_utilizador, $id_grupo_atuacao)
    {
-      $this->db->insert('Grupos_Atuacao', $grupo_atuacao);
-      $id_grupo_atuacao = $this->db->insert_id();
-
       $data = array(
 			'id_utilizador'    => $id_utilizador,
 			'id_grupo_atuacao' => $id_grupo_atuacao
       );
 
-      $this->load->model('Utilizador_GrupoAtuacao', 'utilizador_grupo_atuacao');
+      $this->load->model('Utilizador_grupo_atuacao', 'utilizador_grupo_atuacao');
       $this->utilizador_grupo_atuacao->insert_entry($id_utilizador, $id_grupo_atuacao);
    }
 
