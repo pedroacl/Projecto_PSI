@@ -69,18 +69,16 @@ class Home extends MY_Controller {
 					'id_utilizador'   => $id_utilizador,
 					'id_voluntario'   => $id_voluntario,
 					'email'				=> $this->input->post('email'),
-					'nome'            => $this->input->post('nome'),
 					'tipo_utilizador' => $this->input->post('tipo_utilizador')
 				);
-			} else {
+			} else if($this->input->post('tipo_utilizador') == 'instituicao') {
 				$this->load->model('Instituicao', 'instituicao');
-				$id_voluntario = $this->instituicao->insert_entry($id_utilizador);
+				$id_instituicao = $this->instituicao->insert_entry($id_utilizador);
 
 				$session_data = array(
 					'id_utilizador'   => $id_utilizador,
 					'id_instituicao'  => $id_instituicao,
 					'email'				=> $this->input->post('email'),
-					'nome'            => $this->input->post('nome'),
 					'tipo_utilizador' => $this->input->post('tipo_utilizador')
 				);
 			}

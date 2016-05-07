@@ -54,8 +54,7 @@ class Utilizador extends CI_Model {
                 }
 
                 $this->session->set_userdata($user_data);
-                print_r($utilizador);
-                print_r($this->session->userdata());
+
                 return $utilizador;
             }
         }

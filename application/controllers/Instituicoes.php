@@ -5,7 +5,9 @@ class Instituicoes extends MY_Controller {
 
 	function __construct() {
 		parent::__construct();
+
 		$this->authenticate_user();
+		$this->load->model('Instituicao', 'instituicao');
 	}
 
 	public function index()
@@ -15,17 +17,33 @@ class Instituicoes extends MY_Controller {
 
 	public function profile()
 	{
-		//$this->authenticate_user();
-		$this->load->helper('form');
-
-		$this->load->model('Instituicao', 'instituicao');
+		$this->load->model('Area_geografica', 'area_geografica');
+		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
+		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-
-		$id_utilizador = $this->session->userdata('id');
+		$this->load->helper('form');
 
 		// instituicao
 		$this->instituicao =
-			$this->instituicao->get_by_id_utilizador($id_utilizador)->row();
+			$this->instituicao->get_by_id_utilizador($this->id_utilizador)->row();
+
+		// area geografica
+		$this->area_geografica = $this->area_geografica->get_by_id_utilizador($this->id_utilizador);
+
+		// grupos_atuacao
+		$this->grupos_atuacao_utilizador = $this->grupo_atuacao->get_by_id_utilizador($this->id_utilizador);
+
+		// tipos de grupos de atuacao (povoar select boxes)
+		$this->tipos_grupos_atuacao = $this->grupo_atuacao->get_without_utilizador($this->id_utilizador);
+
+		// areas de iteresse
+		$this->tipos_areas_interesse = $this->area_interesse->get_without_utilizador($this->id_utilizador);
+
+		// tipos de areas de interesse (povoar select boxes)
+		$this->areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador($this->id_utilizador);
+
+		// disponibilidades
+		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($this->id_utilizador);
 
 		$this->js_file = 'home.js';
 		$this->load->view('templates/main_template/header');

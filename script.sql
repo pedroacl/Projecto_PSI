@@ -130,10 +130,10 @@ CREATE TABLE IF NOT EXISTS Voluntarios_Oportunidades_Voluntariado (
 CREATE TABLE IF NOT EXISTS Instituicoes (
    id                   INT          AUTO_INCREMENT,
    id_utilizador        INT          NOT NULL,
-   descricao            VARCHAR(50)  NOT NULL,
-   morada               VARCHAR(50)  NOT NULL,
-   email_instituicao    VARCHAR(20)  NOT NULL,
-   website              VARCHAR(20)  DEFAULT NULL,
+   descricao            VARCHAR(50),
+   morada               VARCHAR(50),
+   email_instituicao    VARCHAR(20),
+   website              VARCHAR(20),
    PRIMARY KEY (id),
    FOREIGN KEY (id_utilizador) REFERENCES Utilizadores(id)
 );

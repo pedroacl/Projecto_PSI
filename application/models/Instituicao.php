@@ -9,21 +9,19 @@ class Instituicao extends CI_Model {
         parent::__construct();
     }
 
-    function insert_entry($institution, $user_id)
+    function insert_entry($id_utilizador)
     {
-        $institution['id_instituicao'] = $user_id;
-        $this->db->insert('Instituicao', $institution);
-
+        $this->db->insert('Instituicoes', array('id_utilizador' => $id_utilizador));
         return $this->db->insert_id();
     }
 
     function get_by_id_utilizador($id_utilizador)
     {
-        $this->db->select('utilizadores.id, utilizadores.email, utilizadores.nome, voluntarios.genero, voluntarios.data_nascimento, areas_geograficas.distrito, areas_geograficas.concelho, areas_geograficas.freguesia, utilizadores.telefone, voluntarios.foto, voluntarios.id_area_geografica');
+        $this->db->select('u.id, u.email, u.nome, i.descricao, i.morada, i.email_instituicao, u.telefone, i.website');
 
-        $this->db->from('Utilizadores as utilizadores');
-        $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = ' . $id_utilizador);
-        $this->db->join('Areas_Geograficas as areas_geograficas', 'areas_geograficas.id = voluntarios.id_area_geografica');
+        $this->db->from('Utilizadores as u');
+        $this->db->join('Instituicoes as i', 'u.id = i.id_utilizador');
+        $this->db->where('u.id', $id_utilizador);
 
         return $this->db->get();
     }

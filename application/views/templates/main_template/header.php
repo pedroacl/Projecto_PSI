@@ -36,7 +36,7 @@
     <?php $class_if_not_loggedin = $this->session->userdata('id_utilizador') !== null ? '' : 'toggled'; ?>
     <div class="wrapper <?= $class_if_not_loggedin ?>">
       <div class="sidebar-wrapper">
-        <h3><a href="/">Volunteer @ FCUL</a></h3>
+        <h3><a href="<?= site_url('') ?>">Volunteer @ FCUL</a></h3>
         <div class="image-holder">
           <img src="<?= base_url('/assets/images/logo.jpeg') ?>" alt="logo">
         </div>

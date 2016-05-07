@@ -61,8 +61,8 @@
                 </select>
                 <input class="btn btn-primary btn-sm" type="submit" value="Adicionar"/>
               <?= form_close() ?>
-
             </div>
+
             <div class="col-md-6" id="edit_areas_interesse">
               <h4>Areas de Interesse <a class="btn btn-warning btn-sm">Editar</a></h4>
               <ul>
