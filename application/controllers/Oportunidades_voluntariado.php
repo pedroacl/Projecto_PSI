@@ -29,6 +29,9 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == FALSE) {
+			
+			$this->js_file = 'instituicoes/instituicoes_edit_profile.js';
+			$this->title = "Adicionar nova Oportunidade de Voluntariado";
 			$this->load->view('templates/main_template/header');
 			$this->load->view('/oportunidades_voluntariado/add');
 			$this->load->view('templates/main_template/footer');
@@ -37,9 +40,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->oportunidade_voluntariado->insert_entry($this->input);
 		}
 
-		$this->load->view('templates/main_template/header');
-		$this->load->view('/oportunidades_voluntariado/add');
-		$this->load->view('templates/main_template/footer');
+
 	}
 
 	public function show($id_oportunidade_voluntariado)
@@ -91,10 +92,12 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$id_oportunidade_voluntariado = $this->disponibilidade->insert_entry($id_voluntario, $this->input);
 
 			// criar join table
-			$this->oportunidade_voluntariado_disponibilidade->insert_entry($id_disponibilidade, $this->input)
+			$this->oportunidade_voluntariado_disponibilidade->insert_entry($id_disponibilidade, $this->input);
 
 			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
-			redirec('oportunidade_voluntariado/show');
+			redirect('oportunidade_voluntariado/show');
+
+			$this->oportunidade_voluntariado->get_entry();
 	 	}
 	}
 }

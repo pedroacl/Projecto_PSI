@@ -74,6 +74,11 @@ class Oportunidade_voluntariado extends CI_Model {
                 'rules' => 'required'
             ),
             array(
+                'field' => 'vagas',
+                'label' => 'Vagas',
+                'rules' => 'required'
+            ),
+            array(
                 'field' => 'distrito',
                 'label' => 'Distrito',
                 'rules' => 'required'
@@ -87,7 +92,7 @@ class Oportunidade_voluntariado extends CI_Model {
                 'field' => 'freguesia',
                 'label' => 'Freguesia',
                 'rules' => 'required'
-            ),
+            )
         );
 
         return $rules;
