@@ -77,3 +77,6 @@ $route['disponibilidades/delete/:id']['get'] = 'Disponibilidades/delete/:id';
 // Habilitacoes Academicas
 $route['habilitacoes_academicas/edit/:id']['get'] = 'Habilitacoes_academicas/edit/:id';
 $route['habilitacoes_academicas/delete/:id']['get'] = 'Habilitacoes_academicas/delete/:id';
+
+// Oportunidades Voluntariado
+$route['oportunidades_voluntariado/:id']['get'] = 'Oportunidades_voluntariado/show/:id';

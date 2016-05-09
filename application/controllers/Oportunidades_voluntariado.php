@@ -29,8 +29,14 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
-	public function profile()
+	public function show($id_oportunidade_voluntariado)
 	{
+
+	}
+
+	public function edit($id_oportunidade_voluntariado)
+	{
+		$this->oportunidade_voluntariado->get_entry();
 		$this->load->view('templates/main_template/header');
 		$this->load->view('/oportunidades_voluntariado/profile');
 		$this->load->view('templates/main_template/footer');
