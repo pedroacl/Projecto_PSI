@@ -40,4 +40,20 @@ class MY_Controller extends CI_Controller {
   	{
     	return $this->session->userdata('id_utilizador');
   	}
+
+  	public function validate_is_voluntario()
+  	{
+  		$id_instituicao = $this->session->userdata('id_voluntario');
+
+ 		if (!isset($id_voluntario))
+			redirect('home/index', 'refresh');
+  	}
+
+  	public function validate_is_instituicao()
+  	{
+  		$id_instituicao = $this->session->userdata('id_instituicao');
+
+  		if (!isset($id_instituicao))
+			redirect('home/index', 'refresh');
+  	}
 }
