@@ -143,7 +143,6 @@ CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
    id                  INT 				AUTO_INCREMENT,
    id_area_interesse   INT 				NOT NULL,
    id_grupo_atuacao    INT 				NOT NULL,
-   id_disponibilidade  INT 				NOT NULL,
    id_area_geografica  INT 				NOT NULL,
    id_instituicao      INT 				NOT NULL,
    nome                VARCHAR(150) 	NOT NULL UNIQUE,
@@ -154,9 +153,8 @@ CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
    PRIMARY KEY (id),
    FOREIGN KEY (id_area_interesse) 	REFERENCES Areas_Interesse(id),
    FOREIGN KEY (id_grupo_atuacao) 	REFERENCES Grupos_Atuacao(id),
-   FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id),
    FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
-   FOREIGN KEY (id_instituicao) 		REFERENCES Instituicoes(id)
+   FOREIGN KEY (id_instituicao) 		REFERENCES Instituicoes(id) ON DELETE CASCADE
 );
 
 
@@ -169,6 +167,14 @@ CREATE TABLE IF NOT EXISTS Inscreve_Se (
    FOREIGN KEY (id_voluntario) 				       REFERENCES Voluntarios(id) ON DELETE CASCADE,
    FOREIGN KEY (id_oportunidade_voluntariado) 	 REFERENCES Oportunidades_Voluntariado(id) ON DELETE CASCADE
 );
+
+
+CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado_Disponibilidades (
+   id_oportunidade_voluntariado  INT,
+   id_disponibilidade            INT,
+   PRIMARY KEY (id_oportunidade_voluntariado, id_disponibilidade)
+);
+
 
 ## CODEIGNITER
 CREATE TABLE IF NOT EXISTS `ci_sessions` (

@@ -3,36 +3,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Oportunidade_voluntariado extends CI_Model {
 
-    function insert_entry($id_utilizador)
+    function __construct()
     {
-        $this->db->insert('Oportunidades_Voluntariado', array('id_utilizador' => $id_utilizador));
+      parent::__construct();
+      $this->load->model('Periodicidade', 'periodicidade');
+    }
+
+    public function insert_entry($id_utilizador)
+    {
+        $data = $this->get_form_data();
+        $this->db->insert('Oportunidades_Voluntariado', $data);
+
         return $this->db->insert_id();
     }
 
-    public function update_entry($id_voluntario, $input)
+    public function update_entry($input)
     {
-        $data_voluntarios = $this->get_form_data($input);
+        $oportunidade_voluntariado = $this->get_form_data($input);
 
-        $this->db->where('id', $id_voluntario);
-        $this->db->update('Voluntarios', $data_voluntarios);
+        $this->db->where('id', $oportunidade_voluntariado['id']);
+        $this->db->update('Voluntarios', $oportunidade_voluntariado);
+
+        // atualizar periodicidade
+        $this->periodicidade->update_entry($input);
     }
 
-    function get_by_id_utilizador($id_utilizador)
+    public function delete_entry($id_oportunidade_voluntariado)
     {
-        $this->db->select('utilizadores.id, utilizadores.email, utilizadores.nome, voluntarios.genero, voluntarios.data_nascimento, utilizadores.telefone, voluntarios.foto');
+        $this->db->where('id', $id_oportunidade_voluntariado);
+        $this->db->delete('Oportunidades_Voluntariado');
+    }
 
-        $this->db->from('Utilizadores as utilizadores');
-        $this->db->join('Voluntarios as voluntarios', 'utilizadores.id = voluntarios.id_utilizador');
-        $this->db->where('utilizadores.id', $id_utilizador);
+    public function get_by_id($id_oportunidade_voluntariado)
+    {
+        $this->db->select('*');
+        $this->db->from('Oportunidades_Voluntariado as ov');
+        $this->db->where('id', $id_oportunidade_voluntariado);
 
         return $this->db->get();
     }
 
-    function get_form_data($input)
+    public function get_form_data($input)
     {
         $data = array(
-            'genero'          => $input->post('genero'),
-            'data_nascimento' => date("Y/m/d", strtotime($input->post('data_nascimento')))
+            'nome'   => $input->post('nome'),
+            'funcao' => $input->post('funcao'),
+            'pais'   => $input->post('pais'),
+            'vagas'  => $input->post('vagas')
         );
 
         return $data;
@@ -42,63 +59,37 @@ class Oportunidade_voluntariado extends CI_Model {
     {
         $rules = array(
             array(
-                'field' => 'telefone',
-                'label' => 'Telefone',
-                'rules' => 'min_length[9]'
-            )/*,
+                'field' => 'nome',
+                'label' => 'Nome',
+                'rules' => 'required'
+            ),
             array(
-                'field' => 'concelho',
-                'label' => 'Concelho',
-                'rules' => 'callback_not_default'
+                'field' => 'funcao',
+                'label' => 'Função',
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'pais',
+                'label' => 'País',
+                'rules' => 'required'
             ),
             array(
                 'field' => 'distrito',
                 'label' => 'Distrito',
-                'rules' => 'callback_not_default'
+                'rules' => 'required'
+            ),
+            array(
+                'field' => 'concelho',
+                'label' => 'Concelho',
+                'rules' => 'required'
             ),
             array(
                 'field' => 'freguesia',
                 'label' => 'Freguesia',
-                'rules' => 'callback_not_default'
-            )*/
+                'rules' => 'required'
+            ),
         );
 
         return $rules;
-    }
-
-    function upload_photo($id_voluntario)
-    {
-        $photo_upload_path       = './uploads/' . $id_voluntario . '/photos';
-        $config['upload_path']   = $photo_upload_path;
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size']      = '100';
-        $config['max_width']     = '1024';
-        $config['max_height']    = '768';
-
-        $this->load->library('upload', $config);
-
-        // criar directorio do utilizador
-        if (!is_dir($photo_upload_path))
-        {
-            mkdir($photo_upload_path, 0777, true);
-        }
-
-        // erro de upload da foto
-        if ( ! $this->upload->do_upload('foto'))
-        {
-            return $this->upload->display_errors();
-        }
-        // atualizar path da foto
-        else
-        {
-            $upload_data = $this->upload->data();
-
-            $user_data = array(
-                'foto' => $photo_upload_path . '/' . $upload_data['file_name']
-            );
-
-            $this->db->where('id', $id_voluntario);
-            $this->db->update('Voluntarios', $user_data);
-        }
     }
 }

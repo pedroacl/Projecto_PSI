@@ -129,7 +129,11 @@ class Voluntarios extends MY_Controller {
 		$this->form_validation->set_rules($form_rules);
 
 		if ($this->form_validation->run() == FALSE) {
-
+			// mostrar novamente o formulario
+			$this->js_file = 'home.js';
+			$this->load->view('templates/main_template/header');
+			$this->load->view('voluntarios/edit_profile');
+			$this->load->view('templates/main_template/footer');
 	 	} else {
 			$this->disponibilidade->insert_entry($id_voluntario, $this->input);
 			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');

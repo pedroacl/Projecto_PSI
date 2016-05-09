@@ -8,7 +8,7 @@ class Periodicidade extends CI_Model {
       parent::__construct();
    }
 
-   function insert_entry($input, $id_disponibilidade)
+   public function insert_entry($input, $id_disponibilidade)
    {
       $periodicidade = $this->get_signup_form_data($input, $id_disponibilidade);
       $this->db->insert('Periodicidades', $periodicidade);
@@ -16,14 +16,14 @@ class Periodicidade extends CI_Model {
       return $this->db->insert_id();
    }
 
-   function get_signup_form_data($input, $id_disponibilidade)
+   function get_form_data($input, $id_disponibilidade)
    {
-      $data_fim = date("Y/m/d", strtotime($input['repetir_ate']));
+      $data_fim = date("Y/m/d", strtotime($input->post('repetir_ate')));
 
    	$data = array(
          'id_disponibilidade' => $id_disponibilidade,
-         'tipo'               => $input['periodicidade'],
-         'data_fim'           => $data_fim
+         'tipo'               => $input->post('periodicidade'),
+         'data_fim'           => $input->post('data_fim')
    	);
 
       return $data;
