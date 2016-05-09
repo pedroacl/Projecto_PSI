@@ -73,3 +73,7 @@ $route['edit_profile']['post'] = 'Voluntarios/update_profile';
 // Disponibilidades
 $route['disponibilidades/edit/:id']['get'] = 'Disponibilidades/edit/:id';
 $route['disponibilidades/delete/:id']['get'] = 'Disponibilidades/delete/:id';
+
+// Habilitacoes Academicas
+$route['habilitacoes_academicas/edit/:id']['get'] = 'Habilitacoes_academicas/edit/:id';
+$route['habilitacoes_academicas/delete/:id']['get'] = 'Habilitacoes_academicas/delete/:id';

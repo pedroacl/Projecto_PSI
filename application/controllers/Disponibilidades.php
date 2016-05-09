@@ -17,6 +17,7 @@ class Disponibilidades extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
+	// POST disponibilidades/add
 	public function add($id_utilizador)
 	{
 		$this->load->model('Disponibilidade', 'disponibilidade');
@@ -25,6 +26,7 @@ class Disponibilidades extends MY_Controller {
 		$this->disponibilidade->add($habilitacao_academica);
 	}
 
+	// GET disponibilidades/edit/:id_disponibilidade
 	public function edit($id_disponibilidade)
 	{
 		$this->load->model('Disponibilidade', 'disponibilidade');
@@ -32,14 +34,13 @@ class Disponibilidades extends MY_Controller {
 		$disponibilidade = $this->input->post();
 		$this->disponibilidade = $this->disponibilidade->get_by_id($id_disponibilidade)->row();
 
-		print_r($this->disponibilidade);
-
 		$this->js_file = '';
 		$this->load->view('templates/main_template/header');
 		$this->load->view('disponibilidades/edit_disponibilidade');
 		$this->load->view('templates/main_template/footer');
 	}
 
+	// POST disponibilidades/process_edit
 	public function process_edit()
 	{
 		// validation
