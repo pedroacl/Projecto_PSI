@@ -76,6 +76,7 @@ class Voluntarios extends MY_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			// mostrar novamente formulario
+			$this->js_file = 'home.js';
 			$this->load->view('templates/main_template/header');
 			$this->load->view('voluntarios/edit_profile');
 			$this->load->view('templates/main_template/footer');
