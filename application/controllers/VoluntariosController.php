@@ -174,7 +174,7 @@ class VoluntariosController extends MY_Controller {
 			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $this->input);
 			//$this->disponibilidade->insert_entry($this->input);
 
-			$this->session->set_flashdata('notice', 'Utilizador atualizado com sucesso.');
+			$this->session->set_flashdata('success', 'Utilizador atualizado com sucesso.');
 			//redirect('profile', 'refresh');
 
 		}

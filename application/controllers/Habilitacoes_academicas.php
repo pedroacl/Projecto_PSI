@@ -14,7 +14,7 @@ class Habilitacoes_academicas extends MY_Controller {
 	{
 		$this->habilitacao_academica->insert_entry($this->id_utilizador, $this->input);
 
- 		$this->session->set_flashdata('notice', 'Habilitacao Academica adicionada!');
+ 		$this->session->set_flashdata('success', 'Habilitacao Academica adicionada!');
 		redirect('voluntarios/profile');
 	}
 
@@ -51,7 +51,7 @@ class Habilitacoes_academicas extends MY_Controller {
 	{
 		$this->habilitacao_academica->delete_entry($id_habilitacao_academica);
 
- 		$this->session->set_flashdata('notice', 'Habilitacao Academica eliminada!');
+ 		$this->session->set_flashdata('success', 'Habilitacao Academica eliminada!');
 		redirect('voluntarios/profile');
 	}
 }

@@ -22,7 +22,7 @@ class HomeController extends MY_Controller {
 	{
 		// if ($this->user_logged_in())
 		// {
-		// 	$this->session->set_flashdata('notice', 'Utilizador ja se encontra registado.');
+		// 	$this->session->set_flashdata('success', 'Utilizador ja se encontra registado.');
 		// 	redirect('', 'refresh');
 		// }
 
@@ -128,10 +128,8 @@ class HomeController extends MY_Controller {
 			$this->session->set_userdata($cookie);
 
 			// success page
-			$this->session->set_flashdata('notice', 'Utilizador registado com sucesso.');
-			$this->load->view('templates/main_template/header');
-			$this->load->view('home/index');
-			$this->load->view('templates/main_template/footer');
+			$this->session->set_flashdata('success', 'Utilizador registado com sucesso.');
+			redirect('/', 'refresh');
 		}
 	}
 
@@ -170,7 +168,7 @@ class HomeController extends MY_Controller {
 		// utilizador ja esta autenticado
 		if ($this->user_logged_in())
 		{
-			$this->session->set_flashdata('notice', 'Utilizador já se encontra registado.');
+			$this->session->set_flashdata('success', 'Utilizador já se encontra registado.');
 			redirect('', 'refresh');
 		}
 

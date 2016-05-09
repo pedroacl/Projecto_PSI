@@ -85,7 +85,7 @@ class Voluntarios extends MY_Controller {
 			$this->voluntario->update_entry($this->id_voluntario, $this->input);
 			$this->utilizador->update_entry($this->id_utilizador, $this->input);
 
-	 		$this->session->set_flashdata('notice', 'Perfil atualizado com sucesso!');
+	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
 			redirect('voluntarios/profile');
 		}
 	}
@@ -104,7 +104,7 @@ class Voluntarios extends MY_Controller {
 			print_r($this->input->post());
 	 	} else {
 			$this->habilitacao_academica->insert_entry($id_voluntario, $this->input);
-	 		$this->session->set_flashdata('notice', 'Hablitacao Academica adicionada com sucesso!');
+	 		$this->session->set_flashdata('success', 'Hablitacao Academica adicionada com sucesso!');
 			print_r($this->input->post());
 	 	}
 
@@ -125,7 +125,7 @@ class Voluntarios extends MY_Controller {
 
 	 	} else {
 			$this->disponibilidade->insert_entry($id_voluntario, $this->input);
-			$this->session->set_flashdata('notice', 'Disponibilidade adicionada com sucesso!');
+			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
 	 	}
 
 	 	// voltar a exibir perfil
@@ -258,7 +258,7 @@ class Voluntarios extends MY_Controller {
 			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $this->input);
 			//$this->disponibilidade->insert_entry($this->input);
 
-			$this->session->set_flashdata('notice', 'Utilizador atualizado com sucesso.');
+			$this->session->set_flashdata('success', 'Utilizador atualizado com sucesso.');
 			//redirect('profile', 'refresh');
 
 		}
