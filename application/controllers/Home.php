@@ -87,9 +87,7 @@ class Home extends MY_Controller {
 
 			$this->session->set_flashdata('success',
 				'Utilizador registado com sucesso.');
-			$this->load->view('templates/main_template/header');
-			$this->load->view('home/index');
-			$this->load->view('templates/main_template/footer');
+			redirect('', 'location');
 		}
 	}
 
