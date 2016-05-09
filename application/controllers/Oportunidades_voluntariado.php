@@ -19,4 +19,20 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->view('/oportunidades_voluntariado/index');
 		$this->load->view('templates/main_template/footer');
 	}
+
+	public function add()
+	{
+		$this->load->helper('form');
+
+		$this->load->view('templates/main_template/header');
+		$this->load->view('/oportunidades_voluntariado/add');
+		$this->load->view('templates/main_template/footer');
+	}
+
+	public function profile()
+	{
+		$this->load->view('templates/main_template/header');
+		$this->load->view('/oportunidades_voluntariado/profile');
+		$this->load->view('templates/main_template/footer');
+	}
 }
