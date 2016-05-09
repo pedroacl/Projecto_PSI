@@ -56,34 +56,34 @@ class Instituicao extends CI_Model {
 
     function get_form_validation_rules() {
         $rules = array(
-            array(
-                'field' => 'email',
-                'label' => 'Email',
-                'rules' => 'required|valid_email|min_length[8]'
-            ),
-            array(
-                'field' => 'password',
-                'label' => 'Password',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'password_confirmation',
-                'label' => 'Password Confirmation',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'user_name',
-                'label' => 'nome',
-                'rules' => 'required'
-            ),
-            array(
-                'field' => 'id_area_geografica',
-                'label' => 'Password Confirmation',
-                'rules' => 'required'
-            ),
-            array(
+            // array(
+            //     'field' => 'email',
+            //     'label' => 'Email',
+            //     'rules' => 'required|valid_email|min_length[8]'
+            // ),
+            // array(
+            //     'field' => 'password',
+            //     'label' => 'Password',
+            //     'rules' => 'required'
+            // ),
+            // array(
+            //     'field' => 'password_confirmation',
+            //     'label' => 'Password Confirmation',
+            //     'rules' => 'required'
+            // ),
+            // array(
+            //     'field' => 'user_name',
+            //     'label' => 'nome',
+            //     'rules' => 'required'
+            // ),
+            // array(
+            //     'field' => 'id_area_geografica',
+            //     'label' => 'Area Geografica',
+            //     'rules' => 'required'
+            // ),
+            // array(
 
-            )
+            // )
         );
 
         return $rules;
