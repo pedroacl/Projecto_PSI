@@ -165,7 +165,6 @@ class Home extends MY_Controller {
 			// authenticar utilizador
 			if (($user = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
 				$this->session->set_flashdata('success', 'Utilizador autenticado com sucesso!');
-
 		      redirect('', 'refresh');
 
 			} else {
@@ -182,10 +181,12 @@ class Home extends MY_Controller {
 	// GET /logout
 	public function logout()
 	{
-		$this->session->unset_userdata('id');
+		$this->session->unset_userdata('id_utilizador');
+		$this->session->unset_userdata('id_voluntario');
+		$this->session->unset_userdata('id_instituicao');
+		$this->session->unset_userdata('tipo_utilizador');
 		$this->session->unset_userdata('email');
 		$this->session->unset_userdata('nome');
-		$this->session->unset_userdata('tipo_utilizador');
 		$this->session->sess_destroy();
 
 		redirect('', 'refresh');

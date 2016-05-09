@@ -25,18 +25,21 @@
                 <dt>Website</dt>
                 <dd><?= $this->instituicao->website ?></dd>
 
+                <dt>Telefone</dt>
+                <dd><?= $this->instituicao->telefone ?></dd>
+
                 <dt>Email</dt>
                 <dd><?= $this->instituicao->email ?></dd>
 
-                <?php if ($this->area_geografica->row() != null) { ?>
+                <?php if ($this->area_geografica_data->num_rows() > 0) { ?>
                   <dt>Distrito</dt>
-                  <dd><?= $this->area_geografica->distrito ?></dd>
+                  <dd><?= $this->area_geografica_data->distrito ?></dd>
 
                   <dt>Concelho</dt>
-                  <dd><?= $this->area_geografica->concelho ?></dd>
+                  <dd><?= $this->area_geografica_data->concelho ?></dd>
 
                   <dt>Freguesia</dt>
-                  <dd><?= $this->area_geografica->freguesia ?></dd>
+                  <dd><?= $this->area_geografica_data->freguesia ?></dd>
                 <?php } ?>
               </dl>
 
@@ -47,12 +50,10 @@
               <div class="row">
                 <div class="col-md-12">
                   <h1><?= $this->instituicao->nome ?></h1>
-                  Descrição goes here
                   <?= $this->instituicao->descricao ?>
+                  (Descrição goes here)
                 </div>
               </div>
-
-              
             </div>
           </div>
         </div>

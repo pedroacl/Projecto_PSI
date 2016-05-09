@@ -1,4 +1,4 @@
-<?php
+    <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Utilizador extends CI_Model {
@@ -48,8 +48,8 @@ class Utilizador extends CI_Model {
                         'id_utilizador'   => $utilizador->id_utilizador,
                         'id_instituicao'  => $utilizador->id_instituicao,
                         'email'           => $email,
-                        'tipo_utilizador' => $user->tipo_utilizador,
-                        'nome'            => $user->nome
+                        'tipo_utilizador' => $utilizador->tipo_utilizador,
+                        'nome'            => $utilizador->nome
                     );
                 }
 
@@ -106,7 +106,6 @@ class Utilizador extends CI_Model {
 
     function update_entry($id_utilizador, $input)
     {
-        $utilizadores->updated_at = time();
         $data_utilizador = $this->get_update_form_data($input);
 
         $this->db->where('id', $id_utilizador);
@@ -135,7 +134,8 @@ class Utilizador extends CI_Model {
     {
         $data = array(
             'telefone'        => $input->post('telefone'),
-            'nome'            => $input->post('nome_utilizador')
+            'nome'            => $input->post('nome_utilizador'),
+            'updated_at'      => date("Y-m-d", time())
         );
 
         return $data;
@@ -181,6 +181,11 @@ class Utilizador extends CI_Model {
                 'field' => 'tipo_utilizador',
                 'label' => 'Tipo de Utilizador',
                 'rules' => 'required|min_length[9]'
+            ),
+            array(
+                'field' => 'telefone',
+                'label' => 'Telefone',
+                'rules' => 'min_length[9]'
             )
         );
 

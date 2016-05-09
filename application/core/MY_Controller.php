@@ -26,6 +26,7 @@ class MY_Controller extends CI_Controller {
 		$this->nome_utilizador = $this->session->userdata('nome');
 		$this->id_utilizador   = $this->session->userdata('id_utilizador');
 		$this->id_voluntario   = $this->session->userdata('id_voluntario');
+		$this->id_instituicao  = $this->session->userdata('id_instituicao');
 	}
 
 	public function authenticate_user()
@@ -45,15 +46,19 @@ class MY_Controller extends CI_Controller {
   	{
   		$id_instituicao = $this->session->userdata('id_voluntario');
 
- 		if (!isset($id_voluntario))
+ 		if (!isset($id_voluntario)) {
+	 		$this->session->set_flashdata('warning', 'Utilizador não é um voluntário!');
 			redirect('home/index', 'refresh');
+ 		}
   	}
 
   	public function validate_is_instituicao()
   	{
   		$id_instituicao = $this->session->userdata('id_instituicao');
 
-  		if (!isset($id_instituicao))
+  		if (!isset($id_instituicao)) {
+	 		$this->session->set_flashdata('warning', 'Utilizador não é uma instituição!');
 			redirect('home/index', 'refresh');
+  		}
   	}
 }

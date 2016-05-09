@@ -28,6 +28,18 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$rules = $this->oportunidade_voluntariado->get_form_validation_rules();
 		$this->form_validation->set_rules($rules);
 
+		$this->ativa = array(
+			'name'  => 'ativa',
+			'value' => 'y',
+			'checked' => $this->input->post('ativa') == 'y'
+		);
+
+		$this->nao_ativa = array(
+			'name'  => 'ativa',
+			'value' => 'n',
+			'checked' => $this->input->post('ativa') == 'n'
+		);
+
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('templates/main_template/header');
 			$this->load->view('/oportunidades_voluntariado/add');
@@ -36,10 +48,6 @@ class Oportunidades_voluntariado extends MY_Controller {
 		} else {
 			$this->oportunidade_voluntariado->insert_entry($this->input);
 		}
-
-		$this->load->view('templates/main_template/header');
-		$this->load->view('/oportunidades_voluntariado/add');
-		$this->load->view('templates/main_template/footer');
 	}
 
 	public function show($id_oportunidade_voluntariado)
@@ -91,7 +99,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$id_oportunidade_voluntariado = $this->disponibilidade->insert_entry($id_voluntario, $this->input);
 
 			// criar join table
-			$this->oportunidade_voluntariado_disponibilidade->insert_entry($id_disponibilidade, $this->input)
+			$this->oportunidade_voluntariado_disponibilidade->insert_entry($id_disponibilidade, $this->input);
 
 			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
 			redirec('oportunidade_voluntariado/show');

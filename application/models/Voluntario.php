@@ -52,11 +52,7 @@ class Voluntario extends CI_Model {
     public function get_form_validation_rules()
     {
         $rules = array(
-            array(
-                'field' => 'telefone',
-                'label' => 'Telefone',
-                'rules' => 'min_length[9]'
-            )/*,
+/*
             array(
                 'field' => 'concelho',
                 'label' => 'Concelho',

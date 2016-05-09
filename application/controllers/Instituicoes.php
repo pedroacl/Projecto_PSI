@@ -17,18 +17,18 @@ class Instituicoes extends MY_Controller {
 
 	public function profile()
 	{
-		$this->load->model('Area_geografica', 'area_geografica');
+		$this->load->helper('form');
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$this->load->helper('form');
+		$this->load->model('Area_geografica');
 
 		// instituicao
 		$this->instituicao =
 			$this->instituicao->get_by_id_utilizador($this->id_utilizador)->row();
 
 		// area geografica
-		$this->area_geografica = $this->area_geografica->get_by_id_utilizador($this->id_utilizador);
+		$this->area_geografica_data = $this->Area_geografica->get_by_id_utilizador($this->id_utilizador);
 
 		$this->js_file = 'home.js';
 		$this->load->view('templates/main_template/header');
@@ -37,41 +37,42 @@ class Instituicoes extends MY_Controller {
 	}
 
 	// GET /instituicoes/edit_main_profile
-	public function edit_main_profile()
+	public function edit_profile()
 	{
+		$this->load->library('form_validation');
 		$this->load->helper('form');
-		$this->load->model('Utilizador', 'utilizador');
-		$this->instituicao_data = $this->instituicao->get_by_id_utilizador($this->id_utilizador)->row();
 
-		$this->utilizador_data = $this->utilizador->get_by_id($this->id_utilizador, 'instituicao')->row();
-		$this->load->model('AreaGeografica', 'area_geografica');
+		$this->load->model('Utilizador', 'utilizador');
+		$this->load->model('Area_geografica', 'area_geografica');
+
+		$this->instituicao_data = $this->instituicao->get_by_id_utilizador($this->id_utilizador)->row();
+		$this->utilizador_data  = $this->utilizador->get_by_id($this->id_utilizador, 'instituicao')->row();
+
 		if ($this->utilizador_data->id_area_geografica !== null) {
 			$this->area_geografica = $this->area_geografica->get_by_id($this->utilizador_data->id_area_geografica)->row();
 		} else {
 			$this->area_geografica = '';
 		}
 
-		$this->js_file = 'instituicoes/instituicoes_edit_profile.js';
-		$this->load->view('templates/main_template/header');
-		$this->load->view('instituicoes/edit_profile');
-		$this->load->view('templates/main_template/footer');
-	}
-
-	// POST /instituicoes/update_main_profile
-	public function update_main_profile()
-	{
-		$this->load->library('form_validation');
-
 		$form_rules = $this->instituicao->get_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
 
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() == FALSE)
+		{
 			// mostrar novamente formulario
-			$this->edit_main_profile();
+			$this->js_file = 'instituicoes/instituicoes_edit_profile.js';
+			$this->load->view('templates/main_template/header');
+			$this->load->view('instituicoes/edit_profile');
+			$this->load->view('templates/main_template/footer');
 		} else {
-			
+			// atualizar utilizador
+        	$this->utilizador->update_entry($this->id_utilizador, $this->input);
+
+			// atualizar instituicao
+			$this->instituicao->update_entry($this->id_instituicao, $this->input);
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
-			$this->profile();
+
+			redirect('instituicoes/profile');
 		}
 	}
 }

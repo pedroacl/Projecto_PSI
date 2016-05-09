@@ -19,7 +19,7 @@
             <div class="form-group <?= has_error('descricao') ?>">
               <label class="control-label">Descricao</label>
               <?= form_error('descricao', "<span class='help-block'>", "</span>")?>
-              <textarea name="descricao" value="<?= set_value('descricao', $this->instituicao_data->descricao); ?>" class="form-control" placeholder="Descrição"></textarea>
+              <textarea name="descricao" class="form-control" placeholder="Descrição"><?= set_value('descricao', $this->instituicao_data->descricao); ?></textarea>
             </div>
 
             <div class="form-group <?= has_error('telefone') ?>">
@@ -38,6 +38,12 @@
               <label class="control-label">Website</label>
               <?= form_error('website', "<span class='help-block'>", "</span>")?>
               <input name="website" value="<?= set_value('website', $this->instituicao_data->website); ?>" class="form-control" placeholder="Website"></input>
+            </div>
+
+            <div class="form-group <?= has_error('website') ?>">
+              <label class="control-label">Email de Instituição</label>
+              <?= form_error('email_instituicao', "<span class='help-block'>", "</span>")?>
+              <input name="email_instituicao" value="<?= set_value('website', $this->instituicao_data->email_instituicao); ?>" class="form-control" placeholder="Email de Instituição"></input>
             </div>
 
             <br>

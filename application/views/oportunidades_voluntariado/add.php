@@ -1,4 +1,3 @@
-<?php echo form_open('email/send'); ?>
 
 <div class="container-fluid content">
   <div class="row">
@@ -15,7 +14,7 @@
             <div class="voluntario_fields">
               <?php echo validation_errors() ?>
 
-              <div class="form-group <?= has_error('nome_utilizador') ?>" >
+              <div class="form-group <?= has_error('nome') ?>" >
                 <label class="control-label">Nome</label>
                 <?= form_error('nome', "<span class='help-block'>", "</span>")?>
                 <input name="nome" value="<?= set_value('nome'); ?>" class="form-control" placeholder="Nome"></input>
@@ -27,25 +26,28 @@
                 <input name="pais" value="<?= set_value('pais'); ?>" class="form-control" placeholder="País	"></input>
               </div>
 
+              <?php print_r($this->input->post()) ?>
+
              <div class="form-group <?= has_error('vagas') ?>" >
                 <label class="control-label">Vagas</label>
                 <?= form_error('vagas', "<span class='help-block'>", "</span>")?>
-                <input name="pais" value="<?= set_value('vagas'); ?>" class="form-control" placeholder="Vagas"></input>
+                <input name="vagas" value="<?= set_value('vagas'); ?>" class="form-control" placeholder="Vagas"></input>
               </div>
 
               	<div class="form-group <?= has_error('funcao') ?>" >
                 	<label class="control-label">Função</label>
                 	<?= form_error('funcao', "<span class='help-block'>", "</span>")?>
-                	<input name="pais" value="<?= set_value('funcao'); ?>" class="form-control" placeholder="Função"></input>
+                	<input name="funcao" value="<?= set_value('funcao'); ?>" class="form-control" placeholder="Função"></input>
               	</div>
 
-               <div class="form-group <?= has_error('funcao') ?>" >
+               <div class="form-group <?= has_error('ativa') ?>" >
                 	<label class="control-label">Ativa</label>
-                	<?= form_error('funcao', "<span class='help-block'>", "</span>")?>
-                	<checkbox name="pais" value="<?= set_value('funcao'); ?>" class="form-control" placeholder="Função"/>
-              </div>
+                	<?= form_error('ativa', "<span class='help-block'>", "</span>")?>
 
-           
+                  <div>
+                  <?php echo "Ativa" . form_radio($this->ativa) . "Não ativa" . form_radio($this->nao_ativa) ?>
+                  </div>
+              </div>
 
 
               <br>
@@ -88,7 +90,7 @@
 
             <div class="pull-right">
               <a href="#" onclick="window.history.back();" class="btn btn-danger">Cancelar</a>
-              <button class="btn btn-success" type="submit">Atualizar</button>
+              <button class="btn btn-success" type="submit">Adicionar</button>
             </div>
           </form>
 

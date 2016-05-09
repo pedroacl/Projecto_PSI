@@ -71,8 +71,8 @@ $route['voluntarios/edit_profile']['get']  = 'Voluntarios/edit_profile';
 $route['voluntarios/edit_profile']['post'] = 'Voluntarios/update_profile';
 
 // Instituições
-$route['instituicoes/edit_profile']['get']  = 'Instituicoes/edit_main_profile';
-$route['instituicoes/edit_profile']['post'] = 'Instituicoes/update_main_profile';
+//$route['instituicoes/edit_profile']['get']  = 'Instituicoes/edit_main_profile';
+//$route['instituicoes/edit_profile']['post'] = 'Instituicoes/update_main_profile';
 
 // Disponibilidades
 $route['disponibilidades/edit/:id']['get'] = 'Disponibilidades/edit/:id';
