@@ -76,7 +76,7 @@ class Instituicoes extends MY_Controller {
 			// mostrar novamente formulario
 			$this->edit_profile();
 		} else {
-	 		$this->session->set_flashdata('notice', 'Perfil atualizado com sucesso!');
+	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
 			redirect('voluntarios/profile');
 		}
 	}

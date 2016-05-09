@@ -69,7 +69,14 @@ class Voluntarios extends MY_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('Utilizador', 'utilizador');
 
-		$this->voluntario_data = $this->voluntario->get_main_profile($this->session->userdata('id_utilizador'))->row();
+		$this->voluntario_data = $this->voluntario->get_main_profile($this->id_utilizador)->row();
+		$this->utilizador_data = $this->utilizador->get_by_id($this->id_utilizador, 'voluntario');
+		$this->load->model('AreaGeografica', 'area_geografica');
+		if ($this->utilizador_data->id_area_geografica !== null) {
+			$this->area_geografica = $this->area_geografica->get_by_id($this->utilizador_data->id_area_geografica)->row();
+		} else {
+			$this->area_geografica = '';
+		}
 
 		$form_rules = $this->voluntario->get_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
@@ -85,7 +92,7 @@ class Voluntarios extends MY_Controller {
 			$this->voluntario->update_entry($this->id_voluntario, $this->input);
 			$this->utilizador->update_entry($this->id_utilizador, $this->input);
 
-	 		$this->session->set_flashdata('notice', 'Perfil atualizado com sucesso!');
+	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
 			redirect('voluntarios/profile');
 		}
 	}
@@ -104,7 +111,7 @@ class Voluntarios extends MY_Controller {
 			print_r($this->input->post());
 	 	} else {
 			$this->habilitacao_academica->insert_entry($id_voluntario, $this->input);
-	 		$this->session->set_flashdata('notice', 'Hablitacao Academica adicionada com sucesso!');
+	 		$this->session->set_flashdata('success', 'Hablitacao Academica adicionada com sucesso!');
 			print_r($this->input->post());
 	 	}
 
@@ -125,57 +132,11 @@ class Voluntarios extends MY_Controller {
 
 	 	} else {
 			$this->disponibilidade->insert_entry($id_voluntario, $this->input);
-			$this->session->set_flashdata('notice', 'Disponibilidade adicionada com sucesso!');
+			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
 	 	}
 
 	 	// voltar a exibir perfil
 		$this->profile();
-	}
-
-	public function edit($id)
-	{
-		$this->authenticate_user();
-		$this->load->library('form_validation');
-
-		$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
-		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
-
-		$this->load->model('GrupoAtuacao', 'grupo_atuacao');
-		$this->load->model('Utilizador_GrupoAtuacao', 'grupos_atuacao_de_utilizador');
-		$this->grupos_atuacao = $this->grupo_atuacao->get_entries();
-
-		$this->load->model('AreaInteresse', 'area_iteresse');
-		$this->load->model('Utilizador_AreaInteresse', 'areas_interesse_de_utilizador');
-		$this->areas_interesse = $this->area_iteresse->get_entries();
-
-		// $this->load->model('Disponibilidades', 'disponibilidade');
-		// $this->disponibilidades = $this->disponibilidade->get_disponibilidades_by_user_id($this->session->userdata('id'));
-
-		$this->load->model('Voluntario', 'voluntario');
-		$this->voluntario = $this->voluntario->get_by_id_utilizador($this->session->userdata('id'))->row();
-		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
-
-		$this->load->model('HabilitacaoAcademica', 'habilitacao_academica');
-		$this->habilitacoes_academicas = $this->habilitacao_academica->get_habilitacoes_academicas_from_user_id($this->voluntario->id);
-		// $this->habilitacoes_academicas->data_conclusao = date("d/m/Y", strtotime($this->habilitacoes_academicas['data_conclusao']));
-
-		$this->load->model('AreaGeografica', 'area_geografica');
-		$this->area_geografica_de_utilizador = $this->area_geografica->get_area_geografica_from_id($this->voluntario->id_area_geografica);
-
-		$this->grupos_atuacao_de_utilizador = $this->grupos_atuacao_de_utilizador->get_grupos_atuacao_from_utilizador($this->voluntario->id);
-		$this->areas_interesse_de_utilizador = $this->areas_interesse_de_utilizador->get_areas_interesse_from_utilizador($this->voluntario->id);
-
-
-		$this->load->model('Disponibilidade', 'disponibilidades');
-		$this->disponibilidades = $this->disponibilidades->get_by_id_utilizador($this->voluntario->id);
-		$this->disponibilidades = $this->disponibilidades->result();
-		// print_r($this->disponibilidades);
-
-
-		$this->js_file = 'edit_profile_voluntarios.js';
-		$this->load->view('templates/main_template/header');
-		$this->load->view('voluntarios/edit_profile');
-		$this->load->view('templates/main_template/footer');
 	}
 
 	function update_profile()
@@ -258,7 +219,7 @@ class Voluntarios extends MY_Controller {
 			$this->utilizador_area_iteresse->insert_entries($id_utilizador, $this->input);
 			//$this->disponibilidade->insert_entry($this->input);
 
-			$this->session->set_flashdata('notice', 'Utilizador atualizado com sucesso.');
+			$this->session->set_flashdata('success', 'Utilizador atualizado com sucesso.');
 			//redirect('profile', 'refresh');
 
 		}

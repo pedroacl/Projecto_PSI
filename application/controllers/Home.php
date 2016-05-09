@@ -85,11 +85,9 @@ class Home extends MY_Controller {
 
 			$this->session->set_userdata($session_data);
 
-			$this->session->set_flashdata('notice',
+			$this->session->set_flashdata('success',
 				'Utilizador registado com sucesso.');
-			$this->load->view('templates/main_template/header');
-			$this->load->view('home/index');
-			$this->load->view('templates/main_template/footer');
+			redirect('', 'location');
 		}
 	}
 
@@ -129,7 +127,7 @@ class Home extends MY_Controller {
 		// utilizador ja esta autenticado
 		if ($this->user_logged_in())
 		{
-			$this->session->set_flashdata('notice', 'Utilizador já se encontra registado.');
+			$this->session->set_flashdata('success', 'Utilizador já se encontra registado.');
 			redirect('', 'refresh');
 		}
 
