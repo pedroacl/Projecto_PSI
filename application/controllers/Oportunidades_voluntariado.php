@@ -30,8 +30,11 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->js_file = 'instituicoes/instituicoes_edit_profile.js';
+
+			$this->session->set_flashdata('danger', validation_errors());
+			
 			$this->title = "Adicionar nova Oportunidade de Voluntariado";
+			$this->js_files = array('disponibilidades.js', 'areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('/oportunidades_voluntariado/add');
 			$this->load->view('templates/main_template/footer');
@@ -96,7 +99,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			// mostrar novamente o formulario
-			$this->js_file = 'home.js';
+			$this->js_files = array('home.js');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('oportunidades_voluntariado/edit');
 			$this->load->view('templates/main_template/footer');

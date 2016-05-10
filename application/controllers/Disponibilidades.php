@@ -11,7 +11,7 @@ class Disponibilidades extends MY_Controller {
 	// GET /
 	public function index()
 	{
-		$this->js_file = 'home.js';
+		$this->js_files = array('home.js');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/index');
 		$this->load->view('templates/main_template/footer');
@@ -34,7 +34,7 @@ class Disponibilidades extends MY_Controller {
 		$disponibilidade = $this->input->post();
 		$this->disponibilidade = $this->disponibilidade->get_by_id($id_disponibilidade)->row();
 
-		$this->js_file = '';
+		$this->js_files = array('');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('disponibilidades/edit_disponibilidade');
 		$this->load->view('templates/main_template/footer');

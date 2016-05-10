@@ -29,7 +29,7 @@ class Habilitacoes_academicas extends MY_Controller {
 
 		$this->tipos_habilitacoes_academicas = $this->tipos_habilitacoes->get_entries()->result();
 
-		$this->js_file = '';
+		$this->js_files = array('');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('habilitacoes_academicas/edit_habilitacao');
 		$this->load->view('templates/main_template/footer');

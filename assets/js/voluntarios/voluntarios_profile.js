@@ -21,8 +21,6 @@ $(document).ready(function() {
     toggleVisibilityWithTables('#edit_disponibilidades');
   });
 
-
-
   function toggleVisibility(area) {
     $(area + " ul").find('a').toggle();
     $(area).find('.form-inline').toggle();

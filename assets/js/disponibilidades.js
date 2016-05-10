@@ -3,26 +3,6 @@ $(document).ready(function() {
   $number_of_disp  = $('#disponibilidade_table').children().children().length - 1;
   $counter_of_disp = $number_of_disp;
 
-  $areas = areas_geograficas;
-
-  $voluntario_fields = $('.voluntario_fields').show();
-
-  for (var key in areas_geograficas) {
-    if ($('#distrito').val() !== key)
-      $('#distrito').append("<option value='" + key + "'>" + key + "</option>");
-  }
-
-  for (var key2 in areas_geograficas[$('#distrito').val()]) {
-    if ($('#concelho').val() !== key2)
-      $('#concelho').append("<option value='" + key2 + "'>" + key2 + "</option>");
-  }
-
-  $freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
-  for (var i = 0; i < $freguesias.length; i++) {
-    if ($('#freguesia').val() !== $freguesias[i])
-      $('#freguesia').append("<option value='" + $freguesias[i] + "'>" + $freguesias[i] + "</option>");
-  }
-
   if ($number_of_disp <= 0) {
     $('#disponibilidade_table').hide('fast');
   }
@@ -32,40 +12,10 @@ $(document).ready(function() {
     startDate: '-3d'
   });
 
-  $('body').on('change', '#distrito',function() {
-    var concelhos = areas_geograficas[$('#distrito').val()];
-    var freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
-    $('#concelho').children().remove();
-    $('#freguesia').children().remove();
-    $('#concelho').append("<option value='default'>-</option>");
-    for (var key in areas_geograficas[$(this).val()]) {
-      $('#concelho').append("<option value='" + key + "'>" + key + "</option>");
-    }
-    $('#freguesia').append("<option value='default'>-</option>");
-    for (var i = 0; i < freguesias.length; i++) {
-      $('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
-    }
-  });
+  $('#form').on('click', 'a.adicionar_disponibilidade', function() {
 
-  $('body').on('change', '#concelho',function() {
-    var freguesias = areas_geograficas[$('#distrito').val()][$('#concelho').val()];
-    $('#freguesia').children().remove();
-    $('#freguesia').append("<option value='default'>-</option>");
-    for (var i = 0; i < freguesias.length; i++) {
-      $('#freguesia').append("<option value='" + freguesias[i] + "'>" + freguesias[i] + "</option>");
-    }
-  });
+    console.log("Here");
 
-
-
-
-
-
-
-  // DESNECESSARIO daqui para baixo?!
-
-  $('#form').on('click', 'div.voluntario_fields div.well div.relative a.adicionar_disponibilidade', function() {
-    
     // Get values
     $data_inicio   = $('#data_inicio_disponibilidade');
     $periodicidade = $('#periodicidade');
