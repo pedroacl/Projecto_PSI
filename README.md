@@ -6,7 +6,6 @@ TODO
 =========
 - perfil oportunidade
 - edit oportunidade
-- add oportunidade
+- add oportunidade (falta adicionar area geografica)
 
-- perfil instituição
-- edit instituição
+- edit instituição (falta adicionar area geografica)

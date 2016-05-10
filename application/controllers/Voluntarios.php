@@ -56,7 +56,7 @@ class Voluntarios extends MY_Controller {
 		// tipos de habilitacoes academicas
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 
-		$this->js_file = 'voluntarios/voluntarios_profile.js';
+		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
 		$this->load->view('templates/main_template/footer');
@@ -83,7 +83,7 @@ class Voluntarios extends MY_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			// mostrar novamente formulario
-			$this->js_file = 'home.js';
+			$this->js_files = array('areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('voluntarios/edit_profile');
 			$this->load->view('templates/main_template/footer');
@@ -130,7 +130,7 @@ class Voluntarios extends MY_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			// mostrar novamente o formulario
-			$this->js_file = 'home.js';
+			$this->js_files = array('home.js');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('voluntarios/edit_profile');
 			$this->load->view('templates/main_template/footer');
@@ -200,7 +200,7 @@ class Voluntarios extends MY_Controller {
 			$this->data['data_nascimento'] = $this->voluntario->data_nascimento;
 			$this->data['telefone'] = $this->voluntario->telefone;
 
-			$this->js_file = 'voluntarios/edit_profile_voluntarios.js';
+			$this->js_files = array('areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('voluntarios/edit_profile');
 			$this->load->view('templates/main_template/footer');

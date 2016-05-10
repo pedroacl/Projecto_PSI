@@ -39,7 +39,7 @@ class Instituicoes extends MY_Controller {
 		$this->oportunidades_voluntariado_inativas =
 			$this->oportunidade_voluntariado->get_inativas_by_id_instituicao($this->id_instituicao);
 
-		$this->js_file = 'home.js';
+		$this->js_files = array('home.js');
 		$this->title   = "Perfil de " . $this->instituicao->nome;
 		$this->load->view('templates/main_template/header');
 		$this->load->view('instituicoes/profile');
@@ -70,7 +70,7 @@ class Instituicoes extends MY_Controller {
 		if ($this->form_validation->run() == FALSE)
 		{
 			// mostrar novamente formulario
-			$this->js_file = 'instituicoes/instituicoes_edit_profile.js';
+			$this->js_files = array('areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('instituicoes/edit_profile');
 			$this->load->view('templates/main_template/footer');
