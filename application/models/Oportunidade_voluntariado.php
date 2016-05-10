@@ -23,9 +23,6 @@ class Oportunidade_voluntariado extends CI_Model {
 
         $this->db->where('id', $id_oportunidade_voluntariado);
         $this->db->update('Oportunidades_Voluntariado', $oportunidade_voluntariado);
-
-        // atualizar periodicidade
-        $this->periodicidade->update_entry($input);
     }
 
     public function delete_entry($id_oportunidade_voluntariado)
@@ -56,7 +53,7 @@ class Oportunidade_voluntariado extends CI_Model {
     {
         $data = array(
             'id_instituicao' => $id_instituicao,
-            'ativa'          => 1
+            'ativa'          => 'y'
         );
 
         $this->db->select('*');
@@ -70,7 +67,7 @@ class Oportunidade_voluntariado extends CI_Model {
     {
         $data = array(
             'id_instituicao' => $id_instituicao,
-            'ativa'          => 0
+            'ativa'          => 'n'
         );
 
         $this->db->select('*');
@@ -82,13 +79,16 @@ class Oportunidade_voluntariado extends CI_Model {
 
     public function get_form_data($id_instituicao, $input)
     {
+        $ativa = $input->post('ativa');
+        $is_ativa = isset($ativa) ? 'y' : 'n';
+
         $data = array(
             'id_instituicao' => $id_instituicao,
             'nome'           => $input->post('nome'),
             'funcao'         => $input->post('funcao'),
             'pais'           => $input->post('pais'),
             'vagas'          => $input->post('vagas'),
-            'ativa'          => $input->post('ativa')
+            'ativa'          => $is_ativa
         );
 
         return $data;

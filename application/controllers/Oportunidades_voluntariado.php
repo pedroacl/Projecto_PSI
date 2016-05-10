@@ -53,7 +53,16 @@ class Oportunidades_voluntariado extends MY_Controller {
 	{
 		$this->load->library('form_validation');
 
-		$this->oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_entry($id_oportunidade_voluntariado)->row();
+		$this->oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_entry($id_oportunidade_voluntariado);
+
+		if ($this->oportunidade_voluntariado_data->num_rows() == 0
+			|| $this->oportunidade_voluntariado_data->row()->id_instituicao != $this->id_instituicao) {
+
+			$this->session->set_flashdata('warning', 'Acesso não atorizado!');
+			redirect('');
+		}
+
+		$this->oportunidade_voluntariado_data = $this->oportunidade_voluntariado_data->row();
 
 		$rules = $this->oportunidade_voluntariado->get_form_validation_rules();
 		$this->form_validation->set_rules($rules);
@@ -64,8 +73,9 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
-			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado actualizada com sucesso!');
 			$this->oportunidade_voluntariado->update_entry($this->id_instituicao, $id_oportunidade_voluntariado, $this->input);
+			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado actualizada com sucesso!');
+			redirect('instituicoes/profile');
 		}
 	}
 
