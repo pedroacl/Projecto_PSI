@@ -7,7 +7,7 @@
 
           <form action="" method="POST" enctype="multipart/form-data" id="form">
             <h2>Adicionar Oportunidade de Voluntariado</h2>
-
+            <?= validation_errors() ?>
             <div class="form-group <?= has_error('nome') ?>" >
               <label class="control-label">Nome</label>
               <?= form_error('nome', "<span class='help-block'>", "</span>")?>

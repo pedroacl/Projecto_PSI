@@ -53,30 +53,47 @@ class Disponibilidade extends CI_Model {
         return $this->db->get();
     }
 
-    function insert_entry($input)
+    function insert_entry($input, $id_oportunidade)
     {
         $this->load->model('Periodicidade', 'periodicidade');
+        $this->load->model('Oportunidade_voluntariado_disponibilidade', 'oportunidade_disponibilidade');
+        $disponibilidades = $this->get_form_data($input);
 
-        $disponibilidade = $this->get_signup_form_data($input);
-        $this->db->insert('Disponibilidades', $disponibilidade);
-        $id_disponibilidade = $this->db->insert_id();
+        foreach ($disponibilidades as $disponibilidade) {
+            $this->db->insert('Disponibilidades', $disponibilidade['disponibilidade']);
+            $id_disponibilidade = $this->db->insert_id();
+            $this->oportunidade_disponibilidade->insert_entry($id_oportunidade, $id_disponibilidade);
 
-        // inserir periodicidade associada ah disponibilidade
-        $periodicidade = $this->periodicidade->insert_entry($input, $id_disponibilidade);
+            // inserir periodicidade associada ah disponibilidade
+            $disponibilidade['periodicidade']['id_disponibilidade'] = $id_disponibilidade;
+            $this->periodicidade->insert($disponibilidade['periodicidade']);
 
+        }
         return $id_disponibilidade;
     }
 
     function get_form_data($input)
     {
-        $data_inicio = date("Y/m/d", strtotime($input['data_inicio']));
-        $data_fim    = date("Y/m/d", strtotime($input['data_fim']));
+        $disponibilidades = $input->post('disponibilidades[]');
+        $result = array();
 
-        $data = array(
-            'data_inicio' => $data_inicio,
-            'data_fim'    => $data_fim,
-        );
+        foreach ($disponibilidades as $disp) {
+            $inicio = $disp['data_inicio'];
+            $fim = $disp['data_fim'];
+            $periodicidade = $disp['periodicidade'];
+            $repetir_ate = $disp['repetir_ate'];
 
-        return $data;
+            $data = array(
+                'disponibilidade'   => array(
+                                        'data_inicio' => $inicio,
+                                        'data_fim' => $fim),
+                'periodicidade'     => array(
+                                        'tipo' => $periodicidade, 
+                                        'data_fim' => $repetir_ate)
+            );
+            array_push($result, $data);
+        }
+
+        return $result;
     }
 }

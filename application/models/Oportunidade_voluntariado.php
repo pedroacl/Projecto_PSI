@@ -7,14 +7,17 @@ class Oportunidade_voluntariado extends CI_Model {
     {
       parent::__construct();
       $this->load->model('Periodicidade', 'periodicidade');
+      $this->load->model('Disponibilidade', 'disponibilidade');
     }
 
     public function insert_entry($id_insituicao, $input)
     {
         $data = $this->get_form_data($id_insituicao, $input);
         $this->db->insert('Oportunidades_Voluntariado', $data);
+        $id_oportunidade = $this->db->insert_id();
+        $this->disponibilidade->insert_entry($input, $id_oportunidade);
 
-        return $this->db->insert_id();
+        return $id_oportunidade;
     }
 
     public function update_entry($id_instituicao, $id_oportunidade_voluntariado, $input)
@@ -82,13 +85,14 @@ class Oportunidade_voluntariado extends CI_Model {
 
     public function get_form_data($id_instituicao, $input)
     {
+        // print_r($input->post('disponibilidades[]'));
         $data = array(
-            'id_instituicao' => $id_instituicao,
-            'nome'           => $input->post('nome'),
-            'funcao'         => $input->post('funcao'),
-            'pais'           => $input->post('pais'),
-            'vagas'          => $input->post('vagas'),
-            'ativa'          => $input->post('ativa')
+            'id_instituicao'   => $id_instituicao,
+            'nome'             => $input->post('nome'),
+            'funcao'           => $input->post('funcao'),
+            'pais'             => $input->post('pais'),
+            'vagas'            => $input->post('vagas'),
+            'ativa'            => $input->post('ativa')
         );
 
         return $data;
