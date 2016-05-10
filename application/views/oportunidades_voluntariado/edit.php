@@ -36,7 +36,7 @@
 
             <div class="checkbox">
               <label class="control-label">
-                <input type="checkbox" name="ativa" value="on" <?php echo set_checkbox('ativa', 'on') ?>> Ativa
+                <input type="checkbox" name="ativa" value="y" <?php echo $this->oportunidade_voluntariado_data->ativa == 'y' ? 'checked' : '' ?>> Ativa
               </label>
             </div>
 
@@ -71,7 +71,7 @@
 
             <div class="pull-right">
               <a href="#" onclick="window.history.back();" class="btn btn-danger">Cancelar</a>
-              <button class="btn btn-success" type="submit">Adicionar</button>
+              <button class="btn btn-success" type="submit">Atualizar</button>
             </div>
           </form>
         </div>

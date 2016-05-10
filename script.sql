@@ -65,10 +65,10 @@ CREATE TABLE IF NOT EXISTS Utilizadores_Disponibilidades (
 
 
 CREATE TABLE IF NOT EXISTS Periodicidades (
-   id                  	INT 		AUTO_INCREMENT,
-   id_disponibilidade  	INT 		NOT NULL,
-   tipo                	BIT(1) 	NOT NULL,
-   data_fim            	DATETIME	NOT NULL,
+   id                  	INT 		      AUTO_INCREMENT,
+   id_disponibilidade  	INT 		      NOT NULL,
+   tipo                	VARCHAR(100) 	NOT NULL,
+   data_fim            	DATETIME	      NOT NULL,
    PRIMARY KEY (id),
    FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id) ON DELETE CASCADE
 );
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
    funcao              VARCHAR(50) 		NOT NULL,
    pais                VARCHAR(50) 		NOT NULL,
    vagas               INT 				DEFAULT 1,
-   ativa               BIT(1) 			DEFAULT 0,
+   ativa               CHAR(1) 			DEFAULT 0,
    PRIMARY KEY (id),
    FOREIGN KEY (id_area_interesse) 	REFERENCES Areas_Interesse(id),
    FOREIGN KEY (id_grupo_atuacao) 	REFERENCES Grupos_Atuacao(id),

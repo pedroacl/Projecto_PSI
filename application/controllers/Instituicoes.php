@@ -40,7 +40,7 @@ class Instituicoes extends MY_Controller {
 			$this->oportunidade_voluntariado->get_inativas_by_id_instituicao($this->id_instituicao);
 
 		$this->js_files = array('home.js');
-		$this->title   = "Perfil de " . $this->instituicao->nome;
+		$this->title    = "Perfil de " . $this->instituicao->nome;
 		$this->load->view('templates/main_template/header');
 		$this->load->view('instituicoes/profile');
 		$this->load->view('templates/main_template/footer');
@@ -59,9 +59,9 @@ class Instituicoes extends MY_Controller {
 		$this->utilizador_data  = $this->utilizador->get_by_id($this->id_utilizador, 'instituicao')->row();
 
 		if ($this->utilizador_data->id_area_geografica !== null) {
-			$this->area_geografica = $this->area_geografica->get_by_id($this->utilizador_data->id_area_geografica)->row();
+			$this->area_geografica_data = $this->area_geografica->get_by_id($this->utilizador_data->id_area_geografica)->row();
 		} else {
-			$this->area_geografica = '';
+			$this->area_geografica_data = '';
 		}
 
 		$form_rules = $this->instituicao->get_form_validation_rules();
@@ -79,8 +79,11 @@ class Instituicoes extends MY_Controller {
 			// atualizar utilizador
         	$this->utilizador->update_entry($this->id_utilizador, $this->input);
 
+        	$area_geografica_data = $this->area_geografica->get_form_data($this->input->post());
+			$id_area_geografica = $this->area_geografica->insert_entry($area_geografica_data);
+
 			// atualizar instituicao
-			$this->instituicao->update_entry($this->id_instituicao, $this->input);
+			$this->instituicao->update_entry($this->id_instituicao, $this->input->post());
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
 
 			redirect('instituicoes/profile');

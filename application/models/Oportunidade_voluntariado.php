@@ -10,9 +10,8 @@ class Oportunidade_voluntariado extends CI_Model {
       $this->load->model('Disponibilidade', 'disponibilidade');
     }
 
-    public function insert_entry($id_insituicao, $input)
+    public function insert_entry($data)
     {
-        $data = $this->get_form_data($id_insituicao, $input);
         $this->db->insert('Oportunidades_Voluntariado', $data);
         $id_oportunidade = $this->db->insert_id();
         $this->disponibilidade->insert_entry($input, $id_oportunidade);
@@ -26,9 +25,6 @@ class Oportunidade_voluntariado extends CI_Model {
 
         $this->db->where('id', $id_oportunidade_voluntariado);
         $this->db->update('Oportunidades_Voluntariado', $oportunidade_voluntariado);
-
-        // atualizar periodicidade
-        $this->periodicidade->update_entry($input);
     }
 
     public function delete_entry($id_oportunidade_voluntariado)
@@ -59,7 +55,7 @@ class Oportunidade_voluntariado extends CI_Model {
     {
         $data = array(
             'id_instituicao' => $id_instituicao,
-            'ativa'          => 1
+            'ativa'          => 'y'
         );
 
         $this->db->select('*');
@@ -73,7 +69,7 @@ class Oportunidade_voluntariado extends CI_Model {
     {
         $data = array(
             'id_instituicao' => $id_instituicao,
-            'ativa'          => 0
+            'ativa'          => 'n'
         );
 
         $this->db->select('*');
@@ -85,14 +81,16 @@ class Oportunidade_voluntariado extends CI_Model {
 
     public function get_form_data($id_instituicao, $input)
     {
-        // print_r($input->post('disponibilidades[]'));
+        $ativa = $input->post('ativa');
+        $is_ativa = isset($ativa) ? 'y' : 'n';
+
         $data = array(
-            'id_instituicao'   => $id_instituicao,
-            'nome'             => $input->post('nome'),
-            'funcao'           => $input->post('funcao'),
-            'pais'             => $input->post('pais'),
-            'vagas'            => $input->post('vagas'),
-            'ativa'            => $input->post('ativa')
+            'id_instituicao' => $id_instituicao,
+            'nome'           => $input->post('nome'),
+            'funcao'         => $input->post('funcao'),
+            'pais'           => $input->post('pais'),
+            'vagas'          => $input->post('vagas'),
+            'ativa'          => $is_ativa
         );
 
         return $data;
