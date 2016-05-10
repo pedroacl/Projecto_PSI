@@ -16,6 +16,11 @@ class Periodicidade extends CI_Model {
       return $this->db->insert_id();
    }
 
+   public function update_entry($id_periodicidade)
+   {
+
+   }
+
    function get_form_data($input, $id_disponibilidade)
    {
       $data_fim = date("Y/m/d", strtotime($input->post('repetir_ate')));
