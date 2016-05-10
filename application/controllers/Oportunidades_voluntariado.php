@@ -50,9 +50,11 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 	public function edit($id_oportunidade_voluntariado)
 	{
-		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_entry();
+		$this->load->library('form_validation');
 
-		$rules = $this->oportunidade_voluntariado->get_form_validation_rules($this->input);
+		$this->oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_entry($id_oportunidade_voluntariado)->row();
+
+		$rules = $this->oportunidade_voluntariado->get_form_validation_rules();
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == FALSE) {
@@ -62,7 +64,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 		} else {
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
-			$this->oportunidade_voluntariado->update_entry($this->input);
+			$this->oportunidade_voluntariado->update_entry($this->id_instituicao, $id_oportunidade_voluntariado, $this->input);
 		}
 	}
 

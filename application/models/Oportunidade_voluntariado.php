@@ -17,12 +17,12 @@ class Oportunidade_voluntariado extends CI_Model {
         return $this->db->insert_id();
     }
 
-    public function update_entry($input)
+    public function update_entry($id_instituicao, $id_oportunidade_voluntariado, $input)
     {
-        $oportunidade_voluntariado = $this->get_form_data($input);
+        $oportunidade_voluntariado = $this->get_form_data($id_instituicao, $input);
 
-        $this->db->where('id', $oportunidade_voluntariado['id']);
-        $this->db->update('Voluntarios', $oportunidade_voluntariado);
+        $this->db->where('id', $id_oportunidade_voluntariado);
+        $this->db->update('Oportunidades_Voluntariado', $oportunidade_voluntariado);
 
         // atualizar periodicidade
         $this->periodicidade->update_entry($input);
@@ -32,6 +32,15 @@ class Oportunidade_voluntariado extends CI_Model {
     {
         $this->db->where('id', $id_oportunidade_voluntariado);
         $this->db->delete('Oportunidades_Voluntariado');
+    }
+
+    public function get_entry($id_oportunidade_voluntariado)
+    {
+        $this->db->select('*');
+        $this->db->from('Oportunidades_Voluntariado');
+        $this->db->where('id', $id_oportunidade_voluntariado);
+
+        return $this->db->get();
     }
 
     public function get_by_id($id_oportunidade_voluntariado)
