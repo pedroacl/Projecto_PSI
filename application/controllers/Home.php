@@ -165,7 +165,7 @@ class Home extends MY_Controller {
 			// authenticar utilizador
 			if (($user = $this->utilizador->authenticate_utilizador($email, $password)) !== null) {
 				$this->session->set_flashdata('success', 'Utilizador autenticado com sucesso!');
-		      redirect('', 'refresh');
+		    redirect('', 'refresh');
 
 			} else {
 				$this->session->set_flashdata('danger', 'Combinação de Email/Password errada.');

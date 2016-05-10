@@ -37,8 +37,9 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
+			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
 			$this->oportunidade_voluntariado->insert_entry($this->id_instituicao, $this->input);
-			redirect('');
+			redirect('instituicoes/profile');
 		}
 	}
 
@@ -61,7 +62,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
-			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
+			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado actualizada com sucesso!');
 			$this->oportunidade_voluntariado->update_entry($this->input);
 		}
 	}
