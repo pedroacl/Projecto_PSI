@@ -48,14 +48,13 @@
 
             <br>
             <h3>Área Geográfica</h3>
-
             <div class="form-group <?= has_error('distrito') ?>">
               <label class="control-label">Distrito</label>
               <?= form_error('distrito', "<span class='help-block'>", "</span>")?>
               <select id="distrito" class="form-control" name="distrito">
                 <option value="default">-</option>
                 <? if ($this->area_geografica !== '') { ?>
-                  <option value="<?= $this->area_geografica->distrito ?>" <?= set_select('distrito', $this->area_geografica->distrito, TRUE) ?>><?= $this->area_geografica->distrito ?></option>
+                  <option value="<?= $this->area_geografica->distrito ?>" <?= set_select('distrito', $this->area_geografica_data->distrito, TRUE) ?>><?= $this->area_geografica->distrito ?></option>
                 <? } ?>
               </select>
             </div>
@@ -66,7 +65,7 @@
               <select id="concelho" class="form-control" name="concelho">
                 <option value="default">-</option>
                 <? if ($this->area_geografica !== '') { ?>
-                <option value="<?= $this->area_geografica->concelho ?>" <?= set_select('concelho', $this->area_geografica->concelho, TRUE) ?>><?= $this->area_geografica->concelho ?></option>
+                <option value="<?= $this->area_geografica->concelho ?>" <?= set_select('concelho', $this->area_geografica_data->concelho, TRUE) ?>><?= $this->area_geografica->concelho ?></option>
                 <? } ?>
               </select>
             </div>
@@ -77,7 +76,7 @@
               <select id="freguesia" class="form-control" name="freguesia">
                 <option value="default">-</option>
                 <? if ($this->area_geografica !== '') { ?>
-                <option value="<?= $this->area_geografica->freguesia ?>" <?= set_select('freguesia', $this->area_geografica->freguesia, TRUE) ?>><?= $this->area_geografica->freguesia ?></option>
+                <option value="<?= $this->area_geografica->freguesia ?>" <?= set_select('freguesia', $this->area_geografica_data->freguesia, TRUE) ?>><?= $this->area_geografica->freguesia ?></option>
                 <? } ?>
               </select>
             </div>

@@ -68,7 +68,7 @@ $route['logout']['get'] = 'Home/logout';
 // voluntario
 $route['profile']['get']       = 'Voluntarios/profile';
 $route['voluntarios/edit_profile']['get']  = 'Voluntarios/edit_profile';
-$route['voluntarios/edit_profile']['post'] = 'Voluntarios/update_profile';
+$route['voluntarios/edit_profile']['post'] = 'Voluntarios/edit_profile';
 
 // Instituições
 //$route['instituicoes/edit_profile']['get']  = 'Instituicoes/edit_main_profile';

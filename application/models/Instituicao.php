@@ -25,12 +25,10 @@ class Instituicao extends CI_Model {
         return $this->db->get();
     }
 
-    public function update_entry($id_instituicao, $input)
+    public function update_entry($id_instituicao, $data)
     {
-        $data_instituicao = $this->get_form_data($input);
-        print_r($data_instituicao);
         $this->db->where('id', $id_instituicao);
-        $this->db->update('Instituicoes', $data_instituicao);
+        $this->db->update('Instituicoes', $data);
     }
 
     function get_institution_by_email($email)

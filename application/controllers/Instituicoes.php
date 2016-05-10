@@ -76,14 +76,18 @@ class Instituicoes extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
-			// atualizar utilizador
-        	$this->utilizador->update_entry($this->id_utilizador, $this->input);
-
+        	// atualizar area geografica
         	$area_geografica_data = $this->area_geografica->get_form_data($this->input->post());
 			$id_area_geografica = $this->area_geografica->insert_entry($area_geografica_data);
 
+			// atualizar utilizador
+			$data_utilizador = $this->utilizador->get_update_form_data($this->input->post());
+        	$data_utilizador['id_area_geografica'] = $id_area_geografica;
+        	$this->utilizador->update_entry($this->id_utilizador, $data_utilizador);
+
 			// atualizar instituicao
-			$this->instituicao->update_entry($this->id_instituicao, $this->input->post());
+        	$data_instituicao = $this->instituicao->get_form_data($this->input->post());
+			$this->instituicao->update_entry($this->id_instituicao, $data_instituicao);
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
 
 			redirect('instituicoes/profile');

@@ -8,8 +8,6 @@
           <form action="" method="POST" enctype="multipart/form-data" id="form">
             <h2>Editar Voluntário</h2>
 
-            <!-- Campos de um Voluntario -->
-
             <?php echo validation_errors() ?>
 
             <div class="form-group <?= has_error('foto') ?>">

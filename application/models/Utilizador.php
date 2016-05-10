@@ -104,12 +104,10 @@ class Utilizador extends CI_Model {
         return $this->db->insert_id();
     }
 
-    function update_entry($id_utilizador, $input)
+    function update_entry($id_utilizador, $data)
     {
-        $data_utilizador = $this->get_update_form_data($input);
-
         $this->db->where('id', $id_utilizador);
-        $this->db->update('Utilizadores', $data_utilizador);
+        $this->db->update('Utilizadores', $data);
     }
 
     function get_signup_form_data($input)
@@ -133,9 +131,9 @@ class Utilizador extends CI_Model {
     function get_update_form_data($input)
     {
         $data = array(
-            'telefone'        => $input->post('telefone'),
-            'nome'            => $input->post('nome_utilizador'),
-            'updated_at'      => date("Y-m-d", time())
+            'telefone'   => $input['telefone'],
+            'nome'       => $input['nome_utilizador'],
+            'updated_at' => date("Y-m-d", time())
         );
 
         return $data;

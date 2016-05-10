@@ -68,14 +68,15 @@ class Voluntarios extends MY_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->model('Utilizador', 'utilizador');
+		$this->load->model('Area_geografica', 'area_geografica');
 
 		$this->voluntario_data = $this->voluntario->get_main_profile($this->id_utilizador)->row();
 		$this->utilizador_data = $this->utilizador->get_by_id($this->id_utilizador, 'voluntario');
-		$this->load->model('AreaGeografica', 'area_geografica');
+
 		if ($this->utilizador_data->id_area_geografica !== null) {
-			$this->area_geografica = $this->area_geografica->get_by_id($this->utilizador_data->id_area_geografica)->row();
+			$this->area_geografica_data = $this->area_geografica->get_by_id($this->utilizador_data->id_area_geografica)->row();
 		} else {
-			$this->area_geografica = '';
+			$this->area_geografica_data = '';
 		}
 
 		$form_rules = $this->voluntario->get_form_validation_rules();
@@ -89,11 +90,21 @@ class Voluntarios extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
-			$this->voluntario->update_entry($this->id_voluntario, $this->input);
-			$this->utilizador->update_entry($this->id_utilizador, $this->input);
+			// atualizar area geografica
+			$area_geografica_data = $this->area_geografica->get_form_data($this->input->post());
+			$id_area_geografica   = $this->area_geografica->insert_entry($area_geografica_data);
+
+			// atualizar utlizador
+			$data_utilizador = $this->utilizador->get_update_form_data($this->input->post());
+        	$data_utilizador['id_area_geografica'] = $id_area_geografica;
+			$this->utilizador->update_entry($this->id_utilizador, $data_utilizador);
+
+			// atualizar voluntario
+			$data_voluntario = $this->voluntario->get_form_data($this->input->post());
+			$this->voluntario->update_entry($this->id_voluntario, $data_voluntario);
 
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
-			redirect('voluntarios/profile');
+			//redirect('voluntarios/profile');
 		}
 	}
 
@@ -134,6 +145,7 @@ class Voluntarios extends MY_Controller {
 			$this->load->view('templates/main_template/header');
 			$this->load->view('voluntarios/edit_profile');
 			$this->load->view('templates/main_template/footer');
+
 	 	} else {
 			$this->disponibilidade->insert_entry($id_voluntario, $this->input);
 			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
@@ -163,18 +175,6 @@ class Voluntarios extends MY_Controller {
 		// formulario invalido
 		if ($this->form_validation->run() == FALSE)
 		{
-
-			$this->load->model('TipoHabilitacaoAcademica', 'tipo_habilitacao_academica');
-			$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
-
-			$this->load->model('GrupoAtuacao', 'grupo_atuacao');
-			$this->load->model('Utilizador_GrupoAtuacao', 'grupos_atuacao_de_utilizador');
-			$this->grupos_atuacao = $this->grupo_atuacao->get_entries();
-
-			$this->load->model('AreaInteresse', 'area_iteresse');
-			$this->load->model('Utilizador_AreaInteresse', 'areas_interesse_de_utilizador');
-			$this->areas_interesse = $this->area_iteresse->get_entries();
-
 			// $this->load->model('Disponibilidades', 'disponibilidade');
 			// $this->disponibilidades = $this->disponibilidade->get_disponibilidades_by_user_id($this->session->userdata('id'));
 

@@ -19,12 +19,10 @@ class Voluntario extends CI_Model {
         return $this->db->get();
     }
 
-    public function update_entry($id_voluntario, $input)
+    public function update_entry($id_voluntario, $data)
     {
-        $data_voluntarios = $this->get_form_data($input);
-
         $this->db->where('id', $id_voluntario);
-        $this->db->update('Voluntarios', $data_voluntarios);
+        $this->db->update('Voluntarios', $data);
     }
 
 
@@ -42,8 +40,8 @@ class Voluntario extends CI_Model {
     function get_form_data($input)
     {
         $data = array(
-            'genero'          => $input->post('genero'),
-            'data_nascimento' => date("Y/m/d", strtotime($input->post('data_nascimento')))
+            'genero'          => $input['genero'],
+            'data_nascimento' => date("Y/m/d", strtotime($input['data_nascimento']))
         );
 
         return $data;
@@ -52,6 +50,11 @@ class Voluntario extends CI_Model {
     public function get_form_validation_rules()
     {
         $rules = array(
+            array(
+                'field' => 'telefone',
+                'label' => 'Telefone',
+                'rules' => 'min_length[9]'
+            )
 /*
             array(
                 'field' => 'concelho',

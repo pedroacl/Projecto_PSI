@@ -29,15 +29,15 @@
                     <dt>Email</dt>
                     <dd><?= $this->voluntario->email ?></dd>
 
-                    <?php if($this->area_geografica->row() != null) { ?>
+                    <?php if ($this->area_geografica->num_rows() > 0) { ?>
                       <dt>Distrito</dt>
-                      <dd><?= $this->area_geografica->distrito ?></dd>
+                      <dd><?= $this->area_geografica->row()->distrito ?></dd>
 
                       <dt>Concelho</dt>
-                      <dd><?= $this->area_geografica->concelho ?></dd>
+                      <dd><?= $this->area_geografica->row()->concelho ?></dd>
 
                       <dt>Freguesia</dt>
-                      <dd><?= $this->area_geografica->freguesia ?></dd>
+                      <dd><?= $this->area_geografica->row()->freguesia ?></dd>
                     <?php } ?>
                   </dl>
                   <a class="btn btn-warning" href="<?= site_url('voluntarios/edit_profile') ?>">Editar Perfil</a>

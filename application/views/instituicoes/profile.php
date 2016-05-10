@@ -25,13 +25,13 @@
 
                 <?php if ($this->area_geografica_data->num_rows() > 0) { ?>
                   <dt>Distrito</dt>
-                  <dd><?= $this->area_geografica_data->distrito ?></dd>
+                  <dd><?= $this->area_geografica_data->row()->distrito ?></dd>
 
                   <dt>Concelho</dt>
-                  <dd><?= $this->area_geografica_data->concelho ?></dd>
+                  <dd><?= $this->area_geografica_data->row()->concelho ?></dd>
 
                   <dt>Freguesia</dt>
-                  <dd><?= $this->area_geografica_data->freguesia ?></dd>
+                  <dd><?= $this->area_geografica_data->row()->freguesia ?></dd>
                 <?php } ?>
               </dl>
             </div>
