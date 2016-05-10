@@ -200,7 +200,7 @@ class Voluntarios extends MY_Controller {
 			$this->data['data_nascimento'] = $this->voluntario->data_nascimento;
 			$this->data['telefone'] = $this->voluntario->telefone;
 
-			$this->js_file = 'edit_profile_voluntarios.js';
+			$this->js_file = 'voluntarios/edit_profile_voluntarios.js';
 			$this->load->view('templates/main_template/header');
 			$this->load->view('voluntarios/edit_profile');
 			$this->load->view('templates/main_template/footer');

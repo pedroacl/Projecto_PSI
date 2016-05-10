@@ -31,6 +31,7 @@ class Instituicoes extends MY_Controller {
 		$this->area_geografica_data = $this->Area_geografica->get_by_id_utilizador($this->id_utilizador);
 
 		$this->js_file = 'home.js';
+		$this->title = "Perfil de " . $this->instituicao->nome;
 		$this->load->view('templates/main_template/header');
 		$this->load->view('instituicoes/profile');
 		$this->load->view('templates/main_template/footer');
@@ -53,6 +54,18 @@ class Instituicoes extends MY_Controller {
 		} else {
 			$this->area_geografica = '';
 		}
+
+		$this->js_file = 'instituicoes/instituicoes_edit_profile.js';
+		$this->title = "Editar perfil de Instituição";
+		$this->load->view('templates/main_template/header');
+		$this->load->view('instituicoes/edit_profile');
+		$this->load->view('templates/main_template/footer');
+	}
+
+	// POST /instituicoes/update_main_profile
+	public function update_main_profile()
+	{
+		$this->load->library('form_validation');
 
 		$form_rules = $this->instituicao->get_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
