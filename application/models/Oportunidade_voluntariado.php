@@ -9,9 +9,8 @@ class Oportunidade_voluntariado extends CI_Model {
       $this->load->model('Periodicidade', 'periodicidade');
     }
 
-    public function insert_entry($id_insituicao, $input)
+    public function insert_entry($data)
     {
-        $data = $this->get_form_data($id_insituicao, $input);
         $this->db->insert('Oportunidades_Voluntariado', $data);
 
         return $this->db->insert_id();

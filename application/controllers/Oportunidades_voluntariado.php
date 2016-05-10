@@ -25,6 +25,8 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
+		$this->load->model('Area_geografica', 'area_geografica');
+
 		$rules = $this->oportunidade_voluntariado->get_form_validation_rules();
 		$this->form_validation->set_rules($rules);
 
@@ -32,7 +34,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 		if ($this->form_validation->run() == FALSE) {
 
 			$this->session->set_flashdata('danger', validation_errors());
-			
+
 			$this->title = "Adicionar nova Oportunidade de Voluntariado";
 			$this->js_files = array('disponibilidades.js', 'areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
@@ -40,8 +42,16 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
+			$area_geografica_data = $this->area_geografica->get_form_data($this->input);
+			$id_area_geografica   = $this->area_geografica->insert_entry($area_geografica_data);
+
+			$oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_form_data($this->input);
+			$oportunidade_voluntariado_data['id_instituicao']     = $this->id_instituicao;
+			$oportunidade_voluntariado_data['id_area_geografica'] = $id_area_geografica;
+
+			$this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);
+
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
-			$this->oportunidade_voluntariado->insert_entry($this->id_instituicao, $this->input);
 			redirect('instituicoes/profile');
 		}
 	}

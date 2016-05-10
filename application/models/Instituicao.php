@@ -48,10 +48,10 @@ class Instituicao extends CI_Model {
     function get_form_data($input)
     {
         $data = array(
-            'email_instituicao'  => $input->post('email_instituicao'),
-            'descricao'          => $input->post('descricao'),
-            'website'            => $input->post('website'),
-            'morada'             => $input->post('morada')
+            'email_instituicao'  => $input['email_instituicao'],
+            'descricao'          => $input['descricao'],
+            'website'            => $input['website'],
+            'morada'             => $input['morada']
         );
 
         return $data;
