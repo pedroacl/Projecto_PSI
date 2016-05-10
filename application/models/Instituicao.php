@@ -67,7 +67,7 @@ class Instituicao extends CI_Model {
             array(
                 'field' => 'email_instituicao',
                 'label' => 'Email de Instituição',
-                'rules' => 'valid_email|is_unique[Instituicoes.email_instituicao]'
+                'rules' => 'valid_email'
             )
         );
 

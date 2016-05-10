@@ -28,20 +28,8 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$rules = $this->oportunidade_voluntariado->get_form_validation_rules();
 		$this->form_validation->set_rules($rules);
 
-		$this->ativa = array(
-			'name'  => 'ativa',
-			'value' => 'y',
-			'checked' => $this->input->post('ativa') == 'y'
-		);
-
-		$this->nao_ativa = array(
-			'name'  => 'ativa',
-			'value' => 'n',
-			'checked' => $this->input->post('ativa') == 'n'
-		);
 
 		if ($this->form_validation->run() == FALSE) {
-
 			$this->js_file = 'instituicoes/instituicoes_edit_profile.js';
 			$this->title = "Adicionar nova Oportunidade de Voluntariado";
 			$this->load->view('templates/main_template/header');
@@ -49,7 +37,8 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
-			$this->oportunidade_voluntariado->insert_entry($this->input);
+			$this->oportunidade_voluntariado->insert_entry($this->id_instituicao, $this->input);
+			redirect('');
 		}
 	}
 
@@ -63,7 +52,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 	{
 		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_entry();
 
-		$rules = $this->oportunidade_voluntariado->get_form_validation_rules();
+		$rules = $this->oportunidade_voluntariado->get_form_validation_rules($this->input);
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == FALSE) {
@@ -72,6 +61,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
+			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
 			$this->oportunidade_voluntariado->update_entry($this->input);
 		}
 	}

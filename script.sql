@@ -141,9 +141,9 @@ CREATE TABLE IF NOT EXISTS Instituicoes (
 
 CREATE TABLE IF NOT EXISTS Oportunidades_Voluntariado (
    id                  INT 				AUTO_INCREMENT,
-   id_area_interesse   INT 				NOT NULL,
-   id_grupo_atuacao    INT 				NOT NULL,
-   id_area_geografica  INT 				NOT NULL,
+   id_area_interesse   INT,
+   id_grupo_atuacao    INT,
+   id_area_geografica  INT,
    id_instituicao      INT 				NOT NULL,
    nome                VARCHAR(150) 	NOT NULL UNIQUE,
    funcao              VARCHAR(50) 		NOT NULL,

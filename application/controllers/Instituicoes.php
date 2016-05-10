@@ -21,6 +21,7 @@ class Instituicoes extends MY_Controller {
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Oportunidade_voluntariado', 'oportunidade_voluntariado');
 		$this->load->model('Area_geografica');
 
 		// instituicao
@@ -30,8 +31,16 @@ class Instituicoes extends MY_Controller {
 		// area geografica
 		$this->area_geografica_data = $this->Area_geografica->get_by_id_utilizador($this->id_utilizador);
 
+		// oportunidades ativas
+		$this->oportunidades_voluntariado_ativas =
+			$this->oportunidade_voluntariado->get_ativas_by_id_instituicao($this->id_instituicao);
+
+		// oportunidades inativas
+		$this->oportunidades_voluntariado_inativas =
+			$this->oportunidade_voluntariado->get_inativas_by_id_instituicao($this->id_instituicao);
+
 		$this->js_file = 'home.js';
-		$this->title = "Perfil de " . $this->instituicao->nome;
+		$this->title   = "Perfil de " . $this->instituicao->nome;
 		$this->load->view('templates/main_template/header');
 		$this->load->view('instituicoes/profile');
 		$this->load->view('templates/main_template/footer');
@@ -55,18 +64,6 @@ class Instituicoes extends MY_Controller {
 			$this->area_geografica = '';
 		}
 
-		$this->js_file = 'instituicoes/instituicoes_edit_profile.js';
-		$this->title = "Editar perfil de Instituição";
-		$this->load->view('templates/main_template/header');
-		$this->load->view('instituicoes/edit_profile');
-		$this->load->view('templates/main_template/footer');
-	}
-
-	// POST /instituicoes/update_main_profile
-	public function update_main_profile()
-	{
-		$this->load->library('form_validation');
-
 		$form_rules = $this->instituicao->get_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
 
@@ -77,6 +74,7 @@ class Instituicoes extends MY_Controller {
 			$this->load->view('templates/main_template/header');
 			$this->load->view('instituicoes/edit_profile');
 			$this->load->view('templates/main_template/footer');
+
 		} else {
 			// atualizar utilizador
         	$this->utilizador->update_entry($this->id_utilizador, $this->input);

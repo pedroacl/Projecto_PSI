@@ -16,27 +16,27 @@
               <input name="nome" value="<?= set_value('nome'); ?>" class="form-control" placeholder="Nome"></input>
             </div>
 
-           <div class="form-group <?= has_error('pais') ?>" >
+            <div class="form-group <?= has_error('pais') ?>" >
               <label class="control-label">País</label>
               <?= form_error('pais', "<span class='help-block'>", "</span>")?>
               <input name="pais" value="<?= set_value('pais'); ?>" class="form-control" placeholder="País"></input>
             </div>
 
-           <div class="form-group <?= has_error('vagas') ?>" >
+            <div class="form-group <?= has_error('vagas') ?>" >
               <label class="control-label">Vagas</label>
               <?= form_error('vagas', "<span class='help-block'>", "</span>")?>
-              <input name="vagas" value="<?= set_value('vagas'); ?>" class="form-control" placeholder="Vagas"></input>
+              <input type="number" name="vagas" value="<?= set_value('vagas'); ?>" class="form-control" placeholder="Vagas"></input>
             </div>
 
-            	<div class="form-group <?= has_error('funcao') ?>" >
-              	<label class="control-label">Função</label>
-              	<?= form_error('funcao', "<span class='help-block'>", "</span>")?>
-              	<input name="funcao" value="<?= set_value('funcao'); ?>" class="form-control" placeholder="Função"></input>
-            	</div>
+          	<div class="form-group <?= has_error('funcao') ?>" >
+            	<label class="control-label">Função</label>
+            	<?= form_error('funcao', "<span class='help-block'>", "</span>")?>
+            	<input name="funcao" value="<?= set_value('funcao'); ?>" class="form-control" placeholder="Função"></input>
+          	</div>
 
             <div class="checkbox">
               <label class="control-label">
-                <input type="checkbox" name="ativa"> Ativa
+                <input type="checkbox" name="ativa" value="on" <?php echo set_checkbox('ativa', 'on') ?>> Ativa
               </label>
             </div>
 
@@ -74,10 +74,8 @@
               <button class="btn btn-success" type="submit">Adicionar</button>
             </div>
           </form>
-
         </div>
       </div>
-
     </div>
   </div>
 </div>

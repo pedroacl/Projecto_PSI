@@ -64,21 +64,26 @@
   <h2>Oportunidades activas</h2>
   <div class="row">
     <div class="col-md-6">
-
       <div class="panel panel-default">
         <div class="panel-body">
         </div>
       </div>
-
     </div>
 
     <div class="col-md-6">
-
       <div class="panel panel-default">
         <div class="panel-body">
+          <?php if($this->oportunidades_voluntariado_ativas->num_rows() > 0) { ?>
+            <?php foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_voluntariado_ativa) { ?>
+              <?php echo $oportunidade_voluntariado_ativa->nome ?>
+              <?php echo $oportunidade_voluntariado_ativa->funcao ?>
+              <?php echo $oportunidade_voluntariado_ativa->pais ?>
+              <?php echo $oportunidade_voluntariado_ativa->vagas ?>
+            <?php } ?>
+            <a href="<?php echo site_url('oportunidades_voluntariado/edit/' . $oportunidade_voluntariado_ativa->id) ?>">Editar Oportunidade</a>
+          <?php } ?>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -88,9 +93,14 @@
 
       <div class="panel panel-default">
         <div class="panel-body">
+          <?php if($this->oportunidades_voluntariado_inativas->num_rows() > 0) { ?>
+            <?php echo $this->oportunidades_volutariado_inativas->row()->nome ?>
+            <?php echo $this->oportunidades_volutariado_inativas->row()->funcao ?>
+            <?php echo $this->oportunidades_volutariado_inativas->row()->pais ?>
+            <?php echo $this->oportunidades_volutariado_inativas->row()->vagas ?>
+          <?php } ?>
         </div>
       </div>
-
     </div>
 
     <div class="col-md-6">

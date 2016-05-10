@@ -9,9 +9,9 @@ class Oportunidade_voluntariado extends CI_Model {
       $this->load->model('Periodicidade', 'periodicidade');
     }
 
-    public function insert_entry($id_utilizador)
+    public function insert_entry($id_insituicao, $input)
     {
-        $data = $this->get_form_data();
+        $data = $this->get_form_data($id_insituicao, $input);
         $this->db->insert('Oportunidades_Voluntariado', $data);
 
         return $this->db->insert_id();
@@ -43,13 +43,43 @@ class Oportunidade_voluntariado extends CI_Model {
         return $this->db->get();
     }
 
-    public function get_form_data($input)
+    public function get_ativas_by_id_instituicao($id_instituicao)
     {
         $data = array(
-            'nome'   => $input->post('nome'),
-            'funcao' => $input->post('funcao'),
-            'pais'   => $input->post('pais'),
-            'vagas'  => $input->post('vagas')
+            'id_instituicao' => $id_instituicao,
+            'ativa'          => 1
+        );
+
+        $this->db->select('*');
+        $this->db->from('Oportunidades_Voluntariado');
+        $this->db->where($data);
+
+        return $this->db->get();
+    }
+
+    public function get_inativas_by_id_instituicao($id_instituicao)
+    {
+        $data = array(
+            'id_instituicao' => $id_instituicao,
+            'ativa'          => 0
+        );
+
+        $this->db->select('*');
+        $this->db->from('Oportunidades_Voluntariado');
+        $this->db->where($data);
+
+        return $this->db->get();
+    }
+
+    public function get_form_data($id_instituicao, $input)
+    {
+        $data = array(
+            'id_instituicao' => $id_instituicao,
+            'nome'           => $input->post('nome'),
+            'funcao'         => $input->post('funcao'),
+            'pais'           => $input->post('pais'),
+            'vagas'          => $input->post('vagas'),
+            'ativa'          => $input->post('ativa')
         );
 
         return $data;
