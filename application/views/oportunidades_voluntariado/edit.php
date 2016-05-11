@@ -11,7 +11,7 @@
             <div class="form-group <?= has_error('nome') ?>" >
               <label class="control-label">Nome</label>
               <?= form_error('nome', "<span class='help-block'>", "</span>")?>
-              <input name="nome" value="<?= set_value('nome', $this->oportunidade_voluntariado_data->nome); ?>" class="form-control" placeholder="Nome"></input>
+              <input name="nome" value="<?= set_value('nome', $this->oportunidade_voluntariado_data->nome_oportunidade); ?>" class="form-control" placeholder="Nome"></input>
             </div>
 
             <div class="form-group <?= has_error('pais') ?>" >
@@ -36,6 +36,18 @@
               <label class="control-label">
                 <input type="checkbox" name="ativa" value="y" <?php echo $this->oportunidade_voluntariado_data->ativa == 'y' ? 'checked' : '' ?>> Ativa
               </label>
+            </div>
+
+            <div class="form-group <?= has_error('id_grupo_atuacao') ?>">
+              <label class="control-label">Grupo de Atuação</label>
+              <?= form_error('id_grupo_atuacao', "<span class='help-block'>", "</span>")?>
+              <?php echo form_dropdown('id_grupo_atuacao', $this->grupos_atuacao_data, set_value('id_grupo_atuacao', $this->oportunidade_voluntariado_data->id_grupo_atuacao)) ?>
+            </div>
+
+            <div class="form-group <?= has_error('id_area_interesse') ?>">
+              <label class="control-label">Área de Interesse</label>
+              <?= form_error('id_area_interesse', "<span class='help-block'>", "</span>")?>
+              <?php echo form_dropdown('id_area_interesse', $this->areas_interesse_data, set_value('id_area_interesse', $this->oportunidade_voluntariado_data->id_area_interesse)) ?>
             </div>
 
             <br>

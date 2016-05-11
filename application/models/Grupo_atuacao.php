@@ -73,6 +73,18 @@ class Grupo_atuacao extends CI_Model {
       $this->utilizador_grupo_atuacao->insert_entry($id_utilizador, $id_grupo_atuacao);
    }
 
+   public function get_grupos_atuacao_data()
+   {
+      $grupos_atuacao_entries = $this->grupo_atuacao->get_entries();
+      $grupos_atuacao_data    = array();
+
+      foreach ($grupos_atuacao_entries->result() as $grupo_atuacao) {
+         $grupos_atuacao_data[$grupo_atuacao->id] = $grupo_atuacao->nome;
+      }
+
+      return $grupos_atuacao_data;
+   }
+
    function get_signup_form_data($input)
    {
       $data = array(

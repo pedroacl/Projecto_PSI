@@ -61,9 +61,7 @@ class Area_interesse extends CI_Model {
             WHERE utilizadores.id = ?";
 
       $this->db->query($sql, array($id_utilizador));
-   }
-
-
+    }
 
     function insert_entry($id_utilizador, $input)
     {
@@ -85,4 +83,17 @@ class Area_interesse extends CI_Model {
 
         return $data;
     }
+
+    public function get_areas_interesse_data()
+    {
+      $areas_interesse_entries = $this->area_interesse->get_entries();
+      $areas_interesse_data    = array();
+
+      foreach ($areas_interesse_entries->result() as $area_interesse) {
+          $areas_interesse_data[$area_interesse->id] = $area_interesse->nome;
+      }
+
+      return $areas_interesse_data;
+    }
+
 }

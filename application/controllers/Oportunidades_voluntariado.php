@@ -40,20 +40,10 @@ class Oportunidades_voluntariado extends MY_Controller {
 			}
 
 			// grupos de atuação
-			$grupos_atuacao_entries    = $this->grupo_atuacao->get_entries();
-			$this->grupos_atuacao_data = array();
-
-			foreach ($grupos_atuacao_entries->result() as $grupo_atuacao) {
-				$this->grupos_atuacao_data[$grupo_atuacao->id] = $grupo_atuacao->nome;
-			}
+			$this->grupos_atuacao_data = $this->grupo_atuacao->get_grupos_atuacao_data();
 
 			// areas de interesse
-			$areas_interesse_entries    = $this->area_interesse->get_entries();
-			$this->areas_interesse_data = array();
-
-			foreach ($areas_interesse_entries->result() as $area_interesse) {
-				$this->areas_interesse_data[$area_interesse->id] = $area_interesse->nome;
-			}
+			$this->areas_interesse_data = $this->area_interesse->get_areas_interesse_data();
 
 			$this->title = "Adicionar nova Oportunidade de Voluntariado";
 			$this->js_files = array('disponibilidades.js', 'areas_geograficas.js');
@@ -94,6 +84,9 @@ class Oportunidades_voluntariado extends MY_Controller {
 	public function edit($id_oportunidade_voluntariado)
 	{
 		$this->load->library('form_validation');
+		$this->load->model('Area_geografica', 'area_geografica');
+		$this->load->model('Area_interesse', 'area_interesse');
+		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 
 		$this->oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado);
 
@@ -110,19 +103,30 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->form_validation->set_rules($rules);
 
 		if ($this->form_validation->run() == FALSE) {
+			// grupos de atuação
+			$this->grupos_atuacao_data = $this->grupo_atuacao->get_grupos_atuacao_data();
+
+			// areas de interesse
+			$this->areas_interesse_data = $this->area_interesse->get_areas_interesse_data();
+
 			$this->js_files = array('disponibilidades.js', 'areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('/oportunidades_voluntariado/edit');
 			$this->load->view('templates/main_template/footer');
 
 		} else {
+        	// atualizar area geografica
+        	$area_geografica_data = $this->area_geografica->get_form_data($this->input->post());
+			$id_area_geografica = $this->area_geografica->insert_entry($area_geografica_data);
+
 			// atualizar oportunidade
 			$form_data = $this->oportunidade_voluntariado->get_form_data($this->input->post());
-			$form_data['id_area_geografica'] = $this->oportunidade_voluntariado_data->id_area_geografica;
+			$form_data['id_area_geografica'] = $id_area_geografica;
 			$form_data['id_instituicao']     = $this->id_instituicao;
 
-			$this->oportunidade_voluntariado->update_entry($form_data, $this->oportunidade_voluntariado_data->id);
+			$this->oportunidade_voluntariado->update_entry($form_data, $id_oportunidade_voluntariado);
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado actualizada com sucesso!');
+
 			redirect('instituicoes/profile');
 		}
 	}

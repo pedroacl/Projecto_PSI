@@ -113,7 +113,7 @@
               <strong>Número de Vagas:</strong>
               <p><?php echo $oportunidade_inactiva->vagas ?></p>
 
-              <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
+              <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/show/' . $oportunidade_inactiva->id) ?>">  Ver Detalhes</a>
 
               <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/edit/' . $oportunidade_inactiva->id) ?>">Editar Oportunidade</a>
             </div>
