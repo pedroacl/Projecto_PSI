@@ -64,7 +64,6 @@ class Disponibilidade extends CI_Model {
 
     function insert_entries($id_oportunidade_voluntariado, $input)
     {
-        print_r($input);
         $this->load->model('Periodicidade', 'periodicidade');
         $this->load->model('Oportunidade_voluntariado_disponibilidade', 'oportunidade_disponibilidade');
 
