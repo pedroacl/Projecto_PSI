@@ -26,14 +26,34 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->library('form_validation');
 
 		$this->load->model('Area_geografica', 'area_geografica');
+		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
+		$this->load->model('Area_interesse', 'area_interesse');
 
 		$rules = $this->oportunidade_voluntariado->get_form_validation_rules();
 		$this->form_validation->set_rules($rules);
 
-
 		if ($this->form_validation->run() == FALSE) {
 
-			$this->session->set_flashdata('danger', validation_errors());
+			if (validation_errors() != null) {
+				$this->session->set_flashdata('danger', validation_errors());
+			}
+
+			// grupos de atuação
+			$grupos_atuacao_entries    = $this->grupo_atuacao->get_entries();
+			$this->grupos_atuacao_data = array();
+
+			foreach ($grupos_atuacao_entries->result() as $grupo_atuacao) {
+				$this->grupos_atuacao_data[$grupo_atuacao->id] = $grupo_atuacao->nome;
+			}
+
+			// areas de interesse
+			$areas_interesse_entries    = $this->area_interesse->get_entries();
+			$this->areas_interesse_data = array();
+
+			foreach ($areas_interesse_entries->result() as $area_interesse) {
+				$this->areas_interesse_data[$area_interesse->id] = $area_interesse->nome;
+			}
 
 			$this->title = "Adicionar nova Oportunidade de Voluntariado";
 			$this->js_files = array('disponibilidades.js', 'areas_geograficas.js');
@@ -42,14 +62,19 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
-			$area_geografica_data = $this->area_geografica->get_form_data($this->input);
+			// adicionar area geografica
+			$area_geografica_data = $this->area_geografica->get_form_data($this->input->post());
 			$id_area_geografica   = $this->area_geografica->insert_entry($area_geografica_data);
 
-			$oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_form_data($this->input);
+			// adicionar oportunidade de voluntariado
+			$oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_form_data($this->input->post());
 			$oportunidade_voluntariado_data['id_instituicao']     = $this->id_instituicao;
 			$oportunidade_voluntariado_data['id_area_geografica'] = $id_area_geografica;
+			$id_oportunidade = $this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);
 
-			$this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);
+        	// adicionar disponibilidades
+        	$disponibilidades_data = $this->disponibilidade->get_form_data($this->input->post());
+        	$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
 
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
 			redirect('instituicoes/profile');
@@ -59,14 +84,18 @@ class Oportunidades_voluntariado extends MY_Controller {
 	public function show($id_oportunidade_voluntariado)
 	{
 		$this->oportunidade_voluntariado =
-			$this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado);
+			$this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
+
+		$this->load->view('templates/main_template/header');
+		$this->load->view('/oportunidades_voluntariado/show');
+		$this->load->view('templates/main_template/footer');
 	}
 
 	public function edit($id_oportunidade_voluntariado)
 	{
 		$this->load->library('form_validation');
 
-		$this->oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_entry($id_oportunidade_voluntariado);
+		$this->oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado);
 
 		if ($this->oportunidade_voluntariado_data->num_rows() == 0
 			|| $this->oportunidade_voluntariado_data->row()->id_instituicao != $this->id_instituicao) {
@@ -87,7 +116,12 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 		} else {
-			$this->oportunidade_voluntariado->update_entry($this->id_instituicao, $id_oportunidade_voluntariado, $this->input);
+			// atualizar oportunidade
+			$form_data = $this->oportunidade_voluntariado->get_form_data($this->input->post());
+			$form_data['id_area_geografica'] = $this->oportunidade_voluntariado_data->id_area_geografica;
+			$form_data['id_instituicao']     = $this->id_instituicao;
+
+			$this->oportunidade_voluntariado->update_entry($form_data, $this->oportunidade_voluntariado_data->id);
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado actualizada com sucesso!');
 			redirect('instituicoes/profile');
 		}

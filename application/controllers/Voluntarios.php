@@ -131,11 +131,14 @@ class Voluntarios extends MY_Controller {
 	}
 
 	// POST /voluntarios/add_disponibilidade
-	public function add_disponibilidade($id_voluntario)
+	public function add_disponibilidade()
 	{
 		$this->load->library('form_validation');
 		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Periodicidade', 'periodicidade');
+		$this->load->model('Utilizador_disponibilidade', 'utilizador_disponibilidade');
 
+/*
 		$form_rules = $this->disponibilidade->get_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
 
@@ -147,14 +150,33 @@ class Voluntarios extends MY_Controller {
 			$this->load->view('templates/main_template/footer');
 
 	 	} else {
-			$this->disponibilidade->insert_entry($id_voluntario, $this->input);
-			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
+
 	 	}
+*/
+
+	 	// disponibilidade
+		$disponibilidade_data = $this->disponibilidade->get_profile_data($this->input->post());
+		$id_disponibilidade    = $this->disponibilidade->insert_single_entry($disponibilidade_data);
+
+		// periodicidade
+		$periodicidade_data = $this->periodicidade->get_form_data($this->input->post());
+		$periodicidade_data['id_disponibilidade'] = $id_disponibilidade;
+		$this->periodicidade->insert_single_entry($periodicidade_data);
+
+		$utilizador_disponibilidade_data = array(
+			'id_utilizador'      => $this->id_utilizador,
+			'id_disponibilidade' => $id_disponibilidade
+		);
+
+		$this->utilizador_disponibilidade->insert_entry($utilizador_disponibilidade_data);
+
+		$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
 
 	 	// voltar a exibir perfil
 		$this->profile();
 	}
 
+/*
 	function update_profile()
 	{
 		$this->authenticate_user();
@@ -228,4 +250,5 @@ class Voluntarios extends MY_Controller {
 
 		}
 	}
+*/
 }

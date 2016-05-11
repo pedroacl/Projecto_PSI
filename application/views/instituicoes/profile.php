@@ -58,9 +58,9 @@
     </div>
   </div>
 
-  <h2>Oportunidades activas</h2>
-  <div class="row">
-    <?php if($this->oportunidades_voluntariado_ativas->num_rows() > 0) { ?>
+  <?php if($this->oportunidades_voluntariado_ativas->num_rows() > 0) { ?>
+    <h2>Oportunidades activas</h2>
+    <div class="row">
       <?php foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) { ?>
         <div class="col-md-12">
           <div class="panel panel-default">
@@ -70,12 +70,15 @@
                   <h3><?php echo $oportunidade_ativa->nome ?></h3>
                   <strong>Função:</strong>
                   <p><?php echo $oportunidade_ativa->funcao ?></p>
-                  <strong>Pais:</strong>
+                  <strong>País:</strong>
                   <p><?php echo $oportunidade_ativa->pais ?></p>
                   <strong>Número de Vagas:</strong>
                   <p><?php echo $oportunidade_ativa->vagas ?></p>
-                  <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/edit/' . $oportunidade_ativa->id) ?>">Editar Oportunidade</a>
-                  
+
+                  <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
+
+                  <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/edit/' . $oportunidade_ativa->id) ?>">  Editar Oportunidade</a>
+
                 </div>
                 <div class="col-md-6">
                   <div class="row">
@@ -92,12 +95,12 @@
           </div>
         </div>
       <?php } ?>
-    <?php } ?>
-  </div>
+    </div>
+  <?php } ?>
 
-  <h2>Oportunidades inactivas</h2>
-  <div class="row">
-    <?php if($this->oportunidades_voluntariado_inativas->num_rows() > 0) { ?>
+  <?php if($this->oportunidades_voluntariado_inativas->num_rows() > 0) { ?>
+    <h2>Oportunidades inactivas</h2>
+    <div class="row">
       <?php foreach ($this->oportunidades_voluntariado_inativas->result() as $oportunidade_inactiva) { ?>
         <div class="col-md-6">
           <div class="panel panel-default">
@@ -109,11 +112,14 @@
               <p><?php echo $oportunidade_inactiva->pais ?></p>
               <strong>Número de Vagas:</strong>
               <p><?php echo $oportunidade_inactiva->vagas ?></p>
+
+              <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
+
               <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/edit/' . $oportunidade_inactiva->id) ?>">Editar Oportunidade</a>
             </div>
           </div>
         </div>
       <?php } ?>
-    <?php } ?>
-  </div>
+    </div>
+  <?php } ?>
 </div>

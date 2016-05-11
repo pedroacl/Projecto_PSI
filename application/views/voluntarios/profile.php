@@ -158,13 +158,34 @@
                     }
                   ?>
                     <tr style="display: none;" id="form_add">
-                      <form action="disponibilidades/add" method="POST">
-                        <td><input class="form-control" name="data_inicio"/></td>
-                        <td><input class="form-control" name="data_fim"/></td>
+                      <?php echo form_open('voluntarios/add_disponibilidade') ?> 
+                        <td>
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                            <input name="data_inicio" value="" type='text' class="form-control" />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                            <input name="data_fim" value="" type='text' class="form-control" />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </td>
                         <td><input class="form-control" name="periodicidade"/></td>
-                        <td><input class="form-control" name="repetir_ate"/></td>
+                        <td>
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                            <input name="repetir_ate" value="" type='text' class="form-control" />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </td>
                         <td colspan="2"><input class='btn btn-primary btn-sm' type="submit" value="Adicionar"/></td>
-                      </form>
+                      <?php echo form_close() ?>
                     </tr>
                 </tbody>
               </table>

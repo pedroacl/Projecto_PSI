@@ -7,7 +7,7 @@
 
           <form action="" method="POST" enctype="multipart/form-data" id="form">
             <h2>Adicionar Oportunidade de Voluntariado</h2>
-            <?= validation_errors() ?>
+
             <div class="form-group <?= has_error('nome') ?>" >
               <label class="control-label">Nome</label>
               <?= form_error('nome', "<span class='help-block'>", "</span>")?>
@@ -36,6 +36,18 @@
               <label class="control-label">
                 <input type="checkbox" name="ativa" value="on" <?php echo set_checkbox('ativa', 'on') ?>> Ativa
               </label>
+            </div>
+
+            <div class="form-group <?= has_error('distrito') ?>">
+              <label class="control-label">Grupo de Atuação</label>
+              <?= form_error('id_grupo_atuacao', "<span class='help-block'>", "</span>")?>
+              <?php echo form_dropdown('id_grupo_atuacao', $this->grupos_atuacao_data) ?>
+            </div>
+
+            <div class="form-group <?= has_error('distrito') ?>">
+              <label class="control-label">Área de Interesse</label>
+              <?= form_error('id_area_interesse', "<span class='help-block'>", "</span>")?>
+              <?php echo form_dropdown('id_area_interesse', $this->areas_interesse_data, $this->input->post('id_area_interesse')) ?>
             </div>
 
             <br>

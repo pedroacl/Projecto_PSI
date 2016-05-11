@@ -1,49 +1,44 @@
 <div class="container-fluid content">
   <div class="row">
     <div class="col-md-12">
-
       <div class="panel panel-default">
         <div class="panel-body profile-voluntario">
           <div class="row">
             <div class="col-md-8">
               <div class="row">
                 <div class="col-md-12">
-                  <h1><?= $this->voluntario->nome ?></h1>
+                  <h1><?= $this->oportunidade_voluntariado->nome_oportunidade ?></h1>
                   <dl class="dl-horizontal">
-                    <dt>Telefone</dt>
-                    <dd><?= $this->voluntario->telefone ?></dd>
+                    <dt>Função</dt>
+                    <dd><?= $this->oportunidade_voluntariado->funcao ?></dd>
 
-                    <dt>Género</dt>
-                    <dd><?= ($this->voluntario->genero == 'm' ? 'Masculino' : 'Feminino'); ?></dd>
+                    <dt>País</dt>
+                    <dd><?= $this->oportunidade_voluntariado->pais ?></dd>
 
-                    <dt>Data de Nascimento</dt>
-                    <dd><?= $this->voluntario->data_nascimento ?></dd>
+                    <dt>Vagas</dt>
+                    <dd><?= $this->oportunidade_voluntariado->vagas?></dd>
 
-                    <dt>Email</dt>
-                    <dd><?= $this->voluntario->email ?></dd>
+                    <dt>Ativa</dt>
+                    <dd><?= $this->oportunidade_voluntariado->ativa == 'y' ? 'Sim' : 'Não' ?></dd>
 
-                    <?php if($this->area_geografica->row() != null) { ?>
-                      <dt>Distrito</dt>
-                      <dd><?= $this->area_geografica->distrito ?></dd>
+                    <dt>Grupo de Atuação</dt>
+                    <dd><?= $this->oportunidade_voluntariado->nome_grupo_atuacao ?></dd>
 
-                      <dt>Concelho</dt>
-                      <dd><?= $this->area_geografica->concelho ?></dd>
-
-                      <dt>Freguesia</dt>
-                      <dd><?= $this->area_geografica->freguesia ?></dd>
-                    <?php } ?>
+                    <dt>Área de Interesse</dt>
+                    <dd><?= $this->oportunidade_voluntariado->nome_area_interesse ?></dd>
                   </dl>
                   <a class="btn btn-warning" href="<?= site_url('voluntarios/edit_profile') ?>">Editar Perfil</a>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col-md-6" id="edit_grupos_atuacao">
               <h4>Grupos de atuação <a class="btn btn-warning btn-sm">Editar</a></h4>
               <ul>
-                <?php foreach ($this->grupos_atuacao_utilizador->result() as $grupos_atuacao_utilizador) {
-                  echo '<li>' . $grupos_atuacao_utilizador->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('grupos_atuacao/delete/' . $grupos_atuacao_utilizador->id) . '">&#10005;</a></li>';
+                <?php foreach ($this->grupos_atuacao_oportunidade->result() as $grupos_atuacao_oportunidade) {
+                  echo '<li>' . $grupos_atuacao_oportunidade->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('grupos_atuacao/delete/' . $grupos_atuacao_oportunidade->id) . '">&#10005;</a></li>';
                 } ?>
               </ul>
               <?= form_open('grupos_atuacao/add/', array('class' => 'form-inline', 'style' => 'display: none;')) ?>
