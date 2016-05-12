@@ -44,12 +44,16 @@ class Habilitacao_academica extends CI_Model {
 
     function get_form_data($input)
     {
+        print_r('input: '. $input);
+
         $data = array(
             'id_tipo'          => $input['tipo_habilitacao_academica'],
             'curso'            => $input['curso'],
             'instituto_ensino' => $input['instituto_ensino'],
-            'data_conclusao'   => date("Y-m-d", strtotime($input['data_conclusao']))
+            'data_conclusao'   => date("Y/m/d", strtotime($input['data_conclusao']))
         );
+
+        print_r("data: " . $data);
 
         return $data;
     }

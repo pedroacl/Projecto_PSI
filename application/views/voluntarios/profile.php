@@ -167,7 +167,7 @@
                     }
                   ?>
                     <tr style="display: none;" id="form_add">
-                      <?php echo form_open('voluntarios/add_disponibilidade') ?> 
+                      <?php echo form_open('voluntarios/add_disponibilidade') ?>
                         <td>
                           <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
                             <input name="data_inicio" value="" type='text' class="form-control" />
