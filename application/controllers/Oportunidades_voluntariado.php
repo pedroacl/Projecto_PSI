@@ -58,6 +58,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 			// adicionar oportunidade de voluntariado
 			$oportunidade_voluntariado_data = $this->oportunidade_voluntariado->get_form_data($this->input->post());
+
 			$oportunidade_voluntariado_data['id_instituicao']     = $this->id_instituicao;
 			$oportunidade_voluntariado_data['id_area_geografica'] = $id_area_geografica;
 			$id_oportunidade = $this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);

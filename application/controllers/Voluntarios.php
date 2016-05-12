@@ -101,10 +101,16 @@ class Voluntarios extends MY_Controller {
 
 			// atualizar voluntario
 			$data_voluntario = $this->voluntario->get_form_data($this->input->post());
+			$data_voluntario['data_nascimento'] =
+				date("Y/m/d", strtotime($this->input->post('data_nascimento')));
+
 			$this->voluntario->update_entry($this->id_voluntario, $data_voluntario);
 
+			// upload foto
+			$this->voluntario->upload_photo($this->id_voluntario);
+
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
-			//redirect('voluntarios/profile');
+			redirect('voluntarios/profile');
 		}
 	}
 

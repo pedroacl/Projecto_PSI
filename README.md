@@ -4,13 +4,13 @@ Repositório para o projecto da cadeira de Projecto de Sistemas de Informação
 
 TODO VOLUNTARIOS
 =========
-- perfil de voluntario mostra foto sempre, quer tenha foto ou não, e outras informações também
-
+- perfil de voluntario mostra foto sempre, quer tenha foto ou não, e outras 
+	informações também
 - edit de perfil de voluntario não recebe as opções já feitas ?!
 - edit de perfil de voluntario mete data de nascimento 01/01/1970
 - edit de perfil de voluntario não tem areas geograficas bem (js bem, mas cenas por POST mal)
-- edit de perfil de voluntario ao fazer submit fica na mesma pagina? (mas actualiza tudo)
-- edit de perfil de voluntario não actualiza foto
+DONE - edit de perfil de voluntario ao fazer submit fica na mesma pagina? (mas actualiza tudo)
+DONE - edit de perfil de voluntario não actualiza foto
 
 - perfil de voluntario, ao adicionar habilitacao, data de conclusão não é datepicker
 - perfil de voluntario, ao adicionar habilitacao, data de conclusão fica sempre a 01/01/1970

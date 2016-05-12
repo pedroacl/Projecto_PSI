@@ -127,19 +127,23 @@ class Disponibilidade extends CI_Model {
         $result = array();
 
         foreach ($disponibilidades as $disp) {
-            $inicio        = $disp['data_inicio'];
-            $fim           = $disp['data_fim'];
+            $inicio        = date("Y/m/d", strtotime($disp['data_inicio']));
+            $fim           = date("Y/m/d", strtotime($disp['data_fim']));
             $periodicidade = $disp['periodicidade'];
-            $repetir_ate   = $disp['repetir_ate'];
+            $repetir_ate   = date("Y/m/d", strtotime($disp['repetir_ate']));
 
             $data = array(
                 'disponibilidade' => array(
                     'data_inicio' => $inicio,
-                    'data_fim'    => $fim),
+                    'data_fim'    => $fim
+                ),
                 'periodicidade' => array(
                     'tipo'     => $periodicidade,
-                    'data_fim' => $repetir_ate)
+                    'data_fim' => $repetir_ate
+                )
             );
+
+            print_r($data);
 
             array_push($result, $data);
         }
