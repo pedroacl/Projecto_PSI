@@ -121,11 +121,18 @@
                             echo '</select>';
                           ?>
                         </td>
-                        <td><input class="form-control" name="curso"/></td>
-                        <td><input class="form-control" name="instituto_ensino"/></td>
+                        <td>
+                          <div class='form-group'>
+                            <input class="form-control" name="curso"/></td>
+                          </div>
+                        <td>
+                          <div class='form-group'>
+                            <input class="form-control" name="instituto_ensino"/>
+                          </div>
+                        </td>
                         <td>
                           <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                            <input type='text' name='data_conclusao' class="form-control" value=""/>
+                            <input type='text' name='data_conclusao' class="form-control" />
                             <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                             </span>

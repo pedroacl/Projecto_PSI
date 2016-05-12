@@ -82,11 +82,13 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Periodicidade', 'periodicidade');
 		
-		$this->oportunidade_voluntariado =
-			$this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
+		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
 
 		$this->disponibilidades = $this->disponibilidade->get_by_id_oportunidade($id_oportunidade_voluntariado);
+
+		$this->tipos_periodicidade = $this->periodicidade->get_periodicidades();
 
 		$this->js_files = array('oportunidades/oportunidade_profile.js');
 		$this->load->view('templates/main_template/header');
@@ -140,7 +142,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$this->oportunidade_voluntariado->update_entry($form_data, $id_oportunidade_voluntariado);
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado actualizada com sucesso!');
 
-			redirect('instituicoes/profile');
+			redirect('oportunidades_voluntariado/show/' . $id_oportunidade_voluntariado);
 		}
 	}
 

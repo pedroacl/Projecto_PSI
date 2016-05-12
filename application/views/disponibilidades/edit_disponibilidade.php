@@ -49,7 +49,7 @@
 
             <div class="pull-right">
               <a href="#" onclick="window.history.back();" class="btn btn-danger">Cancelar</a>
-              <button class="btn btn-success" type="submit">Registar</button>
+              <button class="btn btn-success" type="submit">Actualizar</button>
             </div>
           </form>
 
