@@ -30,9 +30,13 @@ class Disponibilidades extends MY_Controller {
 	public function edit($id_disponibilidade)
 	{
 		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->helper('form');
+		
 		$disponibilidade = $this->input->post();
 		$this->disponibilidade = $this->disponibilidade->get_by_id($id_disponibilidade)->row();
+
+		$this->tipos_periodicidade = $this->periodicidade->get_periodicidades();
 
 		$this->js_files = array('');
 		$this->load->view('templates/main_template/header');

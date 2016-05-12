@@ -33,9 +33,7 @@
             <div class="form-group">
               <label for="periodicidade">Periodicidade</label>
               <?= form_error('periodicidade', "<span class='help-block'>", "</span>")?>
-              <select name="disponibilidades[0][periodicidade]" class="form-control">
-                <?php echo form_dropdown('disponibilidades[0][periodicidade]', $this->grupos_atuacao_data, set_value('disponibilidades[0][periodicidade]', $this->oportunidade_voluntariado_data->id_grupo_atuacao)) ?>
-              </select>
+                <?php echo form_dropdown('disponibilidades[0][periodicidade]', $this->tipos_periodicidade, $this->disponibilidade->tipo_periodicidade, "class='form-control'") ?>
             </div>
 
             <div class="form-group">

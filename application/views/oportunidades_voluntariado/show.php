@@ -81,7 +81,9 @@
                               </span>
                             </div>
                           </td>
-                          <td><input class="form-control" name="periodicidade"/></td>
+                          <td>
+                            
+                          </td>
                           <td>
                             <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
                               <input name="repetir_ate" value="" type='text' class="form-control" />

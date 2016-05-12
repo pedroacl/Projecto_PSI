@@ -45,6 +45,9 @@ class Oportunidades_voluntariado extends MY_Controller {
 			// areas de interesse
 			$this->areas_interesse_data = $this->area_interesse->get_areas_interesse_data();
 
+			// tipos de periodicidade
+			$this->tipos_periodicidade = $this->periodicidade->get_periodicidades();
+
 			$this->title = "Adicionar nova Oportunidade de Voluntariado";
 			$this->js_files = array('disponibilidades.js', 'areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
@@ -62,13 +65,11 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$oportunidade_voluntariado_data['id_instituicao']     = $this->id_instituicao;
 			$oportunidade_voluntariado_data['id_area_geografica'] = $id_area_geografica;
 			$id_oportunidade = $this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);
+      
+      // adicionar disponibilidades
+    	$disponibilidades_data = $this->disponibilidade->get_form_data($this->input->post());
 
-        	// adicionar disponibilidades
-        	$disponibilidades_data = 
-        		$this->disponibilidade->get_form_data($this->input->post());
-        	$disponibilidade_data[]
-
-        	$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
+    	$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
 
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
 			redirect('instituicoes/profile');
