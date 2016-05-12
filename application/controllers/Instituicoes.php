@@ -87,6 +87,7 @@ class Instituicoes extends MY_Controller {
 
 			// atualizar instituicao
         	$data_instituicao = $this->instituicao->get_form_data($this->input->post());
+
 			$this->instituicao->update_entry($this->id_instituicao, $data_instituicao);
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
 

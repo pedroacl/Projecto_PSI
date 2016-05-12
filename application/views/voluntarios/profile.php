@@ -5,13 +5,15 @@
       <div class="panel panel-default">
         <div class="panel-body profile-voluntario">
           <div class="row">
-            <div class="col-md-4">
-              <div class="profile-photo-container">
-                <a href="#" class="thumbnail">
-                  <img src="<?= base_url($this->voluntario->foto) ?>">
-                </a>
+            <?php if($this->voluntario->foto != null) { ?>
+              <div class="col-md-4">
+                <div class="profile-photo-container">
+                  <a href="#" class="thumbnail">
+                    <img src="<?= base_url($this->voluntario->foto) ?>">
+                  </a>
+                </div>
               </div>
-            </div>
+            <?php } ?>
             <div class="col-md-8">
               <div class="row">
                 <div class="col-md-12">

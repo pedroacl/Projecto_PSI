@@ -41,7 +41,7 @@ class Voluntario extends CI_Model {
     {
         $data = array(
             'genero'          => $input['genero'],
-            'data_nascimento' => date("Y/m/d", strtotime($input['data_nascimento']))
+            'data_nascimento' => $input['data_nascimento']
         );
 
         return $data;
@@ -78,19 +78,27 @@ class Voluntario extends CI_Model {
 
     function upload_photo($id_voluntario)
     {
+        // nao foi enviada foto
+        if(!file_exists($_FILES['foto']['tmp_name'])
+            || !is_uploaded_file($_FILES['foto']['tmp_name'])) {
+
+            return;
+        }
+
         $photo_upload_path       = './uploads/' . $id_voluntario . '/photos';
         $config['upload_path']   = $photo_upload_path;
         $config['allowed_types'] = 'gif|jpg|png|jpeg';
         $config['max_size']      = '100';
         $config['max_width']     = '1024';
         $config['max_height']    = '768';
+        $config['file_name']     = 'avatar';
 
         $this->load->library('upload', $config);
 
         // criar directorio do utilizador
         if (!is_dir($photo_upload_path))
         {
-            mkdir($photo_upload_path, 0777, true);
+            mkdir($photo_upload_path, 0755, true);
         }
 
         // erro de upload da foto
