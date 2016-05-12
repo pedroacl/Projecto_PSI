@@ -30,7 +30,7 @@ class Voluntarios extends MY_Controller {
 		// voluntario
 		$this->voluntario =
 			$this->voluntario->get_by_id_utilizador($this->id_utilizador)->row();
-		$this->voluntario->data_nascimento = date("d/m/Y", strtotime($this->voluntario->data_nascimento));
+		$this->voluntario->data_nascimento = date("d-m-Y", strtotime($this->voluntario->data_nascimento));
 
 		// area geografica
 		$this->area_geografica = $this->area_geografica->get_by_id_utilizador($this->id_utilizador);
@@ -101,38 +101,14 @@ class Voluntarios extends MY_Controller {
 
 			// atualizar voluntario
 			$data_voluntario = $this->voluntario->get_form_data($this->input->post());
-			$data_voluntario['data_nascimento'] =
-				date("Y-m-d", strtotime($data_voluntario['data_nascimento']));
 			$this->voluntario->update_entry($this->id_voluntario, $data_voluntario);
 
 			// upload foto
 			$this->voluntario->upload_photo($this->id_voluntario);
 
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
-			redirect('voluntarios/profile');
+			//redirect('voluntarios/profile');
 		}
-	}
-
-	public function add_habilitacao_academica($id_voluntario)
-	{
-		$this->load->library('form_validation');
-		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
-
-		$form_rules = $this->habilitacao_academica->get_form_validation_rules();
-		$this->form_validation->set_rules($form_rules);
-
-		if ($this->form_validation->run() == FALSE) {
-			echo "Erro!";
-			echo validation_errors();
-			print_r($this->input->post());
-	 	} else {
-			$this->habilitacao_academica->insert_entry($id_voluntario, $this->input);
-	 		$this->session->set_flashdata('success', 'Hablitacao Academica adicionada com sucesso!');
-			print_r($this->input->post());
-	 	}
-
-	 	// voltar a exibir perfil
-		$this->profile();
 	}
 
 	// POST /voluntarios/add_disponibilidade
@@ -190,7 +166,7 @@ class Voluntarios extends MY_Controller {
 		$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
 
 	 	// voltar a exibir perfil
-		//$this->profile();
+		$this->profile();
 	}
 
 /*

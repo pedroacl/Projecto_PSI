@@ -41,7 +41,7 @@ class Voluntario extends CI_Model {
     {
         $data = array(
             'genero'          => $input['genero'],
-            'data_nascimento' => $input['data_nascimento']
+            'data_nascimento' => date("Y-m-d", strtotime($input['data_nascimento']))
         );
 
         return $data;
