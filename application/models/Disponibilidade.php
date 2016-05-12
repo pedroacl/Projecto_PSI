@@ -150,4 +150,14 @@ class Disponibilidade extends CI_Model {
 
         return $result;
     }
+
+    public function get_periodicidades()
+    {
+        return array(
+            'uma_vez'       => 'Uma única vez',
+            'semanalmente ' => 'Semanalmente',
+            'mensalmente'   => 'Mensalmente',
+            'anualmente'    => 'Anualmente'
+        );
+    }
 }
