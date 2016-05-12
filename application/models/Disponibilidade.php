@@ -23,8 +23,8 @@ class Disponibilidade extends CI_Model {
 
     function delete_entry_oportunidade($id_disponibilidade)
     {
-        $this->db->delete('Disponibilidades', array('id' => $id_disponibilidade)); 
-        $this->db->delete('Oportunidades_Voluntariado_Disponibilidades', array('id_disponibilidade' => $id_disponibilidade)); 
+        $this->db->delete('Disponibilidades', array('id' => $id_disponibilidade));
+        $this->db->delete('Oportunidades_Voluntariado_Disponibilidades', array('id_disponibilidade' => $id_disponibilidade));
     }
 
     function get_by_id_utilizador($id_utilizador)
@@ -113,31 +113,30 @@ class Disponibilidade extends CI_Model {
 
     public function get_profile_data($input)
     {
+        $this->load->helper('date');
+
         return array(
-            'data_inicio'   => date("Y-m-d", strtotime($input['data_inicio'])),
-            'data_fim'      => date("Y-m-d", strtotime($input['data_fim']))
+            'data_inicio' => mdate("%Y/%m/%d",  strtotime($input['data_inicio'])),
+            'data_fim'    => mdate("%Y/%m/%d",  strtotime($input['data_fim']))
         );
     }
 
     function get_form_data($input)
     {
+        $this->load->helper('date');
+
         $disponibilidades = $input['disponibilidades'];
         $result = array();
 
         foreach ($disponibilidades as $disp) {
-            $inicio        = date("Y-m-d", strtotime($disp['data_inicio']));
-            $fim           = date("Y-m-d", strtotime($disp['data_fim']));
-            $periodicidade = $disp['periodicidade'];
-            $repetir_ate   = date("Y-m-d", strtotime($disp['repetir_ate']));
-
             $data = array(
                 'disponibilidade' => array(
-                    'data_inicio' => $inicio,
-                    'data_fim'    => $fim
+                    'data_inicio' => mdate("%Y/%m/%d",  strtotime($disp['data_inicio'])),
+                    'data_fim'    => mdate("%Y/%m/%d",  strtotime($disp['data_fim']))
                 ),
                 'periodicidade' => array(
-                    'tipo'     => $periodicidade,
-                    'data_fim' => $repetir_ate
+                    'tipo'     => $disp['periodicidade'],
+                    'data_fim' => mdate("%Y/%m/%d",  strtotime($disp['repetir_ate']))
                 )
             );
 

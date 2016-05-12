@@ -65,7 +65,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$oportunidade_voluntariado_data['id_instituicao']     = $this->id_instituicao;
 			$oportunidade_voluntariado_data['id_area_geografica'] = $id_area_geografica;
 			$id_oportunidade = $this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);
-      
+
       // adicionar disponibilidades
     	$disponibilidades_data = $this->disponibilidade->get_form_data($this->input->post());
 
@@ -83,7 +83,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
 		$this->load->model('Periodicidade', 'periodicidade');
-		
+
 		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
 
 		$this->disponibilidades = $this->disponibilidade->get_by_id_oportunidade($id_oportunidade_voluntariado);

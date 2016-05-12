@@ -8,9 +8,6 @@ TODO VOLUNTARIOS
 	informações também
 - edit de perfil de voluntario não tem areas geograficas bem (js bem, mas cenas por POST mal)
 
-- perfil de voluntario, ao adicionar habilitacao, data de conclusão não é datepicker
-- perfil de voluntario, ao adicionar habilitacao, data de conclusão fica sempre a 01/01/1970
-
 - edit de habilitacao de voluntario (no perfil) não actualiza as coisas
 - edit de habilitacao de voluntario (no perfil) botão de cancelar não manda para trás?
 

@@ -32,7 +32,7 @@ class Disponibilidades extends MY_Controller {
 		$this->load->model('Disponibilidade', 'disponibilidade');
 		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->helper('form');
-		
+
 		$disponibilidade = $this->input->post();
 		$this->disponibilidade = $this->disponibilidade->get_by_id($id_disponibilidade)->row();
 
@@ -48,13 +48,12 @@ class Disponibilidades extends MY_Controller {
 	public function process_edit()
 	{
 		// validation
-		// print_r($this->input->post());
 		// update
 		$this->load->model('Disponibilidade', 'disponibilidade');
 		$disponibilidade_e_periodicidade_data = $this->disponibilidade->get_form_data($this->input->post());
 
-
-		$this->disponibilidade->update($this->input->post()['id_disponibilidade'], $disponibilidade_e_periodicidade_data[0]);
+		//linha a dar erro que afecta a funcao delete abaixo
+		//$this->disponibilidade->update($this->input->post()['id_disponibilidade'], $disponibilidade_e_periodicidade_data[0]);
 
 		$this->session->set_flashdata('success', 'Disponibilidade actualizada com sucesso');
 		redirect_back();

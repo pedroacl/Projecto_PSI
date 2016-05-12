@@ -133,7 +133,7 @@ class Utilizador extends CI_Model {
         $data = array(
             'telefone'   => $input['telefone'],
             'nome'       => $input['nome_utilizador'],
-            'updated_at' => date("Y-m-d", time())
+            'updated_at' => mdate("%Y/%m/%d");
         );
 
         return $data;
