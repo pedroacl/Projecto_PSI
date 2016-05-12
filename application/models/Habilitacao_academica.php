@@ -35,24 +35,20 @@ class Habilitacao_academica extends CI_Model {
         $this->db->delete('Habilitacoes_Academicas');
     }
 
-    public function insert_entry($id_voluntario, $input)
+    public function insert_entry($data)
     {
-        $habilitacoes_academicas = $this->get_form_data($input, $id_voluntario);
-        $this->db->insert('Habilitacoes_Academicas', $habilitacoes_academicas);
-
+        print_r($data);
+        $this->db->insert('Habilitacoes_Academicas', $data);
         return $this->db->insert_id();
     }
 
-    function get_form_data($input, $id_voluntario)
+    function get_form_data($input)
     {
-        $end_date = date("Y/m/d", strtotime($input->post('data_conclusao_curso')));
-
         $data = array(
-            'id_tipo'          => $input->post('tipo_habilitacao_academica'),
-            'curso'            => $input->post('curso'),
-            'instituto_ensino' => $input->post('instituto_ensino'),
-            'id_voluntario'    => $id_voluntario,
-            'data_conclusao'   => $end_date
+            'id_tipo'          => $input['tipo_habilitacao_academica'],
+            'curso'            => $input['curso'],
+            'instituto_ensino' => $input['instituto_ensino'],
+            'data_conclusao'   => date("Y-m-d", strtotime($input['data_conclusao']))
         );
 
         return $data;

@@ -109,7 +109,7 @@
                     }
                   ?>
                     <tr style="display: none;" id="form_add">
-                      <?= form_open('habilitacoes_academicas/add/' . $this->session->userdata('id')) ?>
+                      <?= form_open('habilitacoes_academicas/add') ?>
                         <td>
                           <?php
                             echo '<select class="form-control" name="tipo_habilitacao_academica">';
@@ -123,7 +123,14 @@
                         </td>
                         <td><input class="form-control" name="curso"/></td>
                         <td><input class="form-control" name="instituto_ensino"/></td>
-                        <td><input class="form-control" name="data_conclusao"/></td>
+                        <td>
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                            <input type='text' name='data_conclusao' class="form-control" value=""/>
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </td>
                         <td><input class="btn btn-primary btn-sm" type="submit" value="Adicionar"/></td>
                       <?= form_close() ?>
                     </tr>
