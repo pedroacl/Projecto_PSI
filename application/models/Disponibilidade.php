@@ -81,14 +81,12 @@ class Disponibilidade extends CI_Model {
 
     function update($id_disponibilidade, $data)
     {
-        // print_r($data);
         $this->load->model('Periodicidade', 'periodicidade');
         $this->db->where('id', $id_disponibilidade);
         $this->db->update('Disponibilidades', $data['disponibilidade']);
 
         $id_periodicidade = $this->periodicidade->get_by_disponibilidade_id($id_disponibilidade)->row()->id;
         $this->periodicidade->update_entry($id_periodicidade, $data['periodicidade']);
-
     }
 
     function insert_entries($id_oportunidade_voluntariado, $input)
@@ -127,10 +125,10 @@ class Disponibilidade extends CI_Model {
         $result = array();
 
         foreach ($disponibilidades as $disp) {
-            $inicio        = date("Y/m/d", strtotime($disp['data_inicio']));
-            $fim           = date("Y/m/d", strtotime($disp['data_fim']));
+            $inicio        = date("Y-m-d", strtotime($disp['data_inicio']));
+            $fim           = date("Y-m-d", strtotime($disp['data_fim']));
             $periodicidade = $disp['periodicidade'];
-            $repetir_ate   = date("Y/m/d", strtotime($disp['repetir_ate']));
+            $repetir_ate   = date("Y-m-d", strtotime($disp['repetir_ate']));
 
             $data = array(
                 'disponibilidade' => array(
@@ -142,8 +140,6 @@ class Disponibilidade extends CI_Model {
                     'data_fim' => $repetir_ate
                 )
             );
-
-            print_r($data);
 
             array_push($result, $data);
         }

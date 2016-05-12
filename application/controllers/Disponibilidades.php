@@ -52,7 +52,7 @@ class Disponibilidades extends MY_Controller {
 
 		$this->disponibilidade->update($this->input->post()['id_disponibilidade'], $disponibilidade_e_periodicidade_data[0]);
 
-		// Se for uma disponibilidade de uma oportunidade, não pode ir para o profile
+		$this->session->set_flashdata('success', 'Disponibilidade actualizada com sucesso');
 		redirect_back();
 	}
 

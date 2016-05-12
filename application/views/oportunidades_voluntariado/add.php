@@ -129,7 +129,7 @@
                   <div class="form-group">
                     <label class="control-label">Periodicidade</label>
                     <select id="periodicidade" class="form-control">
-                      <option value="once">once</option>
+                      <option value="UmaVez">Uma única vez</option>
                       <option value="Semanalmente">Semanalmente</option>
                       <option value="Mensalmente">Mensalmente</option>
                       <option value="Anualmente">Anualmente</option>

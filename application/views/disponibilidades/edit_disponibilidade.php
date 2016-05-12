@@ -34,10 +34,7 @@
               <label for="periodicidade">Periodicidade</label>
               <?= form_error('periodicidade', "<span class='help-block'>", "</span>")?>
               <select name="disponibilidades[0][periodicidade]" class="form-control">
-                <option value="UmaVez" <?= set_select('periodicidade', 'UmaVez'); ?>>Uma única vez</option>
-                <option value="Semanalmente" <?= set_select('periodicidade', 'Semanalmente'); ?>>Semanalmente</option>
-                <option value="Mensalmente" <?= set_select('periodicidade', 'Mensalmente'); ?>>Mensalmente</option>
-                <option value="Anualmente" <?= set_select('periodicidade', 'Anualmente'); ?>>Anualmente</option>
+                <?php echo form_dropdown('disponibilidades[0][periodicidade]', $this->grupos_atuacao_data, set_value('disponibilidades[0][periodicidade]', $this->oportunidade_voluntariado_data->id_grupo_atuacao)) ?>
               </select>
             </div>
 
