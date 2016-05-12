@@ -41,13 +41,13 @@
             <div class="form-group <?= has_error('distrito') ?>">
               <label class="control-label">Grupo de Atuação</label>
               <?= form_error('id_grupo_atuacao', "<span class='help-block'>", "</span>")?>
-              <?php echo form_dropdown('id_grupo_atuacao', $this->grupos_atuacao_data) ?>
+              <?php echo form_dropdown('id_grupo_atuacao', $this->grupos_atuacao_data, $this->input->post('id_grupo_atuacao'), "class='form-control'") ?>
             </div>
 
             <div class="form-group <?= has_error('distrito') ?>">
               <label class="control-label">Área de Interesse</label>
               <?= form_error('id_area_interesse', "<span class='help-block'>", "</span>")?>
-              <?php echo form_dropdown('id_area_interesse', $this->areas_interesse_data, $this->input->post('id_area_interesse')) ?>
+              <?php echo form_dropdown('id_area_interesse', $this->areas_interesse_data, $this->input->post('id_area_interesse'), "class='form-control'") ?>
             </div>
 
             <br>

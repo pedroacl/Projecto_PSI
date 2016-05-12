@@ -114,8 +114,8 @@ class Disponibilidade extends CI_Model {
     public function get_profile_data($input)
     {
         return array(
-            'data_inicio'   => $input['data_inicio'],
-            'data_fim'      => $input['data_fim']
+            'data_inicio'   => date("Y-m-d", strtotime($input['data_inicio'])),
+            'data_fim'      => date("Y-m-d", strtotime($input['data_fim']))
         );
     }
 
