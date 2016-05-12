@@ -12,15 +12,25 @@ class Habilitacoes_academicas extends MY_Controller {
 
 	public function add()
 	{
-		$habilitacao_academica_data =
+		$this->load->library('form_validation');
+		$form_rules = $this->habilitacao_academica->get_form_validation_rules();
+		$this->form_validation->set_rules($form_rules);
+
+		if ($this->form_validation->run() == FALSE) {
+ 			$this->session->set_flashdata('warning', 'Erro ao adicionar Habilitacao Academica!');
+			redirect('voluntarios/profile');
+
+		} else {
+			$habilitacao_academica_data =
 			$this->habilitacao_academica->get_form_data($this->input->post());
 
-		$habilitacao_academica_data['id_voluntario'] = $this->id_voluntario;
+			$habilitacao_academica_data['id_voluntario'] = $this->id_voluntario;
 
-		$this->habilitacao_academica->insert_entry($habilitacao_academica_data);
+			$this->habilitacao_academica->insert_entry($habilitacao_academica_data);
 
- 		$this->session->set_flashdata('success', 'Habilitacao Academica adicionada!');
-		redirect('voluntarios/profile');
+ 			$this->session->set_flashdata('success', 'Habilitacao Academica adicionada!');
+			redirect('voluntarios/profile');
+		}
 	}
 
 	// GET habilitacoes_academicas/edit/:id_habilitacao
