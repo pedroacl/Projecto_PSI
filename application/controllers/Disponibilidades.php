@@ -47,13 +47,10 @@ class Disponibilidades extends MY_Controller {
 	// POST disponibilidades/process_edit
 	public function process_edit()
 	{
-		// validation
-		// update
 		$this->load->model('Disponibilidade', 'disponibilidade');
 		$disponibilidade_e_periodicidade_data = $this->disponibilidade->get_form_data($this->input->post());
 
-		//linha a dar erro que afecta a funcao delete abaixo
-		//$this->disponibilidade->update($this->input->post()['id_disponibilidade'], $disponibilidade_e_periodicidade_data[0]);
+		$this->disponibilidade->update($this->input->post('id_disponibilidade'), $disponibilidade_e_periodicidade_data[0]);
 
 		$this->session->set_flashdata('success', 'Disponibilidade actualizada com sucesso');
 		redirect_back();
