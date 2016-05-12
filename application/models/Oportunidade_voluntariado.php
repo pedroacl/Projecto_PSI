@@ -43,7 +43,7 @@ class Oportunidade_voluntariado extends CI_Model {
 */
     public function get_by_id($id_oportunidade_voluntariado)
     {
-        $this->db->select('ov.nome AS nome_oportunidade, ov.funcao, ov.pais,
+        $this->db->select('ov.nome AS nome_oportunidade, ov.funcao, ov.id, ov.pais,
             ov.vagas, ov.ativa, ga.nome AS nome_grupo_atuacao, ga.descricao, 
             ai.nome AS nome_area_interesse, ov.id_instituicao, ga.id AS id_grupo_atuacao,
             ai.id AS id_area_interesse');

@@ -153,7 +153,7 @@
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim)) . '</td>';
                       echo '<td>' . $disponibilidade->tipo_periodicidade . '</td>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim_periodicidade)) . '</td>';
-                      echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("disponibilidades/edit/" . $disponibilidade->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("disponibilidade/delete/" . $disponibilidade->id) . "'>Eliminar</a></td>";
+                      echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("disponibilidades/edit/" . $disponibilidade->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("disponibilidades/delete/" . $disponibilidade->id) . "'>Eliminar</a></td>";
                       echo '</tr>';
                     }
                   ?>

@@ -8,7 +8,7 @@ class Area_interesse extends CI_Model {
         parent::__construct();
     }
 
-    public function get_by_id($id_utilizador, $id_area_interesse)
+    public function get_by_id($id_area_interesse)
     {
       $this->db->select('*');
       $this->db->from('Areas_Interesse');

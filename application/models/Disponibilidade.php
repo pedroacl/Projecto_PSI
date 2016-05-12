@@ -21,6 +21,12 @@ class Disponibilidade extends CI_Model {
         $this->db->query($sql, array($id_utilizador));
     }
 
+    function delete_entry_oportunidade($id_disponibilidade)
+    {
+        $this->db->delete('Disponibilidades', array('id' => $id_disponibilidade)); 
+        $this->db->delete('Oportunidades_Voluntariado_Disponibilidades', array('id_disponibilidade' => $id_disponibilidade)); 
+    }
+
     function get_by_id_utilizador($id_utilizador)
     {
         $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim,
@@ -33,6 +39,22 @@ class Disponibilidade extends CI_Model {
         $this->db->join('Utilizadores as utilizadores', 'utilizadores.id = utilizadores_disponibilidades.id_utilizador');
         $this->db->join('Periodicidades as periodicidades', 'periodicidades.id_disponibilidade = disponibilidades.id');
         $this->db->where('utilizadores_disponibilidades.id_utilizador', $id_utilizador);
+
+        return $this->db->get();
+    }
+
+    function get_by_id_oportunidade($id_oportunidade)
+    {
+        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim,
+            periodicidades.tipo as tipo_periodicidade, periodicidades.data_fim as data_fim_periodicidade');
+        $this->db->from('Disponibilidades as disponibilidades');
+
+        $this->db->join('Oportunidades_Voluntariado_Disponibilidades as oportunidades_voluntariado_disponibilidades',
+            'disponibilidades.id = oportunidades_voluntariado_disponibilidades.id_disponibilidade');
+
+        $this->db->join('Oportunidades_Voluntariado as oportunidades', 'oportunidades.id = oportunidades_voluntariado_disponibilidades.id_oportunidade_voluntariado');
+        $this->db->join('Periodicidades as periodicidades', 'periodicidades.id_disponibilidade = disponibilidades.id');
+        $this->db->where('oportunidades_voluntariado_disponibilidades.id_oportunidade_voluntariado', $id_oportunidade);
 
         return $this->db->get();
     }

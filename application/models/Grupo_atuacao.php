@@ -16,6 +16,15 @@ class Grupo_atuacao extends CI_Model {
       return $this->db->get();
    }
 
+   function get_by_id($id_grupo)
+   {
+      $this->db->select('*');
+      $this->db->from('Grupos_Atuacao');
+      $this->db->where('id', $id_grupo);
+
+      return $this->db->get();
+   }
+
    public function get_without_utilizador($id_utilizador)
    {
       $sql = "SELECT DISTINCT ga.nome, ga.id

@@ -73,9 +73,17 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 	public function show($id_oportunidade_voluntariado)
 	{
+		$this->load->helper('form');
+		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
+		$this->load->model('Area_interesse', 'area_interesse');
+		$this->load->model('Disponibilidade', 'disponibilidade');
+		
 		$this->oportunidade_voluntariado =
 			$this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
 
+		$this->disponibilidades = $this->disponibilidade->get_by_id_oportunidade($id_oportunidade_voluntariado);
+
+		$this->js_files = array('oportunidades/oportunidade_profile.js');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('/oportunidades_voluntariado/show');
 		$this->load->view('templates/main_template/footer');
@@ -136,33 +144,31 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->oportunidade_voluntariado->delete_entry($id_oportunidade_voluntariado);
 	}
 
-	// POST /oportunidades_voluntariado/add_disponibilidade
 	public function add_disponibilidade($id_oportunidade_voluntariado)
 	{
 		$this->load->library('form_validation');
 		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->model('Oportunidade_voluntariado_disponibilidade', 'oportunidade_voluntariado_disponibilidade');
 
-		$form_rules = $this->disponibilidade->get_form_validation_rules();
-		$this->form_validation->set_rules($form_rules);
+	 	// disponibilidade
+		$disponibilidade_data = $this->disponibilidade->get_profile_data($this->input->post());
+		$id_disponibilidade    = $this->disponibilidade->insert_single_entry($disponibilidade_data);
 
-		if ($this->form_validation->run() == FALSE) {
-			// mostrar novamente o formulario
-			$this->js_files = array('home.js');
-			$this->load->view('templates/main_template/header');
-			$this->load->view('oportunidades_voluntariado/edit');
-			$this->load->view('templates/main_template/footer');
-	 	} else {
-	 		// inserir oportunidade
-			$id_oportunidade_voluntariado = $this->disponibilidade->insert_entry($id_voluntario, $this->input);
+		// periodicidade
+		$periodicidade_data = $this->periodicidade->get_form_data($this->input->post());
+		$periodicidade_data['id_disponibilidade'] = $id_disponibilidade;
+		$this->periodicidade->insert_single_entry($periodicidade_data);
 
-			// criar join table
-			$this->oportunidade_voluntariado_disponibilidade->insert_entry($id_disponibilidade, $this->input);
+		$oportunidade_voluntariado_disponibilidade_data = array(
+			'id_oportunidade_voluntariado' => $id_oportunidade_voluntariado,
+			'id_disponibilidade'           => $id_disponibilidade
+		);
 
-			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
-			redirect('oportunidade_voluntariado/show');
+		$this->oportunidade_voluntariado_disponibilidade->insert_entry($oportunidade_voluntariado_disponibilidade_data);
 
-			$this->oportunidade_voluntariado->get_entry();
-	 	}
+	 	// voltar a exibir perfil
+		$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
+		redirect('oportunidades_voluntariado/show/' . $id_oportunidade_voluntariado, 'location');
 	}
 }

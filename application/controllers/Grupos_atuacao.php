@@ -10,7 +10,7 @@ class Grupos_atuacao extends MY_Controller {
 
 	public function edit($id_area_interesse)
 	{
-		$this->area_interesse = $this->Area_interesse->get_by_id($this->id_utilizador, $id_area_interesse);
+		$this->area_interesse = $this->Area_interesse->get_by_id($id_area_interesse);
 	}
 
 	// GET /areas_interesse/add/:id_area_interesse

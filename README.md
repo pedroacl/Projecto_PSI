@@ -36,6 +36,7 @@ TODO INSTITUICOES
 - detalhes de oportunidade, inserir grupo de atuaçao e area de interesse
 - edit de oportunidade, selects não tem estilo de bootstrap
 - edit de oportunidade, não recebe areas por POST
+- edit de oportunidade, apos submit manda para perfil de inst. em vez do perfil da oportunidade
 
 - adicionar oportunidade não tem periodicidade uniformizado
 - adicionar oportunidade não adiciona as datas de disponibilidade bem

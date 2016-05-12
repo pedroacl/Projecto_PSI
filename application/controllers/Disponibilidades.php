@@ -53,7 +53,11 @@ class Disponibilidades extends MY_Controller {
 
 	public function delete($id_disponibilidade)
 	{
+		$this->load->helper('url');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$this->disponibilidade->delete($id);
+		$this->disponibilidade->delete_entry_oportunidade($id_disponibilidade);
+
+		$this->session->set_flashdata('success', 'Disponibilidade eliminada com sucesso');
+		redirect_back();
 	}
 }
