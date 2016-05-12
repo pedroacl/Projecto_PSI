@@ -33,12 +33,7 @@
             <div class="form-group">
               <label for="periodicidade">Periodicidade</label>
               <?= form_error('periodicidade', "<span class='help-block'>", "</span>")?>
-              <select name="disponibilidades[0][periodicidade]" class="form-control">
-                <option value="UmaVez" <?= set_select('periodicidade', 'UmaVez'); ?>>Uma única vez</option>
-                <option value="Semanalmente" <?= set_select('periodicidade', 'Semanalmente'); ?>>Semanalmente</option>
-                <option value="Mensalmente" <?= set_select('periodicidade', 'Mensalmente'); ?>>Mensalmente</option>
-                <option value="Anualmente" <?= set_select('periodicidade', 'Anualmente'); ?>>Anualmente</option>
-              </select>
+                <?php echo form_dropdown('disponibilidades[0][periodicidade]', $this->tipos_periodicidade, $this->disponibilidade->tipo_periodicidade, "class='form-control'") ?>
             </div>
 
             <div class="form-group">

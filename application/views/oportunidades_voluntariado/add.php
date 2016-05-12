@@ -128,12 +128,7 @@
                   </div>
                   <div class="form-group">
                     <label class="control-label">Periodicidade</label>
-                    <select id="periodicidade" class="form-control">
-                      <option value="once">once</option>
-                      <option value="Semanalmente">Semanalmente</option>
-                      <option value="Mensalmente">Mensalmente</option>
-                      <option value="Anualmente">Anualmente</option>
-                    </select>
+                    <?php echo form_dropdown('periodicidade', $this->tipos_periodicidade, "", "class='form-control' id='periodicidade'") ?>
                   </div>
                 </div>
                 <div class="col-md-4">

@@ -30,9 +30,13 @@ class Disponibilidades extends MY_Controller {
 	public function edit($id_disponibilidade)
 	{
 		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->helper('form');
+		
 		$disponibilidade = $this->input->post();
 		$this->disponibilidade = $this->disponibilidade->get_by_id($id_disponibilidade)->row();
+
+		$this->tipos_periodicidade = $this->periodicidade->get_periodicidades();
 
 		$this->js_files = array('');
 		$this->load->view('templates/main_template/header');
@@ -52,7 +56,7 @@ class Disponibilidades extends MY_Controller {
 
 		$this->disponibilidade->update($this->input->post()['id_disponibilidade'], $disponibilidade_e_periodicidade_data[0]);
 
-		// Se for uma disponibilidade de uma oportunidade, não pode ir para o profile
+		$this->session->set_flashdata('success', 'Disponibilidade actualizada com sucesso');
 		redirect_back();
 	}
 

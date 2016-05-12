@@ -46,4 +46,14 @@ class Periodicidade extends CI_Model {
 
       return $data;
    }
+
+   public function get_periodicidades()
+    {
+        return array(
+            'uma_vez'       => 'Uma única vez',
+            'semanalmente ' => 'Semanalmente',
+            'mensalmente'   => 'Mensalmente',
+            'anualmente'    => 'Anualmente'
+        );
+    }
 }
