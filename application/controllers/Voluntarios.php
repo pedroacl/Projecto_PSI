@@ -102,8 +102,7 @@ class Voluntarios extends MY_Controller {
 			// atualizar voluntario
 			$data_voluntario = $this->voluntario->get_form_data($this->input->post());
 			$data_voluntario['data_nascimento'] =
-				date("Y/m/d", strtotime($this->input->post('data_nascimento')));
-
+				date("Y-m-d", strtotime($data_voluntario['data_nascimento']));
 			$this->voluntario->update_entry($this->id_voluntario, $data_voluntario);
 
 			// upload foto
@@ -161,8 +160,20 @@ class Voluntarios extends MY_Controller {
 */
 
 	 	// disponibilidade
-		$disponibilidade_data = $this->disponibilidade->get_profile_data($this->input->post());
-		$id_disponibilidade    = $this->disponibilidade->insert_single_entry($disponibilidade_data);
+
+		$disponibilidade_data =
+			$this->disponibilidade->get_profile_data($this->input->post());
+
+		print_r($disponibilidade_data);
+
+		$disponibilidade_data['data_inicio'] =
+			date("Y-m-d", strtotime($disponibilidade_data['data_inicio']));
+
+		$disponibilidade_data['data_fim'] =
+			date("Y-m-d", strtotime($disponibilidade_data['data_fim']));
+		print_r($disponibilidade_data);
+
+		$id_disponibilidade   = $this->disponibilidade->insert_single_entry($disponibilidade_data);
 
 		// periodicidade
 		$periodicidade_data = $this->periodicidade->get_form_data($this->input->post());
@@ -179,7 +190,7 @@ class Voluntarios extends MY_Controller {
 		$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
 
 	 	// voltar a exibir perfil
-		$this->profile();
+		//$this->profile();
 	}
 
 /*

@@ -64,7 +64,10 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$id_oportunidade = $this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);
 
         	// adicionar disponibilidades
-        	$disponibilidades_data = $this->disponibilidade->get_form_data($this->input->post());
+        	$disponibilidades_data = 
+        		$this->disponibilidade->get_form_data($this->input->post());
+        	$disponibilidade_data[]
+
         	$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
 
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
