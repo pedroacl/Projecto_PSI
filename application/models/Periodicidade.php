@@ -37,11 +37,11 @@ class Periodicidade extends CI_Model {
 
    function get_form_data($input)
    {
-      $data_fim = date("Y/m/d", strtotime($input['repetir_ate']));
+      $this->load->helper('date');
 
    	$data = array(
          'tipo'     => $input['periodicidade'],
-         'data_fim' => $data_fim
+         'data_fim' => mdate("%Y/%m/%d",  strtotime($disp['repetir_ate']))
    	);
 
       return $data;

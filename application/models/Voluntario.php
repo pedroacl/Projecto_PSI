@@ -39,6 +39,8 @@ class Voluntario extends CI_Model {
 
     function get_form_data($input)
     {
+        $this->load->helper('date');
+
         $data = array(
             'genero'          => $input['genero'],
             'data_nascimento' => mdate("%Y/%m/%d",  strtotime($disp['data_nascimento']))
