@@ -8,6 +8,15 @@ class Periodicidade extends CI_Model {
       parent::__construct();
    }
 
+   public function get_by_disponibilidade_id($id_disponibilidade)
+   {
+      $this->db->select('*');
+      $this->db->from('Periodicidades as periodicidades');
+      $this->db->where('periodicidades.id_disponibilidade', $id_disponibilidade);
+
+      return $this->db->get();
+   }
+
    public function insert_entry($data)
    {
       $this->db->insert('Periodicidades', $data);
@@ -20,9 +29,10 @@ class Periodicidade extends CI_Model {
       return $this->db->insert_id();
    }
 
-   public function update_entry($id_periodicidade)
+   public function update_entry($id_periodicidade, $data)
    {
-
+      $this->db->where('id', $id_periodicidade);
+      $this->db->update('Periodicidades', $data);
    }
 
    function get_form_data($input)
