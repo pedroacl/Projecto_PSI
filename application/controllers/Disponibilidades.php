@@ -44,11 +44,16 @@ class Disponibilidades extends MY_Controller {
 	public function process_edit()
 	{
 		// validation
-
+		// print_r($this->input->post());
 		// update
+		$this->load->model('Disponibilidade', 'disponibilidade');
+		$disponibilidade_e_periodicidade_data = $this->disponibilidade->get_form_data($this->input->post());
+
+
+		$this->disponibilidade->update($this->input->post()['id_disponibilidade'], $disponibilidade_e_periodicidade_data[0]);
 
 		// Se for uma disponibilidade de uma oportunidade, não pode ir para o profile
-		redirect('voluntarios/profile', 'refresh');
+		redirect_back();
 	}
 
 	public function delete($id_disponibilidade)
