@@ -130,10 +130,12 @@ class Utilizador extends CI_Model {
 
     function get_update_form_data($input)
     {
+        $this->load->helper('date');
+
         $data = array(
             'telefone'   => $input['telefone'],
             'nome'       => $input['nome_utilizador'],
-            'updated_at' => mdate("%Y/%m/%d");
+            'updated_at' => mdate("%Y/%m/%d")
         );
 
         return $data;
