@@ -108,6 +108,8 @@ class Utilizador extends CI_Model {
     {
         $this->db->where('id', $id_utilizador);
         $this->db->update('Utilizadores', $data);
+
+        $this->session->set_userdata(array('nome' => $data['nome']));
     }
 
     function get_signup_form_data($input)

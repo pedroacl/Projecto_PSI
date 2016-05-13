@@ -24,6 +24,7 @@ class MY_Controller extends CI_Controller {
 		}
 
 		$this->nome_utilizador = $this->session->userdata('nome');
+		$this->email           = $this->session->userdata('email');
 		$this->id_utilizador   = $this->session->userdata('id_utilizador');
 		$this->id_voluntario   = $this->session->userdata('id_voluntario');
 		$this->id_instituicao  = $this->session->userdata('id_instituicao');
