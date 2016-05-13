@@ -68,7 +68,8 @@
                   <ul class="nav navbar-nav navbar-right">
                     <?php
                       if ($this->session->userdata('id_utilizador') !== null) {
-                        echo '<li><a href="' . site_url($this->user_profile_link) . '"</a>' . $this->nome_utilizador . '</li>';
+                        $this->nome_para_link = $this->nome_utilizador != '' ? $this->nome_utilizador : $this->email;
+                        echo '<li><a href="' . site_url($this->user_profile_link) . '"</a>' . $this->nome_para_link . '</li>';
                         echo '<li><a href="' . site_url("logout") . '">Logout</a></li>';
                       }
                       else {

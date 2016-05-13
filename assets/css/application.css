@@ -137,6 +137,14 @@ body {
   bottom: 15px;
 }
 
+.table {
+  table-layout: fixed;
+}
+
+.table td {
+  word-wrap: break-word;
+}
+
 
 
 /****** Profile */

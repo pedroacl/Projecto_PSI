@@ -167,7 +167,7 @@
                       echo '<tr>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_inicio)) . '</td>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim)) . '</td>';
-                      echo '<td>' . $disponibilidade->tipo_periodicidade . '</td>';
+                      echo '<td>' . $this->periodicidades[$disponibilidade->tipo_periodicidade] . '</td>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim_periodicidade)) . '</td>';
                       echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("disponibilidades/edit/" . $disponibilidade->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("disponibilidades/delete/" . $disponibilidade->id) . "'>Eliminar</a></td>";
                       echo '</tr>';
@@ -200,7 +200,7 @@
                             </span>
                           </div>
                         </td>
-                        <td colspan="2"><input class='btn btn-primary btn-sm' type="submit" value="Adicionar"/></td>
+                        <td><input class='btn btn-primary btn-sm' type="submit" value="Adicionar"/></td>
                       <?php echo form_close() ?>
                     </tr>
                 </tbody>

@@ -1,11 +1,16 @@
 # PSI
 Repositório para o projecto da cadeira de Projecto de Sistemas de Informação
 
+TODO GERAL
+==========
+- Meter tudo AJAX
+- Alterar sidebar para responsive
+- Remover Periodicade..
+- Fazer validação entre data_inicio e data_fim
+- Ser aparente que estamos logados como instituição ou voluntário
 
 TODO VOLUNTARIOS
 =========
-- perfil de voluntario mostra foto sempre, quer tenha foto ou não, e outras 
-	informações também
 - edit de perfil de voluntario não tem areas geograficas bem (js bem, mas cenas por POST mal)
 
 - edit de habilitacao de voluntario (no perfil) não actualiza as coisas
@@ -28,3 +33,6 @@ TODO INSTITUICOES
 - edit de oportunidade, não recebe areas por POST
 
 - adicionar oportunidade não adiciona as datas de disponibilidade bem
+
+- as oportunidades no perfil de instituição, não têm a informação da area geografica
+- no perfil de oportunidade, não têm a informação da area geografica

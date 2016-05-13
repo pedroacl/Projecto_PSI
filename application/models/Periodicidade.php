@@ -41,7 +41,7 @@ class Periodicidade extends CI_Model {
 
    	$data = array(
          'tipo'     => $input['periodicidade'],
-         'data_fim' => mdate("%Y/%m/%d",  strtotime($disp['repetir_ate']))
+         'data_fim' => mdate("%Y/%m/%d", strtotime($input['repetir_ate']))
    	);
 
       return $data;
@@ -51,7 +51,7 @@ class Periodicidade extends CI_Model {
     {
         return array(
             'uma_vez'       => 'Uma única vez',
-            'semanalmente ' => 'Semanalmente',
+            'semanalmente' => 'Semanalmente',
             'mensalmente'   => 'Mensalmente',
             'anualmente'    => 'Anualmente'
         );

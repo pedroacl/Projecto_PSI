@@ -23,6 +23,7 @@ class Voluntarios extends MY_Controller {
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
+		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->model('Area_geografica', 'area_geografica');
 		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
 		$this->load->model('Tipo_habilitacao_academica', 'tipo_habilitacao_academica');
@@ -49,6 +50,7 @@ class Voluntarios extends MY_Controller {
 
 		// disponibilidades
 		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($this->id_utilizador);
+		$this->periodicidades = $this->periodicidade->get_periodicidades();
 
 		// habilitacoes academicas
 		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->id_voluntario);
