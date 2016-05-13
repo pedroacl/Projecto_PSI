@@ -99,7 +99,7 @@
                   <?php
                     foreach ($this->habilitacoes_academicas->result() as $habilitacao_academica)
                     {
-                      echo '<tr>';
+                      echo '<tr ' . 'id=habilitacao_academica_' . $habilitacao_academica->id . '>' ;
                       echo '<td>' . $habilitacao_academica->nome . '</td>';
                       echo '<td>' . $habilitacao_academica->curso . '</td>';
                       echo '<td>' . $habilitacao_academica->instituto_ensino . '</td>';

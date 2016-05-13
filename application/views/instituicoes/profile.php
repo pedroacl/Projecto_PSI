@@ -108,7 +108,7 @@
               <h3><?php echo $oportunidade_inactiva->nome ?></h3>
               <strong>Função:</strong>
               <p><?php echo $oportunidade_inactiva->funcao ?></p>
-              <strong>Pais:</strong>
+              <strong>País:</strong>
               <p><?php echo $oportunidade_inactiva->pais ?></p>
               <strong>Número de Vagas:</strong>
               <p><?php echo $oportunidade_inactiva->vagas ?></p>
