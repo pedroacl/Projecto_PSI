@@ -23,8 +23,8 @@ class Voluntarios extends MY_Controller {
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->model('Area_geografica', 'area_geografica');
+		$this->load->model('Oportunidade_voluntariado', 'oportunidade_voluntariado');
 		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
 		$this->load->model('Tipo_habilitacao_academica', 'tipo_habilitacao_academica');
 
@@ -50,13 +50,15 @@ class Voluntarios extends MY_Controller {
 
 		// disponibilidades
 		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($this->id_utilizador);
-		$this->periodicidades = $this->periodicidade->get_periodicidades();
 
 		// habilitacoes academicas
 		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->id_voluntario);
 
 		// tipos de habilitacoes academicas
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
+
+		// oportunidades de voluntariado
+		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_entries();
 
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->load->view('templates/main_template/header');
@@ -118,7 +120,6 @@ class Voluntarios extends MY_Controller {
 	{
 		$this->load->library('form_validation');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->model('Utilizador_disponibilidade', 'utilizador_disponibilidade');
 
 	 	// disponibilidade
@@ -132,11 +133,6 @@ class Voluntarios extends MY_Controller {
 			date("Y-m-d", strtotime($disponibilidade_data['data_fim']));
 
 		$id_disponibilidade   = $this->disponibilidade->insert_single_entry($disponibilidade_data);
-
-		// periodicidade
-		$periodicidade_data = $this->periodicidade->get_form_data($this->input->post());
-		$periodicidade_data['id_disponibilidade'] = $id_disponibilidade;
-		$this->periodicidade->insert_single_entry($periodicidade_data);
 
 		$utilizador_disponibilidade_data = array(
 			'id_utilizador'      => $this->id_utilizador,

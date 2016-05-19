@@ -29,15 +29,13 @@ class Disponibilidade extends CI_Model {
 
     function get_by_id_utilizador($id_utilizador)
     {
-        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim,
-            periodicidades.tipo as tipo_periodicidade, periodicidades.data_fim as data_fim_periodicidade');
+        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim');
         $this->db->from('Disponibilidades as disponibilidades');
 
         $this->db->join('Utilizadores_Disponibilidades as utilizadores_disponibilidades',
             'disponibilidades.id = utilizadores_disponibilidades.id_disponibilidade');
 
         $this->db->join('Utilizadores as utilizadores', 'utilizadores.id = utilizadores_disponibilidades.id_utilizador');
-        $this->db->join('Periodicidades as periodicidades', 'periodicidades.id_disponibilidade = disponibilidades.id');
         $this->db->where('utilizadores_disponibilidades.id_utilizador', $id_utilizador);
 
         return $this->db->get();
@@ -45,15 +43,13 @@ class Disponibilidade extends CI_Model {
 
     function get_by_id_oportunidade($id_oportunidade)
     {
-        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim,
-            periodicidades.tipo as tipo_periodicidade, periodicidades.data_fim as data_fim_periodicidade');
+        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim');
         $this->db->from('Disponibilidades as disponibilidades');
 
         $this->db->join('Oportunidades_Voluntariado_Disponibilidades as oportunidades_voluntariado_disponibilidades',
             'disponibilidades.id = oportunidades_voluntariado_disponibilidades.id_disponibilidade');
 
         $this->db->join('Oportunidades_Voluntariado as oportunidades', 'oportunidades.id = oportunidades_voluntariado_disponibilidades.id_oportunidade_voluntariado');
-        $this->db->join('Periodicidades as periodicidades', 'periodicidades.id_disponibilidade = disponibilidades.id');
         $this->db->where('oportunidades_voluntariado_disponibilidades.id_oportunidade_voluntariado', $id_oportunidade);
 
         return $this->db->get();
@@ -61,10 +57,8 @@ class Disponibilidade extends CI_Model {
 
     function get_by_id($id_disponibilidade)
     {
-        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim,
-            periodicidades.tipo as tipo_periodicidade, periodicidades.data_fim as data_fim_periodicidade');
+        $this->db->select('disponibilidades.id, disponibilidades.data_inicio, disponibilidades.data_fim');
         $this->db->from('Disponibilidades as disponibilidades');
-        $this->db->join('Periodicidades as periodicidades', 'periodicidades.id_disponibilidade = disponibilidades.id');
         $this->db->where('disponibilidades.id', $id_disponibilidade);
 
         return $this->db->get();
@@ -73,7 +67,6 @@ class Disponibilidade extends CI_Model {
     // inserir individual
     function insert_single_entry($data)
     {
-        $this->load->model('Periodicidade', 'periodicidade');
         $this->db->insert('Disponibilidades', $data);
 
         return $this->db->insert_id();
@@ -81,17 +74,12 @@ class Disponibilidade extends CI_Model {
 
     function update($id_disponibilidade, $data)
     {
-        $this->load->model('Periodicidade', 'periodicidade');
         $this->db->where('id', $id_disponibilidade);
         $this->db->update('Disponibilidades', $data['disponibilidade']);
-
-        $id_periodicidade = $this->periodicidade->get_by_disponibilidade_id($id_disponibilidade)->row()->id;
-        $this->periodicidade->update_entry($id_periodicidade, $data['periodicidade']);
     }
 
     function insert_entries($id_oportunidade_voluntariado, $input)
     {
-        $this->load->model('Periodicidade', 'periodicidade');
         $this->load->model('Oportunidade_voluntariado_disponibilidade', 'oportunidade_disponibilidade');
 
         foreach ($input as $disponibilidade) {
@@ -102,10 +90,6 @@ class Disponibilidade extends CI_Model {
             // adicionar join table
             $oportunidade_disponibilidade_data = $this->oportunidade_disponibilidade->get_form_data($id_oportunidade_voluntariado, $id_disponibilidade);
             $this->oportunidade_disponibilidade->insert_entry($oportunidade_disponibilidade_data);
-
-            // inserir periodicidade associada ah disponibilidade
-            $disponibilidade['periodicidade']['id_disponibilidade'] = $id_disponibilidade;
-            $this->periodicidade->insert_entry($disponibilidade['periodicidade']);
         }
 
         return $id_disponibilidade;
@@ -133,10 +117,6 @@ class Disponibilidade extends CI_Model {
                 'disponibilidade' => array(
                     'data_inicio' => mdate("%Y/%m/%d",  strtotime($disp['data_inicio'])),
                     'data_fim'    => mdate("%Y/%m/%d",  strtotime($disp['data_fim']))
-                ),
-                'periodicidade' => array(
-                    'tipo'     => $disp['periodicidade'],
-                    'data_fim' => mdate("%Y/%m/%d",  strtotime($disp['repetir_ate']))
                 )
             );
 
