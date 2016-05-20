@@ -5,16 +5,12 @@ TODO GERAL
 ==========
 - Meter tudo AJAX
 - Alterar sidebar para responsive
-- Remover Periodicade..
 - Fazer validação entre data_inicio e data_fim
 - Ser aparente que estamos logados como instituição ou voluntário
 
 TODO VOLUNTARIOS
 =========
-- edit de perfil de voluntario não tem areas geograficas bem (js bem, mas cenas por POST mal)
-
 - edit de habilitacao de voluntario (no perfil) não actualiza as coisas
-- edit de habilitacao de voluntario (no perfil) botão de cancelar não manda para trás?
 
 - adicionar de habilitacao de voluntario (no perfil) guarda, mas dá erro
 

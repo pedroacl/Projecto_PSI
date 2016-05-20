@@ -58,7 +58,7 @@ class Voluntarios extends MY_Controller {
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 
 		// oportunidades de voluntariado
-		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_entries();
+		// $this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_entries();
 
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->load->view('templates/main_template/header');

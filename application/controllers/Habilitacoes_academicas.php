@@ -35,11 +35,11 @@ class Habilitacoes_academicas extends MY_Controller {
 	// GET habilitacoes_academicas/edit/:id_habilitacao
 	public function edit($id_habilitacao)
 	{
-		$this->load->model('Habilitacao_academica', 'habilitacoes');
+		$this->load->model('Habilitacao_academica', 'habilitacao');
 		$this->load->model('Tipo_habilitacao_academica', 'tipos_habilitacoes');
 		$this->load->helper('form');
 		$habilitacoes = $this->input->post();
-		$this->habilitacoes = $this->habilitacoes->get_by_id($id_habilitacao)->row();
+		$this->habilitacao = $this->habilitacao->get_by_id($id_habilitacao)->row();
 
 		$this->tipos_habilitacoes_academicas = $this->tipos_habilitacoes->get_entries()->result();
 
@@ -49,15 +49,29 @@ class Habilitacoes_academicas extends MY_Controller {
 		$this->load->view('templates/main_template/footer');
 	}
 
-	// POST habilitacoes_academicas/process_edit
-	public function process_edit()
+	// POST habilitacoes_academicas/process_edit/:id_habilitacao
+	public function process_edit($id_habilitacao)
 	{
-		// validation
+		$this->load->helper('form');
+		$this->load->helper('date');
+		$this->load->library('form_validation');
+		$form_rules = $this->habilitacao_academica->get_form_validation_rules();
+		$this->form_validation->set_rules($form_rules);
 
-		// update
+		if ($this->form_validation->run() == FALSE) {
+ 			$this->session->set_flashdata('warning', 'Erro ao actualizar Habilitacao Academica!');
+			redirect('habilitacoes_academicas/edit/' . $id_habilitacao);
 
-		// Se for uma disponibilidade de uma oportunidade, não pode ir para o profile
-		redirect('voluntarios/profile', 'refresh');
+		} else {
+			$data = $this->habilitacao_academica->get_form_data($this->input->post());
+			print_r($data);
+			$this->db->where('id', $id_habilitacao);
+	    $this->db->update('Habilitacoes_Academicas', $data);
+
+ 			$this->session->set_flashdata('success', 'Habilitacao Academica actualizada com sucesso!');
+			redirect('voluntarios/profile');
+		}
+
 	}
 
 	// GET habilitacoes_academicas/delete/:id_voluntario

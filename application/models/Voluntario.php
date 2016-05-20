@@ -45,7 +45,7 @@ class Voluntario extends CI_Model {
 
         $data = array(
             'genero'          => $input['genero'],
-            'data_nascimento' => mdate("%Y/%m/%d",  strtotime($disp['data_nascimento']))
+            'data_nascimento' => mdate("%Y/%m/%d",  strtotime($input['data_nascimento']))
         );
 
         return $data;
