@@ -200,7 +200,7 @@
 
       <h1>Oportunidades de Voluntariado</h1>
 
-      <?php print_r($this->oportunidades_voluntariado->result()) ?>
+      <?php //print_r($this->oportunidades_voluntariado->result()) ?>
 
       </div>
     </div>
