@@ -10,10 +10,6 @@ TODO GERAL
 
 TODO VOLUNTARIOS
 =========
-- edit de habilitacao de voluntario (no perfil) não actualiza as coisas
-
-- adicionar de habilitacao de voluntario (no perfil) guarda, mas dá erro
-
 - adicionar disponibilidade de voluntario (no perfil) não guarda bem as datas e a periodicidade não é um select
 
 - editar disponibilidade de voluntario (no perfil) não guarda nenhuma informação

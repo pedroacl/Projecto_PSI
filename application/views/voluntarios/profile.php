@@ -103,7 +103,7 @@
                       echo '<td>' . $habilitacao_academica->nome . '</td>';
                       echo '<td>' . $habilitacao_academica->curso . '</td>';
                       echo '<td>' . $habilitacao_academica->instituto_ensino . '</td>';
-                      echo '<td>' . date("d/m/Y", strtotime($habilitacao_academica->data_conclusao)) . '</td>';
+                      echo '<td>' . $habilitacao_academica->data_conclusao . '</td>';
                       echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("habilitacoes_academicas/edit/" . $habilitacao_academica->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("habilitacoes_academicas/delete/" . $habilitacao_academica->id) . "'>Eliminar</a></td>";
                       echo '</tr>';
                     }
@@ -131,7 +131,7 @@
                           </div>
                         </td>
                         <td>
-                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
                             <input type='text' name='data_conclusao' class="form-control" />
                             <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>

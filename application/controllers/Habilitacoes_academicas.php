@@ -43,7 +43,7 @@ class Habilitacoes_academicas extends MY_Controller {
 
 		$this->tipos_habilitacoes_academicas = $this->tipos_habilitacoes->get_entries()->result();
 
-		$this->js_files = array('');
+		$this->js_files = array();
 		$this->load->view('templates/main_template/header');
 		$this->load->view('habilitacoes_academicas/edit_habilitacao');
 		$this->load->view('templates/main_template/footer');
@@ -53,7 +53,6 @@ class Habilitacoes_academicas extends MY_Controller {
 	public function process_edit($id_habilitacao)
 	{
 		$this->load->helper('form');
-		$this->load->helper('date');
 		$this->load->library('form_validation');
 		$form_rules = $this->habilitacao_academica->get_form_validation_rules();
 		$this->form_validation->set_rules($form_rules);
@@ -64,7 +63,6 @@ class Habilitacoes_academicas extends MY_Controller {
 
 		} else {
 			$data = $this->habilitacao_academica->get_form_data($this->input->post());
-			print_r($data);
 			$this->db->where('id', $id_habilitacao);
 	    $this->db->update('Habilitacoes_Academicas', $data);
 

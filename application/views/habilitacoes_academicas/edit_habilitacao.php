@@ -34,7 +34,7 @@
             <div class="form-group <?= has_error('data_conclusao') ?>">
               <label class="control-label">Data de Conclusão</label>
               <?= form_error('data_conclusao', "<span class='help-block'>", "</span>")?>
-              <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+              <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
                 <input type='text' name='data_conclusao' class="form-control" value="<?= $this->habilitacao->data_conclusao ?><?= set_value('data_conclusao'); ?>"/>
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
