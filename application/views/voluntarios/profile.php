@@ -200,37 +200,42 @@
 
       <h1>Oportunidades de Voluntariado</h1>
 
-      <?php foreach ($this->oportunidades_voluntariado->result() as $oportunidade_voluntariado) { ?>
+      <?php if ($this->oportunidades_voluntariado->num_rows() == 0) { ?>
+        <h2>Não existem oportunidades para o seu perfil</h2>
+      <?php } else { ?>
 
-        <?php print_r($oportunidade_voluntariado); ?>
+        <?php foreach ($this->oportunidades_voluntariado->result() as $oportunidade_voluntariado) { ?>
 
-        <h3>Nome</h3>
-        <p><?= $oportunidade_voluntariado->nome ?></p>
+          <?php print_r($oportunidade_voluntariado); ?>
 
-        <h3>Instituição</h3>
-        <p><?= $oportunidade_voluntariado->instituicao ?></p>
+          <h3>Nome</h3>
+          <p><?= $oportunidade_voluntariado->nome ?></p>
 
-        <h3>Função</h3>
-        <p><?= $oportunidade_voluntariado->funcao ?></p>
+          <h3>Instituição</h3>
+          <p><?= $oportunidade_voluntariado->instituicao ?></p>
 
-        <h3>País</h3>
-        <p><?= $oportunidade_voluntariado->pais ?></p>
+          <h3>Função</h3>
+          <p><?= $oportunidade_voluntariado->funcao ?></p>
 
-        <h3>Distrito</h3>
-        <p><?= $oportunidade_voluntariado->distrito ?></p>
+          <h3>País</h3>
+          <p><?= $oportunidade_voluntariado->pais ?></p>
 
-        <h3>Concelho</h3>
-        <p><?= $oportunidade_voluntariado->concelho ?></p>
+          <h3>Distrito</h3>
+          <p><?= $oportunidade_voluntariado->distrito ?></p>
 
-        <h3>Freguesia</h3>
-        <p><?= $oportunidade_voluntariado->freguesia ?></p>
+          <h3>Concelho</h3>
+          <p><?= $oportunidade_voluntariado->concelho ?></p>
 
-        <h3>Grupo de Atuação</h3>
-        <p><?= $oportunidade_voluntariado->grupo_atuacao ?></p>
+          <h3>Freguesia</h3>
+          <p><?= $oportunidade_voluntariado->freguesia ?></p>
 
-        <h3>Área de Interesse</h3>
-        <p><?= $oportunidade_voluntariado->area_interesse ?></p>
+          <h3>Grupo de Atuação</h3>
+          <p><?= $oportunidade_voluntariado->grupo_atuacao ?></p>
 
+          <h3>Área de Interesse</h3>
+          <p><?= $oportunidade_voluntariado->area_interesse ?></p>
+
+        <?php } ?>
       <?php } ?>
       </div>
     </div>
