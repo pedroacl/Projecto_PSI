@@ -19,18 +19,41 @@ class Oportunidade_voluntariado extends CI_Model {
         $voluntario = $this->utilizador->get_by_id($this->id_utilizador,
             $this->tipo_utilizador);
 
-        $areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador($this->id_utilizador);
-        $grupos_atuacao_utilizador  = $this->grupo_atuacao->get_by_id_utilizador($this->id_utilizador);
+        // areas de interesse do utilizador
+        $areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador(
+            $this->id_utilizador);
 
-        $data = array(
-            'id_area_geografica' => $voluntario->id_area_geografica,
-            'area_interesse IN'  => $areas_interesse_utilizador->row()->id,
-            'grupo_actuacao IN'  => $grupos_atuacao_utilizador->row()->id,
-        );
+        $num_rows = $areas_interesse_utilizador->num_rows();
+        $areas_interesse_utilizador = $areas_interesse_utilizador->result();
+        $areas_interesse_utilizador_array = array();
 
-        $this->db->select('*');
-        $this->db->from('Oportunidades_Voluntariado');
-        $this->db->where($data);
+        for ($i = 0; $i < $num_rows; $i++) {
+            $areas_interesse_utilizador_array[$i] = $areas_interesse_utilizador[$i]->id;
+        }
+
+        // grupos de atuacao do utilizador
+        $grupos_atuacao_utilizador = $this->grupo_atuacao->get_by_id_utilizador(
+            $this->id_utilizador);
+
+        $num_rows = $grupos_atuacao_utilizador->num_rows();
+        $grupos_atuacao_utilizador = $grupos_atuacao_utilizador->result();
+        $grupos_atuacao_utilizador_array = array();
+
+        for ($i = 0; $i < $num_rows; $i++) {
+            $grupos_atuacao_utilizador_array[$i] = $grupos_atuacao_utilizador[$i]->id;
+        }
+
+        $this->db->select('ov.id AS id_oportunidade_voluntariado, distrito,
+            concelho, freguesia, ov.nome AS nome, funcao, pais, ga.nome AS grupo_atuacao, ai.nome AS area_interesse, u.nome AS instituicao');
+        $this->db->from('Oportunidades_Voluntariado AS ov');
+        $this->db->join('Areas_Geograficas AS ag', 'ov.id_area_geografica = ag.id');
+        $this->db->join('Grupos_Atuacao AS ga', 'ov.id_grupo_atuacao = ga.id');
+        $this->db->join('Areas_Interesse AS ai', 'ov.id_area_interesse = ai.id');
+        $this->db->join('Instituicoes AS i', 'ov.id_instituicao = i.id');
+        $this->db->join('Utilizadores AS u', 'u.id = i.id');
+        $this->db->where('distrito', $voluntario->distrito);
+        $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
+        $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
 
         return $this->db->get();
     }
