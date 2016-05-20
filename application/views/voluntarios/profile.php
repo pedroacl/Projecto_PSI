@@ -131,7 +131,7 @@
                           </div>
                         </td>
                         <td>
-                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy-mm-dd">
                             <input type='text' name='data_conclusao' class="form-control" />
                             <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
@@ -163,8 +163,8 @@
                   <?php
                     foreach ($this->disponibilidades->result() as $disponibilidade) {
                       echo '<tr>';
-                      echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_inicio)) . '</td>';
-                      echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim)) . '</td>';
+                      echo '<td>' . $disponibilidade->data_inicio . '</td>';
+                      echo '<td>' . $disponibilidade->data_fim . '</td>';
                       echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("disponibilidades/edit/" . $disponibilidade->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("disponibilidades/delete/" . $disponibilidade->id) . "'>Eliminar</a></td>";
                       echo '</tr>';
                     }
@@ -172,7 +172,7 @@
                     <tr style="display: none;" id="form_add">
                       <?php echo form_open('voluntarios/add_disponibilidade') ?>
                         <td>
-                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy-mm-dd">
                             <input name="data_inicio" value="" type='text' class="form-control" />
                             <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
@@ -180,7 +180,7 @@
                           </div>
                         </td>
                         <td>
-                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy-mm-dd">
                             <input name="data_fim" value="" type='text' class="form-control" />
                             <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>

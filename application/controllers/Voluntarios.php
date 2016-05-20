@@ -31,7 +31,6 @@ class Voluntarios extends MY_Controller {
 		// voluntario
 		$this->voluntario =
 			$this->voluntario->get_by_id_utilizador($this->id_utilizador)->row();
-		$this->voluntario->data_nascimento = date("d-m-Y", strtotime($this->voluntario->data_nascimento));
 
 		// area geografica
 		$this->area_geografica = $this->area_geografica->get_by_id_utilizador($this->id_utilizador);

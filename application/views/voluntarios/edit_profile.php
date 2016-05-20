@@ -33,7 +33,7 @@
             <div class="form-group <?= has_error('data_nascimento') ?>">
               <label class="control-label">Data de Nascimento</label>
               <?= form_error('data_nascimento', "<span class='help-block'>", "</span>")?>
-              <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+              <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy-mm-dd">
                 <input name="data_nascimento" value="<?= set_value('data_nascimento', $this->voluntario_data->data_nascimento); ?>" type='text' class="form-control" />
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
