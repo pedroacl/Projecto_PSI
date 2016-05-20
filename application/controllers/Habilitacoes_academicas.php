@@ -64,9 +64,11 @@ class Habilitacoes_academicas extends MY_Controller {
 
 		} else {
 			$data = $this->habilitacao_academica->get_form_data($this->input->post());
+
 			print_r($data);
+
 			$this->db->where('id', $id_habilitacao);
-	    $this->db->update('Habilitacoes_Academicas', $data);
+	    	$this->db->update('Habilitacoes_Academicas', $data);
 
  			$this->session->set_flashdata('success', 'Habilitacao Academica actualizada com sucesso!');
 			redirect('voluntarios/profile');

@@ -58,7 +58,7 @@ class Voluntarios extends MY_Controller {
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 
 		// oportunidades de voluntariado
-		// $this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_entries();
+		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_entries();
 
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->load->view('templates/main_template/header');
@@ -98,7 +98,7 @@ class Voluntarios extends MY_Controller {
 			$area_geografica_data = $this->area_geografica->get_form_data($this->input->post());
 			$id_area_geografica   = $this->area_geografica->insert_entry($area_geografica_data);
 
-			// atualizar utlizador
+			// atualizar utilizador
 			$data_utilizador = $this->utilizador->get_update_form_data($this->input->post());
         	$data_utilizador['id_area_geografica'] = $id_area_geografica;
 			$this->utilizador->update_entry($this->id_utilizador, $data_utilizador);
