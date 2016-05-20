@@ -71,7 +71,8 @@ class Utilizador extends CI_Model {
     function get_by_id($id_utilizador, $user_type)
     {
         if ($user_type == 'voluntario') {
-            $this->db->select('u.id AS id_utilizador, v.id AS id_voluntario, u.email, u.tipo_utilizador, u.nome, u.id_area_geografica');
+            $this->db->select('u.id AS id_utilizador, v.id AS id_voluntario,
+                u.email, u.tipo_utilizador, u.nome, u.id_area_geografica');
             $this->db->from('Utilizadores AS u');
             $this->db->join('Voluntarios AS v', 'u.id = v.id_utilizador');
             $this->db->where('u.id', $id_utilizador);
@@ -86,7 +87,8 @@ class Utilizador extends CI_Model {
 
     function get_instituicao_by_id($id_utilizador)
     {
-        $this->db->select('u.id AS id_utilizador, i.id AS id_instituicao, u.email, u.tipo_utilizador, u.nome, u.id_area_geografica');
+        $this->db->select('u.id AS id_utilizador, i.id AS id_instituicao, u.email,
+            u.tipo_utilizador, u.nome, u.id_area_geografica');
         $this->db->from('Utilizadores AS u');
         $this->db->join('Instituicoes AS i', 'u.id = i.id_utilizador');
         $this->db->where('u.id', $id_utilizador);

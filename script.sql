@@ -64,14 +64,14 @@ CREATE TABLE IF NOT EXISTS Utilizadores_Disponibilidades (
 );
 
 
-CREATE TABLE IF NOT EXISTS Periodicidades (
-   id                  	INT 		      AUTO_INCREMENT,
-   id_disponibilidade  	INT 		      NOT NULL,
-   tipo                	VARCHAR(100) 	NOT NULL,
-   data_fim            	DATE	         NOT NULL,
-   PRIMARY KEY (id),
-   FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id) ON DELETE CASCADE
-);
+#CREATE TABLE IF NOT EXISTS Periodicidades (
+#   id                  	INT 		      AUTO_INCREMENT,
+#   id_disponibilidade  	INT 		      NOT NULL,
+#   tipo                	VARCHAR(100) 	NOT NULL,
+#   data_fim            	DATE	         NOT NULL,
+#   PRIMARY KEY (id),
+#   FOREIGN KEY (id_disponibilidade) REFERENCES Disponibilidades(id) ON DELETE CASCADE
+#);
 
 
 CREATE TABLE IF NOT EXISTS Grupos_Atuacao (

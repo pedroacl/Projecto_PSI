@@ -21,10 +21,6 @@ $(document).ready(function() {
     toggleVisibilityWithTables('#edit_disponibilidades');
   });
 
-  $('.btn').on('click', function() {
-    delete_entry(url, );
-  });
-
   function toggleVisibility(area) {
     $(area + " ul").find('a').toggle();
     $(area).find('.form-inline').toggle();

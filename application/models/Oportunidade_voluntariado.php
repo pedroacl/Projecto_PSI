@@ -7,8 +7,32 @@ class Oportunidade_voluntariado extends CI_Model {
     {
       parent::__construct();
 
-      $this->load->model('Periodicidade', 'periodicidade');
       $this->load->model('Disponibilidade', 'disponibilidade');
+    }
+
+    public function get_entries()
+    {
+        $this->load->model('Utilizador', 'utilizador');
+        $this->load->model('Grupo_Atuacao', 'grupo_atuacao');
+        $this->load->model('Area_interesse', 'area_interesse');
+
+        $voluntario = $this->utilizador->get_by_id($this->id_utilizador,
+            $this->tipo_utilizador);
+
+        $areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador($this->id_utilizador);
+        $grupos_atuacao_utilizador  = $this->grupo_atuacao->get_by_id_utilizador($this->id_utilizador);
+
+        $data = array(
+            'id_area_geografica' => $voluntario->id_area_geografica,
+            'area_interesse IN'  => $areas_interesse_utilizador->row()->id,
+            'grupo_actuacao IN'  => $grupos_atuacao_utilizador->row()->id,
+        );
+
+        $this->db->select('*');
+        $this->db->from('Oportunidades_Voluntariado');
+        $this->db->where($data);
+
+        return $this->db->get();
     }
 
     public function insert_entry($data)
@@ -44,7 +68,7 @@ class Oportunidade_voluntariado extends CI_Model {
     public function get_by_id($id_oportunidade_voluntariado)
     {
         $this->db->select('ov.nome AS nome_oportunidade, ov.funcao, ov.id, ov.pais,
-            ov.vagas, ov.ativa, ga.nome AS nome_grupo_atuacao, ga.descricao, 
+            ov.vagas, ov.ativa, ga.nome AS nome_grupo_atuacao, ga.descricao,
             ai.nome AS nome_area_interesse, ov.id_instituicao, ga.id AS id_grupo_atuacao,
             ai.id AS id_area_interesse');
 

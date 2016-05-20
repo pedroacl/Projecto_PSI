@@ -28,6 +28,7 @@ class MY_Controller extends CI_Controller {
 		$this->id_utilizador   = $this->session->userdata('id_utilizador');
 		$this->id_voluntario   = $this->session->userdata('id_voluntario');
 		$this->id_instituicao  = $this->session->userdata('id_instituicao');
+		$this->tipo_utilizador = $this->session->userdata('tipo_utilizador');
 	}
 
 	public function authenticate_user()

@@ -158,8 +158,6 @@
                   <tr>
                     <th>Data de Inicio</th>
                     <th>Data de Fim</th>
-                    <th>Periodicidade</th>
-                    <th>Repetir até</th>
                     <th class="actions" style="display: none;">Acções</th>
                   </tr>
                   <?php
@@ -167,8 +165,6 @@
                       echo '<tr>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_inicio)) . '</td>';
                       echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim)) . '</td>';
-                      echo '<td>' . $this->periodicidades[$disponibilidade->tipo_periodicidade] . '</td>';
-                      echo '<td>' . date("d/m/Y", strtotime($disponibilidade->data_fim_periodicidade)) . '</td>';
                       echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("disponibilidades/edit/" . $disponibilidade->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("disponibilidades/delete/" . $disponibilidade->id) . "'>Eliminar</a></td>";
                       echo '</tr>';
                     }
@@ -191,15 +187,6 @@
                             </span>
                           </div>
                         </td>
-                        <td><input class="form-control" name="periodicidade"/></td>
-                        <td>
-                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                            <input name="repetir_ate" value="" type='text' class="form-control" />
-                            <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                          </div>
-                        </td>
                         <td><input class='btn btn-primary btn-sm' type="submit" value="Adicionar"/></td>
                       <?php echo form_close() ?>
                     </tr>
@@ -208,6 +195,13 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="panel panel-default">
+
+      <h1>Oportunidades de Voluntariado</h1>
+
+      <?php print_r($this->oportunidades_voluntariado->result()) ?>
+
       </div>
     </div>
   </div>
