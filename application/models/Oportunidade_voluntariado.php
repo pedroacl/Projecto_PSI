@@ -93,11 +93,12 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->select('ov.nome AS nome_oportunidade, ov.funcao, ov.id, ov.pais,
             ov.vagas, ov.ativa, ga.nome AS nome_grupo_atuacao, ga.descricao,
             ai.nome AS nome_area_interesse, ov.id_instituicao, ga.id AS id_grupo_atuacao,
-            ai.id AS id_area_interesse');
+            ai.id AS id_area_interesse, ov.id_area_geografica, ag.distrito, ag.concelho, ag.freguesia');
 
         $this->db->from('Oportunidades_Voluntariado as ov');
         $this->db->join('Grupos_Atuacao AS ga', 'ga.id = ov.id_grupo_atuacao');
         $this->db->join('Areas_Interesse AS ai', 'ai.id = ov.id_area_interesse');
+        $this->db->join('Areas_Geograficas AS ag', 'ag.id = ov.id_area_geografica');
         $this->db->where('ov.id', $id_oportunidade_voluntariado);
 
         return $this->db->get();
@@ -110,8 +111,11 @@ class Oportunidade_voluntariado extends CI_Model {
             'ativa'          => 'y'
         );
 
-        $this->db->select('*');
-        $this->db->from('Oportunidades_Voluntariado');
+        $this->db->select('ov.id, ov.nome, ov.funcao, ov.pais,
+            ov.vagas, ov.ativa, ov.id_instituicao, ov.id_area_geografica, ag.distrito, ag.concelho, ag.freguesia');
+        $this->db->from('Oportunidades_Voluntariado AS ov');
+        $this->db->join('Areas_Geograficas AS ag', 'ag.id = ov.id_area_geografica');
+
         $this->db->where($data);
 
         return $this->db->get();
@@ -124,8 +128,10 @@ class Oportunidade_voluntariado extends CI_Model {
             'ativa'          => 'n'
         );
 
-        $this->db->select('*');
-        $this->db->from('Oportunidades_Voluntariado');
+        $this->db->select('ov.id, ov.nome, ov.funcao, ov.pais,
+            ov.vagas, ov.ativa, ov.id_instituicao, ov.id_area_geografica, ag.distrito, ag.concelho, ag.freguesia');
+        $this->db->from('Oportunidades_Voluntariado AS ov');
+        $this->db->join('Areas_Geograficas AS ag', 'ag.id = ov.id_area_geografica');
         $this->db->where($data);
 
         return $this->db->get();

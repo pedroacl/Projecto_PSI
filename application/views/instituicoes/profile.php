@@ -67,18 +67,21 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-md-6">
-                  <h3><?php echo $oportunidade_ativa->nome ?></h3>
+                  <h3><?= $oportunidade_ativa->nome ?></h3>
                   <strong>Função:</strong>
-                  <p><?php echo $oportunidade_ativa->funcao ?></p>
+                  <p><?= $oportunidade_ativa->funcao ?></p>
                   <strong>País:</strong>
-                  <p><?php echo $oportunidade_ativa->pais ?></p>
+                  <p><?= $oportunidade_ativa->pais ?></p>
                   <strong>Número de Vagas:</strong>
-                  <p><?php echo $oportunidade_ativa->vagas ?></p>
-
-                  <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
-
-                  <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/edit/' . $oportunidade_ativa->id) ?>">  Editar Oportunidade</a>
-
+                  <p><?= $oportunidade_ativa->vagas ?></p>
+                  <strong>Distrito:</strong>
+                  <p><?= $oportunidade_ativa->distrito ?></p>
+                  <strong>Concelho</strong>
+                  <p><?= $oportunidade_ativa->concelho ?></p>
+                  <strong>Freguesia</strong>
+                  <p><?= $oportunidade_ativa->freguesia ?></p>
+                  <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
+                  <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/edit/' . $oportunidade_ativa->id) ?>">  Editar Oportunidade</a>
                 </div>
                 <div class="col-md-6">
                   <div class="row">
@@ -105,17 +108,21 @@
         <div class="col-md-6">
           <div class="panel panel-default">
             <div class="panel-body">
-              <h3><?php echo $oportunidade_inactiva->nome ?></h3>
+              <h3><?= $oportunidade_inactiva->nome ?></h3>
               <strong>Função:</strong>
-              <p><?php echo $oportunidade_inactiva->funcao ?></p>
+              <p><?= $oportunidade_inactiva->funcao ?></p>
               <strong>País:</strong>
-              <p><?php echo $oportunidade_inactiva->pais ?></p>
+              <p><?= $oportunidade_inactiva->pais ?></p>
               <strong>Número de Vagas:</strong>
-              <p><?php echo $oportunidade_inactiva->vagas ?></p>
-
-              <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/show/' . $oportunidade_inactiva->id) ?>">  Ver Detalhes</a>
-
-              <a class="btn btn-warning btn-sm" href="<?php echo site_url('oportunidades_voluntariado/edit/' . $oportunidade_inactiva->id) ?>">Editar Oportunidade</a>
+              <p><?= $oportunidade_inactiva->vagas ?></p>
+              <strong>Distrito:</strong>
+              <p><?= $oportunidade_ativa->distrito ?></p>
+              <strong>Concelho</strong>
+              <p><?= $oportunidade_ativa->concelho ?></p>
+              <strong>Freguesia</strong>
+              <p><?= $oportunidade_ativa->freguesia ?></p>
+              <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_inactiva->id) ?>">  Ver Detalhes</a>
+              <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/edit/' . $oportunidade_inactiva->id) ?>">Editar Oportunidade</a>
             </div>
           </div>
         </div>

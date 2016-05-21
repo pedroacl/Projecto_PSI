@@ -45,9 +45,6 @@ class Oportunidades_voluntariado extends MY_Controller {
 			// areas de interesse
 			$this->areas_interesse_data = $this->area_interesse->get_areas_interesse_data();
 
-			// tipos de periodicidade
-			$this->tipos_periodicidade = $this->periodicidade->get_periodicidades();
-
 			$this->title = "Adicionar nova Oportunidade de Voluntariado";
 			$this->js_files = array('disponibilidades.js', 'areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
@@ -124,14 +121,17 @@ class Oportunidades_voluntariado extends MY_Controller {
 			// areas de interesse
 			$this->areas_interesse_data = $this->area_interesse->get_areas_interesse_data();
 
+			// area geografica
+			$this->area_geografica_data = $this->area_geografica->get_by_id($this->oportunidade_voluntariado_data->id_area_geografica)->row();
+
 			$this->js_files = array('disponibilidades.js', 'areas_geograficas.js');
 			$this->load->view('templates/main_template/header');
 			$this->load->view('/oportunidades_voluntariado/edit');
 			$this->load->view('templates/main_template/footer');
 
 		} else {
-        	// atualizar area geografica
-        	$area_geografica_data = $this->area_geografica->get_form_data($this->input->post());
+    	// atualizar area geografica
+    	$area_geografica_data = $this->area_geografica->get_form_data($this->input->post());
 			$id_area_geografica = $this->area_geografica->insert_entry($area_geografica_data);
 
 			// atualizar oportunidade

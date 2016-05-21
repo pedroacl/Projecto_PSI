@@ -8,7 +8,7 @@ $(document).ready(function() {
   }
 
   $('.datepicker').datepicker({
-    format: 'dd/mm/yyyy',
+    format: 'yyyy/mm/dd',
     startDate: '-3d'
   });
 
@@ -18,44 +18,32 @@ $(document).ready(function() {
 
     // Get values
     $data_inicio   = $('#data_inicio_disponibilidade');
-    $periodicidade = $('#periodicidade');
     $data_fim      = $('#data_fim_disponibilidade');
-    $repetir_ate   = $('#repetir_ate_disponibilidade');
 
     // Remove error classes, if they exist
     $data_inicio.parent().removeClass('has-error');
-    $periodicidade.parent().removeClass('has-error');
     $data_fim.parent().removeClass('has-error');
-    $repetir_ate.parent().removeClass('has-error');
 
-    if ($data_inicio.val() !== '' && $periodicidade.val() !== ''
-      && $data_fim.val() !== '' && $repetir_ate.val() !== '') {
+    if ($data_inicio.val() !== '' && $data_fim.val() !== '') {
 
       // Construct table HTML
-      var disp_row = "<tr id='disponibilidade_" + $counter_of_disp + "'><td>"
-        + $data_inicio.val() + "</td><input type='hidden' name='disponibilidades["
-        + $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val() + "'><td>"
-        + $data_fim.val() + "</td><input type='hidden' name='disponibilidades["
-        + $counter_of_disp + "][data_fim]' value='" + $data_fim.val() + "'><td>"
-        + $periodicidade.val() + "</td><input type='hidden' name='disponibilidades["
-        + $counter_of_disp + "][periodicidade]' value='" + $periodicidade.val()
-        + "'><td>" + $repetir_ate.val() + "</td><input type='hidden' name='disponibilidades["
-        + $counter_of_disp + "][repetir_ate]' value='" + $repetir_ate.val()
-        + "'><td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>"
-        + "</tr>";
+      var disp_row = "<tr id='disponibilidade_" + $counter_of_disp + "'>";
+
+      disp_row += "<td>" + $data_inicio.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_inicio]' value='" + $data_inicio.val() + "'>";
+
+      disp_row += "<td>" + $data_fim.val() + "</td><input type='hidden' name='disponibilidades[" + $counter_of_disp + "][data_fim]' value='" + $data_fim.val() + "'>";
+
+      disp_row += "<td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>";
+      disp_row += "</tr>";
 
       $('#disponibilidade_table').append(disp_row);
 
       // Clear form
       $data_inicio.val('');
-      $periodicidade.val('Semanalmente');
       $data_fim.val('');
-      $repetir_ate.val('');
 
       $data_inicio.parent().removeClass('has-error');
-      $periodicidade.parent().removeClass('has-error');
       $data_fim.parent().removeClass('has-error');
-      $repetir_ate.parent().removeClass('has-error');
 
       $number_of_disp++;
       $counter_of_disp++;
@@ -63,21 +51,13 @@ $(document).ready(function() {
       if ($number_of_disp > 0) {
         $('#disponibilidade_table').show('fast');
       }
-
     } else {
-
       // If not valid
       if ($data_inicio.val() === '') {
         $data_inicio.parent().addClass('has-error');
       }
-      if ($periodicidade.val() === '') {
-        $periodicidade.parent().addClass('has-error');
-      }
       if ($data_fim.val() === '') {
         $data_fim.parent().addClass('has-error');
-      }
-      if ($repetir_ate.val() === '') {
-        $repetir_ate.parent().addClass('has-error');
       }
     }
   });

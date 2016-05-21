@@ -83,8 +83,6 @@
                 <tr>
                   <th>Data inicio</th>
                   <th>Data fim</th>
-                  <th>Periodicidade</th>
-                  <th>Repetir até</th>
                   <th>Acções</th>
                 </tr>
 
@@ -94,16 +92,8 @@
                     <tr id="disponibilidade_<?= $i; ?>">
                       <td><?= $disponibilidade['data_inicio'] ?></td>
                       <input type="hidden" name="disponibilidades[<?= $i ?>]['data_inicio']"/>
-
                       <td><?= $disponibilidade['data_fim'] ?></td>
                       <input type="hidden" name="disponibilidades[<?= $i ?>]['data_fim']"/>
-
-                      <td><?= $disponibilidade['periodicidade'] ?></td>
-                      <input type="hidden" name="disponibilidades[<?= $i ?>]['periodicidade']"/>
-
-                      <td><?= $disponibilidade['repetir_ate'] ?></td>
-                      <input type="hidden" name="disponibilidades[<?= $i ?>]['repetir_ate']"/>
-
                       <td><a class='btn btn-danger btn-sm eliminar'>Eliminar</a></td>
                     </tr>
                 <?php
@@ -119,32 +109,19 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="control-label">Data de Inicio</label>
-                    <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                    <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
                       <input type="text" class="form-control" id="data_inicio_disponibilidade">
                       <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                       </span>
                     </div>
                   </div>
-                  <div class="form-group">
-                    <label class="control-label">Periodicidade</label>
-                    <?php echo form_dropdown('periodicidade', $this->tipos_periodicidade, "", "class='form-control' id='periodicidade'") ?>
-                  </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label class="control-label">Data de Fim</label>
-                    <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
+                    <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
                       <input type="text" class="form-control" id="data_fim_disponibilidade">
-                      <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label">Repetir até</label>
-                    <div class='input-group date datepicker' data-provide="datepicker" data-date-format="dd/mm/yyyy">
-                      <input type="text" class="form-control" id="repetir_ate_disponibilidade">
                       <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                       </span>
