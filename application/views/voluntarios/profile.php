@@ -196,69 +196,47 @@
           </div>
         </div>
       </div>
-      <div class="panel panel-default">
-
-      <h1>Oportunidades de Voluntariado</h1>
-
-      <?php if ($this->oportunidades_voluntariado->num_rows() == 0) { ?>
-        <h2>Não existem oportunidades para o seu perfil</h2>
-      <?php } else { ?>
-
-        <?php foreach ($this->oportunidades_voluntariado->result() as $oportunidade_voluntariado) { ?>
-
-          <?php print_r($oportunidade_voluntariado); ?>
-
-          <h3>Nome</h3>
-          <p><?= $oportunidade_voluntariado->nome ?></p>
-
-          <h3>Instituição</h3>
-          <p><?= $oportunidade_voluntariado->instituicao ?></p>
-
-          <h3>Função</h3>
-          <p><?= $oportunidade_voluntariado->funcao ?></p>
-
-          <h3>País</h3>
-          <p><?= $oportunidade_voluntariado->pais ?></p>
-
-          <h3>Distrito</h3>
-          <p><?= $oportunidade_voluntariado->distrito ?></p>
-
-          <h3>Concelho</h3>
-          <p><?= $oportunidade_voluntariado->concelho ?></p>
-
-          <h3>Freguesia</h3>
-          <p><?= $oportunidade_voluntariado->freguesia ?></p>
-
-          <h3>Grupo de Atuação</h3>
-          <p><?= $oportunidade_voluntariado->grupo_atuacao ?></p>
-
-          <h3>Área de Interesse</h3>
-          <p><?= $oportunidade_voluntariado->area_interesse ?></p>
-
-        <?php } ?>
-      <?php } ?>
-      </div>
     </div>
   </div>
 
-  <!-- <h2>Oportunidades correspondentes</h2>
+  <h2>Oportunidades de Voluntariado correspondentes</h2>
   <div class="row">
-    <div class="col-md-6">
+    <?php if ($this->oportunidades_voluntariado->num_rows() == 0) { ?>
+      <h2>Não existem oportunidades para o seu perfil</h2>
+    <?php } else { ?>
+      <?php foreach ($this->oportunidades_voluntariado->result() as $oportunidade_voluntariado) { ?>
+      <div class="col-md-6">
 
-      <div class="panel panel-default">
-        <div class="panel-body">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+                <h3><?= $oportunidade_voluntariado->nome ?></h3>
+                <dl class="dl-horizontal">
+                  <dt>Função</dt>
+                  <dd><?= $oportunidade_voluntariado->funcao ?></dd>
+                  
+                  <dt>Instituição</dt>
+                  <dd><?= $oportunidade_voluntariado->instituicao ?></dd>
+
+                  <dt>Grupo de Atuação</dt>
+                  <dd><?= $oportunidade_voluntariado->grupo_atuacao ?></dd>
+
+                  <dt>Área de Interesse</dt>
+                  <dd><?= $oportunidade_voluntariado->area_interesse ?></dd>
+                </dl>
+                <div class="pull-right">
+                  <?php if (isset($oportunidade_voluntariado->inscrito)) { ?>
+                    <a href="" class="btn btn-danger btn-sm" disabled="disabled">Esperando aprovação</a>
+                  <?php } else { ?>
+                    <a href="" class="btn btn-success">Inscrever-me!</a>
+                  <?php } ?>
+                  <a href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_voluntariado->id_oportunidade_voluntariado); ?>" class="btn btn-warning">Ver detalhes</a>
+                </div>
+          </div>
         </div>
+
       </div>
-
-    </div>
-
-    <div class="col-md-6">
-
-      <div class="panel panel-default">
-        <div class="panel-body">
-        </div>
-      </div>
-
-    </div>
-  </div> -->
+      <?php } ?>
+    <?php } ?>
+  </div>
 </div>

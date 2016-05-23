@@ -20,6 +20,7 @@ class Voluntarios extends MY_Controller {
 		//$this->authenticate_user();
 		$this->load->helper('form');
 
+		$this->load->model('Inscreve_se', 'inscricoes');
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
@@ -58,6 +59,21 @@ class Voluntarios extends MY_Controller {
 
 		// oportunidades de voluntariado
 		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_entries();
+		$this->inscricoes = $this->inscricoes->get_inscricoes($this->id_voluntario)->result();
+
+
+		foreach ($this->oportunidades_voluntariado->result() as $oportunidade) {
+			foreach ($this->inscricoes as $inscricao) {
+
+				if ($oportunidade->id_oportunidade_voluntariado == $inscricao->id_oportunidade_voluntariado) {
+					$oportunidade->inscrito = $inscricao->aceite;
+				}
+			}
+		}
+
+		print_r($this->oportunidades_voluntariado->result());
+		echo "<hr>";
+		print_r($this->inscricoes);
 
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->load->view('templates/main_template/header');
