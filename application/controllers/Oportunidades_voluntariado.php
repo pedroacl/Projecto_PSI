@@ -7,8 +7,13 @@ class Oportunidades_voluntariado extends MY_Controller {
 		parent::__construct();
 
 		$this->authenticate_user();
-		$this->validate_is_instituicao();
+		// $this->validate_is_instituicao();
 		$this->load->model('Oportunidade_voluntariado', 'oportunidade_voluntariado');
+	}
+
+	public function inscrever($id_oportunidade)
+	{
+		echo "Teste";
 	}
 
 	public function index()
