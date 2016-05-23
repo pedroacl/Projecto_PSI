@@ -20,6 +20,9 @@ class Disponibilidades extends MY_Controller {
 	// POST disponibilidades/add
 	public function add($id_utilizador)
 	{
+
+		// VALIDAÇÂO DE DATAS
+
 		$this->load->model('Disponibilidade', 'disponibilidade');
 		$disponibilidade = $this->input->post();
 
@@ -30,13 +33,10 @@ class Disponibilidades extends MY_Controller {
 	public function edit($id_disponibilidade)
 	{
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->helper('form');
 
 		$disponibilidade = $this->input->post();
 		$this->disponibilidade = $this->disponibilidade->get_by_id($id_disponibilidade)->row();
-
-		$this->tipos_periodicidade = $this->periodicidade->get_periodicidades();
 
 		$this->js_files = array('');
 		$this->load->view('templates/main_template/header');
@@ -48,9 +48,11 @@ class Disponibilidades extends MY_Controller {
 	public function process_edit()
 	{
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$disponibilidade_e_periodicidade_data = $this->disponibilidade->get_form_data($this->input->post());
+		$disponibilidade = $this->disponibilidade->get_form_data($this->input->post());
 
-		$this->disponibilidade->update($this->input->post('id_disponibilidade'), $disponibilidade_e_periodicidade_data[0]);
+		// UPDATE COM VALIDAÇÂO DE DATAS
+
+		$this->disponibilidade->update($this->input->post('id_disponibilidade'), $disponibilidade[0]);
 
 		$this->session->set_flashdata('success', 'Disponibilidade actualizada com sucesso');
 		redirect_back();

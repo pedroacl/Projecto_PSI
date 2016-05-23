@@ -6,32 +6,52 @@
         <div class="panel-body profile-instituicao">
           <div class="row">
             <div class="col-md-5">
-              <h1><?= $this->instituicao->nome ?></h1>
+              <h1><?= $this->instituicao->nome == '' ? "Instituição" : $this->instituicao->nome ?></h1>
               <dl class="dl-horizontal">
-                <dt>Morada</dt>
-                <dd><?= $this->instituicao->morada ?></dd>
+                <?php if ($this->instituicao->morada) { ?>
+                  <dt>Morada</dt>
+                  <dd><?= $this->instituicao->morada ?></dd>
+                <?php } ?>
 
-                <dt>Email de Instituição</dt>
-                <dd><?= $this->instituicao->email_instituicao ?></dd>
+                <?php if ($this->instituicao->email_instituicao) { ?>
+                  <dt>Email de Instituição</dt>
+                  <dd><?= $this->instituicao->email_instituicao ?></dd>
+                <?php } ?>
 
-                <dt>Website</dt>
-                <dd><?= $this->instituicao->website ?></dd>
+                <?php if ($this->instituicao->website) { ?>
+                  <dt>Website</dt>
+                  <dd><?= $this->instituicao->website ?></dd>
+                <?php } ?>
 
-                <dt>Telefone</dt>
-                <dd><?= $this->instituicao->telefone ?></dd>
+                <?php if ($this->instituicao->telefone) { ?>
+                  <dt>Telefone</dt>
+                  <dd><?= $this->instituicao->telefone ?></dd>
+                <?php } ?>
 
-                <dt>Email</dt>
-                <dd><?= $this->instituicao->email ?></dd>
+                <?php if ($this->instituicao->email) { ?>
+                  <dt>Email</dt>
+                  <dd><?= $this->instituicao->email ?></dd>
+                <?php } ?>
 
-                <?php if ($this->area_geografica_data->num_rows() > 0) { ?>
-                  <dt>Distrito</dt>
-                  <dd><?= $this->area_geografica_data->row()->distrito ?></dd>
+                <?php if ($this->area_geografica_data->num_rows() > 0) {
+                  $distrito = $this->area_geografica_data->row()->distrito;
+                  $concelho = $this->area_geografica_data->row()->concelho;
+                  $freguesia = $this->area_geografica_data->row()->freguesia;  ?>
 
-                  <dt>Concelho</dt>
-                  <dd><?= $this->area_geografica_data->row()->concelho ?></dd>
+                  <?php if ($distrito !== '') { ?>
+                    <dt>Distrito</dt>
+                    <dd><?= $distrito ?></dd>
+                  <?php } ?>
 
-                  <dt>Freguesia</dt>
-                  <dd><?= $this->area_geografica_data->row()->freguesia ?></dd>
+                  <?php if ($concelho !== '') { ?>
+                    <dt>Concelho</dt>
+                    <dd><?= $concelho ?></dd>
+                  <?php } ?>
+
+                  <?php if ($freguesia !== '') { ?>
+                    <dt>Freguesia</dt>
+                    <dd><?= $freguesia ?></dd>
+                  <?php } ?>
                 <?php } ?>
               </dl>
             </div>
