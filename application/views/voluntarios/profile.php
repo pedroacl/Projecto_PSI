@@ -228,7 +228,7 @@
                   <?php if (isset($oportunidade_voluntariado->inscrito)) { ?>
                     <a href="" class="btn btn-danger btn-sm" disabled="disabled">Esperando aprovação</a>
                   <?php } else { ?>
-                    <a href="" class="btn btn-success">Inscrever-me!</a>
+                    <a href="<?= site_url('oportunidades_voluntariado/' . $oportunidade_voluntariado->id_oportunidade_voluntariado . "/inscrever/" . $this->id_voluntario); ?>" class="btn btn-success">Inscrever-me!</a>
                   <?php } ?>
                   <a href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_voluntariado->id_oportunidade_voluntariado); ?>" class="btn btn-warning">Ver detalhes</a>
                 </div>

@@ -7,9 +7,11 @@ class Inscricoes extends MY_Controller {
     parent::__construct();
   }
 
-  public function add($id_voluntario, $id_oportunidade)
+  // GET
+  public function insert_entry($id_voluntario, $id_oportunidade)
   {
-    // add
+    $this->load->model('Inscreve_se', 'inscricao');
+    $this->inscricao->insert_entry($id_voluntario, $id_oportunidade);
     redirect_back();
   }
 
@@ -18,9 +20,9 @@ class Inscricoes extends MY_Controller {
 
   }
 
-  public function delete()
+  public function update_entry()
   {
 
   }
-  
+
 }

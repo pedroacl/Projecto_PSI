@@ -6,7 +6,6 @@ class Inscreve_se extends CI_Model {
     function __construct()
     {
       parent::__construct();
-
     }
 
     public function get_inscricoes($id_voluntario)
@@ -15,5 +14,17 @@ class Inscreve_se extends CI_Model {
         $this->db->from('Inscreve_Se AS insc');
         $this->db->where('insc.id_voluntario', $id_voluntario);
         return $this->db->get();
+    }
+
+    public function insert_entry($id_voluntario, $id_oportunidade)
+    {
+        $data = array(
+              'id_voluntario' => $id_voluntario,
+              'id_oportunidade_voluntariado' => $id_oportunidade,
+              'data_inscricao' => date(),
+              'aceite' => 0
+        );
+        $this->db->insert('Inscreve_Se', $data);
+        return $this->db->insert_id();
     }
 }
