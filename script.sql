@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS Utilizadores (
    created_at          	TIMESTAMP 		NOT NULL,
    updated_at          	TIMESTAMP 		NOT NULL,
    recovery_token       VARCHAR(50)    DEFAULT NULL,
+   perfil_completo      CHAR(1)        DEFAULT 'n',
    FOREIGN KEY (id_area_geografica) REFERENCES Areas_Geograficas(id),
    PRIMARY KEY (id)
 );
@@ -206,13 +207,11 @@ VALUES ('Educação');
 INSERT INTO Areas_Interesse (nome)
 VALUES ('Desporto');
 
-
 INSERT INTO Grupos_Atuacao (nome, descricao)
 VALUES ('Idosos', 'Grupo de pessoas idosas');
 
 INSERT INTO Grupos_Atuacao (nome, descricao)
 VALUES ('Crianças', 'Grupos de crianças');
-
 
 INSERT INTO Tipos_Habilitacoes_Academicas (nome, descricao)
 VALUES ('Licenciatura', 'Grau de licenciado');

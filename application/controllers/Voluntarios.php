@@ -74,7 +74,7 @@ class Voluntarios extends MY_Controller {
 		$this->load->model('Area_geografica', 'area_geografica');
 
 		$this->voluntario_data = $this->voluntario->get_main_profile($this->id_utilizador)->row();
-		$this->utilizador_data = $this->utilizador->get_by_id($this->id_utilizador, 'voluntario');
+		$this->utilizador_data = $this->utilizador->get_by_id($this->id_utilizador, 'voluntario')->row();
 
 		if ($this->utilizador_data->id_area_geografica !== null) {
 			$this->area_geografica_data = $this->area_geografica->get_by_id($this->utilizador_data->id_area_geografica)->row();

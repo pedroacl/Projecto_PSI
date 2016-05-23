@@ -35,7 +35,8 @@ class Utilizador extends CI_Model {
                         'id_voluntario'   => $utilizador->id_voluntario,
                         'email'           => $email,
                         'tipo_utilizador' => $utilizador->tipo_utilizador,
-                        'nome'            => $utilizador->nome
+                        'nome'            => $utilizador->nome,
+                        'perfil_completo' => 'n'
                     );
                 } else {
                     $this->db->select('u.id AS id_utilizador, i.id AS id_instituicao, u.email, u.tipo_utilizador, u.nome');
@@ -49,7 +50,8 @@ class Utilizador extends CI_Model {
                         'id_instituicao'  => $utilizador->id_instituicao,
                         'email'           => $email,
                         'tipo_utilizador' => $utilizador->tipo_utilizador,
-                        'nome'            => $utilizador->nome
+                        'nome'            => $utilizador->nome,
+                        'perfil_completo' => 'n'
                     );
                 }
 
@@ -75,11 +77,11 @@ class Utilizador extends CI_Model {
                 u.email, u.tipo_utilizador, u.nome, u.id_area_geografica, distrito,
                 concelho, freguesia');
             $this->db->from('Utilizadores AS u');
-            $this->db->join('Voluntarios AS v', 'u.id = v.id_utilizador');
-            $this->db->join('Areas_Geograficas as ag', 'u.id_area_geografica = ag.id');
+            $this->db->join('Voluntarios AS v', 'u.id = v.id_utilizador', 'left');
+            $this->db->join('Areas_Geograficas as ag', 'u.id_area_geografica = ag.id', 'left');
             $this->db->where('u.id', $id_utilizador);
 
-            return $this->db->get()->row();
+            return $this->db->get();
         }
         else
         {

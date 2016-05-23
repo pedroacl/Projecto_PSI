@@ -17,7 +17,7 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->load->model('Area_interesse', 'area_interesse');
 
         $voluntario = $this->utilizador->get_by_id($this->id_utilizador,
-            $this->tipo_utilizador);
+            $this->tipo_utilizador)->row();
 
         // areas de interesse do utilizador
         $areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador(
@@ -25,7 +25,7 @@ class Oportunidade_voluntariado extends CI_Model {
 
         $num_rows = $areas_interesse_utilizador->num_rows();
         $areas_interesse_utilizador = $areas_interesse_utilizador->result();
-        $areas_interesse_utilizador_array = array();
+        $areas_interesse_utilizador_array = array('');
 
         for ($i = 0; $i < $num_rows; $i++) {
             $areas_interesse_utilizador_array[$i] = $areas_interesse_utilizador[$i]->id;
@@ -37,7 +37,7 @@ class Oportunidade_voluntariado extends CI_Model {
 
         $num_rows = $grupos_atuacao_utilizador->num_rows();
         $grupos_atuacao_utilizador = $grupos_atuacao_utilizador->result();
-        $grupos_atuacao_utilizador_array = array();
+        $grupos_atuacao_utilizador_array = array('');
 
         for ($i = 0; $i < $num_rows; $i++) {
             $grupos_atuacao_utilizador_array[$i] = $grupos_atuacao_utilizador[$i]->id;
