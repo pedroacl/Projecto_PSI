@@ -10,14 +10,14 @@ class Oportunidade_voluntariado extends CI_Model {
       $this->load->model('Disponibilidade', 'disponibilidade');
     }
 
-    public function get_entries()
+    public function get_matching_for_voluntario($id_utilizador)
     {
         $this->load->model('Utilizador', 'utilizador');
         $this->load->model('Grupo_Atuacao', 'grupo_atuacao');
         $this->load->model('Area_interesse', 'area_interesse');
 
-        $voluntario = $this->utilizador->get_by_id($this->id_utilizador,
-            $this->tipo_utilizador)->row();
+        $voluntario = $this->utilizador->get_by_id($id_utilizador,
+            'voluntario')->row();
 
         // areas de interesse do utilizador
         $areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador(
@@ -58,7 +58,36 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
         $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
 
-        // Falta verificar as disponibilidades
+        // Falta relacionar com as disponibilidades e o numero de vagas tem de ser calculado ((vagas - inscricoes) > 0)
+        // Fazer left join com inscricoes?
+
+        return $this->db->get();
+    }
+
+    public function get_matching_for_oportunidade($id_oportunidade)
+    {
+        $oportunidade = $this->get_by_id($id_oportunidade)->row();
+
+        $this->db->distinct();
+        $this->db->select('vol.id as id_voluntario, vol.id_utilizador, u.nome, vol.foto, insc.aceite, op.id as id_oportunidade');
+        // $this->db->select('*');
+
+        $this->db->from('Voluntarios AS vol');
+
+        $this->db->join('Utilizadores AS u', 'u.id = vol.id_utilizador');
+        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga', 'u_ga.id_utilizador = u.id');
+        $this->db->join('Utilizadores_Areas_Interesse AS u_ai', 'u_ai.id_utilizador = u.id');
+        $this->db->join('Oportunidades_Voluntariado AS op', 'op.id = ' . $id_oportunidade);
+        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id');
+
+        // Estas cenas são importantes mas não estão a funcionar bem
+        // $this->db->where('u_ai.id_area_interesse', 'op.id_area_interesse');
+        // $this->db->where('u_ga.id_grupo_atuacao', 'op.id_grupo_atuacao');
+        // $this->db->where('u.id_area_geografica', 'op.id_area_geografica');
+        // $this->db->where('insc.aceite =', '0');
+        $this->db->where('insc.id_oportunidade_voluntariado', $id_oportunidade);
+
+        // Falta relacionar com as disponibilidades e o numero de vagas tem de ser calculado ((vagas - inscricoes) > 0)
 
         return $this->db->get();
     }

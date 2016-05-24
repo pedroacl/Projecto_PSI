@@ -83,8 +83,7 @@ $route['habilitacoes_academicas/edit/:id']['get'] = 'Habilitacoes_academicas/edi
 $route['habilitacoes_academicas/delete/:id']['get'] = 'Habilitacoes_academicas/delete/:id';
 
 // Oportunidades Voluntariado
-// $route['oportunidades_voluntariado/:id']['get'] = 'Oportunidades_voluntariado/show/:id';
-// $route['oportunidades_voluntariado/inscrever/:id_oportunidade/:id_voluntario']['get'] = 'Oportunidades_voluntariado/inscrever/:id_oportunidade/:id_';
+$route['oportunidades_voluntariado/:id']['get'] = 'Oportunidades_voluntariado/show/:id';
 
 // Inscrições
 $route['inscricoes/:id_voluntario/:id_oportunidade']['get'] = 'Inscricoes/insert_entry/:id_voluntario/:id_oportunidade';

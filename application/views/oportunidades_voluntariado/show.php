@@ -98,18 +98,43 @@
       </div>
     </div>
   </div>
+  <?php 
+    if (true) {
+      ?>
+      <h2>Candidaturas de Voluntários</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <?php foreach ($this->voluntarios_matching->result() as $vol) { ?>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12">
+                      <h3><?= $vol->nome ?></h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <a href="#" class="thumbnail">
+                      <img src="<?= base_url($vol->foto) ?>">
+                    </a>
+                  </div>
+                  <div class="col-md-6">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias maxime voluptates placeat facilis laboriosam quia tempore, saepe aut accusantium quis iure perspiciatis, error dolor eligendi a, nostrum delectus, qui ipsum.
+                  </div>
+                </div>
+                <div class="row">
+                  <a href="<?= site_url('oportunidades_voluntariado/aceitar/' . $vol->id_oportunidade . "/" . $vol->id_voluntario) ?>" class="btn btn-success">Aceitar</a>
+                  <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
+                </div>
+                
+              </div>
+            </div>
+          <?php } ?>
 
-  <h2>Candidaturas de Voluntários</h2>
-  <div class="row">
-    <div class="col-md-6">
-
-      <div class="panel panel-default">
-        <div class="panel-body">
-          Nenhuma
         </div>
       </div>
-
-    </div>
-  </div>
+      <?php } else {  ?>
+      <h2>Não existem candidaturas</h2>
+    <?php } ?>
 
 </div>

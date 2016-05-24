@@ -27,4 +27,19 @@ class Inscreve_se extends CI_Model {
         $this->db->insert('Inscreve_Se', $data);
         return $this->db->insert_id();
     }
+
+    public function aceitar_inscricao($id_oportunidade, $id_voluntario)
+    {
+
+      $data = array(
+            'aceite' => 1
+      );
+      $this->db->where('id_oportunidade_voluntariado', $id_oportunidade);
+      $this->db->where('id_voluntario', $id_voluntario);
+      $this->db->update('Inscreve_Se', $data);
+      $this->session->set_flashdata('success', 'Inscrição foi aceite om sucesso');
+      redirect_back();
+    }
+
+
 }

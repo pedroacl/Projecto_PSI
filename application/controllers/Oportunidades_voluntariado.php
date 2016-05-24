@@ -7,7 +7,10 @@ class Oportunidades_voluntariado extends MY_Controller {
 		parent::__construct();
 
 		$this->authenticate_user();
+
+		// Isto não é válido sempre para todas as acções, secalhar temos de por isto em cada método
 		// $this->validate_is_instituicao();
+
 		$this->load->model('Oportunidade_voluntariado', 'oportunidade_voluntariado');
 	}
 
@@ -15,6 +18,14 @@ class Oportunidades_voluntariado extends MY_Controller {
 	{
 		$this->load->model('Inscreve_Se', 'inscricao');
 		$this->inscricao->insert_entry($id_oportunidade, $id_voluntario);
+		$this->session->set_flashdata('success', 'Inscrição registada com sucesso');
+		redirect_back();
+	}
+
+	public function aceitar($id_oportunidade, $id_voluntario)
+	{
+		$this->load->model('Inscreve_Se', 'inscricao');
+		$this->inscricao->aceitar_inscricao($id_oportunidade, $id_voluntario);
 		$this->session->set_flashdata('success', 'Inscrição registada com sucesso');
 		redirect_back();
 	}
@@ -87,10 +98,14 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-
-		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
+		$this->load->model('Inscreve_Se', 'inscricoes');
 
 		$this->disponibilidades = $this->disponibilidade->get_by_id_oportunidade($id_oportunidade_voluntariado);
+		
+		$this->voluntarios_matching = $this->oportunidade_voluntariado->get_matching_for_oportunidade($id_oportunidade_voluntariado);
+
+
+		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
 
 		$this->js_files = array('oportunidades/oportunidade_profile.js');
 		$this->load->view('templates/main_template/header');
