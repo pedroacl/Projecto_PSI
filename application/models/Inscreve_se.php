@@ -16,12 +16,12 @@ class Inscreve_se extends CI_Model {
         return $this->db->get();
     }
 
-    public function insert_entry($id_voluntario, $id_oportunidade)
+    public function insert_entry($id_oportunidade, $id_voluntario)
     {
         $data = array(
               'id_voluntario' => $id_voluntario,
               'id_oportunidade_voluntariado' => $id_oportunidade,
-              'data_inscricao' => date(),
+              'data_inscricao' => date("Y-m-d"),
               'aceite' => 0
         );
         $this->db->insert('Inscreve_Se', $data);
