@@ -200,9 +200,9 @@
   </div>
 
   <h2>Oportunidades de Voluntariado correspondentes</h2>
-  <div class="row">
-    <?php if ($this->oportunidades_voluntariado->num_rows() == 0) { ?>
-      <h2>Não existem oportunidades para o seu perfil</h2>
+  <?php if ($this->oportunidades_voluntariado->num_rows() == 0) { ?>
+      <h3>Não existem oportunidades para o seu perfil</h3>
+      <div class="row">
     <?php } else { ?>
       <?php foreach ($this->oportunidades_voluntariado->result() as $oportunidade_voluntariado) { ?>
       <div class="col-md-6">

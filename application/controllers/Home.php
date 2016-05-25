@@ -11,6 +11,7 @@ class Home extends MY_Controller {
 	// GET /
 	public function index()
 	{
+		$this->active_area = 'home';
 		$this->js_files = array('home.js');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('home/index');

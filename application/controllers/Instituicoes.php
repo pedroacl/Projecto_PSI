@@ -48,6 +48,7 @@ class Instituicoes extends MY_Controller {
 				$this->oportunidade_voluntariado->get_matching_for_oportunidade($oportunidade_ativa->id));
 		}
 
+		$this->active_area = 'profile';
 		$this->js_files = array('home.js');
 		$this->title    = "Perfil de " . $this->instituicao->nome;
 		$this->load->view('templates/main_template/header');
