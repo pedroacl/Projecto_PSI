@@ -59,6 +59,7 @@ class Voluntarios extends MY_Controller {
 
 		// oportunidades de voluntariado
 		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_matching_for_voluntario($this->id_utilizador);
+
 		$this->inscricoes = $this->inscricoes->get_inscricoes($this->id_voluntario)->result();
 
 		foreach ($this->oportunidades_voluntariado->result() as $oportunidade) {

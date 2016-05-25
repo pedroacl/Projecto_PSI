@@ -39,6 +39,15 @@ class Instituicoes extends MY_Controller {
 		$this->oportunidades_voluntariado_inativas =
 			$this->oportunidade_voluntariado->get_inativas_by_id_instituicao($this->id_instituicao);
 
+		// matching de voluntarios
+		$this->matching_voluntarios = array();
+
+		foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) {
+			print_r($oportunidade_ativa);
+			array_push($this->matching_voluntarios,
+				$this->oportunidade_voluntariado->get_matching_for_oportunidade($oportunidade_ativa->id));
+		}
+
 		$this->js_files = array('home.js');
 		$this->title    = "Perfil de " . $this->instituicao->nome;
 		$this->load->view('templates/main_template/header');

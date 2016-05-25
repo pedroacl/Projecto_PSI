@@ -51,9 +51,11 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Areas_Interesse AS ai', 'ov.id_area_interesse = ai.id');
         $this->db->join('Instituicoes AS i', 'ov.id_instituicao = i.id');
         $this->db->join('Utilizadores AS u', 'u.id = i.id_utilizador');
-        $this->db->join('Utilizadores_Disponibilidades AS ud', 'ud.id_utilizador = u.id');
-        $this->db->join('Disponibilidades AS d', 'ud.id_disponibilidade = d.id');
+        $this->db->join('Utilizadores_Disponibilidades AS ud',
+            'ud.id_utilizador = u.id', 'left');
+        $this->db->join('Disponibilidades AS d', 'ud.id_disponibilidade = d.id', 'left');
         $this->db->where('ov.vagas >', '0');
+        $this->db->where('ativa', 'y');
         $this->db->where('distrito', $voluntario->distrito);
         $this->db->where('concelho', $voluntario->concelho);
         $this->db->where('freguesia', $voluntario->freguesia);
@@ -71,23 +73,35 @@ class Oportunidade_voluntariado extends CI_Model {
         $oportunidade = $this->get_by_id($id_oportunidade)->row();
 
         $this->db->distinct();
-        $this->db->select('vol.id as id_voluntario, vol.id_utilizador, u.nome, vol.foto, insc.aceite, op.id as id_oportunidade');
+        $this->db->select('vol.id as id_voluntario, vol.id_utilizador, u.nome,
+            vol.foto, u.id as id_utilizador');
         // $this->db->select('*');
-
         $this->db->from('Voluntarios AS vol');
-
         $this->db->join('Utilizadores AS u', 'u.id = vol.id_utilizador');
-        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga', 'u_ga.id_utilizador = u.id');
-        $this->db->join('Utilizadores_Areas_Interesse AS u_ai', 'u_ai.id_utilizador = u.id');
-        $this->db->join('Oportunidades_Voluntariado AS op', 'op.id = ' . $id_oportunidade);
-        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id');
+        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga',
+            'u_ga.id_utilizador = u.id');
+        $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
+            'u_ai.id_utilizador = u.id');
+        //$this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id');
+        $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
+        $this->db->join('Grupos_Atuacao AS ga', 'u.id_grupo_atuacao = ga.id');
+        $this->db->join('Areas_Interesse AS ai', 'u.id_area_interesse = ai.id');
+        $this->db->join('Utilizadores_Disponibilidades AS ud',
+            'ud.id_utilizador = u.id', 'left');
+        $this->db->join('Disponibilidades AS d', 'ud.id_disponibilidade = d.id', 'left');
+        $this->db->where('distrito', $oportunidade->distrito);
+        $this->db->where('concelho', $oportunidade->concelho);
+        $this->db->where('freguesia', $oportunidade->freguesia);
+   //     $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
+    //    $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
+
+
 
         // Estas cenas são importantes mas não estão a funcionar bem
         // $this->db->where('u_ai.id_area_interesse', 'op.id_area_interesse');
         // $this->db->where('u_ga.id_grupo_atuacao', 'op.id_grupo_atuacao');
         // $this->db->where('u.id_area_geografica', 'op.id_area_geografica');
         // $this->db->where('insc.aceite =', '0');
-        $this->db->where('insc.id_oportunidade_voluntariado', $id_oportunidade);
 
         // Falta relacionar com as disponibilidades e o numero de vagas tem de ser calculado ((vagas - inscricoes) > 0)
 
@@ -148,10 +162,10 @@ class Oportunidade_voluntariado extends CI_Model {
         );
 
         $this->db->select('ov.id, ov.nome, ov.funcao, ov.pais,
-            ov.vagas, ov.ativa, ov.id_instituicao, ov.id_area_geografica, ag.distrito, ag.concelho, ag.freguesia');
+            ov.vagas, ov.ativa, ov.id_instituicao, ov.id_area_geografica,
+            ag.distrito, ag.concelho, ag.freguesia');
         $this->db->from('Oportunidades_Voluntariado AS ov');
         $this->db->join('Areas_Geograficas AS ag', 'ag.id = ov.id_area_geografica');
-
         $this->db->where($data);
 
         return $this->db->get();
