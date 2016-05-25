@@ -69,18 +69,31 @@
     </nav>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <?php
+          $sidebar_class = '';
+          $content_class = '';
+          if ($this->session->userdata('id_utilizador') !== null) {
+            $sidebar_class = 'col-sm-3 col-md-2';
+            $content_class ='col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2';
+          } else {
+            $sidebar_class = 'toggled';
+            $content_class ='col-sm-12 col-md-12';
+          }
+
+        ?>
+        <div class="<?= $sidebar_class ?> sidebar">
           <h3><a href="<?= site_url('') ?>">Volunteer @ FCUL</a></h3>
           <div class="image-holder">
             <img src="<?= base_url('/assets/images/logo.jpeg') ?>" alt="logo">
           </div>
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="<?= site_url($this->user_profile_link) ?>">Perfil de <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a></li>
-            <li><a href="#">Pesquisar</a></li>
-            <li><a href="#">Instituições</a></li>
+            <li class="<?= $this->active_area == 'home' ? 'active' : '' ?>"><a href="<?= site_url('') ?>">Home</a></li>
+            <li class="<?= $this->active_area == 'profile' ? 'active' : '' ?>"><a href="<?= site_url($this->user_profile_link) ?>">Perfil de <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a></li>
+            <li class="<?= $this->active_area == 'pesquisa' ? 'active' : '' ?>"><a href="#">Pesquisar</a></li>
+            <li class="<?= $this->active_area == 'instituicoes' ? 'active' : '' ?>"><a href="#">Instituições</a></li>
           </ul>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="<?= $content_class ?> main">
           <div class="page-content-wrapper">
             <div class="container container-base">
                   <div class="container-fluid">
@@ -88,7 +101,7 @@
                   </div>
 
 
-    <?php //$class_if_not_loggedin = $this->session->userdata('id_utilizador') !== null ? '' : 'toggled'; ?>
+
     <!-- <div class="wrapper <?= $class_if_not_loggedin ?>">
       <div class="sidebar-wrapper">
 

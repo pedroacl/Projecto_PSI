@@ -70,6 +70,7 @@ class Voluntarios extends MY_Controller {
 			}
 		}
 
+		$this->active_area = 'profile';
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');

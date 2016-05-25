@@ -92,13 +92,13 @@ body {
     padding: 20px;
 }
 
+.sidebar.toggled {
+  display: none;
+}
+
 .page-content-wrapper {
     width: 100%;
     position: absolute;
-}
-
-.wrapper.toggled .sidebar-wrapper {
-    display: none;
 }
 
 .wrapper.toggled .page-content-wrapper {

@@ -17,6 +17,9 @@ class MY_Controller extends CI_Controller {
 			'instituicao' => "instituicoes/profile"
  		);
 
+    // Default de active area
+    $this->active_area = '';
+
 		$this->user_profile_link = $this->session->userdata('tipo_utilizador');
 
 		if (isset($this->user_profile_link)) {

@@ -39,6 +39,7 @@ class Instituicoes extends MY_Controller {
 		$this->oportunidades_voluntariado_inativas =
 			$this->oportunidade_voluntariado->get_inativas_by_id_instituicao($this->id_instituicao);
 
+		$this->active_area = 'profile';
 		$this->js_files = array('home.js');
 		$this->title    = "Perfil de " . $this->instituicao->nome;
 		$this->load->view('templates/main_template/header');
