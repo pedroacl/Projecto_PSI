@@ -45,11 +45,14 @@
 
           <div class="row">
             <div class="col-md-12" id="edit_disponibilidades">
-              <?php 
+              <?php
                 $title = (isset($this->disponibilidades)) && ($this->disponibilidades->num_rows() > 0) ? 'Disponibilidades' : 'Não existem disponibilidades adicionadas';
                 $button_text = (isset($this->disponibilidades)) && ($this->disponibilidades->num_rows() > 0) ? 'Editar' : 'Adicionar';
-                ?>
-                <h4><?= $title ?> <a class="btn btn-warning btn-sm"><?= $button_text ?></a></h4>
+              ?>
+
+              <h4><?= $title ?> <a class="btn btn-warning btn-sm"><?= $button_text ?></a></h4>
+
+              <?php if ((isset($this->disponibilidades)) && ($this->disponibilidades->num_rows() > 0)) { ?>
                 <table class="table">
                   <tbody>
                     <tr>
@@ -57,49 +60,46 @@
                       <th>Data de Fim</th>
                       <th class="actions" style="display: none;">Acções</th>
                     </tr>
-                    <?php
 
-                      if ((isset($this->disponibilidades)) && ($this->disponibilidades->num_rows() > 0)) {
-                        foreach ($this->disponibilidades->result() as $disponibilidade) {
-                          echo '<tr>';
-                          echo '<td>' . $disponibilidade->data_inicio . '</td>';
-                          echo '<td>' . $disponibilidade->data_fim . '</td>';
-                          echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("disponibilidades/edit/" . $disponibilidade->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("disponibilidades/delete/" . $disponibilidade->id) . "'>Eliminar</a></td>";
-                          echo '</tr>';
-                        }
-                      }
-                    ?>
-                      <tr style="display: none;" id="form_add">
-                        <form action="/oportunidades_voluntariado/add_disponibilidade/<?= $this->oportunidade_voluntariado->id ?>" method="POST">
-                          <td>
-                            <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
-                              <input name="data_inicio" value="" type='text' class="form-control" />
-                              <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                              </span>
-                            </div>
-                          </td>
-                          <td>
-                            <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
-                              <input name="data_fim" value="" type='text' class="form-control" />
-                              <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                              </span>
-                            </div>
-                          </td>
-                          <td><input class='btn btn-primary btn-md' type="submit" value="Adicionar"/></td>
-                        </form>
-                      </tr>
+                    <?php foreach ($this->disponibilidades->result() as $disponibilidade) {
+                      echo '<tr>';
+                      echo '<td>' . $disponibilidade->data_inicio . '</td>';
+                      echo '<td>' . $disponibilidade->data_fim . '</td>';
+                      echo "<td class='actions' style='display: none;'><a class='btn btn-warning btn-sm' href='" . site_url("disponibilidades/edit/" . $disponibilidade->id) . "'>Editar</a><a class='btn btn-danger btn-sm' href='" . site_url("disponibilidades/delete/" . $disponibilidade->id) . "'>Eliminar</a></td>";
+                      echo '</tr>';
+                    } ?>
+
+                    <tr style="display: none;" id="form_add">
+                      <form action="/oportunidades_voluntariado/add_disponibilidade/<?= $this->oportunidade_voluntariado->id ?>" method="POST">
+                        <td>
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
+                            <input name="data_inicio" value="" type='text' class="form-control" />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
+                            <input name="data_fim" value="" type='text' class="form-control" />
+                            <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </td>
+                        <td><input class='btn btn-primary btn-md' type="submit" value="Adicionar"/></td>
+                      </form>
+                    </tr>
                   </tbody>
                 </table>
+              <?php } ?>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <?php 
-    if (true) {
+  <?php if (true) {
       ?>
       <h2>Candidaturas de Voluntários</h2>
       <div class="row">
@@ -126,7 +126,7 @@
                   <a href="<?= site_url('oportunidades_voluntariado/aceitar/' . $vol->id_oportunidade . "/" . $vol->id_voluntario) ?>" class="btn btn-success">Aceitar</a>
                   <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
                 </div>
-                
+
               </div>
             </div>
           <?php } ?>

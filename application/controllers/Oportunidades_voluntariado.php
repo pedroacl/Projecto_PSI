@@ -98,12 +98,11 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$this->load->model('Inscreve_Se', 'inscricoes');
+		$this->load->model('Inscreve_se', 'inscricoes');
 
 		$this->disponibilidades = $this->disponibilidade->get_by_id_oportunidade($id_oportunidade_voluntariado);
-		
-		$this->voluntarios_matching = $this->oportunidade_voluntariado->get_matching_for_oportunidade($id_oportunidade_voluntariado);
 
+		$this->voluntarios_matching = $this->oportunidade_voluntariado->get_matching_for_oportunidade($id_oportunidade_voluntariado);
 
 		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
 

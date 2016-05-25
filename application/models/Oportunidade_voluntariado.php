@@ -51,6 +51,8 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Areas_Interesse AS ai', 'ov.id_area_interesse = ai.id');
         $this->db->join('Instituicoes AS i', 'ov.id_instituicao = i.id');
         $this->db->join('Utilizadores AS u', 'u.id = i.id_utilizador');
+        $this->db->join('Utilizadores_Disponibilidades AS ud', 'ud.id_utilizador = u.id');
+        $this->db->join('Disponibilidades AS d', 'ud.id_disponibilidade = d.id');
         $this->db->where('ov.vagas >', '0');
         $this->db->where('distrito', $voluntario->distrito);
         $this->db->where('concelho', $voluntario->concelho);

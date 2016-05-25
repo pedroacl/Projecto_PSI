@@ -146,18 +146,30 @@ class Voluntarios extends MY_Controller {
 		$disponibilidade_data['data_fim'] =
 			date("Y-m-d", strtotime($disponibilidade_data['data_fim']));
 
-		$id_disponibilidade   = $this->disponibilidade->insert_single_entry($disponibilidade_data);
+		$form_rules = $this->disponibilidade->get_form_validation_rules();
+		$this->form_validation->set_rules($form_rules);
 
-		$utilizador_disponibilidade_data = array(
-			'id_utilizador'      => $this->id_utilizador,
-			'id_disponibilidade' => $id_disponibilidade
-		);
+		if ($this->form_validation->run() == FALSE)
+		{
+			// mostrar novamente formulario
+			//$this->js_files = array('areas_geograficas.js');
+			$this->profile();
+		}
+		else
+		{
+			$id_disponibilidade = $this->disponibilidade->insert_single_entry($disponibilidade_data);
 
-		$this->utilizador_disponibilidade->insert_entry($utilizador_disponibilidade_data);
+			$utilizador_disponibilidade_data = array(
+				'id_utilizador'      => $this->id_utilizador,
+				'id_disponibilidade' => $id_disponibilidade
+			);
 
-		$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
+			$this->utilizador_disponibilidade->insert_entry($utilizador_disponibilidade_data);
 
-	 	// voltar a exibir perfil
-		redirect("voluntarios/profile", 'location');
+			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
+
+		 	// voltar a exibir perfil
+			redirect("voluntarios/profile", 'location');
+		}
 	}
 }

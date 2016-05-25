@@ -46,7 +46,7 @@
         </div>
         <nav>
           <ul>
-            <li><a href="<?= site_url($this->user_profile_link) ?>">Perfil</a></li>
+            <li><a href="<?= site_url($this->user_profile_link) ?>">Perfil de <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a></li>
             <li><a href="#">Pesquisar</a></li>
             <li><a href="#">Instituições</a></li>
           </ul>
@@ -62,7 +62,7 @@
               <nav class="navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
                   <div class="navbar-header">
-                    <a class="navbar-brand" href="/">@Volunteer FCUL</a>
+                    <a class="navbar-brand" href="/">Volunteer @ FCUL - <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a>
                   </div>
                   <ul class="nav navbar-nav navbar-right">
                     <?php
