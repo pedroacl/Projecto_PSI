@@ -80,21 +80,6 @@ class Voluntario extends CI_Model {
         return $rules;
     }
 
-    private function validate_disponibilidades_dates()
-    {
-        $data_inicio = $this->input->post('data_inicio');
-        $data_fim = $this->input->post('data_fim');
-
-        if ($data_inicio < $data_fim)
-        {
-            return FALSE;
-        }
-        else
-        {
-            return TRUE;
-        }
-    }
-
     function upload_photo($id_voluntario)
     {
         // nao foi enviada foto
