@@ -126,13 +126,13 @@ class Disponibilidade extends CI_Model {
         return $result;
     }
 
-    public function get_form_validation_rules()
+    public function get_form_validation_rules($input)
     {
         return array(
             array(
                 'field' => 'data_inicio',
                 'label' => 'Data Início',
-                'rules' => 'validate_disponibilidades_dates'
+                'rules' => 'callback_validate_disponibilidades_dates'
             )
         );
     }

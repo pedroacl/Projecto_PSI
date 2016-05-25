@@ -70,10 +70,6 @@ class Voluntarios extends MY_Controller {
 			}
 		}
 
-		print_r($this->oportunidades_voluntariado->result());
-		echo "<hr>";
-		print_r($this->inscricoes);
-
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
@@ -140,19 +136,23 @@ class Voluntarios extends MY_Controller {
 		$disponibilidade_data =
 			$this->disponibilidade->get_profile_data($this->input->post());
 
+/*
 		$disponibilidade_data['data_inicio'] =
 			date("Y-m-d", strtotime($disponibilidade_data['data_inicio']));
 
 		$disponibilidade_data['data_fim'] =
 			date("Y-m-d", strtotime($disponibilidade_data['data_fim']));
+*/
 
-		$form_rules = $this->disponibilidade->get_form_validation_rules();
+      // print_r($this->input->post());
+		$form_rules = $this->disponibilidade->get_form_validation_rules($this->input);
 		$this->form_validation->set_rules($form_rules);
 
 		if ($this->form_validation->run() == FALSE)
 		{
 			// mostrar novamente formulario
 			//$this->js_files = array('areas_geograficas.js');
+
 			$this->profile();
 		}
 		else
@@ -172,4 +172,26 @@ class Voluntarios extends MY_Controller {
 			redirect("voluntarios/profile", 'location');
 		}
 	}
+
+	public function validate_disponibilidades_dates($str)
+ 	{
+		$this->load->library('form_validation');
+
+		$data_inicio = $this->input->post('data_inicio');
+		$data_fim    = $this->input->post('data_fim');
+
+		if ($data_inicio < $data_fim)
+		{
+		   return TRUE;
+		}
+		else
+		{
+			$this->form_validation->set_message(
+				'callback_validate_disponibilidades_dates', 'Error Message');
+			$this->session->set_flashdata('danger',
+				'Data de ínicio da disponibilidade tem de ser superior à data de fim!');
+
+		   return FALSE;
+		}
+ }
 }
