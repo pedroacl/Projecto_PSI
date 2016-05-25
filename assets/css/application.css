@@ -1,8 +1,83 @@
 /* THIS FILE IS ALWAYS LOADED */
 
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
   background-color: #84B1ED;
+  padding-top: 50px;
 }
+
+.sidebar {
+  display: none;
+  background: #000;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -20px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+  color: #FFFFF3;
+}
+.nav-sidebar > .active > a{
+  color: #FFFFF3;
+  background-color: #84B1ED;
+  border-top: 1px solid #FFFFF3;
+  border-bottom: 1px solid #FFFFF3;
+}
+
+.nav-sidebar > .active > a:hover{
+  color: #FFFFF3;
+  background-color: #84B1ED;
+  border-top: 1px solid #FFFFF3;
+  border-bottom: 1px solid #FFFFF3;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+  color: #84B1ED;
+  background-color: #FFFFF3;
+  border: 0px;
+}
+
+.main {
+  padding: 0px;
+}
+/*@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .container.container-base {
   padding: 0;
@@ -12,16 +87,7 @@ body {
   padding-left: 0;
 }
 
-.sidebar-wrapper {
-    z-index: 1000;
-    position: fixed;
-    left: 250px;
-    width: 250px;
-    height: 100%;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #000;
-
+.sidebar {
     background-color: #566270;
     padding: 20px;
 }
@@ -29,7 +95,6 @@ body {
 .page-content-wrapper {
     width: 100%;
     position: absolute;
-    padding-left: 250px;
 }
 
 .wrapper.toggled .sidebar-wrapper {
@@ -40,18 +105,18 @@ body {
     padding-left: 0;
 }
 
-.sidebar-wrapper h3 {
+.sidebar h3 {
   text-align: center;
   margin-bottom: 10px;
 }
 
-.sidebar-wrapper h3 a {
+.sidebar h3 a {
   font-size: 20px;
   color: #FFFFF3;
   font-weight: bold;
 }
 
-.sidebar-wrapper .image-holder {
+.sidebar .image-holder {
   width: 115px;
   text-align: center;
   margin: 30px auto;
@@ -70,25 +135,20 @@ body {
   background-color: #E3E6E2;
 }
 
-.sidebar-wrapper .image-holder img {
+.sidebar .image-holder img {
   width: 100%;
   max-width: 100%;
 }
 
-.sidebar-wrapper nav ul {
+.sidebar nav ul {
   padding: 0;
 }
 
-.sidebar-wrapper nav ul li {
+.sidebar nav ul li {
   list-style: none;
   text-align: center;
 }
 
-.sidebar-wrapper nav ul li a {
-  text-decoration: none;
-  font-size: 18px;
-  color: #FFFFF3;
-}
 
 .content {
   padding-top: 20px;

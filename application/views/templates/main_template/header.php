@@ -26,7 +26,7 @@
     if (isset($this->js_files)) {
       foreach ($this->js_files as $file) {
         echo "<script src='" . base_url('/assets/js/' . $file) . "'></script>";
-      } 
+      }
     } ?>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -37,19 +37,63 @@
   </head>
 
   <body>
-    <?php $class_if_not_loggedin = $this->session->userdata('id_utilizador') !== null ? '' : 'toggled'; ?>
-    <div class="wrapper <?= $class_if_not_loggedin ?>">
-      <div class="sidebar-wrapper">
-        <h3><a href="<?= site_url('') ?>">Volunteer @ FCUL</a></h3>
-        <div class="image-holder">
-          <img src="<?= base_url('/assets/images/logo.jpeg') ?>" alt="logo">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Volunteer @ FCUL - <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a>
         </div>
-        <nav>
-          <ul>
-            <li><a href="<?= site_url($this->user_profile_link) ?>">Perfil de <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a></li>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <?php
+              if ($this->session->userdata('id_utilizador') !== null) {
+                $this->nome_para_link = $this->nome_utilizador != '' ? $this->nome_utilizador : $this->email;
+                echo '<li><a href="' . site_url($this->user_profile_link) . '"</a>' . $this->nome_para_link . '</li>';
+                echo '<li><a href="' . site_url("logout") . '">Logout</a></li>';
+              }
+              else {
+                echo "<li class='";
+                echo isset($this->login_tab) ? 'active' : '';
+                echo "'><a href='" . site_url("login") . "'>Login</a></li>";
+                echo "<li><a href='" . site_url("signup") . "'>Registar</a></li>";
+              }
+            ?>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <h3><a href="<?= site_url('') ?>">Volunteer @ FCUL</a></h3>
+          <div class="image-holder">
+            <img src="<?= base_url('/assets/images/logo.jpeg') ?>" alt="logo">
+          </div>
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="<?= site_url($this->user_profile_link) ?>">Perfil de <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a></li>
             <li><a href="#">Pesquisar</a></li>
             <li><a href="#">Instituições</a></li>
           </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div class="page-content-wrapper">
+            <div class="container container-base">
+                  <div class="container-fluid">
+                    <?= show_flash($this) ?>
+                  </div>
+
+
+    <?php //$class_if_not_loggedin = $this->session->userdata('id_utilizador') !== null ? '' : 'toggled'; ?>
+    <!-- <div class="wrapper <?= $class_if_not_loggedin ?>">
+      <div class="sidebar-wrapper">
+
+        <nav>
+
         </nav>
 
       </div>
@@ -59,32 +103,9 @@
 
             <div class="col-md-12">
 
-              <nav class="navbar navbar-default navbar-static-top">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                    <a class="navbar-brand" href="/">Volunteer @ FCUL - <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a>
-                  </div>
-                  <ul class="nav navbar-nav navbar-right">
-                    <?php
-                      if ($this->session->userdata('id_utilizador') !== null) {
-                        $this->nome_para_link = $this->nome_utilizador != '' ? $this->nome_utilizador : $this->email;
-                        echo '<li><a href="' . site_url($this->user_profile_link) . '"</a>' . $this->nome_para_link . '</li>';
-                        echo '<li><a href="' . site_url("logout") . '">Logout</a></li>';
-                      }
-                      else {
-                        echo "<li class='";
-                        echo isset($this->login_tab) ? 'active' : '';
-                        echo "'><a href='" . site_url("login") . "'>Login</a></li>";
-                        echo "<li><a href='" . site_url("signup") . "'>Registar</a></li>";
-                      }
-
-                    ?>
-                  </ul>
-                </div>
-              </nav>
-
-              <div class="container-fluid">
-                <?= show_flash($this) ?>
-              </div>
 
 
+
+
+
+ -->
