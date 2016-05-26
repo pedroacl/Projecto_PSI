@@ -108,13 +108,13 @@
                   <p><?= $oportunidade_ativa->concelho ?></p>
                   <strong>Freguesia</strong>
                   <p><?= $oportunidade_ativa->freguesia ?></p>
+                  <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
                   <?php if ($this->instituicao->id_utilizador === $this->id_utilizador) { ?>
-                    <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
                     <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/edit/' . $oportunidade_ativa->id) ?>">  Editar Oportunidade</a>
                   <?php } ?>
                 </div>
                 <?php if ($this->instituicao->id_utilizador === $this->id_utilizador) { ?>
-                  <div class="col-md-">
+                  <div class="col-md-6">
                     <div class="row">
                       <p><strong>Voluntários Compatíveis:</strong></p>
                       <p>Nenhum</p>

@@ -99,6 +99,8 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
 		$this->load->model('Inscreve_se', 'inscricoes');
+		$this->load->model('Utilizador', 'utilizador');
+		$this->load->model('Instituicao', 'instituicao');
 
 		$this->disponibilidades = $this->disponibilidade->get_by_id_oportunidade($id_oportunidade_voluntariado);
 
@@ -107,6 +109,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$this->voluntarios_aceites = $this->oportunidade_voluntariado->get_matching_voluntarios_aceites($id_oportunidade_voluntariado);
 
 		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
+		$this->utilizador_owner = $this->instituicao->get_by_id($this->oportunidade_voluntariado->id_instituicao)->row()->id_utilizador;
 
 		$this->js_files = array('oportunidades/oportunidade_profile.js');
 		$this->load->view('templates/main_template/header');

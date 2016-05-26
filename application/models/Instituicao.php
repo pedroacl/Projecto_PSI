@@ -25,6 +25,16 @@ class Instituicao extends CI_Model {
         return $this->db->get();
     }
 
+    function get_by_id($id_instituicao)
+    {
+        $this->db->select('u.id as id_utilizador, u.email, u.nome, i.descricao, i.morada, i.email_instituicao, u.telefone, i.website');
+        $this->db->from('Utilizadores as u');
+        $this->db->join('Instituicoes as i', 'u.id = i.id_utilizador');
+        $this->db->where('i.id', $id_instituicao);
+
+        return $this->db->get();
+    }
+
     public function update_entry($id_instituicao, $data)
     {
         $this->db->where('id', $id_instituicao);
