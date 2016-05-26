@@ -56,6 +56,10 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Areas_Interesse AS ai', 'ov.id_area_interesse = ai.id');
         $this->db->join('Instituicoes AS i', 'ov.id_instituicao = i.id');
         $this->db->join('Utilizadores AS u', 'u.id = ' . $id_utilizador);
+        $this->db->join('Voluntarios AS v', 'v.id_utilizador = u.id');
+
+        // inscricoes
+        //$this->db->join('Inscreve_Se as insc', 'insc.id_voluntario = v.id');
 
         // disponibilidades utilizadores
         $this->db->join('Utilizadores_Disponibilidades AS ud',
@@ -69,6 +73,9 @@ class Oportunidade_voluntariado extends CI_Model {
 
         $this->db->where("disp_o.data_inicio >= disp_u.data_inicio");
         $this->db->where("disp_o.data_inicio <= disp_u.data_fim");
+
+        // nao estah inscrito na oportunidade
+        $this->db->where_not_in('v.id', '(SELECT insc.id_voluntario from Inscreve_Se AS insc where insc.id_voluntario = v.id)');
 
         $this->db->where("disp_o.data_fim >= disp_u.data_inicio");
         $this->db->where("disp_o.data_fim <= disp_u.data_fim");
