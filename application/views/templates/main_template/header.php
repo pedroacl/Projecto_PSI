@@ -46,7 +46,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Volunteer @ FCUL - <?php echo (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao') ? 'Instituição' : 'Voluntário') ?></a>
+          <a class="navbar-brand" href="/">Volunteer @ FCUL
+            <?php
+              if (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'instituicao')) {
+                echo ' - Instituição';
+              }
+              elseif (isset($this->tipo_utilizador) && ($this->tipo_utilizador == 'voluntario')) {
+                echo ' - Voluntário';
+              }
+            ?>
+          </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">

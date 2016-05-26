@@ -70,20 +70,42 @@ class Oportunidade_voluntariado extends CI_Model {
 
     public function get_matching_voluntarios_nao_inscritos($id_oportunidade)
     {
-        return $this->get_matching_voluntarios($id_oportunidade, FALSE, FALSE);
+        $oportunidade = $this->get_by_id($id_oportunidade)->row();
+
+        $this->db->distinct();
+        $this->db->select('vol.id as id_voluntario, vol.id_utilizador, u.nome,
+            vol.foto, u.id as id_utilizador, insc.aceite');
+        // $this->db->select('*');
+        $this->db->from('Voluntarios AS vol');
+        $this->db->join('Utilizadores AS u', 'u.id = vol.id_utilizador');
+        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga',
+            'u_ga.id_utilizador = u.id');
+        $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
+            'u_ai.id_utilizador = u.id');
+        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id', 'left');
+        $this->db->join('Oportunidades_Voluntariado AS ov', 'ov.id = insc.id_oportunidade_voluntariado', 'left');
+        $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
+        $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
+        $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
+        $this->db->join('Utilizadores_Disponibilidades AS ud',
+            'ud.id_utilizador = u.id');
+        $this->db->join('Disponibilidades AS disp_u', 'ud.id_disponibilidade = disp_u.id', 'left');
+        /*$this->db->join('Oportunidades_Voluntariado_Disponibilidades AS ovd',
+            'ovd.id_oportunidade_voluntariado = ov.id');*/
+        $this->db->join('Disponibilidades AS disp_o', 'ud.id_disponibilidade = disp_o.id', 'left');
+        $this->db->where('distrito', $oportunidade->distrito);
+        $this->db->where('concelho', $oportunidade->concelho);
+        $this->db->where('freguesia', $oportunidade->freguesia);
+        $this->db->where('ov.id', $id_oportunidade);
+   //     $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
+    //    $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
+
+        // Falta relacionar com as disponibilidades e o numero de vagas tem de ser calculado ((vagas - inscricoes) > 0)
+
+        return $this->db->get();
     }
 
     public function get_matching_voluntarios_inscritos($id_oportunidade)
-    {
-        return $this->get_matching_voluntarios($id_oportunidade, TRUE, FALSE);
-    }
-
-    public function get_matching_voluntarios_aceites($id_oportunidade)
-    {
-        return $this->get_matching_voluntarios($id_oportunidade, TRUE, TRUE);
-    }
-
-    private function get_matching_voluntarios($id_oportunidade, $inscrito, $inscricao_aceite)
     {
         $oportunidade = $this->get_by_id($id_oportunidade)->row();
 
@@ -97,15 +119,48 @@ class Oportunidade_voluntariado extends CI_Model {
             'u_ga.id_utilizador = u.id');
         $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
             'u_ai.id_utilizador = u.id');
-        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id', $inscrito ? 'inner' : 'left');
-        $this->db->join('Oportunidades_Voluntariado AS ov', 'ov.id = insc.id_oportunidade_voluntariado', $inscrito ? 'inner' : 'left');
+        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id');
+        $this->db->join('Oportunidades_Voluntariado AS ov', 'ov.id = insc.id_oportunidade_voluntariado');
         $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
         $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
         $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
         $this->db->join('Utilizadores_Disponibilidades AS ud',
             'ud.id_utilizador = u.id', 'left');
         $this->db->join('Disponibilidades AS d', 'ud.id_disponibilidade = d.id', 'left');
-        $this->db->where('insc.aceite =', $inscricao_aceite ? 1 : 0);
+        $this->db->where('insc.aceite =', '0');
+
+        $this->db->where('distrito', $oportunidade->distrito);
+        $this->db->where('concelho', $oportunidade->concelho);
+        $this->db->where('freguesia', $oportunidade->freguesia);
+        $this->db->where('ov.id', $id_oportunidade);
+
+        return $this->db->get();
+    }
+
+    public function get_matching_voluntarios_aceites($id_oportunidade)
+    {
+        $oportunidade = $this->get_by_id($id_oportunidade)->row();
+
+        $this->db->distinct();
+        $this->db->select('vol.id as id_voluntario, vol.id_utilizador, u.nome,
+            vol.foto, u.id as id_utilizador, insc.aceite');
+        // $this->db->select('*');
+        $this->db->from('Voluntarios AS vol');
+        $this->db->join('Utilizadores AS u', 'u.id = vol.id_utilizador');
+        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga',
+            'u_ga.id_utilizador = u.id');
+        $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
+            'u_ai.id_utilizador = u.id');
+        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id');
+        $this->db->join('Oportunidades_Voluntariado AS ov', 'ov.id = insc.id_oportunidade_voluntariado');
+        $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
+        $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
+        $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
+        $this->db->join('Utilizadores_Disponibilidades AS ud',
+            'ud.id_utilizador = u.id', 'left');
+        $this->db->join('Disponibilidades AS d', 'ud.id_disponibilidade = d.id', 'left');
+        $this->db->where('insc.aceite =', '1');
+
         $this->db->where('distrito', $oportunidade->distrito);
         $this->db->where('concelho', $oportunidade->concelho);
         $this->db->where('freguesia', $oportunidade->freguesia);
@@ -113,20 +168,9 @@ class Oportunidade_voluntariado extends CI_Model {
    //     $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
     //    $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
 
-        // Estas cenas são importantes mas não estão a funcionar bem
-        // $this->db->where('u_ai.id_area_interesse', 'op.id_area_interesse');
-        // $this->db->where('u_ga.id_grupo_atuacao', 'op.id_grupo_atuacao');
-        // $this->db->where('u.id_area_geografica', 'op.id_area_geografica');
-        // $this->db->where('insc.aceite =', '0');
-
         // Falta relacionar com as disponibilidades e o numero de vagas tem de ser calculado ((vagas - inscricoes) > 0)
 
         return $this->db->get();
-    }
-
-    public function get_voluntarios_aceites($id_oportunidade)
-    {
-
     }
 
     public function insert_entry($data)
@@ -154,10 +198,10 @@ class Oportunidade_voluntariado extends CI_Model {
     {
         $this->db->select('ov.nome AS nome_oportunidade, ov.funcao, ov.id, ov.pais,
             ov.vagas, ov.ativa, ga.nome AS nome_grupo_atuacao, ga.descricao, ov.id_instituicao,
-            ai.nome AS nome_area_interesse, ov.id_instituicao, ga.id AS id_grupo_atuacao,
+            ai.nome AS nome_area_interesse, ga.id AS id_grupo_atuacao,
             ai.id AS id_area_interesse, ov.id_area_geografica, ag.distrito, ag.concelho, ag.freguesia');
 
-        $this->db->from('Oportunidades_Voluntariado as ov');
+        $this->db->from('Oportunidades_Voluntariado AS ov');
         $this->db->join('Grupos_Atuacao AS ga', 'ga.id = ov.id_grupo_atuacao');
         $this->db->join('Areas_Interesse AS ai', 'ai.id = ov.id_area_interesse');
         $this->db->join('Areas_Geograficas AS ag', 'ag.id = ov.id_area_geografica');
