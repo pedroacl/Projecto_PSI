@@ -121,7 +121,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 	public function edit($id_oportunidade_voluntariado)
 	{
-		$this->validate_owner($id_oportunidade);
+		$this->validate_owner($id_oportunidade_voluntariado);
 
 		$this->load->library('form_validation');
 		$this->load->model('Area_geografica', 'area_geografica');
@@ -222,9 +222,9 @@ class Oportunidades_voluntariado extends MY_Controller {
 	private function validate_owner($id_oportunidade)
   	{
   		$id_instituicao = $this->session->userdata('id_instituicao');
-  		$oportunidade_instituicao = $this->oportunidade_voluntariado->get_by_id($oportunidade);
+  		$oportunidade_instituicao = $this->oportunidade_voluntariado->get_by_id($id_oportunidade)->row();
 
-  		if ($id_instituicao == $oportunidade_voluntariado->id) {
+  		if ($id_instituicao == $oportunidade_instituicao->id) {
 	 		$this->session->set_flashdata('warning', 'Acesso não autorizado!');
 			redirect('home/index', 'refresh');
   		}

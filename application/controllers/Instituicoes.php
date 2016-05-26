@@ -101,7 +101,7 @@ class Instituicoes extends MY_Controller {
 			$this->instituicao->update_entry($this->id_instituicao, $data_instituicao);
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
 
-			redirect('instituicoes/profile');
+			redirect('instituicoes/profile/' . $this->id_utilizador);
 		}
 	}
 }
