@@ -104,7 +104,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 		$this->voluntarios_inscritos = $this->oportunidade_voluntariado->get_matching_voluntarios_inscritos($id_oportunidade_voluntariado);
 
-		$this->voluntarios_aceites = $this->oportunidade_voluntariado->get_voluntarios_aceites($id_oportunidade_voluntariado);
+		$this->voluntarios_aceites = $this->oportunidade_voluntariado->get_matching_voluntarios_aceites($id_oportunidade_voluntariado);
 
 		$this->oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade_voluntariado)->row();
 

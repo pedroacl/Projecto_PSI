@@ -68,17 +68,22 @@ class Oportunidade_voluntariado extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_matching_voluntarios_nao_inscritos($id_oportunidade)
+    {
+        return $this->get_matching_voluntarios($id_oportunidade, FALSE, FALSE);
+    }
+
     public function get_matching_voluntarios_inscritos($id_oportunidade)
     {
-        return $this->get_matching_voluntarios($id_oportunidade, FALSE);
+        return $this->get_matching_voluntarios($id_oportunidade, TRUE, FALSE);
     }
 
     public function get_matching_voluntarios_aceites($id_oportunidade)
     {
-        return $this->get_matching_voluntarios($id_oportunidade, TRUE);
+        return $this->get_matching_voluntarios($id_oportunidade, TRUE, TRUE);
     }
 
-    public function get_matching_voluntarios($id_oportunidade, $inscricao_aceite)
+    private function get_matching_voluntarios($id_oportunidade, $inscrito, $inscricao_aceite)
     {
         $oportunidade = $this->get_by_id($id_oportunidade)->row();
 
@@ -92,7 +97,7 @@ class Oportunidade_voluntariado extends CI_Model {
             'u_ga.id_utilizador = u.id');
         $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
             'u_ai.id_utilizador = u.id');
-        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id');
+        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id', $inscrito == TRUE ? 'inner' : 'left');
         $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
         $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
         $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
