@@ -75,7 +75,7 @@ class Utilizador extends CI_Model {
         if ($user_type == 'voluntario') {
             $this->db->select('u.id AS id_utilizador, v.id AS id_voluntario,
                 u.email, u.tipo_utilizador, u.nome, u.id_area_geografica, distrito,
-                concelho, freguesia');
+                concelho, freguesia, v.foto, u.telefone, v.genero, v.data_nascimento');
             $this->db->from('Utilizadores AS u');
             $this->db->join('Voluntarios AS v', 'u.id = v.id_utilizador', 'left');
             $this->db->join('Areas_Geograficas as ag', 'u.id_area_geografica = ag.id', 'left');

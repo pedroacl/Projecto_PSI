@@ -66,13 +66,12 @@ $route['login']['post'] = 'Home/process_login';
 $route['logout']['get'] = 'Home/logout';
 
 // voluntario
-$route['profile']['get']       = 'Voluntarios/profile';
+$route['voluntarios/profile/:id_voluntario']['get']    = 'Voluntarios/profile/:id_voluntario';
 $route['voluntarios/edit_profile']['get']  = 'Voluntarios/edit_profile';
 $route['voluntarios/edit_profile']['post'] = 'Voluntarios/edit_profile';
 
 // Instituições
-//$route['instituicoes/edit_profile']['get']  = 'Instituicoes/edit_main_profile';
-//$route['instituicoes/edit_profile']['post'] = 'Instituicoes/update_main_profile';
+$route['instituicoes/profile/:id_instituicao']['get']  = 'Instituicoes/profile/:id_instituicao';
 
 // Disponibilidades
 $route['disponibilidades/edit/:id']['get'] = 'Disponibilidades/edit/:id';

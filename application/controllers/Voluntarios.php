@@ -15,12 +15,14 @@ class Voluntarios extends MY_Controller {
 		$this->load->view('index');
 	}
 
-	public function profile()
+	public function profile($id_voluntario)
 	{
+
 		//$this->authenticate_user();
 		$this->load->helper('form');
 
 		$this->load->model('Inscreve_se', 'inscricoes');
+		$this->load->model('Utilizador', 'utilizador');
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
 		$this->load->model('Area_interesse', 'area_interesse');
 		$this->load->model('Disponibilidade', 'disponibilidade');
@@ -29,38 +31,37 @@ class Voluntarios extends MY_Controller {
 		$this->load->model('Habilitacao_academica', 'habilitacao_academica');
 		$this->load->model('Tipo_habilitacao_academica', 'tipo_habilitacao_academica');
 
-		// voluntario
-		$this->voluntario =
-			$this->voluntario->get_by_id_utilizador($this->id_utilizador)->row();
+		// get voluntario
+		$this->voluntario = $this->utilizador->get_by_id($id_voluntario, 'voluntario')->row();
 
 		// area geografica
-		$this->area_geografica = $this->area_geografica->get_by_id_utilizador($this->id_utilizador);
+		$this->area_geografica = $this->area_geografica->get_by_id_utilizador($this->voluntario->id_utilizador);
 
 		// grupos de atuacao
-		$this->grupos_atuacao_utilizador = $this->grupo_atuacao->get_by_id_utilizador($this->id_utilizador);
+		$this->grupos_atuacao_utilizador = $this->grupo_atuacao->get_by_id_utilizador($this->voluntario->id_utilizador);
 
 		// tipos de grupos de atuacao (povoar select boxes)
-		$this->tipos_grupos_atuacao = $this->grupo_atuacao->get_without_utilizador($this->id_utilizador);
+		$this->tipos_grupos_atuacao = $this->grupo_atuacao->get_without_utilizador($this->voluntario->id_utilizador);
 
 		// areas de iteresse
-		$this->tipos_areas_interesse = $this->area_interesse->get_without_utilizador($this->id_utilizador);
+		$this->tipos_areas_interesse = $this->area_interesse->get_without_utilizador($this->voluntario->id_utilizador);
 
 		// tipos de areas de interesse (povoar select boxes)
-		$this->areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador($this->id_utilizador);
+		$this->areas_interesse_utilizador = $this->area_interesse->get_by_id_utilizador($this->voluntario->id_utilizador);
 
 		// disponibilidades
-		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($this->id_utilizador);
+		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($this->voluntario->id_utilizador);
 
 		// habilitacoes academicas
-		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->id_voluntario);
+		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($id_voluntario);
 
 		// tipos de habilitacoes academicas
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
 
 		// oportunidades de voluntariado
-		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_matching_for_voluntario($this->id_utilizador);
+		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_matching_for_voluntario($this->voluntario->id_utilizador);
 
-		$this->inscricoes = $this->inscricoes->get_inscricoes($this->id_voluntario)->result();
+		$this->inscricoes = $this->inscricoes->get_inscricoes($id_voluntario)->result();
 
 		foreach ($this->oportunidades_voluntariado->result() as $oportunidade) {
 			foreach ($this->inscricoes as $inscricao) {
@@ -70,8 +71,7 @@ class Voluntarios extends MY_Controller {
 				}
 			}
 		}
-
-		$this->active_area = 'profile';
+		$this->active_area = $this->voluntario->id_utilizador === $this->id_utilizador ? 'profile' : '';
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
