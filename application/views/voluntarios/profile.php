@@ -219,6 +219,7 @@
 
   <?php if ($this->voluntario->id_utilizador === $this->id_utilizador) { ?>
     <h2>Oportunidades de Voluntariado correspondentes</h2>
+
     <?php if ($this->oportunidades_voluntariado->num_rows() == 0) { ?>
         <h3>Não existem oportunidades para o seu perfil</h3>
         <div class="row">

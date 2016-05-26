@@ -67,6 +67,8 @@ class Oportunidade_voluntariado extends CI_Model {
             'ovd.id_oportunidade_voluntariado = ov.id', 'left');
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
+        $this->db->where('disp_u.data_inicio BETWEEN disp_o.data_inicio AND disp_o.data_fim');
+        $this->db->where('disp_u.data_fim BETWEEN disp_o.data_inicio AND disp_o.data_fim');
         $this->db->where('ov.vagas >', '0');
         $this->db->where('ativa', 'y');
         $this->db->where('distrito', $voluntario->distrito);
@@ -115,6 +117,7 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
         $this->db->where('disp_u.data_inicio BETWEEN disp_o.data_inicio AND disp_o.data_fim');
+        $this->db->where('disp_u.data_fim BETWEEN disp_o.data_inicio AND disp_o.data_fim');
         $this->db->where('distrito', $oportunidade->distrito);
         $this->db->where('concelho', $oportunidade->concelho);
         $this->db->where('freguesia', $oportunidade->freguesia);
@@ -162,6 +165,8 @@ class Oportunidade_voluntariado extends CI_Model {
             'ovd.id_oportunidade_voluntariado = ov.id', 'left');
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
+        $this->db->where('disp_u.data_inicio BETWEEN disp_o.data_inicio AND disp_o.data_fim');
+        $this->db->where('disp_u.data_fim BETWEEN disp_o.data_inicio AND disp_o.data_fim');
         $this->db->where('insc.aceite =', '0');
         $this->db->where('distrito', $oportunidade->distrito);
         $this->db->where('concelho', $oportunidade->concelho);
@@ -201,7 +206,9 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Oportunidades_Voluntariado_Disponibilidades AS ovd',
             'ovd.id_oportunidade_voluntariado = ov.id', 'left');
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
-
+_
+        $this->db->where('disp_u.data_inicio BETWEEN disp_o.data_inicio AND disp_o.data_fim');
+        $this->db->where('disp_u.data_fim BETWEEN disp_o.data_inicio AND disp_o.data_fim');
         $this->db->where('insc.aceite =', '1');
         $this->db->where('distrito', $oportunidade->distrito);
         $this->db->where('concelho', $oportunidade->concelho);

@@ -62,7 +62,7 @@ class Voluntarios extends MY_Controller {
 		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_matching_for_voluntario($this->voluntario->id_utilizador);
 
 		$this->inscricoes = $this->inscricoes->get_inscricoes($this->voluntario->id_voluntario)->result();
-
+/*
 		foreach ($this->oportunidades_voluntariado->result() as $oportunidade) {
 			foreach ($this->inscricoes as $inscricao) {
 
@@ -70,7 +70,8 @@ class Voluntarios extends MY_Controller {
 					$oportunidade->inscrito = $inscricao->aceite;
 				}
 			}
-		}
+		}*/
+
 		$this->active_area = $this->voluntario->id_utilizador === $this->id_utilizador ? 'profile' : '';
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
 		$this->title    = "Perfil de " . $this->voluntario->nome;
