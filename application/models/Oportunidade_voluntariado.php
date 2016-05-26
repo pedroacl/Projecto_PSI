@@ -75,7 +75,8 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where("disp_o.data_inicio <= disp_u.data_fim");
 
         // nao estah inscrito na oportunidade
-        $this->db->where_not_in('v.id', '(SELECT insc.id_voluntario from Inscreve_Se AS insc where insc.id_voluntario = v.id)');
+        $this->db->where('NOT EXISTS (SELECT 1 FROM Inscreve_Se AS insc WHERE insc.id_oportunidade_voluntariado = ov.id)',
+            NULL, FALSE);
 
         $this->db->where("disp_o.data_fim >= disp_u.data_inicio");
         $this->db->where("disp_o.data_fim <= disp_u.data_fim");
@@ -87,8 +88,6 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where('freguesia', $voluntario->freguesia);
         $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
         $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
-        // Falta relacionar com as disponibilidades e o numero de vagas tem de ser calculado ((vagas - inscricoes) > 0)
-        // Fazer left join com inscricoes?
 
         return $this->db->get();
     }

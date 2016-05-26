@@ -18,15 +18,23 @@ class Oportunidades_voluntariado extends MY_Controller {
 	{
 		$this->load->model('Inscreve_se', 'inscricao');
 		$this->inscricao->insert_entry($id_oportunidade, $id_voluntario);
+
 		$this->session->set_flashdata('success', 'Inscrição registada com sucesso');
 		redirect_back();
 	}
 
 	public function aceitar($id_oportunidade, $id_voluntario)
 	{
-		$this->validate_owner($id_oportunidade);
+		// $this->validate_owner($id_oportunidade);
 
 		$this->load->model('Inscreve_se', 'inscricao');
+		$this->load->model('Oportunidade_voluntariado', 'oportunidade_voluntariado');
+
+		$oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade)->row();
+		$vagas = $oportunidade_voluntariado->vagas - 1;
+
+		$this->oportunidade_voluntariado->update_entry(array('vagas' => $vagas));
+
 		$this->inscricao->aceitar_inscricao($id_oportunidade, $id_voluntario);
 		$this->session->set_flashdata('success', 'Inscrição registada com sucesso');
 		redirect_back();

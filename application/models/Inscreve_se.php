@@ -24,7 +24,9 @@ class Inscreve_se extends CI_Model {
               'data_inscricao' => date("Y-m-d"),
               'aceite' => 0
         );
+
         $this->db->insert('Inscreve_Se', $data);
+
         return $this->db->insert_id();
     }
 
