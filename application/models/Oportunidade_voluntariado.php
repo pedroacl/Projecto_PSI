@@ -89,7 +89,7 @@ class Oportunidade_voluntariado extends CI_Model {
 
         $this->db->distinct();
         $this->db->select('vol.id as id_voluntario, vol.id_utilizador, u.nome,
-            vol.foto, u.id as id_utilizador');
+            vol.foto, u.id as id_utilizador, insc.aceite');
         // $this->db->select('*');
         $this->db->from('Voluntarios AS vol');
         $this->db->join('Utilizadores AS u', 'u.id = vol.id_utilizador');
@@ -97,18 +97,19 @@ class Oportunidade_voluntariado extends CI_Model {
             'u_ga.id_utilizador = u.id');
         $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
             'u_ai.id_utilizador = u.id');
-        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id', $inscrito == TRUE ? 'inner' : 'left');
-        $this->db->join('Oportunidades_Voluntariado AS ov', 'ov.id = insc.id_oportunidade_voluntariado', $inscrito == TRUE ? 'inner' : 'left');
+        $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id', $inscrito ? 'inner' : 'left');
+        $this->db->join('Oportunidades_Voluntariado AS ov', 'ov.id = insc.id_oportunidade_voluntariado', $inscrito ? 'inner' : 'left');
         $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
         $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
         $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
         $this->db->join('Utilizadores_Disponibilidades AS ud',
             'ud.id_utilizador = u.id', 'left');
         $this->db->join('Disponibilidades AS d', 'ud.id_disponibilidade = d.id', 'left');
-        $this->db->where('insc.aceite =', $inscricao_aceite == TRUE ? 1 : 0);
+        $this->db->where('insc.aceite =', $inscricao_aceite ? 1 : 0);
         $this->db->where('distrito', $oportunidade->distrito);
         $this->db->where('concelho', $oportunidade->concelho);
         $this->db->where('freguesia', $oportunidade->freguesia);
+        $this->db->where('ov.id', $id_oportunidade);
    //     $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
     //    $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
 

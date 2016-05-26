@@ -244,10 +244,14 @@
                 <dd><?= $oportunidade_voluntariado->area_interesse ?></dd>
               </dl>
               <div class="pull-right">
-                <?php if (isset($oportunidade_voluntariado->inscrito)) { ?>
-                  <a href="" class="btn btn-danger btn-sm" disabled="disabled">Esperando aprovação</a>
+                <?php if (isset($oportunidade_voluntariado->inscrito)) {
+                  if ($oportunidade_voluntariado->inscrito == 1) { ?>
+                    <a class="btn btn-success" disabled="disabled">Aceite!</a>
+                  <?php } else { ?>
+                    <a class="btn btn-danger" disabled="disabled">Esperando aprovação</a>
+                  <?php } ?>
                 <?php } else { ?>
-                  <a href="<?= site_url('oportunidades_voluntariado/inscrever/' . $oportunidade_voluntariado->id_oportunidade_voluntariado . "/". $this->id_voluntario); ?>" class="btn btn-success">Inscrever-me!</a>
+                  <a href="<?= site_url('oportunidades_voluntariado/inscrever/' . $oportunidade_voluntariado->id_oportunidade_voluntariado . "/". $this->id_voluntario); ?>" class="btn btn-success">Inscrever-me</a>
                 <?php } ?>
                 <a href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_voluntariado->id_oportunidade_voluntariado); ?>" class="btn btn-warning">Ver detalhes</a>
               </div>

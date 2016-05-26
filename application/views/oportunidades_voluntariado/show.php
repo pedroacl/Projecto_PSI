@@ -113,7 +113,7 @@
       <h2>Voluntários Inscritos</h2>
       <div class="row">
         <div class="col-md-6">
-          <?php foreach ($this->voluntarios_matching->result() as $vol) { ?>
+          <?php foreach ($this->voluntarios_inscritos->result() as $vol) { ?>
             <div class="panel panel-default">
               <div class="panel-body">
                 <div class="row">
@@ -147,7 +147,10 @@
 
     <!-- Voluntarios aceites -->
 
-      <?php if ($this->voluntarios_aceites->num_rows()) { ?>
+      <?php if ($this->voluntarios_aceites->num_rows()) { 
+        print_r($this->voluntarios_inscritos->result());
+        echo "<hr>";
+        print_r($this->voluntarios_aceites->result()); ?>
       <h2>Voluntários aceites</h2>
       <div class="row">
         <div class="col-md-6">

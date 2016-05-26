@@ -83,13 +83,10 @@
   <?php if($this->oportunidades_voluntariado_ativas->num_rows() > 0) { ?>
     <h2>Oportunidades activas</h2>
     <div class="row">
-      <?php foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) { ?>
-        <?php
-
+      <?php foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) {
           $size = $this->instituicao->id_utilizador === $this->id_utilizador ? 12 : 6;
-          $size_inside = $this->instituicao->id_utilizador === $this->id_utilizador ? 6 : 12; ?>
-
-
+          $size_inside = $this->instituicao->id_utilizador === $this->id_utilizador ? 6 : 12;
+        ?>
         <div class="col-md-<?= $size ?>">
           <div class="panel panel-default">
             <div class="panel-body">
@@ -117,11 +114,15 @@
                   <div class="col-md-6">
                     <div class="row">
                       <p><strong>Voluntários Compatíveis:</strong></p>
-                      <p>Nenhum</p>
+                      <?php foreach ($oportunidade_ativa->matching_nao_inscritos->result() as $vol_compativel) { ?>
+                        <p><?php echo $vol_compativel->nome ?></p>
+                      <?php } ?>
                     </div>
                     <div class="row">
                       <p><strong>Voluntários Disponíveis:</strong></p>
-                      <p>Nenhum</p>
+                      <?php foreach ($oportunidade_ativa->matching_inscritos->result() as $vol_inscrito) { ?>
+                        <p><?php echo $vol_inscrito->nome ?></p>
+                      <?php } ?>
                     </div>
                   </div>
                 <?php } ?>
