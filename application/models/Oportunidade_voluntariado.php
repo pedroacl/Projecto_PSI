@@ -46,6 +46,7 @@ class Oportunidade_voluntariado extends CI_Model {
         /*
         /* Query
         */
+        $this->db->distinct();
         $this->db->select('ov.id AS id_oportunidade_voluntariado, distrito,
             concelho, freguesia, ov.nome AS nome, funcao, pais, ga.nome AS grupo_atuacao,
             ai.nome AS area_interesse, u.nome AS instituicao');
