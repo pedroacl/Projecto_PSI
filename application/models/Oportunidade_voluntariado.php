@@ -180,18 +180,26 @@ class Oportunidade_voluntariado extends CI_Model {
         // $this->db->select('*');
         $this->db->from('Voluntarios AS vol');
         $this->db->join('Utilizadores AS u', 'u.id = vol.id_utilizador');
-        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga',
-            'u_ga.id_utilizador = u.id');
-        $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
-            'u_ai.id_utilizador = u.id');
         $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id');
         $this->db->join('Oportunidades_Voluntariado AS ov', 'ov.id = insc.id_oportunidade_voluntariado');
         $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
+
+        // grupos de atuacao
+        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga','u_ga.id_utilizador = u.id');
         $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
+
+        // areas de interesse
+        $this->db->join('Utilizadores_Areas_Interesse AS u_ai', 'u_ai.id_utilizador = u.id');
         $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
-        $this->db->join('Utilizadores_Disponibilidades AS ud',
-            'ud.id_utilizador = u.id', 'left');
-        $this->db->join('Disponibilidades AS d', 'ud.id_disponibilidade = d.id', 'left');
+
+        // disponibilidades utilizadores
+        $this->db->join('Utilizadores_Disponibilidades AS ud','ud.id_utilizador = u.id', 'left');
+        $this->db->join('Disponibilidades AS disp_u', 'ud.id_disponibilidade = disp_u.id', 'left');
+
+        // disponibilidades voluntario
+        $this->db->join('Oportunidades_Voluntariado_Disponibilidades AS ovd',
+            'ovd.id_oportunidade_voluntariado = ov.id', 'left');
+        $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
         $this->db->where('insc.aceite =', '1');
         $this->db->where('distrito', $oportunidade->distrito);
