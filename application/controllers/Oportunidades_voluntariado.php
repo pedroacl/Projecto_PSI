@@ -121,7 +121,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 	public function edit($id_oportunidade_voluntariado)
 	{
-		$this->validate_owner($id_oportunidade_voluntariado);
+		//$this->validate_owner($id_oportunidade_voluntariado);
 
 		$this->load->library('form_validation');
 		$this->load->model('Area_geografica', 'area_geografica');

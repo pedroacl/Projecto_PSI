@@ -49,13 +49,13 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->distinct();
         $this->db->select('ov.id AS id_oportunidade_voluntariado, distrito,
             concelho, freguesia, ov.nome AS nome, funcao, pais, ga.nome AS grupo_atuacao,
-            ai.nome AS area_interesse, u.nome AS instituicao');
+            ai.nome AS area_interesse, u.nome AS instituicao, disp_o.data_inicio, u.id AS id_utilizador');
         $this->db->from('Oportunidades_Voluntariado AS ov');
         $this->db->join('Areas_Geograficas AS ag', 'ov.id_area_geografica = ag.id');
         $this->db->join('Grupos_Atuacao AS ga', 'ov.id_grupo_atuacao = ga.id');
         $this->db->join('Areas_Interesse AS ai', 'ov.id_area_interesse = ai.id');
         $this->db->join('Instituicoes AS i', 'ov.id_instituicao = i.id');
-        $this->db->join('Utilizadores AS u', 'u.id = i.id_utilizador');
+        $this->db->join('Utilizadores AS u', 'u.id = ' . $id_utilizador);
 
         // disponibilidades utilizadores
         $this->db->join('Utilizadores_Disponibilidades AS ud',
@@ -67,12 +67,11 @@ class Oportunidade_voluntariado extends CI_Model {
             'ovd.id_oportunidade_voluntariado = ov.id', 'left');
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
-        // matching disponibilidades
-        $this->db->where('disp_u.data_inicio >=', 'disp_o.data_inicio');
-        $this->db->where('disp_u.data_inicio <=', 'disp_o.data_fim');
+        $this->db->where("disp_o.data_inicio >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_inicio <= disp_u.data_fim");
 
-        $this->db->where('disp_u.data_fim >=', 'disp_o.data_inicio');
-        $this->db->where('disp_u.data_fim <=', 'disp_o.data_fim');
+        $this->db->where("disp_o.data_fim >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_fim <= disp_u.data_fim");
 
         $this->db->where('ov.vagas >', '0');
         $this->db->where('ativa', 'y');
@@ -81,7 +80,6 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where('freguesia', $voluntario->freguesia);
         $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
         $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
-
         // Falta relacionar com as disponibilidades e o numero de vagas tem de ser calculado ((vagas - inscricoes) > 0)
         // Fazer left join com inscricoes?
 
