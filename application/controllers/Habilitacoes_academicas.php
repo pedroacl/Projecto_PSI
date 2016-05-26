@@ -78,6 +78,6 @@ class Habilitacoes_academicas extends MY_Controller {
 		$this->habilitacao_academica->delete_entry($id_habilitacao_academica);
 
  		$this->session->set_flashdata('success', 'Habilitacao Academica eliminada!');
-		redirect('voluntarios/profile');
+		redirect('voluntarios/profile/' . $this->id_utilizador);
 	}
 }
