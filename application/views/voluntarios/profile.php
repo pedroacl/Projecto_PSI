@@ -42,14 +42,20 @@
                       <dd><?= $this->area_geografica->row()->freguesia ?></dd>
                     <?php } ?>
                   </dl>
-                  <a class="btn btn-warning" href="<?= site_url('voluntarios/edit_profile') ?>">Editar Perfil</a>
+                  <?php if ($this->voluntario->id_utilizador === $this->id_utilizador) { ?>
+                    <a class="btn btn-warning" href="<?= site_url('voluntarios/edit_profile') ?>">Editar Perfil</a>
+                  <?php } ?>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6" id="edit_grupos_atuacao">
-              <h4>Grupos de atuação <a class="btn btn-warning btn-sm">Editar</a></h4>
+              <h4>Grupos de atuação
+                <?php if ($this->voluntario->id_utilizador === $this->id_utilizador) { ?>
+                  <a class="btn btn-warning btn-sm">Editar</a>
+                <?php } ?>
+              </h4>
               <ul>
                 <?php foreach ($this->grupos_atuacao_utilizador->result() as $grupos_atuacao_utilizador) {
                   echo '<li>' . $grupos_atuacao_utilizador->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('grupos_atuacao/delete/' . $grupos_atuacao_utilizador->id) . '">&#10005;</a></li>';
@@ -66,7 +72,11 @@
             </div>
 
             <div class="col-md-6" id="edit_areas_interesse">
-              <h4>Areas de Interesse <a class="btn btn-warning btn-sm">Editar</a></h4>
+              <h4>Areas de Interesse
+                <?php if ($this->voluntario->id_utilizador === $this->id_utilizador) { ?>
+                  <a class="btn btn-warning btn-sm">Editar</a>
+                <?php } ?>
+              </h4>
               <ul>
                 <?php foreach ($this->areas_interesse_utilizador->result() as $area_interesse_utilizador) {
                     echo '<li>' . $area_interesse_utilizador->nome . ' <a class="btn btn-danger btn-sm" style="display: none;" href="' . site_url('areas_interesse/delete/' . $area_interesse_utilizador->id) . '">&#10005;</a></li>';
@@ -86,7 +96,11 @@
 
           <div class="row">
             <div class="col-md-12" id="edit_habilitacoes">
-              <h4>Habilitações Académicas <a class="btn btn-warning btn-sm">Editar</a></h4>
+              <h4>Habilitações Académicas
+                <?php if ($this->voluntario->id_utilizador === $this->id_utilizador) { ?>
+                  <a class="btn btn-warning btn-sm">Editar</a>
+                <?php } ?>
+              </h4>
               <table class="table">
                 <tbody>
                   <tr>
@@ -147,7 +161,11 @@
           </div>
           <div class="row">
             <div class="col-md-12" id="edit_disponibilidades">
-              <h4>Disponibilidades <a class="btn btn-warning btn-sm">Editar</a></h4>
+              <h4>Disponibilidades 
+                <?php if ($this->voluntario->id_utilizador === $this->id_utilizador) { ?>
+                  <a class="btn btn-warning btn-sm">Editar</a>
+                <?php } ?>
+              </h4>
               <?php if((isset($this->disponibilidades)) && ($this->disponibilidades->num_rows() > 0)) { ?>
 
               <?php } else { ?>
@@ -199,43 +217,45 @@
     </div>
   </div>
 
-  <h2>Oportunidades de Voluntariado correspondentes</h2>
-  <?php if ($this->oportunidades_voluntariado->num_rows() == 0) { ?>
-      <h3>Não existem oportunidades para o seu perfil</h3>
-      <div class="row">
-    <?php } else { ?>
-      <?php foreach ($this->oportunidades_voluntariado->result() as $oportunidade_voluntariado) { ?>
-      <div class="col-md-6">
+  <?php if ($this->voluntario->id_utilizador === $this->id_utilizador) { ?>
+    <h2>Oportunidades de Voluntariado correspondentes</h2>
+    <?php if ($this->oportunidades_voluntariado->num_rows() == 0) { ?>
+        <h3>Não existem oportunidades para o seu perfil</h3>
+        <div class="row">
+      <?php } else { ?>
+        <?php foreach ($this->oportunidades_voluntariado->result() as $oportunidade_voluntariado) { ?>
+        <div class="col-md-6">
 
-        <div class="panel panel-default">
-          <div class="panel-body">
+          <div class="panel panel-default">
+            <div class="panel-body">
 
-                <h3><?= $oportunidade_voluntariado->nome ?></h3>
-                <dl class="dl-horizontal">
-                  <dt>Função</dt>
-                  <dd><?= $oportunidade_voluntariado->funcao ?></dd>
+              <h3><?= $oportunidade_voluntariado->nome ?></h3>
+              <dl class="dl-horizontal">
+                <dt>Função</dt>
+                <dd><?= $oportunidade_voluntariado->funcao ?></dd>
 
-                  <dt>Instituição</dt>
-                  <dd><?= $oportunidade_voluntariado->instituicao ?></dd>
+                <dt>Instituição</dt>
+                <dd><?= $oportunidade_voluntariado->instituicao ?></dd>
 
-                  <dt>Grupo de Atuação</dt>
-                  <dd><?= $oportunidade_voluntariado->grupo_atuacao ?></dd>
+                <dt>Grupo de Atuação</dt>
+                <dd><?= $oportunidade_voluntariado->grupo_atuacao ?></dd>
 
-                  <dt>Área de Interesse</dt>
-                  <dd><?= $oportunidade_voluntariado->area_interesse ?></dd>
-                </dl>
-                <div class="pull-right">
-                  <?php if (isset($oportunidade_voluntariado->inscrito)) { ?>
-                    <a href="" class="btn btn-danger btn-sm" disabled="disabled">Esperando aprovação</a>
-                  <?php } else { ?>
-                    <a href="<?= site_url('oportunidades_voluntariado/inscrever/' . $oportunidade_voluntariado->id_oportunidade_voluntariado . "/". $this->id_voluntario); ?>" class="btn btn-success">Inscrever-me!</a>
-                  <?php } ?>
-                  <a href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_voluntariado->id_oportunidade_voluntariado); ?>" class="btn btn-warning">Ver detalhes</a>
-                </div>
+                <dt>Área de Interesse</dt>
+                <dd><?= $oportunidade_voluntariado->area_interesse ?></dd>
+              </dl>
+              <div class="pull-right">
+                <?php if (isset($oportunidade_voluntariado->inscrito)) { ?>
+                  <a href="" class="btn btn-danger btn-sm" disabled="disabled">Esperando aprovação</a>
+                <?php } else { ?>
+                  <a href="<?= site_url('oportunidades_voluntariado/inscrever/' . $oportunidade_voluntariado->id_oportunidade_voluntariado . "/". $this->id_voluntario); ?>" class="btn btn-success">Inscrever-me!</a>
+                <?php } ?>
+                <a href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_voluntariado->id_oportunidade_voluntariado); ?>" class="btn btn-warning">Ver detalhes</a>
+              </div>
+            </div>
           </div>
-        </div>
 
-      </div>
+        </div>
+        <?php } ?>
       <?php } ?>
     <?php } ?>
   </div>
