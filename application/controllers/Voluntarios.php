@@ -125,7 +125,7 @@ class Voluntarios extends MY_Controller {
 			$this->voluntario->upload_photo($this->id_voluntario);
 
 	 		$this->session->set_flashdata('success', 'Perfil atualizado com sucesso!');
-			redirect('voluntarios/profile');
+			redirect('voluntarios/profile/' . $this->id_utilizador);
 		}
 	}
 
