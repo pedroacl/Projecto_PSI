@@ -43,7 +43,6 @@ class Instituicoes extends MY_Controller {
 		$this->matching_voluntarios = array();
 
 		foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) {
-			print_r($oportunidade_ativa);
 			array_push($this->matching_voluntarios,
 				$this->oportunidade_voluntariado->get_matching_for_oportunidade($oportunidade_ativa->id));
 		}
