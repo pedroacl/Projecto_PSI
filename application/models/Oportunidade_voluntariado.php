@@ -71,8 +71,8 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where('disp_u.data_inicio >=', 'disp_o.data_inicio');
         $this->db->where('disp_u.data_inicio <=', 'disp_o.data_fim');
 
-        $this->db->where('disp_u.data_fim >= disp_o.data_inicio');
-        $this->db->where('disp_u.data_fim <= disp_o.data_fim');
+        $this->db->where('disp_u.data_fim >=', 'disp_o.data_inicio');
+        $this->db->where('disp_u.data_fim <=', 'disp_o.data_fim');
 
         $this->db->where('ov.vagas >', '0');
         $this->db->where('ativa', 'y');
@@ -125,8 +125,8 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where('disp_u.data_inicio >=', 'disp_o.data_inicio');
         $this->db->where('disp_u.data_inicio <=', 'disp_o.data_fim');
 
-        $this->db->where('disp_u.data_fim >= disp_o.data_inicio');
-        $this->db->where('disp_u.data_fim <= disp_o.data_fim');
+        $this->db->where('disp_u.data_fim >=', 'disp_o.data_inicio');
+        $this->db->where('disp_u.data_fim <=', 'disp_o.data_fim');
 
         $this->db->where('distrito', $oportunidade->distrito);
         $this->db->where('concelho', $oportunidade->concelho);
@@ -179,8 +179,8 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where('disp_u.data_inicio >=', 'disp_o.data_inicio');
         $this->db->where('disp_u.data_inicio <=', 'disp_o.data_fim');
 
-        $this->db->where('disp_u.data_fim >= disp_o.data_inicio');
-        $this->db->where('disp_u.data_fim <= disp_o.data_fim');
+        $this->db->where('disp_u.data_fim >=', 'disp_o.data_inicio');
+        $this->db->where('disp_u.data_fim <=', 'disp_o.data_fim');
 
         $this->db->where('insc.aceite =', '0');
         $this->db->where('distrito', $oportunidade->distrito);
@@ -225,8 +225,8 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where('disp_u.data_inicio >=', 'disp_o.data_inicio');
         $this->db->where('disp_u.data_inicio <=', 'disp_o.data_fim');
 
-        $this->db->where('disp_u.data_fim >= disp_o.data_inicio');
-        $this->db->where('disp_u.data_fim <= disp_o.data_fim');
+        $this->db->where('disp_u.data_fim >=', 'disp_o.data_inicio');
+        $this->db->where('disp_u.data_fim <=', 'disp_o.data_fim');
 
         $this->db->where('insc.aceite =', '1');
         $this->db->where('distrito', $oportunidade->distrito);
