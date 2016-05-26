@@ -98,6 +98,7 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
             'u_ai.id_utilizador = u.id');
         $this->db->join('Inscreve_Se AS insc', 'insc.id_voluntario = vol.id', $inscrito == TRUE ? 'inner' : 'left');
+        $this->db->join('Oportunidades_Voluntariado AS ov', 'ov.id = insc.id_oportunidade_voluntariado', $inscrito == TRUE ? 'inner' : 'left');
         $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
         $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
         $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
