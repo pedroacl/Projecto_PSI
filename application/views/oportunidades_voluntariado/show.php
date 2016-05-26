@@ -8,7 +8,9 @@
               <div class="row">
                 <div class="col-md-12">
                   <h1><?= $this->oportunidade_voluntariado->nome_oportunidade ?></h1>
-                  <a class="btn btn-warning pull-right" href="<?= site_url('oportunidades_voluntariado/edit/' . $this->oportunidade_voluntariado->id) ?>">Editar Oportunidade</a>
+                  <?php if ($this->utilizador_owner === $this->id_utilizador) { ?>
+                    <a class="btn btn-warning pull-right" href="<?= site_url('oportunidades_voluntariado/edit/' . $this->oportunidade_voluntariado->id) ?>">Editar Oportunidade</a>
+                  <?php } ?>
                   <dl class="dl-horizontal">
                     <dt>Função</dt>
                     <dd><?= $this->oportunidade_voluntariado->funcao ?></dd>
@@ -50,7 +52,11 @@
                 $button_text = (isset($this->disponibilidades)) && ($this->disponibilidades->num_rows() > 0) ? 'Editar' : 'Adicionar';
               ?>
 
-              <h4><?= $title ?> <a class="btn btn-warning btn-sm"><?= $button_text ?></a></h4>
+              <h4><?= $title ?>
+                <?php if ($this->utilizador_owner === $this->id_utilizador) { ?>
+                  <a class="btn btn-warning btn-sm"><?= $button_text ?></a>
+                <?php } ?>
+              </h4>
 
               <?php if (isset($this->disponibilidades)) { ?>
                 <table class="table">
@@ -102,76 +108,78 @@
 
 
   <!-- Voluntarios inscritos -->
-
-  <?php if ($this->voluntarios_inscritos->num_rows()) { ?>
-    <h2>Voluntários Inscritos</h2>
-    <div class="row">
-      <div class="col-md-6">
-        <?php foreach ($this->voluntarios_matching->result() as $vol) { ?>
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <h3><?= $vol->nome ?></h3>
-                </div>
-              </div>
+  <?php if ($this->utilizador_owner === $this->id_utilizador) { ?>
+    <?php if ($this->voluntarios_inscritos->num_rows()) { ?>
+      <h2>Voluntários Inscritos</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <?php foreach ($this->voluntarios_matching->result() as $vol) { ?>
+            <div class="panel panel-default">
+              <div class="panel-body">
                 <div class="row">
-                  <div class="col-md-6">
-                    <a href="#" class="thumbnail">
-                      <img src="<?= base_url($vol->foto) ?>">
-                    </a>
-                  </div>
-                  <div class="col-md-6">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias maxime voluptates placeat facilis laboriosam quia tempore, saepe aut accusantium quis iure perspiciatis, error dolor eligendi a, nostrum delectus, qui ipsum.
+                  <div class="col-md-12">
+                    <h3><?= $vol->nome ?></h3>
                   </div>
                 </div>
-                <div class="row">
-                  <a href="<?= site_url('oportunidades_voluntariado/aceitar/' . $this->oportunidade_voluntariado->id . "/" . $vol->id_voluntario) ?>" class="btn btn-success">Aceitar</a>
-                  <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <a href="#" class="thumbnail">
+                        <img src="<?= base_url($vol->foto) ?>">
+                      </a>
+                    </div>
+                    <div class="col-md-6">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias maxime voluptates placeat facilis laboriosam quia tempore, saepe aut accusantium quis iure perspiciatis, error dolor eligendi a, nostrum delectus, qui ipsum.
+                    </div>
+                  </div>
+                  <div class="row">
+                    <a href="<?= site_url('oportunidades_voluntariado/aceitar/' . $this->oportunidade_voluntariado->id . "/" . $vol->id_voluntario) ?>" class="btn btn-success">Aceitar</a>
+                    <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          <?php } ?>
+            <?php } ?>
+          </div>
         </div>
-      </div>
-    <?php } else {  ?>
-      <h2>Não existem voluntários inscritos</h2>
-    <?php } ?>
+      <?php } else {  ?>
+        <h2>Não existem voluntários inscritos</h2>
+      <?php } ?>
 
 
-  <!-- Voluntarios aceites -->
+    <!-- Voluntarios aceites -->
 
-    <?php if ($this->voluntarios_aceites->num_rows()) { ?>
-    <h2>Voluntários aceites</h2>
-    <div class="row">
-      <div class="col-md-6">
-        <?php foreach ($this->voluntarios_aceites->result() as $vol) { ?>
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <h3><?= $vol->nome ?></h3>
-                </div>
-              </div>
+      <?php if ($this->voluntarios_aceites->num_rows()) { ?>
+      <h2>Voluntários aceites</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <?php foreach ($this->voluntarios_aceites->result() as $vol) { ?>
+            <div class="panel panel-default">
+              <div class="panel-body">
                 <div class="row">
-                  <div class="col-md-6">
-                    <a href="#" class="thumbnail">
-                      <img src="<?= base_url($vol->foto) ?>">
-                    </a>
-                  </div>
-                  <div class="col-md-6">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias maxime voluptates placeat facilis laboriosam quia tempore, saepe aut accusantium quis iure perspiciatis, error dolor eligendi a, nostrum delectus, qui ipsum.
+                  <div class="col-md-12">
+                    <h3><?= $vol->nome ?></h3>
                   </div>
                 </div>
-                <div class="row">
-                  <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <a href="#" class="thumbnail">
+                        <img src="<?= base_url($vol->foto) ?>">
+                      </a>
+                    </div>
+                    <div class="col-md-6">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias maxime voluptates placeat facilis laboriosam quia tempore, saepe aut accusantium quis iure perspiciatis, error dolor eligendi a, nostrum delectus, qui ipsum.
+                    </div>
+                  </div>
+                  <div class="row">
+                    <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          <?php } ?>
+            <?php } ?>
+          </div>
         </div>
-      </div>
-    <?php } else {  ?>
-      <h2>Não existem voluntários aceites</h2>
+      <?php } else {  ?>
+        <h2>Não existem voluntários aceites</h2>
+      <?php } ?>
     <?php } ?>
+    
 </div>
