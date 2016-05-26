@@ -74,12 +74,12 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where("disp_o.data_inicio >= disp_u.data_inicio");
         $this->db->where("disp_o.data_inicio <= disp_u.data_fim");
 
+        $this->db->where("disp_o.data_fim >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_fim <= disp_u.data_fim");
+
         // nao estah inscrito na oportunidade
         $this->db->where('NOT EXISTS (SELECT 1 FROM Inscreve_Se AS insc WHERE insc.id_oportunidade_voluntariado = ov.id)',
             NULL, FALSE);
-
-        $this->db->where("disp_o.data_fim >= disp_u.data_inicio");
-        $this->db->where("disp_o.data_fim <= disp_u.data_fim");
 
         $this->db->where('ov.vagas >', '0');
         $this->db->where('ativa', 'y');
