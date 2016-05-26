@@ -230,6 +230,29 @@ body {
   width: 100%;
 }
 
+.mini-perfil {
+  text-align: center;
+}
+
+.profile-photo-container-oportunidade {
+  width: 250px;
+  margin: 0px auto;
+}
+
+.no-shadow .carousel-control.right {
+  background-color: none;
+  background-image: none;
+}
+
+.no-shadow .carousel-control.left {
+  background-color: none;
+  background-image: none;
+}
+
+.profile-photo-container-oportunidade img {
+  width: 100%;
+}
+
 blockquote {
   margin-bottom: 0;
 }

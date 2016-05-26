@@ -48,9 +48,9 @@ class Instituicoes extends MY_Controller {
 			$oportunidade_ativa->matching_inscritos = $this->oportunidade_voluntariado->get_matching_voluntarios_inscritos($oportunidade_ativa->id);
 		}
 
-		foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) {
-			print_r($oportunidade_ativa->matching_nao_inscritos->result());
-		}
+		// foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) {
+		// 	print_r($oportunidade_ativa->matching_nao_inscritos->result());
+		// }
 
 		$this->active_area = $this->instituicao->id_utilizador === $this->id_utilizador ? 'profile' : '';
 		$this->js_files = array('home.js');

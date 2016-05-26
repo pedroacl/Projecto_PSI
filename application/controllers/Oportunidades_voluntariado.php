@@ -224,9 +224,9 @@ class Oportunidades_voluntariado extends MY_Controller {
   		$id_instituicao = $this->session->userdata('id_instituicao');
   		$oportunidade_instituicao = $this->oportunidade_voluntariado->get_by_id($id_oportunidade)->row();
 
-  		if ($id_instituicao == $oportunidade_instituicao->id) {
-	 		$this->session->set_flashdata('warning', 'Acesso não autorizado!');
-			redirect('home/index', 'refresh');
+  		if ($id_instituicao !== $oportunidade_instituicao->id) {
+		 		$this->session->set_flashdata('warning', 'Acesso não autorizado!');
+				redirect('home/index', 'refresh');
   		}
   	}
 
