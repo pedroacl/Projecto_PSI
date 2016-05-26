@@ -99,7 +99,7 @@
       </div>
     </div>
   </div>
-  <?php if (true) {
+  <?php if ($this->voluntarios_inscritos->num_rows()) {
       ?>
       <h2>Candidaturas de Voluntários</h2>
       <div class="row">
@@ -123,7 +123,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <a href="<?= site_url('oportunidades_voluntariado/aceitar/' . $vol->id_oportunidade . "/" . $vol->id_voluntario) ?>" class="btn btn-success">Aceitar</a>
+                  <a href="<?= site_url('oportunidades_voluntariado/aceitar/' . $this->oportunidade_voluntariado->id . "/" . $vol->id_voluntario) ?>" class="btn btn-success">Aceitar</a>
                   <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
                 </div>
 
@@ -134,7 +134,7 @@
         </div>
       </div>
       <?php } else {  ?>
-      <h2>Não existem candidaturas</h2>
+      <h2>Não existem candidaturas de voluntários</h2>
     <?php } ?>
 
 </div>
