@@ -98,7 +98,8 @@ class Oportunidades_voluntariado extends MY_Controller {
     		$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
 
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
-			redirect('instituicoes/profile/' . $id_oportunidade);
+			redirect('instituicoes/profile/' . $id_utilizador);
+
 		}
 	}
 

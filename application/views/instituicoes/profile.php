@@ -115,7 +115,7 @@
                     <div class="row">
                       <p><strong>Voluntários Compatíveis:</strong></p>
                       <?php if ($oportunidade_ativa->matching_nao_inscritos->num_rows() > 0) { ?>
-                      
+
                         <div id="carousel-example-generic-<?= $oportunidade_ativa->id ?>-nao_inscrito" class="carousel slide no-shadow" data-ride="carousel">
                           <ol class="carousel-indicators">
                             <li data-target="#carousel-example-generic-<?= $oportunidade_ativa->id ?>-nao_inscrito" data-slide-to="0" class="active"></li>
@@ -157,7 +157,7 @@
                       <?php } else {
                         echo "<p>Não existem voluntários compatíveis!</p>";
                       } ?>
-                      
+
                     </div>
                     <div class="row">
                       <p><strong>Voluntários Disponíveis:</strong></p>
@@ -215,7 +215,7 @@
       <?php } ?>
     </div>
   <?php } ?>
-  
+
   <?php if ($this->instituicao->id_utilizador === $this->id_utilizador) { ?>
     <?php if($this->oportunidades_voluntariado_inativas->num_rows() > 0) { ?>
       <h2>Oportunidades inactivas</h2>

@@ -29,6 +29,7 @@ class Instituicoes extends MY_Controller {
 		$this->instituicao =
 			$this->utilizador->get_by_id($id_utilizador, 'instituicao')->row();
 
+
 		// area geografica
 		$this->area_geografica_data = $this->Area_geografica->get_by_id_utilizador($this->id_utilizador);
 

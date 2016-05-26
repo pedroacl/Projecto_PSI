@@ -71,6 +71,7 @@ class Oportunidade_voluntariado extends CI_Model {
             'ovd.id_oportunidade_voluntariado = ov.id', 'left');
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
+        // matching disponibilidades
         $this->db->where("disp_o.data_inicio >= disp_u.data_inicio");
         $this->db->where("disp_o.data_inicio <= disp_u.data_fim");
 
@@ -99,7 +100,6 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->distinct();
         $this->db->select('vol.id as id_voluntario, vol.id_utilizador, u.nome,
             vol.foto, u.id as id_utilizador, insc.aceite');
-        // $this->db->select('*');
         $this->db->from('Voluntarios AS vol');
         $this->db->join('Utilizadores AS u', 'u.id = vol.id_utilizador');
 
@@ -126,21 +126,16 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
         // matching disponibilidades
-        $this->db->where('disp_u.data_inicio >=', 'disp_o.data_inicio');
-        $this->db->where('disp_u.data_inicio <=', 'disp_o.data_fim');
+        $this->db->where("disp_o.data_inicio >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_inicio <= disp_u.data_fim");
 
-        $this->db->where('disp_u.data_fim >=', 'disp_o.data_inicio');
-        $this->db->where('disp_u.data_fim <=', 'disp_o.data_fim');
+        $this->db->where("disp_o.data_fim >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_fim <= disp_u.data_fim");
 
         $this->db->where('distrito', $oportunidade->distrito);
         $this->db->where('concelho', $oportunidade->concelho);
         $this->db->where('freguesia', $oportunidade->freguesia);
         $this->db->where('ov.id', $id_oportunidade);
-
-        //    $this->db->where_in('id_grupo_atuacao', $grupos_atuacao_utilizador_array);
-        //    $this->db->where_in('id_area_interesse', $areas_interesse_utilizador_array);
-
-        // Falta relacionar com as disponibilidades e o numero de vagas tem de ser calculado ((vagas - inscricoes) > 0)
 
         return $this->db->get();
     }
@@ -180,11 +175,11 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
         // matching disponibilidades
-        $this->db->where('disp_u.data_inicio >=', 'disp_o.data_inicio');
-        $this->db->where('disp_u.data_inicio <=', 'disp_o.data_fim');
+        $this->db->where("disp_o.data_inicio >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_inicio <= disp_u.data_fim");
 
-        $this->db->where('disp_u.data_fim >=', 'disp_o.data_inicio');
-        $this->db->where('disp_u.data_fim <=', 'disp_o.data_fim');
+        $this->db->where("disp_o.data_fim >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_fim <= disp_u.data_fim");
 
         $this->db->where('insc.aceite =', '0');
         $this->db->where('distrito', $oportunidade->distrito);
@@ -226,11 +221,11 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Disponibilidades AS disp_o', 'ovd.id_disponibilidade = disp_o.id', 'left');
 
         // matching disponibilidades
-        $this->db->where('disp_u.data_inicio >=', 'disp_o.data_inicio');
-        $this->db->where('disp_u.data_inicio <=', 'disp_o.data_fim');
+        $this->db->where("disp_o.data_inicio >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_inicio <= disp_u.data_fim");
 
-        $this->db->where('disp_u.data_fim >=', 'disp_o.data_inicio');
-        $this->db->where('disp_u.data_fim <=', 'disp_o.data_fim');
+        $this->db->where("disp_o.data_fim >= disp_u.data_inicio");
+        $this->db->where("disp_o.data_fim <= disp_u.data_fim");
 
         $this->db->where('insc.aceite =', '1');
         $this->db->where('distrito', $oportunidade->distrito);
