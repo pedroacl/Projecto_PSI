@@ -52,7 +52,7 @@
 
               <h4><?= $title ?> <a class="btn btn-warning btn-sm"><?= $button_text ?></a></h4>
 
-              <?php if ((isset($this->disponibilidades)) && ($this->disponibilidades->num_rows() > 0)) { ?>
+              <?php if (isset($this->disponibilidades)) { ?>
                 <table class="table">
                   <tbody>
                     <tr>

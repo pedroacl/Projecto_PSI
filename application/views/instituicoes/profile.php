@@ -84,11 +84,17 @@
     <h2>Oportunidades activas</h2>
     <div class="row">
       <?php foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) { ?>
-        <div class="col-md-12">
+        <?php
+
+          $size = $this->instituicao->id_utilizador === $this->id_utilizador ? 12 : 6;
+          $size_inside = $this->instituicao->id_utilizador === $this->id_utilizador ? 6 : 12; ?>
+
+
+        <div class="col-md-<?= $size ?>">
           <div class="panel panel-default">
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-<?= $size_inside ?>">
                   <h3><?= $oportunidade_ativa->nome ?></h3>
                   <strong>Função:</strong>
                   <p><?= $oportunidade_ativa->funcao ?></p>
@@ -102,19 +108,23 @@
                   <p><?= $oportunidade_ativa->concelho ?></p>
                   <strong>Freguesia</strong>
                   <p><?= $oportunidade_ativa->freguesia ?></p>
-                  <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
-                  <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/edit/' . $oportunidade_ativa->id) ?>">  Editar Oportunidade</a>
+                  <?php if ($this->instituicao->id_utilizador === $this->id_utilizador) { ?>
+                    <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_ativa->id) ?>">  Ver Detalhes</a>
+                    <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/edit/' . $oportunidade_ativa->id) ?>">  Editar Oportunidade</a>
+                  <?php } ?>
                 </div>
-                <div class="col-md-6">
-                  <div class="row">
-                    <p><strong>Voluntários Compatíveis:</strong></p>
-                    <p>Nenhum</p>
+                <?php if ($this->instituicao->id_utilizador === $this->id_utilizador) { ?>
+                  <div class="col-md-">
+                    <div class="row">
+                      <p><strong>Voluntários Compatíveis:</strong></p>
+                      <p>Nenhum</p>
+                    </div>
+                    <div class="row">
+                      <p><strong>Voluntários Disponíveis:</strong></p>
+                      <p>Nenhum</p>
+                    </div>
                   </div>
-                  <div class="row">
-                    <p><strong>Voluntários Disponíveis:</strong></p>
-                    <p>Nenhum</p>
-                  </div>
-                </div>
+                <?php } ?>
               </div>
             </div>
           </div>
@@ -122,33 +132,35 @@
       <?php } ?>
     </div>
   <?php } ?>
-
-  <?php if($this->oportunidades_voluntariado_inativas->num_rows() > 0) { ?>
-    <h2>Oportunidades inactivas</h2>
-    <div class="row">
-      <?php foreach ($this->oportunidades_voluntariado_inativas->result() as $oportunidade_inactiva) { ?>
-        <div class="col-md-6">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <h3><?= $oportunidade_inactiva->nome ?></h3>
-              <strong>Função:</strong>
-              <p><?= $oportunidade_inactiva->funcao ?></p>
-              <strong>País:</strong>
-              <p><?= $oportunidade_inactiva->pais ?></p>
-              <strong>Número de Vagas:</strong>
-              <p><?= $oportunidade_inactiva->vagas ?></p>
-              <strong>Distrito:</strong>
-              <p><?= $oportunidade_ativa->distrito ?></p>
-              <strong>Concelho</strong>
-              <p><?= $oportunidade_ativa->concelho ?></p>
-              <strong>Freguesia</strong>
-              <p><?= $oportunidade_ativa->freguesia ?></p>
-              <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_inactiva->id) ?>">  Ver Detalhes</a>
-              <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/edit/' . $oportunidade_inactiva->id) ?>">Editar Oportunidade</a>
+  
+  <?php if ($this->instituicao->id_utilizador === $this->id_utilizador) { ?>
+    <?php if($this->oportunidades_voluntariado_inativas->num_rows() > 0) { ?>
+      <h2>Oportunidades inactivas</h2>
+      <div class="row">
+        <?php foreach ($this->oportunidades_voluntariado_inativas->result() as $oportunidade_inactiva) { ?>
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <h3><?= $oportunidade_inactiva->nome ?></h3>
+                <strong>Função:</strong>
+                <p><?= $oportunidade_inactiva->funcao ?></p>
+                <strong>País:</strong>
+                <p><?= $oportunidade_inactiva->pais ?></p>
+                <strong>Número de Vagas:</strong>
+                <p><?= $oportunidade_inactiva->vagas ?></p>
+                <strong>Distrito:</strong>
+                <p><?= $oportunidade_ativa->distrito ?></p>
+                <strong>Concelho</strong>
+                <p><?= $oportunidade_ativa->concelho ?></p>
+                <strong>Freguesia</strong>
+                <p><?= $oportunidade_ativa->freguesia ?></p>
+                <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/show/' . $oportunidade_inactiva->id) ?>">  Ver Detalhes</a>
+                <a class="btn btn-warning btn-sm" href="<?= site_url('oportunidades_voluntariado/edit/' . $oportunidade_inactiva->id) ?>">Editar Oportunidade</a>
+              </div>
             </div>
           </div>
-        </div>
-      <?php } ?>
-    </div>
+        <?php } ?>
+      </div>
+    <?php } ?>
   <?php } ?>
 </div>
