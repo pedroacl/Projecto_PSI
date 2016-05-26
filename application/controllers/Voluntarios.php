@@ -163,7 +163,7 @@ class Voluntarios extends MY_Controller {
 			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
 
 		 	// voltar a exibir perfil
-			redirect("voluntarios/profile", 'location');
+			redirect("voluntarios/profile/" . $this->id_utilizador, 'location');
 		}
 	}
 

@@ -84,13 +84,13 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$oportunidade_voluntariado_data['id_area_geografica'] = $id_area_geografica;
 			$id_oportunidade = $this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);
 
-      // adicionar disponibilidades
-    	$disponibilidades_data = $this->disponibilidade->get_form_data($this->input->post());
+      	// adicionar disponibilidades
+    		$disponibilidades_data = $this->disponibilidade->get_form_data($this->input->post());
 
-    	$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
+    		$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
 
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
-			redirect('instituicoes/profile');
+			redirect('instituicoes/profile/' . $id_oportunidade);
 		}
 	}
 
