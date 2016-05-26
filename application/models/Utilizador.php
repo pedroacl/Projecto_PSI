@@ -92,9 +92,10 @@ class Utilizador extends CI_Model {
     function get_instituicao_by_id($id_utilizador)
     {
         $this->db->select('u.id AS id_utilizador, i.id AS id_instituicao, u.email,
-            u.tipo_utilizador, u.nome, u.id_area_geografica');
+            u.tipo_utilizador, u.nome, u.id_area_geografica, i.morada, i.email_instituicao, i.website, u.telefone, i.descricao');
         $this->db->from('Utilizadores AS u');
-        $this->db->join('Instituicoes AS i', 'u.id = i.id_utilizador');
+        $this->db->join('Instituicoes AS i', 'u.id = i.id_utilizador', 'left');
+        $this->db->join('Areas_Geograficas as ag', 'u.id_area_geografica = ag.id', 'left');
         $this->db->where('u.id', $id_utilizador);
 
         return $this->db->get();

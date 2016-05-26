@@ -15,7 +15,7 @@ class Instituicoes extends MY_Controller {
 		$this->load->view('index');
 	}
 
-	public function profile()
+	public function profile($id_utilizador)
 	{
 		$this->load->helper('form');
 		$this->load->model('Grupo_atuacao', 'grupo_atuacao');
@@ -23,31 +23,32 @@ class Instituicoes extends MY_Controller {
 		$this->load->model('Disponibilidade', 'disponibilidade');
 		$this->load->model('Oportunidade_voluntariado', 'oportunidade_voluntariado');
 		$this->load->model('Area_geografica');
+		$this->load->model('Utilizador', 'utilizador');
 
 		// instituicao
 		$this->instituicao =
-			$this->instituicao->get_by_id_utilizador($this->id_utilizador)->row();
+			$this->utilizador->get_by_id($id_utilizador, 'instituicao')->row();
 
 		// area geografica
 		$this->area_geografica_data = $this->Area_geografica->get_by_id_utilizador($this->id_utilizador);
 
 		// oportunidades ativas
 		$this->oportunidades_voluntariado_ativas =
-			$this->oportunidade_voluntariado->get_ativas_by_id_instituicao($this->id_instituicao);
+			$this->oportunidade_voluntariado->get_ativas_by_id_instituicao($this->instituicao->id_instituicao);
 
 		// oportunidades inativas
 		$this->oportunidades_voluntariado_inativas =
-			$this->oportunidade_voluntariado->get_inativas_by_id_instituicao($this->id_instituicao);
+			$this->oportunidade_voluntariado->get_inativas_by_id_instituicao($this->instituicao->id_instituicao);
 
 		// matching de voluntarios
 		$this->matching_voluntarios = array();
 
 		foreach ($this->oportunidades_voluntariado_ativas->result() as $oportunidade_ativa) {
 			array_push($this->matching_voluntarios,
-				$this->oportunidade_voluntariado->get_matching_for_oportunidade($oportunidade_ativa->id));
+				$this->oportunidade_voluntariado->get_matching_voluntarios_inscritos($oportunidade_ativa->id));
 		}
 
-		$this->active_area = 'profile';
+		$this->active_area = $this->instituicao->id_utilizador === $this->id_utilizador ? 'profile' : '';
 		$this->js_files = array('home.js');
 		$this->title    = "Perfil de " . $this->instituicao->nome;
 		$this->load->view('templates/main_template/header');

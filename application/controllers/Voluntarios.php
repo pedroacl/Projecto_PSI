@@ -15,7 +15,7 @@ class Voluntarios extends MY_Controller {
 		$this->load->view('index');
 	}
 
-	public function profile($id_voluntario)
+	public function profile($id_utilizador)
 	{
 
 		//$this->authenticate_user();
@@ -32,7 +32,7 @@ class Voluntarios extends MY_Controller {
 		$this->load->model('Tipo_habilitacao_academica', 'tipo_habilitacao_academica');
 
 		// get voluntario
-		$this->voluntario = $this->utilizador->get_by_id($id_voluntario, 'voluntario')->row();
+		$this->voluntario = $this->utilizador->get_by_id($id_utilizador, 'voluntario')->row();
 
 		// area geografica
 		$this->area_geografica = $this->area_geografica->get_by_id_utilizador($this->voluntario->id_utilizador);
@@ -53,7 +53,7 @@ class Voluntarios extends MY_Controller {
 		$this->disponibilidades = $this->disponibilidade->get_by_id_utilizador($this->voluntario->id_utilizador);
 
 		// habilitacoes academicas
-		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($id_voluntario);
+		$this->habilitacoes_academicas = $this->habilitacao_academica->get_by_id_voluntario($this->voluntario->id_voluntario);
 
 		// tipos de habilitacoes academicas
 		$this->tipos_habilitacoes_academicas = $this->tipo_habilitacao_academica->get_entries();
@@ -61,7 +61,7 @@ class Voluntarios extends MY_Controller {
 		// oportunidades de voluntariado
 		$this->oportunidades_voluntariado = $this->oportunidade_voluntariado->get_matching_for_voluntario($this->voluntario->id_utilizador);
 
-		$this->inscricoes = $this->inscricoes->get_inscricoes($id_voluntario)->result();
+		$this->inscricoes = $this->inscricoes->get_inscricoes($this->voluntario->id_voluntario)->result();
 
 		foreach ($this->oportunidades_voluntariado->result() as $oportunidade) {
 			foreach ($this->inscricoes as $inscricao) {
@@ -73,6 +73,7 @@ class Voluntarios extends MY_Controller {
 		}
 		$this->active_area = $this->voluntario->id_utilizador === $this->id_utilizador ? 'profile' : '';
 		$this->js_files = array('voluntarios/voluntarios_profile.js');
+		$this->title    = "Perfil de " . $this->voluntario->nome;
 		$this->load->view('templates/main_template/header');
 		$this->load->view('voluntarios/profile');
 		$this->load->view('templates/main_template/footer');

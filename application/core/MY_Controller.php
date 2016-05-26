@@ -24,11 +24,10 @@ class MY_Controller extends CI_Controller {
 		$this->id_instituicao  = $this->session->userdata('id_instituicao');
 		$this->tipo_utilizador = $this->session->userdata('tipo_utilizador');
 
-    $this->type_of_user_id = $this->session->userdata('tipo_utilizador') == 'voluntario' ? $this->id_voluntario : $this->id_instituicao;
     $this->user_profile_link = $this->session->userdata('tipo_utilizador');
 
     if (isset($this->user_profile_link)) {
-      $this->user_profile_link = $links[$this->session->userdata('tipo_utilizador')] . "/" . $this->type_of_user_id;
+      $this->user_profile_link = $links[$this->session->userdata('tipo_utilizador')] . "/" . $this->id_utilizador;
     }
 
     // Default de active area

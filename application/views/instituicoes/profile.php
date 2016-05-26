@@ -60,11 +60,13 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="row">
-                    <div class="pull-right buttons-top">
-                      <!-- <a class="btn btn-warning" href="change_password">Alterar Password</a> -->
-                      <a class="btn btn-warning" href="<?= site_url('instituicoes/edit_profile') ?>">Editar Perfil</a>
-                      <a class="btn btn-warning" href="<?= site_url('oportunidades_voluntariado/add') ?>">Adicionar Oportunidade de Voluntariado</a>
-                    </div>
+                    <?php if ($this->instituicao->id_utilizador === $this->id_utilizador) { ?>
+                      <div class="pull-right buttons-top">
+                        <!-- <a class="btn btn-warning" href="change_password">Alterar Password</a> -->
+                        <a class="btn btn-warning" href="<?= site_url('instituicoes/edit_profile') ?>">Editar Perfil</a>
+                        <a class="btn btn-warning" href="<?= site_url('oportunidades_voluntariado/add') ?>">Adicionar Oportunidade de Voluntariado</a>
+                      </div>
+                    <?php } ?>
                   </div>
                   <div class="row">
                     <p><?= $this->instituicao->descricao ?></p>
