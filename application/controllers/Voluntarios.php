@@ -139,15 +139,6 @@ class Voluntarios extends MY_Controller {
 		$disponibilidade_data =
 			$this->disponibilidade->get_profile_data($this->input->post());
 
-/*
-		$disponibilidade_data['data_inicio'] =
-			date("Y-m-d", strtotime($disponibilidade_data['data_inicio']));
-
-		$disponibilidade_data['data_fim'] =
-			date("Y-m-d", strtotime($disponibilidade_data['data_fim']));
-*/
-
-      // print_r($this->input->post());
 		$form_rules = $this->disponibilidade->get_form_validation_rules($this->input);
 		$this->form_validation->set_rules($form_rules);
 
@@ -156,7 +147,7 @@ class Voluntarios extends MY_Controller {
 			// mostrar novamente formulario
 			//$this->js_files = array('areas_geograficas.js');
 
-			$this->profile();
+			$this->profile($this->id_utilizador);
 		}
 		else
 		{
@@ -196,5 +187,5 @@ class Voluntarios extends MY_Controller {
 
 		   return FALSE;
 		}
- }
+ 	}
 }

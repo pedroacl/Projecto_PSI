@@ -70,7 +70,7 @@
                     } ?>
 
                     <tr style="display: none;" id="form_add">
-                      <form action="/oportunidades_voluntariado/add_disponibilidade/<?= $this->oportunidade_voluntariado->id ?>" method="POST">
+                      <form action="<?php echo site_url('/oportunidades_voluntariado/add_disponibilidade/' . $this->oportunidade_voluntariado->id)?>" method="POST">
                         <td>
                           <div class='input-group date datepicker' data-provide="datepicker" data-date-format="yyyy/mm/dd">
                             <input name="data_inicio" value="" type='text' class="form-control" />

@@ -147,16 +147,7 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->where('id', $id_oportunidade_voluntariado);
         $this->db->delete('Oportunidades_Voluntariado');
     }
-/*
-    public function get_entry($id_oportunidade_voluntariado)
-    {
-        $this->db->select('*');
-        $this->db->from('Oportunidades_Voluntariado');
-        $this->db->where('id', $id_oportunidade_voluntariado);
 
-        return $this->db->get();
-    }
-*/
     public function get_by_id($id_oportunidade_voluntariado)
     {
         $this->db->select('ov.nome AS nome_oportunidade, ov.funcao, ov.id, ov.pais,

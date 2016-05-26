@@ -24,6 +24,8 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 	public function aceitar($id_oportunidade, $id_voluntario)
 	{
+		$this->validate_owner($id_oportunidade);
+
 		$this->load->model('Inscreve_se', 'inscricao');
 		$this->inscricao->aceitar_inscricao($id_oportunidade, $id_voluntario);
 		$this->session->set_flashdata('success', 'Inscrição registada com sucesso');
@@ -116,6 +118,8 @@ class Oportunidades_voluntariado extends MY_Controller {
 
 	public function edit($id_oportunidade_voluntariado)
 	{
+		$this->validate_owner($id_oportunidade);
+
 		$this->load->library('form_validation');
 		$this->load->model('Area_geografica', 'area_geografica');
 		$this->load->model('Area_interesse', 'area_interesse');
@@ -167,36 +171,81 @@ class Oportunidades_voluntariado extends MY_Controller {
 		}
 	}
 
+	// GET oportunidades_voluntariado/delete/:id
 	public function delete($id_oportunidade_voluntariado)
 	{
+		$this->validate_owner($id_oportunidade);
+
 		$this->oportunidade_voluntariado->delete_entry($id_oportunidade_voluntariado);
 	}
 
 	public function add_disponibilidade($id_oportunidade_voluntariado)
 	{
+		//$this->validate_owner($id_oportunidade);
+
 		$this->load->library('form_validation');
 		$this->load->model('Disponibilidade', 'disponibilidade');
-		$this->load->model('Periodicidade', 'periodicidade');
 		$this->load->model('Oportunidade_voluntariado_disponibilidade', 'oportunidade_voluntariado_disponibilidade');
 
 	 	// disponibilidade
-		$disponibilidade_data = $this->disponibilidade->get_profile_data($this->input->post());
-		$id_disponibilidade    = $this->disponibilidade->insert_single_entry($disponibilidade_data);
+		$disponibilidade_data = $this->disponibilidade->get_profile_data(
+			$this->input->post());
 
-		// periodicidade
-		$periodicidade_data = $this->periodicidade->get_form_data($this->input->post());
-		$periodicidade_data['id_disponibilidade'] = $id_disponibilidade;
-		$this->periodicidade->insert_single_entry($periodicidade_data);
+		$form_rules = $this->disponibilidade->get_form_validation_rules($this->input);
+		$this->form_validation->set_rules($form_rules);
 
-		$oportunidade_voluntariado_disponibilidade_data = array(
-			'id_oportunidade_voluntariado' => $id_oportunidade_voluntariado,
-			'id_disponibilidade'           => $id_disponibilidade
-		);
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('danger', 'Data de ínicio da disponibilidade tem de ser superior à data de fim!');
+			redirect('oportunidades_voluntariado/show/' . $id_oportunidade_voluntariado);
+		}
+		else
+		{
+			$id_disponibilidade = $this->disponibilidade->insert_single_entry($disponibilidade_data);
 
-		$this->oportunidade_voluntariado_disponibilidade->insert_entry($oportunidade_voluntariado_disponibilidade_data);
+			$oportunidade_voluntariado_disponibilidade_data = array(
+				'id_oportunidade_voluntariado' => $id_oportunidade_voluntariado,
+				'id_disponibilidade'           => $id_disponibilidade
+			);
 
-	 	// voltar a exibir perfil
-		$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
-		redirect('oportunidades_voluntariado/show/' . $id_oportunidade_voluntariado, 'location');
+			$this->oportunidade_voluntariado_disponibilidade->insert_entry($oportunidade_voluntariado_disponibilidade_data);
+
+		 	// voltar a exibir perfil
+			$this->session->set_flashdata('success', 'Disponibilidade adicionada com sucesso!');
+			redirect('oportunidades_voluntariado/show/' . $id_oportunidade_voluntariado, 'location');
+		}
 	}
+
+	private function validate_owner($id_oportunidade)
+  	{
+  		$id_instituicao = $this->session->userdata('id_instituicao');
+  		$oportunidade_instituicao = $this->oportunidade_voluntariado->get_by_id($oportunidade);
+
+  		if ($id_instituicao == $oportunidade_voluntariado->id) {
+	 		$this->session->set_flashdata('warning', 'Acesso não autorizado!');
+			redirect('home/index', 'refresh');
+  		}
+  	}
+
+	public function validate_disponibilidades_dates($str)
+ 	{
+		$this->load->library('form_validation');
+
+		$data_inicio = $this->input->post('data_inicio');
+		$data_fim    = $this->input->post('data_fim');
+
+		if ($data_inicio < $data_fim)
+		{
+		   return TRUE;
+		}
+		else
+		{
+			$this->form_validation->set_message(
+				'callback_validate_disponibilidades_dates', 'Error Message');
+			$this->session->set_flashdata('danger',
+				'Data de ínicio da disponibilidade tem de ser superior à data de fim!');
+
+		   return FALSE;
+		}
+ 	}
 }
