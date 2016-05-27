@@ -107,13 +107,12 @@
   </div>
 
 
-  <!-- Voluntarios inscritos -->
-  <?php if ($this->utilizador_owner === $this->id_utilizador) { ?>
-    <?php if ($this->voluntarios_inscritos->num_rows()) { ?>
-      <h2>Voluntários Inscritos</h2>
-      <div class="row">
+    <!-- Voluntarios nao_inscritos -->
+    <?php if ($this->voluntarios_nao_inscritos->num_rows()) { ?>
+    <h2>Voluntários compatíveis</h2>
+    <div class="row">
+      <?php foreach ($this->voluntarios_nao_inscritos->result() as $vol) { ?>
         <div class="col-md-6">
-          <?php foreach ($this->voluntarios_inscritos->result() as $vol) { ?>
             <div class="panel panel-default">
               <div class="panel-body">
                 <div class="row">
@@ -132,26 +131,61 @@
                     </div>
                   </div>
                   <div class="row">
-                    <a href="<?= site_url('oportunidades_voluntariado/aceitar/' . $this->oportunidade_voluntariado->id . "/" . $vol->id_voluntario) ?>" class="btn btn-success">Aceitar</a>
                     <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
                   </div>
                 </div>
               </div>
-            <?php } ?>
           </div>
+        <?php } ?>
+      </div>
+    <?php } else {  ?>
+      <h2>Não existem voluntários aceites</h2>
+    <?php } ?>
+
+  <!-- Voluntarios inscritos -->
+  <?php if ($this->utilizador_owner === $this->id_utilizador) { ?>
+    <?php if ($this->voluntarios_inscritos->num_rows()) { ?>
+      <h2>Voluntários Inscritos</h2>
+      <div class="row">
+        <?php foreach ($this->voluntarios_inscritos->result() as $vol) { ?>
+          <div class="col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h3><?= $vol->nome ?></h3>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <a href="#" class="thumbnail">
+                          <img src="<?= base_url($vol->foto) ?>">
+                        </a>
+                      </div>
+                      <div class="col-md-6">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias maxime voluptates placeat facilis laboriosam quia tempore, saepe aut accusantium quis iure perspiciatis, error dolor eligendi a, nostrum delectus, qui ipsum.
+                      </div>
+                    </div>
+                    <div class="row">
+                      <a href="<?= site_url('oportunidades_voluntariado/aceitar/' . $this->oportunidade_voluntariado->id . "/" . $vol->id_voluntario) ?>" class="btn btn-success">Aceitar</a>
+                      <a href="<?= site_url('voluntarios/profile/' . $vol->id_voluntario) ?>" class="btn btn-warning">Ver perfil</a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          <?php } ?>
         </div>
       <?php } else {  ?>
         <h2>Não existem voluntários inscritos</h2>
       <?php } ?>
 
 
-    <!-- Voluntarios aceites -->
-
+      <!-- Voluntarios aceites -->
       <?php if ($this->voluntarios_aceites->num_rows()) { ?>
       <h2>Voluntários aceites</h2>
       <div class="row">
-        <div class="col-md-6">
-          <?php foreach ($this->voluntarios_aceites->result() as $vol) { ?>
+        <?php foreach ($this->voluntarios_aceites->result() as $vol) { ?>
+          <div class="col-md-6">
             <div class="panel panel-default">
               <div class="panel-body">
                 <div class="row">
@@ -174,8 +208,8 @@
                   </div>
                 </div>
               </div>
-            <?php } ?>
-          </div>
+            </div>
+          <?php } ?>
         </div>
       <?php } else {  ?>
         <h2>Não existem voluntários aceites</h2>
