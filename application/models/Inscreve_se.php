@@ -43,5 +43,4 @@ class Inscreve_se extends CI_Model {
       redirect_back();
     }
 
-
 }

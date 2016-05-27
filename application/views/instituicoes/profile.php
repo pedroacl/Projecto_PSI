@@ -117,11 +117,6 @@
                       <?php if ($oportunidade_ativa->matching_nao_inscritos->num_rows() > 0) { ?>
 
                         <div id="carousel-example-generic-<?= $oportunidade_ativa->id ?>-nao_inscrito" class="carousel slide no-shadow" data-ride="carousel">
-                          <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic-<?= $oportunidade_ativa->id ?>-nao_inscrito" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic-<?= $oportunidade_ativa->id ?>-nao_inscrito" data-slide-to="1"></li>
-                          </ol>
-
                           <div class="carousel-inner" role="listbox">
                             <?php foreach ($oportunidade_ativa->matching_nao_inscritos->result() as $vol_compativel) { ?>
                               <div class="item active">
@@ -138,11 +133,6 @@
                                 </div>
                               </div>
                             <?php } ?>
-                            <div class="item">
-                              <img src="<?= base_url('/assets/images/fcul2.jpg') ?>" alt="Campus FCUL">
-                              <div class="carousel-caption">
-                              </div>
-                            </div>
                           </div>
 
                           <a class="left carousel-control" href="#carousel-example-generic-<?= $oportunidade_ativa->id ?>-nao_inscrito" role="button" data-slide="prev">
@@ -164,11 +154,6 @@
                       <?php if ($oportunidade_ativa->matching_inscritos->num_rows() > 0) { ?>
 
                       <div id="carousel-example-generic-<?= $oportunidade_ativa->id ?>-inscrito" class="carousel slide no-shadow" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                          <li data-target="#carousel-example-generic-<?= $oportunidade_ativa->id ?>-inscrito" data-slide-to="0" class="active"></li>
-                          <li data-target="#carousel-example-generic-<?= $oportunidade_ativa->id ?>-inscrito" data-slide-to="1"></li>
-                        </ol>
-
                         <div class="carousel-inner" role="listbox">
                           <?php foreach ($oportunidade_ativa->matching_inscritos->result() as $vol_inscrito) { ?>
                             <div class="item active">
@@ -186,11 +171,6 @@
                               </div>
                             </div>
                           <?php } ?>
-                          <div class="item">
-                            <img src="<?= base_url('/assets/images/fcul2.jpg') ?>" alt="Campus FCUL">
-                            <div class="carousel-caption">
-                            </div>
-                          </div>
                         </div>
 
                         <a class="left carousel-control" href="#carousel-example-generic-<?= $oportunidade_ativa->id ?>-inscrito" role="button" data-slide="prev">

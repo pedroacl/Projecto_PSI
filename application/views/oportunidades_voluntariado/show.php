@@ -147,10 +147,7 @@
 
     <!-- Voluntarios aceites -->
 
-      <?php if ($this->voluntarios_aceites->num_rows()) { 
-        print_r($this->voluntarios_inscritos->result());
-        echo "<hr>";
-        print_r($this->voluntarios_aceites->result()); ?>
+      <?php if ($this->voluntarios_aceites->num_rows()) { ?>
       <h2>Voluntários aceites</h2>
       <div class="row">
         <div class="col-md-6">

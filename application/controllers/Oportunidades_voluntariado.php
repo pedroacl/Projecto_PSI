@@ -33,7 +33,7 @@ class Oportunidades_voluntariado extends MY_Controller {
 		$oportunidade_voluntariado = $this->oportunidade_voluntariado->get_by_id($id_oportunidade)->row();
 		$vagas = $oportunidade_voluntariado->vagas - 1;
 
-		$this->oportunidade_voluntariado->update_entry(array('vagas' => $vagas));
+		$this->oportunidade_voluntariado->update_entry(array('vagas' => $vagas), $id_oportunidade);
 
 		$this->inscricao->aceitar_inscricao($id_oportunidade, $id_voluntario);
 		$this->session->set_flashdata('success', 'Inscrição registada com sucesso');
@@ -92,13 +92,13 @@ class Oportunidades_voluntariado extends MY_Controller {
 			$oportunidade_voluntariado_data['id_area_geografica'] = $id_area_geografica;
 			$id_oportunidade = $this->oportunidade_voluntariado->insert_entry($oportunidade_voluntariado_data);
 
-      	// adicionar disponibilidades
-    		$disponibilidades_data = $this->disponibilidade->get_form_data($this->input->post());
+    	// adicionar disponibilidades
+  		$disponibilidades_data = $this->disponibilidade->get_form_data($this->input->post());
 
-    		$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
+  		$this->disponibilidade->insert_entries($id_oportunidade, $disponibilidades_data);
 
 			$this->session->set_flashdata('success', 'Oportunidade de Voluntariado adicionada com sucesso!');
-			redirect('instituicoes/profile/' . $id_utilizador);
+			redirect('instituicoes/profile/' . $this->id_utilizador);
 
 		}
 	}
