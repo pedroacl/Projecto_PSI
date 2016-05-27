@@ -28,7 +28,7 @@ class Habilitacoes_academicas extends MY_Controller {
 			$this->habilitacao_academica->insert_entry($habilitacao_academica_data);
 
  			$this->session->set_flashdata('success', 'Habilitacao Academica adicionada!');
-			redirect('voluntarios/profile');
+			redirect('voluntarios/profile/' . $this->id_utilizador);
 		}
 	}
 

@@ -22,7 +22,7 @@ class Areas_interesse extends MY_Controller {
 		$this->utilizador_area_interesse->insert_entry($this->id_utilizador, $id_area_interesse);
 
  		$this->session->set_flashdata('success', 'Adicionada Área de Interesse!');
-		redirect('voluntarios/profile');
+		redirect('voluntarios/profile/' . $this->id_utilizador);
 	}
 
 	// GET /areas_interessa/delete/:id_area_interesse
@@ -33,6 +33,6 @@ class Areas_interesse extends MY_Controller {
 		$this->utilizador_area_interesse->delete_entry($this->id_utilizador, $id_area_interesse);
 
  		$this->session->set_flashdata('success', 'Removida Área de Interesse!');
-		redirect('voluntarios/profile');
+		redirect('voluntarios/profile/' . $this->id_utilizador);
 	}
 }

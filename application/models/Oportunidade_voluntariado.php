@@ -49,7 +49,7 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->distinct();
         $this->db->select('ov.id AS id_oportunidade_voluntariado, distrito,
             concelho, freguesia, ov.nome AS nome, funcao, pais, ga.nome AS grupo_atuacao,
-            ai.nome AS area_interesse, u.nome AS instituicao, disp_o.data_inicio, u.id AS id_utilizador');
+            ai.nome AS area_interesse, u.nome AS instituicao, u.id AS id_utilizador');
         $this->db->from('Oportunidades_Voluntariado AS ov');
         $this->db->join('Areas_Geograficas AS ag', 'ov.id_area_geografica = ag.id');
         $this->db->join('Grupos_Atuacao AS ga', 'ov.id_grupo_atuacao = ga.id');
@@ -107,11 +107,11 @@ class Oportunidade_voluntariado extends CI_Model {
 
         // grupos de atuacao
         $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga', 'u_ga.id_utilizador = u.id');
-        $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
+        $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_grupo_atuacao = ov.id_grupo_atuacao');
 
         // areas de interesse
         $this->db->join('Utilizadores_Areas_Interesse AS u_ai', 'u_ai.id_utilizador = u.id');
-        $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
+        $this->db->join('Areas_Interesse AS ai', 'u_ai.id_area_interesse = ov.id_area_interesse');
 
         // disponibilidades utilizadores
         $this->db->join('Utilizadores_Disponibilidades AS ud',
@@ -156,14 +156,12 @@ class Oportunidade_voluntariado extends CI_Model {
         $this->db->join('Areas_Geograficas AS ag', 'u.id_area_geografica = ag.id');
 
         // grupos de atuacao
-        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga',
-            'u_ga.id_utilizador = u.id');
-        $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_utilizador = u.id');
+        $this->db->join('Utilizadores_Grupos_Atuacao AS u_ga', 'u_ga.id_utilizador = u.id');
+        $this->db->join('Grupos_Atuacao AS ga', 'u_ga.id_grupo_atuacao = ov.id_grupo_atuacao');
 
         // areas de interesse
-        $this->db->join('Utilizadores_Areas_Interesse AS u_ai',
-            'u_ai.id_utilizador = u.id');
-        $this->db->join('Areas_Interesse AS ai', 'u_ai.id_utilizador = u.id');
+        $this->db->join('Utilizadores_Areas_Interesse AS u_ai', 'u_ai.id_utilizador = u.id');
+        $this->db->join('Areas_Interesse AS ai', 'u_ai.id_area_interesse = ov.id_area_interesse');
 
         // disponibilidades utilizadores
         $this->db->join('Utilizadores_Disponibilidades AS ud','ud.id_utilizador = u.id', 'left');

@@ -19,7 +19,7 @@ class Grupos_atuacao extends MY_Controller {
 		$id_grupo_atuacao = $this->input->post('id_grupo_atuacao');
 		$this->grupo_atuacao->insert_entry($this->id_utilizador, $id_grupo_atuacao);
  		$this->session->set_flashdata('success', 'Adicionado Grupo de Atuação!');
-		redirect('voluntarios/profile');
+		redirect('voluntarios/profile/' . $this->id_utilizador);
 	}
 
 	// GET /areas_interessa/delete/:id_area_interesse
@@ -29,6 +29,6 @@ class Grupos_atuacao extends MY_Controller {
 		$this->utilizador_grupo_atuacao->delete_entry($this->id_utilizador, $id_grupo_atuacao);
 
  		$this->session->set_flashdata('success', 'Removido Grupo de Atuação!');
-		redirect('voluntarios/profile');
+		redirect('voluntarios/profile/' . $this->id_utilizador);
 	}
 }

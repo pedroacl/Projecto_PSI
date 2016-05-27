@@ -118,9 +118,11 @@
 
                         <div id="carousel-example-generic-<?= $oportunidade_ativa->id ?>-nao_inscrito" class="carousel slide no-shadow" data-ride="carousel">
                           <div class="carousel-inner" role="listbox">
+                            <?php $i = 0; ?>
                             <?php foreach ($oportunidade_ativa->matching_nao_inscritos->result() as $vol_compativel) { ?>
-                              <div class="item active">
+                              <div class="item <?= $i === 0 ? 'active' : ''; ?>">
                                 <div class="mini-perfil">
+                                <?php $i += 1; ?>
                                   <h2><?php echo $vol_compativel->nome ?></h2>
                                   <div class="profile-photo-container-oportunidade">
                                     <a href="#" class="thumbnail">

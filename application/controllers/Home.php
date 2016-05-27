@@ -86,8 +86,7 @@ class Home extends MY_Controller {
 
 			$this->session->set_userdata($session_data);
 
-			$this->session->set_flashdata('success',
-				'Utilizador registado com sucesso.');
+			$this->session->set_flashdata('success', 'Utilizador registado com sucesso.');
 			redirect('', 'location');
 		}
 	}

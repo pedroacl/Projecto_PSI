@@ -229,7 +229,6 @@
 
           <div class="panel panel-default">
             <div class="panel-body">
-
               <h3><?= $oportunidade_voluntariado->nome ?></h3>
               <dl class="dl-horizontal">
                 <dt>Função</dt>
